@@ -4,44 +4,42 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.qudus.tudee.ui.theme.TudeeTheme
+import androidx.compose.ui.unit.dp
+import com.qudus.tudee.designSystem.theme.Theme
+import com.qudus.tudee.designSystem.theme.TudeeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TudeeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            TudeeTheme(isDarkTheme = false) { }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun MyComposable() {
     Text(
-        text = "Hello $name!",
-        modifier = modifier
+        text = "Hello Design System!",
+        color = Theme.color.title,
+        style = Theme.textStyle.headline.medium,
+        modifier = Modifier
+            .background(Theme.color.primary)
+            .padding(12.dp)
     )
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    TudeeTheme {
-        Greeting("Android")
+fun TudeePreview() {
+    TudeeTheme(isDarkTheme = true) {
+        MyComposable()
     }
 }
