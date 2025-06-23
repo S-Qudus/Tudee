@@ -24,11 +24,11 @@ import com.qudus.tudee.designSystem.theme.TudeeTheme
 
 @Composable
 fun CalendarDay(
-    modifier: Modifier = Modifier,
     date: String,
     day: String,
-    isSelected: Boolean = false,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    isSelected: Boolean = false,
 ) {
     val background: Modifier =
         if (isSelected) modifier.background(brush = Theme.color.primaryGradient) else modifier.background(
