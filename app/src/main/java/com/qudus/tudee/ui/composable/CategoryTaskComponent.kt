@@ -71,7 +71,7 @@ fun CategoryTaskComponent(
                 if (dateText != null) {
                     TudeeChip(
                         label = dateText,
-                        icon = painterResource(id = R.drawable.ic_calendar), //clender
+                        icon = painterResource(id = R.drawable.icon_calendar), //clender
                         backgroundColor = TudeeTheme.color.surface,
                         labelColor = TudeeTheme.color.body
                     )
@@ -136,13 +136,13 @@ private fun CategoryTaskComponentPreview() {
         priorityBackgroundColor = TudeeTheme.color.yellowAccent,
         taskIcon = {
             Icon(
-                painter = painterResource(id = R.drawable.ic_category_book_open),
+                painter = painterResource(id = R.drawable.icon_category_book_open),
                 contentDescription = "Task Icon",
                 modifier = Modifier.size(32.dp),
                 tint = TudeeTheme.color.purpleAccent
             )
         },
-        priorityIcon = painterResource(id = R.drawable.ic_priority_medium),
+        priorityIcon = painterResource(id = R.drawable.icon_priority_medium),
         onClick = {}
     )
 }
