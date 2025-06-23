@@ -1,14 +1,14 @@
 package com.qudus.tudee.ui.composable
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,13 +25,13 @@ import com.qudus.tudee.designSystem.theme.Theme
 fun TudeeTextBadge(
     badgeNumber: String,
     modifier: Modifier = Modifier,
-    contentColor: Color = Color(0x611F1F1F),
-    containerColor: Color = Color(0xFFF0F0F0)
+    contentColor: Color = Theme.color.hint,
+    containerColor: Color = Theme.color.surfaceLow
 ) {
     Text(
         modifier = modifier
             .widthIn(min = 32.dp)
-            .background(containerColor, shape = RoundedCornerShape(percent = 50))
+            .background(containerColor, shape = CircleShape)
             .padding(vertical = 2.dp, horizontal = 4.dp),
         text = badgeNumber,
         color = contentColor,
@@ -55,8 +55,8 @@ fun TudeeCheckBadge(visible: Boolean, modifier: Modifier = Modifier) {
     AnimatedVisibility(
         modifier = modifier,
         visible = visible,
-        enter = scaleIn(),
-        exit = scaleOut()
+        enter = scaleIn(animationSpec =  spring(stiffness = Spring.StiffnessMedium)),
+        exit = scaleOut(animationSpec =  spring(stiffness = Spring.StiffnessMedium))
     ) {
         Icon(
             modifier = Modifier
