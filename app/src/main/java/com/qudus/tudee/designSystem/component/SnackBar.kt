@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -35,16 +36,17 @@ import com.qudus.tudee.designSystem.theme.TudeeTheme
 
 @Composable
 fun SnackBar(
-    painter: Painter,
+    state: SnackBarState,
     message: String,
     iconColor: Color,
     background: Color
 ) {
     Row(
         modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
             .dropShadow(blur = 16.dp, offsetY = 4.dp, color = Color(0x1F000000))
             .background(Theme.color.surfaceHigh, shape = RoundedCornerShape(16.dp))
-            .size(height = 56.dp, width = 328.dp)
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -55,7 +57,10 @@ fun SnackBar(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = painter,
+                painter = when (state) {
+                    SnackBarState.ERROR -> painterResource(R.drawable.icon_information_diamond)
+                    SnackBarState.SUCCESS -> painterResource(id = R.drawable.icon_checkmark_badge)
+                },
                 contentDescription = "snack bar",
                 alignment = Alignment.Center,
                 colorFilter = ColorFilter.tint(iconColor)
@@ -71,26 +76,30 @@ fun SnackBar(
     }
 }
 
+enum class SnackBarState {
+    ERROR,
+    SUCCESS
+}
 
-// This is composable for display the component
+
 @Preview
 @Composable
-fun SnackBarComponentPreview() {
-    TudeeTheme(isDarkTheme = false){
+private fun SnackBarComponentPreview() {
+    TudeeTheme(isDarkTheme = false) {
         Column(
             modifier = Modifier
                 .padding(20.dp)
                 .background(Color.White)
         ) {
             SnackBar(
-                painter = painterResource(R.drawable.information_diamond),
+                state = SnackBarState.ERROR,
                 message = "Some error happened.",
                 iconColor = Theme.color.error,
                 background = Theme.color.errorVariant
             )
             Spacer(modifier = Modifier.height(20.dp))
             SnackBar(
-                painter = painterResource(R.drawable.checkmark_badge),
+                state = SnackBarState.SUCCESS,
                 message = "Successfully.",
                 iconColor = Theme.color.greenAccent,
                 background = Theme.color.greenVariant,
