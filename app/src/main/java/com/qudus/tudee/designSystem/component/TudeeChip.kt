@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.composable
+package com.qudus.tudee.designSystem.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
