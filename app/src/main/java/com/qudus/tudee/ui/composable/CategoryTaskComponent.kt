@@ -19,25 +19,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
+import com.qudus.tudee.designSystem.component.PriorityLevel
+import com.qudus.tudee.designSystem.component.getColor
 import com.qudus.tudee.designSystem.theme.TudeeTheme
 
 @Composable
 fun CategoryTaskComponent(
     modifier: Modifier = Modifier,
-    title: String = stringResource(R.string.default_task_title),
-    description: String? = stringResource(R.string.default_task_description),
-    priority: String = stringResource(R.string.default_priority),
-    priorityBackgroundColor: Color = TudeeTheme.color.yellowAccent,
+    title: String,
+    description: String?,
+    priorityLevel: PriorityLevel,
     taskIcon: @Composable () -> Unit,
-    priorityIcon: Painter,
     dateText: String? = null,
     onClick: () -> Unit,
 ) {
@@ -71,7 +69,7 @@ fun CategoryTaskComponent(
                 if (dateText != null) {
                     TudeeChip(
                         label = dateText,
-                        icon = painterResource(id = R.drawable.icon_calendar), //clender
+                        icon = painterResource(id = R.drawable.icon_calendar),
                         backgroundColor = TudeeTheme.color.surface,
                         labelColor = TudeeTheme.color.body
                     )
@@ -79,9 +77,9 @@ fun CategoryTaskComponent(
                 }
 
                 TudeeChip(
-                    label = priority,
-                    icon = priorityIcon,
-                    backgroundColor = priorityBackgroundColor,
+                    label = priorityLevel.displayName,
+                    icon = painterResource(id = priorityLevel.iconResId),
+                    backgroundColor = priorityLevel.getColor(),
                     labelColor = TudeeTheme.color.onPrimary
                 )
             }
@@ -94,6 +92,7 @@ fun CategoryTaskComponent(
         )
     }
 }
+
 
 @Composable
 private fun CategoryTaskComponentInformation(
@@ -132,8 +131,7 @@ private fun CategoryTaskComponentPreview() {
     CategoryTaskComponent(
         title = stringResource(R.string.default_task_title),
         description = stringResource(R.string.default_task_description),
-        priority = stringResource(R.string.default_priority),
-        priorityBackgroundColor = TudeeTheme.color.yellowAccent,
+        priorityLevel = PriorityLevel.MEDIUM,
         taskIcon = {
             Icon(
                 painter = painterResource(id = R.drawable.icon_category_book_open),
@@ -142,7 +140,6 @@ private fun CategoryTaskComponentPreview() {
                 tint = TudeeTheme.color.purpleAccent
             )
         },
-        priorityIcon = painterResource(id = R.drawable.icon_priority_medium),
         onClick = {}
     )
 }
