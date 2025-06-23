@@ -1,12 +1,12 @@
-package com.qudus.tudee.designSystem.theme
+package com.qudus.tudee.presentation.designSystem.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import com.qudus.tudee.designSystem.color.LocalTudeeColors
-import com.qudus.tudee.designSystem.color.darkThemeColor
-import com.qudus.tudee.designSystem.color.lightThemeColor
-import com.qudus.tudee.designSystem.textStyle.LocalTudeeTextStyle
-import com.qudus.tudee.designSystem.textStyle.defaultTextStyle
+import com.qudus.tudee.presentation.designSystem.color.LocalTudeeColors
+import com.qudus.tudee.presentation.designSystem.color.darkThemeColor
+import com.qudus.tudee.presentation.designSystem.color.lightThemeColor
+import com.qudus.tudee.presentation.designSystem.textStyle.LocalTudeeTextStyle
+import com.qudus.tudee.presentation.designSystem.textStyle.defaultTextStyle
 
 @Composable
 fun TudeeTheme(

@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.textStyle
+package com.qudus.tudee.presentation.designSystem.textStyle
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font

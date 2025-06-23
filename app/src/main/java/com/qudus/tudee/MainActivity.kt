@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.qudus.tudee.designSystem.theme.Theme
-import com.qudus.tudee.designSystem.theme.TudeeTheme
+import com.qudus.tudee.presentation.designSystem.theme.Theme
+import com.qudus.tudee.presentation.designSystem.theme.TudeeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
