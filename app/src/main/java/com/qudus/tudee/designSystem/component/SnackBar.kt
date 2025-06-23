@@ -34,7 +34,7 @@ import com.qudus.tudee.designSystem.theme.TudeeTheme
 
 
 @Composable
-fun SnackBarComponent(
+fun SnackBar(
     painter: Painter,
     message: String,
     iconColor: Color,
@@ -82,14 +82,14 @@ fun SnackBarComponentPreview() {
                 .padding(20.dp)
                 .background(Color.White)
         ) {
-            SnackBarComponent(
+            SnackBar(
                 painter = painterResource(R.drawable.information_diamond),
                 message = "Some error happened.",
                 iconColor = Theme.color.error,
                 background = Theme.color.errorVariant
             )
             Spacer(modifier = Modifier.height(20.dp))
-            SnackBarComponent(
+            SnackBar(
                 painter = painterResource(R.drawable.checkmark_badge),
                 message = "Successfully.",
                 iconColor = Theme.color.greenAccent,
