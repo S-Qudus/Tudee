@@ -1,0 +1,123 @@
+package com.qudus.tudee.ui.composable
+
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.qudus.tudee.designSystem.theme.Theme
+import com.qudus.tudee.designSystem.theme.TudeeTheme
+
+@Composable
+fun CalendarDay(
+    modifier: Modifier = Modifier,
+    date: String,
+    day: String,
+    isSelected: Boolean = false,
+    onClick: () -> Unit,
+) {
+    val background: Modifier =
+        if (isSelected) modifier.background(brush = Theme.color.primaryGradient) else modifier.background(
+            color = Theme.color.surface
+        )
+    val dayColor by animateColorAsState(
+        if (isSelected) Theme.color.onPrimary else Theme.color.body
+    )
+    val monthColor by animateColorAsState(
+        if (isSelected) Theme.color.onPrimaryCaption else Theme.color.hint
+    )
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        modifier = modifier
+            .clip(RoundedCornerShape(16.dp))
+            .then(background)
+            .padding(vertical = 12.dp, horizontal = 12.dp)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onClick
+            )
+    ) {
+        Text(
+            text = date,
+            style = Theme.textStyle.title.medium,
+            color = dayColor
+        )
+        Text(
+            text = day,
+            style = Theme.textStyle.body.small,
+            color = monthColor
+
+        )
+    }
+}
+
+@Preview(name = "Light - Selected", widthDp = 56, heightDp = 65)
+@Composable
+fun CalendarDayLightSelectedPreview() {
+    var isSelected by remember { mutableStateOf(true) }
+    TudeeTheme(isDarkTheme = false) {
+        CalendarDay(
+            date = "15",
+            day = "Mon",
+            isSelected = isSelected,
+            onClick = {
+                isSelected = !isSelected
+            }
+        )
+    }
+}
+
+@Preview(name = "Light - Unselected", widthDp = 56, heightDp = 65)
+@Composable
+fun CalendarDayLightUnselectedPreview() {
+    TudeeTheme(isDarkTheme = false) {
+        CalendarDay(
+            date = "16",
+            day = "Tue",
+            isSelected = false,
+            onClick = {}
+        )
+    }
+}
+
+@Preview(name = "Dark - Selected", widthDp = 56, heightDp = 65)
+@Composable
+fun CalendarDayDarkSelectedPreview() {
+    TudeeTheme(isDarkTheme = true) {
+        CalendarDay(
+            date = "17",
+            day = "Wed",
+            isSelected = true,
+            onClick = {}
+        )
+    }
+}
+
+@Preview(name = "Dark - Unselected", widthDp = 56, heightDp = 65)
+@Composable
+fun CalendarDayDarkUnselectedPreview() {
+    TudeeTheme(isDarkTheme = true) {
+        CalendarDay(
+            date = "18",
+            day = "Thu",
+            isSelected = false,
+            onClick = {}
+        )
+    }
+}
