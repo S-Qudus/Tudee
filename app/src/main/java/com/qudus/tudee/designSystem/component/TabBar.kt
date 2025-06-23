@@ -1,7 +1,6 @@
 package com.qudus.tudee.designSystem.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,20 +29,20 @@ import com.qudus.tudee.designSystem.theme.Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TapBar(
+fun TabBar(
     startTab: TaskStatus = TaskStatus.IN_PROGRESS,
     onTabSelected: (TaskStatus) -> Unit = {},
 ) {
     var selectedTabIndex by rememberSaveable { mutableStateOf(startTab.ordinal) }
     val tabs = TaskStatus.values()
 
+
     PrimaryTabRow(
         selectedTabIndex = selectedTabIndex,
         containerColor = Theme.color.surfaceHigh,
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp)
-            .padding(start = 16.dp),
+            .height(48.dp),
         divider = {
             Box(
                 Modifier
@@ -64,6 +63,7 @@ fun TapBar(
         }
     ) {
         tabs.forEachIndexed { index, tab ->
+
             Tab(
                 selected = selectedTabIndex == index,
                 onClick = {
@@ -75,7 +75,6 @@ fun TapBar(
                 text = {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         Text(
                             text = tab.title,
@@ -87,7 +86,8 @@ fun TapBar(
                         if (tab.count > 0 && selectedTabIndex == index) {
                             Box(
                                 modifier = Modifier
-                                    .size(28.dp)
+                                    .padding(start = 4.dp)
+                                    .size(26.dp)
                                     .background(Theme.color.surface, CircleShape),
                                 contentAlignment = Alignment.Center
                             ) {
@@ -102,17 +102,18 @@ fun TapBar(
                 }
             )
         }
+
     }
 }
 
 enum class TaskStatus(val title: String, val count: Int) {
     IN_PROGRESS("In progress", 14),
-    TODO("To Do", 0),
-    DONE("Done", 0)
+    TODO("To Do", 2),
+    DONE("Done", 3)
 }
 
 @Preview
 @Composable
-fun TapBarPreview() {
-    TapBar()
+private fun TapBarPreview() {
+    TabBar()
 }
