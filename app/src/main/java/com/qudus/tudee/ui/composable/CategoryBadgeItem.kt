@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.composable
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -7,7 +8,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -19,8 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.theme.Theme
@@ -29,7 +34,6 @@ import com.qudus.tudee.designSystem.theme.Theme
 fun CategoryBadgeItem(
     title: String,
     iconPainter: Painter,
-    iconTint: Color,
     modifier: Modifier = Modifier,
     isClickable: Boolean = false,
     onItemClick: () -> Unit = {},
@@ -41,21 +45,23 @@ fun CategoryBadgeItem(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Box {
-            Icon(
-                modifier = Modifier
-                    .background(color = Theme.color.surfaceHigh, shape = CircleShape)
-                    .clip(CircleShape)
-                    .clickable(
+            Box(
+                modifier = Modifier.size(78.dp).clip(CircleShape)
+                .background(color = Theme.color.surfaceHigh, shape = CircleShape)
+                .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = ripple(color = Theme.color.primaryVariant),
                         enabled = isClickable,
                         onClick = onItemClick
-                    )
-                    .padding(24.dp),
-                painter = iconPainter,
-                contentDescription = title,
-                tint = iconTint
-            )
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = iconPainter,
+                    contentDescription = title,
+                    contentScale = ContentScale.Crop
+                )
+            }
 
             badge()
         }
@@ -68,14 +74,12 @@ fun CategoryBadgeItem(
     }
 }
 
-
 @Preview(showSystemUi = false, showBackground = true)
 @Composable
 private fun CategoryTextBadgeItemPreview() {
     CategoryBadgeItem(
         title = "Education",
         iconPainter = painterResource(R.drawable.icon_book_open),
-        iconTint = Theme.color.purpleAccent,
     ) {
         TudeeTextBadge(
             modifier = Modifier.align(Alignment.TopEnd),
@@ -92,7 +96,6 @@ private fun CategoryCheckBadgeItemPreview() {
     CategoryBadgeItem(
         title = "Education",
         iconPainter = painterResource(R.drawable.icon_book_open),
-        iconTint = Theme.color.purpleAccent,
         isClickable = true,
         onItemClick = {}
     ) {
