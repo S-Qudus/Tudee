@@ -2,9 +2,12 @@ package com.qudus.tudee.designSystem.component
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DatePickerDialog
@@ -21,6 +24,7 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
@@ -28,6 +32,7 @@ import com.qudus.tudee.designSystem.color.LocalTudeeColors
 import com.qudus.tudee.designSystem.color.TudeeColors
 import com.qudus.tudee.designSystem.textStyle.LocalTudeeTextStyle
 import com.qudus.tudee.designSystem.textStyle.TudeeTextStyle
+import com.qudus.tudee.designSystem.theme.Theme
 import java.time.ZoneId
 
 
@@ -55,61 +60,57 @@ fun DatePicker() {
             Column(modifier = Modifier.padding(horizontal = 12.dp)) {
                 DatePicker(state = datePickerState,
                     colors = DatePickerDefaults.colors(
-                        selectedDayContainerColor  = TudeeTheme.color.primary,
-                        selectedYearContainerColor  = TudeeTheme.color.primary,
-                        todayDateBorderColor = TudeeTheme.color.primary,
+                        selectedDayContainerColor  =  Theme.color.primary,
+                        selectedYearContainerColor  =  Theme.color.primary,
+                        todayDateBorderColor =  Theme.color.primary,
                     ),)
 
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row {
-                    TextButton(onClick = {
+                Row(
+                    modifier = Modifier.padding(top = 8.dp).fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                    text = "Clear",
+                        modifier = Modifier.clickable {
                         selectedDate = null
                         showDialog = false
-                    }) {
-                        Text(text = "Clear",
-                            style =  TudeeTheme.testStyle.label.large,
-                            color = TudeeTheme.color.primary)
+                    },
+                        style =  Theme.textStyle.label.large,
+                        color = Theme.color.primary)
                     }
 
                     Spacer(modifier = Modifier.weight(1f))
 
-                    TextButton(onClick = { showDialog = false }) {
-                        Text(text = "Cancel",
-                            style =  TudeeTheme.testStyle.label.large,
-                            color = TudeeTheme.color.primary)
-                    }
+                Row() {
+                    Text(text = "Cancel",
+                        style =  Theme.textStyle.label.large,
+                        color = Theme.color.primary,
+                        modifier = Modifier.clickable { showDialog = false })
 
-                    TextButton(onClick = {
+
+                Text(
+                    text = "OK",
+                    modifier = Modifier.clickable {
                         val millis = datePickerState.selectedDateMillis
                         if (millis != null) {
                             selectedDate = LocalDate.ofEpochDay(millis / (24 * 60 * 60 * 1000))
                         }
                         showDialog = false
-                    }) {
-                        Text(text = "OK",
-                            style =  TudeeTheme.testStyle.label.large,
-                            color = TudeeTheme.color.primary)
-                    }
+                    },
+                    style = Theme.textStyle.label.large,
+                    color =Theme.color.primary
+                )
+                }
                 }
             }
         }
-    }
 
     Button(onClick = { showDialog = true }) {
         Text(text = selectedDate?.toString() ?: "Select Date")
     }
 }
 
-object TudeeTheme {
-    val color: TudeeColors
-        @Composable
-        get() = LocalTudeeColors.current
-
-    val testStyle: TudeeTextStyle
-        @Composable
-        get() = LocalTudeeTextStyle.current
-}
 
 
 
