@@ -46,7 +46,7 @@ fun CalendarDay(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
             .then(background)
-            .padding(vertical = 12.dp, horizontal = 12.dp)
+            .padding(12.dp)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
