@@ -41,17 +41,18 @@ fun TudeeChip(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Text(
-                text = label,
-                color = labelColor,
-                style = TudeeTheme.textStyle.label.small.copy(fontSize = labelSize)
-            )
         Icon(
             painter = icon,
             contentDescription = "label",
             tint = labelColor,
             modifier = Modifier.size(iconSize)
         )
+            Text(
+                text = label,
+                color = labelColor,
+                style = TudeeTheme.textStyle.label.small.copy(fontSize = labelSize)
+            )
+
         }
     }
 
