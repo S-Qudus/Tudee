@@ -73,7 +73,7 @@ fun ThemeSwitchButton(
 
 
 @Composable
-private fun AnimatedCircle(
+internal fun AnimatedCircle(
     isClicked: Boolean,
     modifier: Modifier,
     size: Dp,
