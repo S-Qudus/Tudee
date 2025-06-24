@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.designSystem.theme.Theme
 import com.qudus.tudee.designSystem.theme.TudeeTheme
@@ -67,7 +68,7 @@ fun CalendarDay(
     }
 }
 
-@Preview(name = "Light - Selected", widthDp = 56, heightDp = 65)
+@PreviewLightDark
 @Composable
 fun CalendarDayLightSelectedPreview() {
     var isSelected by remember { mutableStateOf(true) }
@@ -79,45 +80,6 @@ fun CalendarDayLightSelectedPreview() {
             onClick = {
                 isSelected = !isSelected
             }
-        )
-    }
-}
-
-@Preview(name = "Light - Unselected", widthDp = 56, heightDp = 65)
-@Composable
-fun CalendarDayLightUnselectedPreview() {
-    TudeeTheme(isDarkTheme = false) {
-        CalendarDay(
-            date = "16",
-            day = "Tue",
-            isSelected = false,
-            onClick = {}
-        )
-    }
-}
-
-@Preview(name = "Dark - Selected", widthDp = 56, heightDp = 65)
-@Composable
-fun CalendarDayDarkSelectedPreview() {
-    TudeeTheme(isDarkTheme = true) {
-        CalendarDay(
-            date = "17",
-            day = "Wed",
-            isSelected = true,
-            onClick = {}
-        )
-    }
-}
-
-@Preview(name = "Dark - Unselected", widthDp = 56, heightDp = 65)
-@Composable
-fun CalendarDayDarkUnselectedPreview() {
-    TudeeTheme(isDarkTheme = true) {
-        CalendarDay(
-            date = "18",
-            day = "Thu",
-            isSelected = false,
-            onClick = {}
         )
     }
 }
