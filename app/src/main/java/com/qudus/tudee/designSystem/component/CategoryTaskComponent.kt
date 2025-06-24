@@ -4,13 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -22,20 +20,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.theme.TudeeTheme
 
 @Composable
-fun CategoryTaskComponent(
+fun CategoryTask(
     modifier: Modifier = Modifier,
     title: String,
     description: String?,
     priorityLevel: PriorityLevel,
-    taskIcon: @Composable () -> Unit,
-    dateText: String? = null,
     onClick: () -> Unit,
+    dateText: String? = null,
+   taskRes: @Composable (Modifier) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -49,38 +47,28 @@ fun CategoryTaskComponent(
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier.size(56.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                taskIcon()
-            }
+            taskRes(Modifier.padding(8.dp))
 
-            Row(
-                modifier = Modifier.weight(1f),
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (dateText != null) {
-                    TudeeChip(
-                        label = dateText,
-                        icon = painterResource(id = R.drawable.icon_calendar),
-                        backgroundColor = TudeeTheme.color.surface,
-                        labelColor = TudeeTheme.color.body
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                }
+            Spacer(modifier = Modifier.weight(1f))
 
+            if (dateText != null) {
                 TudeeChip(
-                    label = priorityLevel.displayName,
-                    icon = painterResource(id = priorityLevel.iconResId),
-                    backgroundColor = priorityLevel.getColor(),
-                    labelColor = TudeeTheme.color.onPrimary
+                    label = dateText,
+                    icon = painterResource(id = R.drawable.icon_calendar),
+                    backgroundColor = TudeeTheme.color.surface,
+                    labelColor = TudeeTheme.color.body
                 )
+                Spacer(modifier = Modifier.width(4.dp))
             }
+
+            TudeeChip(
+                label = priorityLevel.getDisplayName(),
+                icon = painterResource(id = priorityLevel.iconResId),
+                backgroundColor = priorityLevel.getColor(),
+                labelColor = TudeeTheme.color.onPrimary
+            )
         }
 
         CategoryTaskComponentInformation(
@@ -123,21 +111,22 @@ private fun CategoryTaskComponentInformation(
     }
 }
 
-@PreviewScreenSizes
+@Preview
 @Composable
-private fun CategoryTaskComponentPreview() {
-    CategoryTaskComponent(
+private fun CategoryTaskPreview() {
+    CategoryTask(
         title = stringResource(R.string.default_task_title),
         description = stringResource(R.string.default_task_description),
         priorityLevel = PriorityLevel.MEDIUM,
-        taskIcon = {
+        onClick = {},
+        taskRes = {
+            modifier ->
             Icon(
                 painter = painterResource(id = R.drawable.icon_category_book_open),
                 contentDescription = "Task Icon",
-                modifier = Modifier.size(32.dp),
+                modifier = modifier,
                 tint = TudeeTheme.color.purpleAccent
             )
-        },
-        onClick = {}
+        }
     )
 }
