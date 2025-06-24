@@ -1,14 +1,16 @@
 package com.qudus.tudee.designSystem.component
 
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.theme.TudeeTheme
 
-enum class PriorityLevel(val displayName: String, val iconResId: Int) {
-    LOW("Low", R.drawable.icon_priority_low),
-    MEDIUM("Medium", R.drawable.icon_priority_medium),
-    HIGH("High", R.drawable.icon_priority_high);
+enum class PriorityLevel(@StringRes val displayNameResId: Int, val iconResId: Int) {
+    LOW(R.string.low, R.drawable.icon_priority_low),
+    MEDIUM(R.string.medium, R.drawable.icon_priority_medium),
+    HIGH(R.string.high, R.drawable.icon_priority_high);
 }
 @Composable
 fun PriorityLevel.getColor(): Color {
@@ -17,4 +19,8 @@ fun PriorityLevel.getColor(): Color {
         PriorityLevel.MEDIUM -> TudeeTheme.color.yellowAccent
         PriorityLevel.HIGH -> TudeeTheme.color.pinkAccent
     }
+}
+@Composable
+fun PriorityLevel.getDisplayName(): String {
+    return stringResource(id = this.displayNameResId)
 }
