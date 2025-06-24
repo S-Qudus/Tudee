@@ -6,7 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -28,29 +27,23 @@ import com.qudus.tudee.designSystem.textStyle.Nunito
 import com.qudus.tudee.designSystem.textStyle.defaultTextStyle
 
 @Composable
-fun WorkStatusItem(
-    title: String,
-    @DrawableRes imageFace: Int,
-    subtitle: String,
-    @DrawableRes imageTudee: Int
-) {
+fun WorkStatusItem(workStatus: WorkStatus) {
     Box(
-        modifier = Modifier
-            .background(Color(0xFFFFFFFF))
-            .fillMaxSize()
-            .padding(start = 25.dp, top = 20.dp, end = 20.dp, bottom = 21.dp)
-    )
-    {
+        modifier = Modifier.fillMaxWidth()
+    ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(lightThemeColor.surfaceHigh)
+                .padding(start = 25.dp, top = 20.dp, end = 20.dp, bottom = 21.dp),
             horizontalAlignment = Alignment.Start
         ) {
             Row(
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = Alignment.Top
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = title,
+                    text = workStatus.title,
                     fontWeight = FontWeight(500),
                     fontSize = 16.sp,
                     fontFamily = Nunito,
@@ -59,54 +52,56 @@ fun WorkStatusItem(
                     style = defaultTextStyle.title.small
                 )
 
-                SpacerHorizontal8()
-
                 Image(
-                    painter = painterResource(id = imageFace),
+                    painter = painterResource(id = workStatus.imageFace),
                     contentDescription = null,
                     modifier = Modifier
                         .size(24.dp)
-                        .padding(end = 8.dp),
+                        .padding(start = 8.dp),
                     alignment = Alignment.CenterStart
                 )
             }
+            SpacerVertical8()
 
-            Row(
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = Alignment.Top
-            ) {
-                Text(
-                    text = subtitle,
-                    fontWeight = FontWeight(400),
-                    fontSize = 14.sp,
-                    fontFamily = Nunito,
-                    color = lightThemeColor.body,
-                    textAlign = TextAlign.Start,
-                    style = defaultTextStyle.body.small
-                )
-            }
+            Text(
+                text = workStatus.subtitle,
+                fontWeight = FontWeight(400),
+                fontSize = 14.sp,
+                fontFamily = Nunito,
+                color = lightThemeColor.body,
+                textAlign = TextAlign.Start,
+                style = defaultTextStyle.body.small
+            )
         }
+        Image(
+            painter = painterResource(id = workStatus.imageTudee),
+            contentDescription = null,
+            modifier = Modifier
+                .width(76.dp)
+                .height(92.dp)
+                .align(Alignment.CenterEnd)
+        )
     }
-    Image(
-        painter = painterResource(id = imageTudee),
-        contentDescription = "Tudee",
-        modifier = Modifier
-            .width(76.dp)
-            .height(92.dp)
-            .padding(end = 25.dp),
-        alignment = Alignment.CenterEnd
-    )
 }
+
+data class WorkStatus(
+    val title: String,
+    @DrawableRes val imageFace: Int,
+    val subtitle: String,
+    @DrawableRes val imageTudee: Int,
+)
 
 @Preview
 @Composable
 fun WorkStatusItemPreview() {
     Row {
         WorkStatusItem(
-            title = "Title",
-            imageFace = R.drawable.happy_face,
-            subtitle = "Sub",
-            imageTudee = R.drawable.upset_tudee,
+            workStatus = WorkStatus(
+                title = "Zero progress?!",
+                imageFace = R.drawable.angry_face,
+                subtitle = "You just scrolling, not working.\nTudee is watching. back to work!!!",
+                imageTudee = R.drawable.image_upset_tudee,
+            )
         )
     }
 }

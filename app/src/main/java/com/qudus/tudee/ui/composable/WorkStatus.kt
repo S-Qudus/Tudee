@@ -1,13 +1,12 @@
 package com.qudus.tudee.ui.composable
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,26 +14,24 @@ import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.theme.TudeeTheme
 
-data class WorkStatus(
-    val title: String,
-    @DrawableRes val imageFace: Int,
-    val subtitle: String,
-    @DrawableRes val imageTudee: Int,
-)
-
 @Composable
-fun WorkStatusC(doneTask: Int, totalTask: Int) {
-    val items = listOf(
+fun LoadWorkSummaries(completedTasks: Int, totalTasks: Int) {
+    val stayWorkingTitle = stringResource(R.string.stay_working)
+    var taskCompletedMessage = stringResource(
+        R.string.tasks_completed_message,
+        completedTasks,
+        totalTasks
+    )
+    val updateWorking = remember(completedTasks, totalTasks) {
         WorkStatus(
-            title = stringResource(R.string.stay_working),
+            title = stayWorkingTitle,
             imageFace = R.drawable.neutral_face,
-            subtitle = stringResource(
-                R.string.tasks_completed_message,
-                doneTask,
-                totalTask
-            ),
+            subtitle = taskCompletedMessage,
             imageTudee = R.drawable.image_happy_tudee,
-        ),
+        )
+    }
+    val items = listOf(
+        updateWorking,
         WorkStatus(
             title = stringResource(R.string.tadaa),
             imageFace = R.drawable.happy_face,
@@ -55,20 +52,14 @@ fun WorkStatusC(doneTask: Int, totalTask: Int) {
         ),
     )
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(1),
+    LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        items(items) { item ->
-            WorkStatusItem(
-                title = item.title,
-                imageFace = item.imageFace,
-                subtitle = item.subtitle,
-                imageTudee = item.imageTudee
-            )
+        items(items) { workStatus ->
+            WorkStatusItem(workStatus = workStatus)
         }
     }
 }
@@ -77,9 +68,9 @@ fun WorkStatusC(doneTask: Int, totalTask: Int) {
 @Composable
 fun WorkStatusPreview() {
     TudeeTheme(isDarkTheme = true, content = {
-        WorkStatusC(
-            doneTask = 5,
-            totalTask = 30,
+        LoadWorkSummaries(
+            completedTasks = 5,
+            totalTasks = 30,
         )
     })
 }
