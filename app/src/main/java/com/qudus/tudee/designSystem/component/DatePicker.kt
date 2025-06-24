@@ -39,10 +39,13 @@ import java.time.ZoneId
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun DatePicker() {
-    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
-    var showDialog by remember { mutableStateOf(false) }
-
+fun DatePicker(
+      showDialog: Boolean,
+      selectedDate: LocalDate?,
+      onDismiss: () -> Unit,
+      onClear: () -> Unit,
+      onDateSelected: (LocalDate) -> Unit
+) {
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = selectedDate
             ?.atStartOfDay(ZoneId.systemDefault())?.toInstant()?.toEpochMilli()
@@ -52,7 +55,7 @@ fun DatePicker() {
 
     if (showDialog) {
         DatePickerDialog(
-            onDismissRequest = { showDialog = false },
+            onDismissRequest = { onDismiss },
             confirmButton = {},
             dismissButton = {},
             properties = DialogProperties()
@@ -73,8 +76,8 @@ fun DatePicker() {
                     Text(
                     text = "Clear",
                         modifier = Modifier.clickable {
-                        selectedDate = null
-                        showDialog = false
+                            onClear()
+                            onDismiss()
                     },
                         style =  Theme.textStyle.label.large,
                         color = Theme.color.primary)
@@ -86,7 +89,7 @@ fun DatePicker() {
                     Text(text = "Cancel",
                         style =  Theme.textStyle.label.large,
                         color = Theme.color.primary,
-                        modifier = Modifier.clickable { showDialog = false })
+                        modifier = Modifier.clickable { onDismiss() })
 
 
                 Text(
@@ -94,9 +97,10 @@ fun DatePicker() {
                     modifier = Modifier.clickable {
                         val millis = datePickerState.selectedDateMillis
                         if (millis != null) {
-                            selectedDate = LocalDate.ofEpochDay(millis / (24 * 60 * 60 * 1000))
+                            val date = LocalDate.ofEpochDay(millis / (24 * 60 * 60 * 1000))
+                            onDateSelected(date)
                         }
-                        showDialog = false
+                        onDismiss()
                     },
                     style = Theme.textStyle.label.large,
                     color =Theme.color.primary
@@ -106,9 +110,6 @@ fun DatePicker() {
             }
         }
 
-    Button(onClick = { showDialog = true }) {
-        Text(text = selectedDate?.toString() ?: "Select Date")
-    }
 }
 
 
