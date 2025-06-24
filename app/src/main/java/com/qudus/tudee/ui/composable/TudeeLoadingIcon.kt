@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -27,7 +28,7 @@ fun TudeeLoadingIcon(
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "loading_rotation")
 
-    val rotation = infiniteTransition.animateColor(
+    val color = infiniteTransition.animateColor(
         initialValue = tint,
         targetValue = tint.copy(alpha = 0.4f),
         animationSpec = infiniteRepeatable(
@@ -41,10 +42,10 @@ fun TudeeLoadingIcon(
 
     Icon(
         painter = painterResource(id = R.drawable.icon_loading),
-        contentDescription = "Loading",
+        contentDescription = stringResource(R.string.loading),
         modifier = modifier
             .size(size),
-        tint = rotation.value
+        tint = color.value
     )
 }
 

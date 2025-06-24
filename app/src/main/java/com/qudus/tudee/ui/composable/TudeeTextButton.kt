@@ -9,8 +9,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.theme.Theme
 import com.qudus.tudee.designSystem.theme.TudeeTheme
 
@@ -75,7 +77,7 @@ private fun TudeeTextButtonPrev() {
             modifier = Modifier.padding(top = 128.dp),
             onClickTextButton = {},
             isEnabled = true,
-            title = "submit",
+            title = stringResource(R.string.submit),
             isLoading = true,
             isNegativeButton = true
         )
