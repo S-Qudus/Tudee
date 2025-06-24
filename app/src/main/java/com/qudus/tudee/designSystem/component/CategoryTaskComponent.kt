@@ -53,7 +53,7 @@ fun CategoryTask(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            if (dateText != null) {
+            if (dateText != null){
                 TudeeChip(
                     label = dateText,
                     icon = painterResource(id = R.drawable.icon_calendar),
@@ -64,9 +64,9 @@ fun CategoryTask(
             }
 
             TudeeChip(
-                label = priorityLevel.getDisplayName(),
-                icon = painterResource(id = priorityLevel.iconResId),
-                backgroundColor = priorityLevel.getColor(),
+                label = getLabelForPriority(priorityLevel),
+                icon = painterResource(id = getIconForPriority(priorityLevel)),
+                backgroundColor = getColorForPriority(priorityLevel),
                 labelColor = TudeeTheme.color.onPrimary
             )
         }
@@ -117,7 +117,7 @@ private fun CategoryTaskPreview() {
     CategoryTask(
         title = stringResource(R.string.default_task_title),
         description = stringResource(R.string.default_task_description),
-        priorityLevel = PriorityLevel.MEDIUM,
+        priorityLevel = PriorityLevel.Medium,
         onClick = {},
         taskRes = {
             modifier ->

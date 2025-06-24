@@ -1,26 +1,36 @@
 package com.qudus.tudee.designSystem.component
 
-import androidx.annotation.StringRes
+import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.theme.TudeeTheme
 
-enum class PriorityLevel(@StringRes val displayNameResId: Int, val iconResId: Int) {
-    LOW(R.string.low, R.drawable.icon_priority_low),
-    MEDIUM(R.string.medium, R.drawable.icon_priority_medium),
-    HIGH(R.string.high, R.drawable.icon_priority_high);
+enum class PriorityLevel {
+    Low,
+    Medium,
+    High
 }
+
+@DrawableRes
+fun getIconForPriority(priority: PriorityLevel): Int = when (priority) {
+    PriorityLevel.Low -> R.drawable.icon_priority_low
+    PriorityLevel.Medium -> R.drawable.icon_priority_medium
+    PriorityLevel.High -> R.drawable.icon_priority_high
+}
+
 @Composable
-fun PriorityLevel.getColor(): Color {
-    return when (this) {
-        PriorityLevel.LOW -> TudeeTheme.color.greenAccent
-        PriorityLevel.MEDIUM -> TudeeTheme.color.yellowAccent
-        PriorityLevel.HIGH -> TudeeTheme.color.pinkAccent
-    }
+fun getColorForPriority(priority: PriorityLevel): Color = when (priority) {
+    PriorityLevel.Low -> TudeeTheme.color.greenAccent
+    PriorityLevel.Medium -> TudeeTheme.color.yellowAccent
+    PriorityLevel.High -> TudeeTheme.color.pinkAccent
 }
+
 @Composable
-fun PriorityLevel.getDisplayName(): String {
-    return stringResource(id = this.displayNameResId)
+fun getLabelForPriority(priority: PriorityLevel): String = when (priority) {
+    PriorityLevel.Low -> stringResource(R.string.low)
+    PriorityLevel.Medium -> stringResource(R.string.medium)
+    PriorityLevel.High -> stringResource(R.string.high)
 }
+
