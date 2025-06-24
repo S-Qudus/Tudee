@@ -24,6 +24,7 @@ import androidx.navigation.NavController
 import com.qudus.tudee.designSystem.color.LocalTudeeColors
 import com.qudus.tudee.designSystem.color.TudeeColors
 import com.qudus.tudee.designSystem.model.BottomNavItem
+import com.qudus.tudee.designSystem.theme.Theme
 
 @Composable
 fun BottomNavBar(
@@ -38,7 +39,7 @@ fun BottomNavBar(
             ambientColor = Color(0x14000000),
             spotColor = Color(0x14000000)
         )
-        .background(TudeeTheme.color.surfaceHigh),
+        .background(Theme.color.surfaceHigh),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -57,7 +58,7 @@ fun BottomNavBar(
                         .padding(16.dp)
                         .size(42.dp)
                         .clip(shape = RoundedCornerShape(16.dp))
-                        .background(if (isSelected) TudeeTheme.color.primaryVariant else Color.Transparent)
+                        .background(if (isSelected) Theme.color.primaryVariant else Color.Transparent)
                         ,
                     contentAlignment = Alignment.Center
                 ) {
@@ -65,7 +66,7 @@ fun BottomNavBar(
                         painter = if (isSelected) item.iconFill else item.iconStroke,
                         contentDescription = "Bottom Nav Bar Icon",
                         modifier = Modifier.size(24.dp),
-                        tint =if (isSelected) TudeeTheme.color.primary else TudeeTheme.color.hint,
+                        tint =if (isSelected) Theme.color.primary else Theme.color.hint,
                     )
                 }
             }
@@ -73,10 +74,5 @@ fun BottomNavBar(
 
     }
 
-}
-object TudeeTheme {
-    val color: TudeeColors
-        @Composable
-        get() = LocalTudeeColors.current
 }
 

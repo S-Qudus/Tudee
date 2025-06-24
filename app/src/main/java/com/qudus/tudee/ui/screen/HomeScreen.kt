@@ -18,18 +18,18 @@ fun HomeScreen() {
     val items = listOf(
         BottomNavItem(
             route = "home",
-            iconFill = painterResource(R.drawable.home_icon_filled),
-            iconStroke = painterResource(R.drawable.home_icon_stroke)
+            iconFill = painterResource(R.drawable.icon_home_filled),
+            iconStroke = painterResource(R.drawable.icon_home_stroke)
         ),
         BottomNavItem(
             route = "note",
-            iconFill = painterResource(R.drawable.note_icon_filled),
-            iconStroke = painterResource(R.drawable.note_icon_stroke)
+            iconFill = painterResource(R.drawable.icon_note_filled),
+            iconStroke = painterResource(R.drawable.icon_note_stroke)
         ),
         BottomNavItem(
             route = "more",
-            iconFill = painterResource(R.drawable.more_icon_filled),
-            iconStroke = painterResource(R.drawable.more_icon_stroke)
+            iconFill = painterResource(R.drawable.icon_more_filled),
+            iconStroke = painterResource(R.drawable.icon_more_stroke)
         )
     )
     val currentBackStackEntry = navController.currentBackStackEntryAsState()
