@@ -25,7 +25,7 @@ fun LoadWorkSummaries(completedTasks: Int, totalTasks: Int) {
     val updateWorking = remember(completedTasks, totalTasks) {
         WorkStatus(
             title = stayWorkingTitle,
-            imageFace = R.drawable.neutral_face,
+            imageFace = R.drawable.image_neutral_face,
             subtitle = taskCompletedMessage,
             imageTudee = R.drawable.image_happy_tudee,
         )
@@ -34,19 +34,19 @@ fun LoadWorkSummaries(completedTasks: Int, totalTasks: Int) {
         updateWorking,
         WorkStatus(
             title = stringResource(R.string.tadaa),
-            imageFace = R.drawable.happy_face,
+            imageFace = R.drawable.image_happy_face,
             subtitle = stringResource(R.string.amazing_message),
             imageTudee = R.drawable.image_shy_tudee,
         ),
         WorkStatus(
             title = stringResource(R.string.zero_progress),
-            imageFace = R.drawable.angry_face,
+            imageFace = R.drawable.image_angry_face,
             subtitle = stringResource(R.string.scrolling_warning),
             imageTudee = R.drawable.image_upset_tudee,
         ),
         WorkStatus(
             title = stringResource(R.string.nothing_on_list),
-            imageFace = R.drawable.sad_face,
+            imageFace = R.drawable.image_sad_face,
             subtitle = stringResource(R.string.fill_day_message),
             imageTudee = R.drawable.image_happy_tudee,
         ),

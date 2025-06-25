@@ -98,7 +98,7 @@ fun WorkStatusItemPreview() {
         WorkStatusItem(
             workStatus = WorkStatus(
                 title = "Zero progress?!",
-                imageFace = R.drawable.angry_face,
+                imageFace = R.drawable.image_angry_face,
                 subtitle = "You just scrolling, not working.\nTudee is watching. back to work!!!",
                 imageTudee = R.drawable.image_upset_tudee,
             )
