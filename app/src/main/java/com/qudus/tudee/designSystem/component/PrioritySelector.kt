@@ -25,25 +25,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.qudus.tudee.data.model.Priority
+import com.qudus.tudee.designSystem.theme.Theme
+import com.qudus.tudee.ui.state.PriorityUiState
 import com.qudus.tudee.ui.util.getColor
 
 @Composable
 fun PrioritySelector(
-    selectedPriority: Priority,
-    onPrioritySelected: (Priority) -> Unit,
+    selectedPriority: PriorityUiState,
+    onPrioritySelected: (PriorityUiState) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Priority.entries.forEach { priority ->
+        PriorityUiState.entries.forEach { priority ->
             val isSelected = priority == selectedPriority
-            val targetColor = if (isSelected) priority.getColor() else Color(0xFFE0E0E0)
-            val contentColor = if (isSelected) Color.White else Color.Gray
+            val targetColor = if (isSelected) priority.getColor() else  Theme.color.surfaceLow
+            val contentColor = if (isSelected) Theme.color.onPrimary else Theme.color.emojiTint
             val backgroundColor by animateColorAsState(
                 targetValue = targetColor,
                 animationSpec = tween(durationMillis = 300),
@@ -100,10 +101,12 @@ private fun PriorityItem(
 }
 
 
-@Preview(showBackground = true, name = "Priority Selector - Light")
+
+
+@PreviewLightDark
 @Composable
-fun PreviewPrioritySelectorLight() {
-    var selectedPriority by remember { mutableStateOf(Priority.MEDIUM) }
+fun PreviewPrioritySelector() {
+    var selectedPriority by remember { mutableStateOf(PriorityUiState.MEDIUM) }
 
     MaterialTheme {
         PrioritySelector(
@@ -114,16 +117,3 @@ fun PreviewPrioritySelectorLight() {
     }
 }
 
-@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Priority Selector - Dark")
-@Composable
-fun PreviewPrioritySelectorDark() {
-    var selectedPriority by remember { mutableStateOf(Priority.MEDIUM) }
-
-    MaterialTheme {
-        PrioritySelector(
-            selectedPriority = selectedPriority,
-            onPrioritySelected = { selectedPriority = it },
-            modifier = Modifier.padding(16.dp)
-        )
-    }
-}

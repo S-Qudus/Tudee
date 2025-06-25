@@ -13,16 +13,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.qudus.tudee.data.model.Priority
+import com.qudus.tudee.designSystem.theme.Theme
+import com.qudus.tudee.ui.state.PriorityUiState
 import com.qudus.tudee.ui.util.getColor
 
 @Composable
-fun PriorityBadge(priority: Priority, modifier: Modifier = Modifier) {
+fun PriorityBadge(priority: PriorityUiState, modifier: Modifier = Modifier) {
     Surface(
         color = priority.getColor(),
         shape = RoundedCornerShape(12.dp),
@@ -35,31 +35,27 @@ fun PriorityBadge(priority: Priority, modifier: Modifier = Modifier) {
             Icon(
                 painter = painterResource(priority.iconRes),
                 contentDescription = null,
-                tint = Color.White,
+                tint = Theme.color.onPrimary,
                 modifier = Modifier.size(14.dp)
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = stringResource(priority.labelResId),
-                color = Color.White,
-                style = MaterialTheme.typography.labelSmall
+                color = Theme.color.onPrimary,
+                style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.padding(start = 4.dp)
+
             )
         }
     }
 }
 
-@Preview(showBackground = true, name = "High Priority Badge - Light")
+@PreviewLightDark
 @Composable
-fun PreviewHighPriorityBadgeLight() {
+fun PreviewHighPriorityBadge() {
     MaterialTheme {
-        PriorityBadge(priority = Priority.HIGH, modifier = Modifier.padding(8.dp))
+        PriorityBadge(priority = PriorityUiState.HIGH, modifier = Modifier.padding(8.dp))
     }
 }
 
-@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "High Priority Badge - Dark")
-@Composable
-fun PreviewHighPriorityBadgeDark() {
-    MaterialTheme {
-        PriorityBadge(priority = Priority.HIGH, modifier = Modifier.padding(8.dp))
-    }
-}
+
