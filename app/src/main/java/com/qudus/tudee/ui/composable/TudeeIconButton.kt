@@ -26,37 +26,30 @@ fun TudeeIconButton(
     isLoading: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val isEnableIconButtonColor by animateColorAsState(
+    val buttonBackgroundColor by animateColorAsState(
         targetValue = if (isEnabled) Theme.color.primary else Theme.color.disable
     )
-    val isEnableButtonForIconColor by animateColorAsState(
+    val iconColor by animateColorAsState(
         targetValue = if (isEnabled) Theme.color.onPrimary else Theme.color.stroke
     )
 
     FloatingActionButton(
         onClick = onClickIconButton,
         modifier = modifier.size(64.dp),
-        containerColor = isEnableIconButtonColor,
+        containerColor = buttonBackgroundColor,
         shape = CircleShape,
         elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp)
 
     ) {
-        AnimatedContent(isLoading) {
-            when (it) {
-                true -> {
-                    TudeeLoadingIcon(
-                        tint = isEnableButtonForIconColor
-                    )
-
-                }
-
-                false -> {
-                    Icon(
-                        painter = painterResource(R.drawable.icon_download),
-                        contentDescription = stringResource(R.string.download_icon),
-                        tint = isEnableButtonForIconColor
-                    )
-                }
+        AnimatedContent(isLoading) { loading ->
+            if (loading) {
+                TudeeLoadingIcon(tint = iconColor)
+            } else {
+                Icon(
+                    painter = painterResource(R.drawable.icon_download),
+                    contentDescription = "download icon",
+                    tint = iconColor
+                )
             }
         }
     }
