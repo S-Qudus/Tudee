@@ -28,7 +28,7 @@ fun TudeeLoadingIcon(
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "loading_rotation")
 
-    val color = infiniteTransition.animateColor(
+    val iconColor = infiniteTransition.animateColor(
         initialValue = tint,
         targetValue = tint.copy(alpha = 0.4f),
         animationSpec = infiniteRepeatable(
@@ -42,10 +42,9 @@ fun TudeeLoadingIcon(
 
     Icon(
         painter = painterResource(id = R.drawable.icon_loading),
-        contentDescription = stringResource(R.string.loading),
-        modifier = modifier
-            .size(size),
-        tint = color.value
+        contentDescription = "loading icon",
+        modifier = modifier.size(size),
+        tint = iconColor.value
     )
 }
 
