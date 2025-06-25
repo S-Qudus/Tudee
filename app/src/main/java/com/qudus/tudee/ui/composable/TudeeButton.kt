@@ -32,27 +32,27 @@ fun TudeeButton(
     isNegativeButton: Boolean = false
 ) {
 
-    val isEnableButtonColor by animateColorAsState(
+    val buttonBackgroundColor by animateColorAsState(
         targetValue = if (isEnabled) Theme.color.primary else Theme.color.disable
     )
-    val isEnableButtonForTextColor by animateColorAsState(
+    val textColor by animateColorAsState(
         targetValue = if (isEnabled) Theme.color.onPrimary else Theme.color.stroke
     )
-    val isEnableButtonForTextColorWhenHasIcon by animateColorAsState(
+    val textColorWhenHasIcon by animateColorAsState(
         targetValue = if (isEnabled) Theme.color.primary else Theme.color.stroke
     )
 
     val backgroundColorWithBasicButton =
-        if (hasBackGroundColor) isEnableButtonColor else Color.Transparent
+        if (hasBackGroundColor) buttonBackgroundColor else Color.Transparent
     val textColorWithoutNegativeButton =
-        if (hasBorder) isEnableButtonForTextColorWhenHasIcon else isEnableButtonForTextColor
+        if (hasBorder) textColorWhenHasIcon else textColor
 
     Button(
         onClick = onClick,
         modifier = modifier.height(56.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = if (isNegativeButton) Theme.color.errorVariant else backgroundColorWithBasicButton,
-            disabledContainerColor = if (hasBackGroundColor) isEnableButtonColor else Color.Transparent
+            disabledContainerColor = if (hasBackGroundColor) buttonBackgroundColor else Color.Transparent
         ),
         enabled = isEnabled,
         border = if (hasBorder) BorderStroke(width = 1.dp, color = Theme.color.stroke) else null,
@@ -65,23 +65,13 @@ fun TudeeButton(
         )
 
         AnimatedVisibility(isLoading) {
-            Spacer(modifier = Modifier.padding(end = 8.dp))
-        }
-        AnimatedVisibility(isLoading) {
-            when (isNegativeButton) {
-                true -> {
-                    TudeeLoadingIcon(
-                        tint = Theme.color.error
-                    )
-                }
-
-                false -> {
-                    TudeeLoadingIcon(
-                        tint = if (hasBorder) Theme.color.primary else Theme.color.onPrimary
-                    )
-                }
-            }
-
+            if (isNegativeButton) TudeeLoadingIcon(
+                tint = Theme.color.error,
+                modifier = Modifier.padding(start = 8.dp)
+            ) else TudeeLoadingIcon(
+                tint = if (isEnabled) Theme.color.primary else Theme.color.onPrimary,
+                modifier = Modifier.padding(start = 8.dp)
+            )
         }
 
     }
@@ -94,7 +84,7 @@ private fun SubmitButtonPrev() {
         TudeeButton(
             onClick = {},
             isLoading = true,
-            title = stringResource(R.string.submit),
+            title ="submit",
             isEnabled = true,
             hasBorder = false,
             isNegativeButton = true,
