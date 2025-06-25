@@ -7,7 +7,7 @@ import kotlinx.datetime.LocalDate
 @Entity(tableName = "Task")
 data class TaskDto(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    val id: Long,
     val title: String,
     val description: String?,
     val date: LocalDate,
