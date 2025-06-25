@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.component.buttons.ThemeSwitchButton.ThemeSwitchButton
@@ -67,10 +68,9 @@ fun TudeeHeader(
         endContent()
     }
 }
-
 @Preview(showBackground = true, widthDp = 360)
 @Composable
-private fun TudeeHeaderPreview() {
+private fun TudeeHeaderLightPreview() {
     var isDarkMode by remember { mutableStateOf(false) }
     TudeeHeader(
         endContent = {
@@ -79,10 +79,8 @@ private fun TudeeHeaderPreview() {
                 onCheckedChange = { isDarkMode = it },
                 modifier = Modifier.padding(8.dp)
             )
-        }
-    )
+        })
 }
-
 @Preview(showBackground = true, widthDp = 360)
 @Composable
 private fun TudeeHeaderDarkPreview() {
@@ -94,6 +92,5 @@ private fun TudeeHeaderDarkPreview() {
                 onCheckedChange = { isDarkMode = it },
                 modifier = Modifier.padding(8.dp)
             )
-        }
-    )
+        })
 }

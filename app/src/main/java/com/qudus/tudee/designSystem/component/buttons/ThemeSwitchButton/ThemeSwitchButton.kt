@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.designSystem.theme.Theme
@@ -110,20 +111,13 @@ internal fun AnimatedCircle(
     )
 }
 
-@Preview(showBackground = true, widthDp = 360)
+@PreviewLightDark
 @Composable
 private fun ThemeSwitchButtonPreview() {
-    Column {
-        var checked by remember { mutableStateOf(false) }
-        ThemeSwitchButton(
-            isDarkMode = checked,
-            onCheckedChange = { checked = it },
-            modifier = Modifier.padding(8.dp)
-        )
-        ThemeSwitchButton(
-            isDarkMode = !checked,
-            onCheckedChange = { checked = !it },
-            modifier = Modifier.padding(8.dp)
-        )
-    }
+    var checked by remember { mutableStateOf(false) }
+    ThemeSwitchButton(
+        isDarkMode = checked,
+        onCheckedChange = { checked = it },
+        modifier = Modifier.padding(8.dp)
+    )
 }

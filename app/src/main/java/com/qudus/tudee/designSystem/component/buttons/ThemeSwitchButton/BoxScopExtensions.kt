@@ -105,7 +105,7 @@ internal fun BoxScope.MoonCraterMedium(isDarkMode: Boolean) {
             modifier = Modifier
                 .size(14.dp)
                 .align(Alignment.CenterEnd)
-                .offset(x = (-8).dp, y = 0.dp)
+                .offset(x = (-20).dp, y = 0.dp)
                 .background(Color(0xFFE9EFFF), CircleShape)
                 .border(1.dp, Color(0xFFBFD2FF), CircleShape)
         )
@@ -157,9 +157,9 @@ internal fun BoxScope.FirstGreyCloud(isDarkMode: Boolean) {
         isClicked = isDarkMode,
         modifier = Modifier.align(Alignment.TopEnd),
         size = 20.dp,
-        startOffsetX = 14.dp,
+        startOffsetX = 45.dp,
         clickedOffsetX = 50.dp,
-        startOffsetY = (-4).dp,
+        startOffsetY = (-3).dp,
         clickedOffsetY = 50.dp,
         color = Color(0xFFF0F0F0)
     )
@@ -171,9 +171,9 @@ internal fun BoxScope.SecondGreyCloud(isDarkMode: Boolean) {
         isClicked = isDarkMode,
         modifier = Modifier.align(Alignment.BottomEnd),
         size = 16.dp,
-        startOffsetX = (-6).dp,
+        startOffsetX = 32.dp,
         clickedOffsetX = 50.dp,
-        startOffsetY = 8.dp,
+        startOffsetY = (0).dp,
         clickedOffsetY = 50.dp,
         color = Color(0xFFF0F0F0)
     )
