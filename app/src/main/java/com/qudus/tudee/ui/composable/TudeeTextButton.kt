@@ -25,15 +25,15 @@ fun TudeeTextButton(
     modifier: Modifier = Modifier,
     isNegativeButton: Boolean = false
 ) {
-    val isEnableButtonForTextColor by animateColorAsState(
+    val textColor by animateColorAsState(
         targetValue = if (isEnabled) Theme.color.onPrimary else Theme.color.stroke
     )
-    val isEnableTextButtonForTextColor by animateColorAsState(
+    val textButtonColor by animateColorAsState(
         targetValue = if (isEnabled) Theme.color.primary else Theme.color.stroke
     )
 
     val textColorWithoutNegativeButton =
-        if (isEnabled) isEnableTextButtonForTextColor else isEnableButtonForTextColor
+        if (isEnabled) textButtonColor else textColor
 
     TextButton(
         onClick = onClickTextButton,
@@ -47,24 +47,15 @@ fun TudeeTextButton(
             color = if (isNegativeButton) Theme.color.error else textColorWithoutNegativeButton
 
         )
-        AnimatedVisibility(isLoading) {
-            Spacer(modifier = Modifier.padding(end = 8.dp))
-        }
-        AnimatedVisibility(isLoading) {
-            when (isNegativeButton) {
-                true -> {
-                    TudeeLoadingIcon(
-                        tint = Theme.color.error
-                    )
-                }
 
-                false -> {
-                    TudeeLoadingIcon(
-                        tint = if (isEnabled) Theme.color.primary else Theme.color.onPrimary
-                    )
-                }
-            }
-
+        AnimatedVisibility(isLoading) {
+            if (isNegativeButton) TudeeLoadingIcon(
+                tint = Theme.color.error,
+                modifier = Modifier.padding(start = 8.dp)
+            ) else TudeeLoadingIcon(
+                tint = if (isEnabled) Theme.color.primary else Theme.color.onPrimary,
+                modifier = Modifier.padding(start = 8.dp)
+            )
         }
     }
 }
@@ -77,7 +68,7 @@ private fun TudeeTextButtonPrev() {
             modifier = Modifier.padding(top = 128.dp),
             onClickTextButton = {},
             isEnabled = true,
-            title = stringResource(R.string.submit),
+            title = "submit",
             isLoading = true,
             isNegativeButton = true
         )
