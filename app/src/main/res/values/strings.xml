@@ -22,6 +22,8 @@
 
     <!-- Category names -->
     <string name="cooking" translatable="false">Cooking</string>
+ CategoryTaskComponent -->
+
         <string name="coding" translatable="false">Coding</string>
         <string name="agriculture" translatable="false">Agriculture</string>
         <string name="traveling" translatable="false">Traveling</string>
@@ -53,6 +55,7 @@
     <string name="low">Low</string>
     <string name="medium">Medium</string>
     <string name="high">High</string>
+
 
     <!--    content description -->
     <string name="in_progress">In Progress</string>
