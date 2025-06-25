@@ -18,11 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.component.buttons.ThemeSwitchButton.ThemeSwitchButton
 import com.qudus.tudee.designSystem.theme.Theme
+import com.qudus.tudee.designSystem.textStyle.CherryBomb
 
 @Composable
 fun TudeeHeader(
@@ -50,7 +52,9 @@ fun TudeeHeader(
             Column {
                 Text(
                     text = "Tudee",
-                    style = Theme.textStyle.title.large,
+                    style = Theme.textStyle.title.large.copy(
+                        fontFamily = CherryBomb
+                    ),
                     color = Theme.color.onPrimary
                 )
                 Text(

@@ -14,6 +14,10 @@ val Nunito = FontFamily(
     Font(R.font.nunito_semi_bold, weight = FontWeight.SemiBold),
 )
 
+val CherryBomb = FontFamily(
+    Font(R.font.cherry_bomb_regular, weight = FontWeight.Normal),
+)
+
 val defaultTextStyle = TudeeTextStyle(
     headline = SizedTextStyle(
         large = TextStyle(
