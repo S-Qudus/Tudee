@@ -25,13 +25,3 @@ fun TudeeTheme(
         content()
     }
 }
-object TudeeTheme {
-    val color: TudeeColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalTudeeColors.current
-    val textStyle: TudeeTextStyle
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalTudeeTextStyle.current
-}

@@ -21,16 +21,17 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
+import com.qudus.tudee.designSystem.theme.Theme
 import com.qudus.tudee.designSystem.theme.TudeeTheme
 
 @Composable
 fun TudeeChip(
     label: String,
     modifier: Modifier = Modifier,
-    labelColor: Color = TudeeTheme.color.onPrimary,
+    labelColor: Color = Theme.color.onPrimary,
     icon: Painter,
-    backgroundColor: Color = TudeeTheme.color.primary,
-    labelSize: TextUnit = TudeeTheme.textStyle.label.small.fontSize,
+    backgroundColor: Color = Theme.color.primary,
+    labelSize: TextUnit = Theme.textStyle.label.small.fontSize,
     iconSize: Dp = 12.dp
 ) {
     Row(
@@ -50,7 +51,7 @@ fun TudeeChip(
             Text(
                 text = label,
                 color = labelColor,
-                style = TudeeTheme.textStyle.label.small.copy(fontSize = labelSize)
+                style = Theme.textStyle.label.small.copy(fontSize = labelSize)
             )
 
         }
@@ -59,7 +60,7 @@ fun TudeeChip(
 @Preview(showBackground = true)
 @Composable
 fun PriorityChipsPreview() {
-    val colors = TudeeTheme.color
+    val colors = Theme.color
     val textColor = colors.onPrimary
     TudeeTheme(true) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {

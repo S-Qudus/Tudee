@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
+import com.qudus.tudee.designSystem.theme.Theme
 import com.qudus.tudee.designSystem.theme.TudeeTheme
 
 @Composable
@@ -40,8 +41,8 @@ fun CategoryTask(
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
             .clickable { onClick() }
-            .border(1.dp, TudeeTheme.color.surfaceHigh, RoundedCornerShape(16.dp))
-            .background(TudeeTheme.color.surfaceHigh, RoundedCornerShape(16.dp))
+            .border(1.dp, Theme.color.surfaceHigh, RoundedCornerShape(16.dp))
+            .background(Theme.color.surfaceHigh, RoundedCornerShape(16.dp))
             .padding(top = 4.dp, start = 4.dp, end = 12.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
@@ -57,8 +58,8 @@ fun CategoryTask(
                 TudeeChip(
                     label = dateText,
                     icon = painterResource(id = R.drawable.icon_calendar),
-                    backgroundColor = TudeeTheme.color.surface,
-                    labelColor = TudeeTheme.color.body
+                    backgroundColor = Theme.color.surface,
+                    labelColor = Theme.color.body
                 )
                 Spacer(modifier = Modifier.width(4.dp))
             }
@@ -67,7 +68,7 @@ fun CategoryTask(
                 label = getLabelForPriority(priorityLevel),
                 icon = painterResource(id = getIconForPriority(priorityLevel)),
                 backgroundColor = getColorForPriority(priorityLevel),
-                labelColor = TudeeTheme.color.onPrimary
+                labelColor = Theme.color.onPrimary
             )
         }
 
@@ -95,15 +96,15 @@ private fun CategoryTaskComponentInformation(
     ) {
         Text(
             text = title,
-            style = TudeeTheme.textStyle.label.large,
-            color = TudeeTheme.color.body
+            style = Theme.textStyle.label.large,
+            color = Theme.color.body
         )
         description?.let {
             Text(
                 modifier = Modifier.padding(end = 12.dp, bottom = 12.dp),
                 text = it,
-                style = TudeeTheme.textStyle.label.small,
-                color = TudeeTheme.color.hint,
+                style = Theme.textStyle.label.small,
+                color = Theme.color.hint,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -125,7 +126,7 @@ private fun CategoryTaskPreview() {
                 painter = painterResource(id = R.drawable.icon_category_book_open),
                 contentDescription = "Task Icon",
                 modifier = modifier,
-                tint = TudeeTheme.color.purpleAccent
+                tint = Theme.color.purpleAccent
             )
         }
     )

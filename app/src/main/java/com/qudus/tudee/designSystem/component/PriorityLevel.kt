@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.qudus.tudee.R
+import com.qudus.tudee.designSystem.theme.Theme
 import com.qudus.tudee.designSystem.theme.TudeeTheme
 
 enum class PriorityLevel {
@@ -22,9 +23,9 @@ fun getIconForPriority(priority: PriorityLevel): Int = when (priority) {
 
 @Composable
 fun getColorForPriority(priority: PriorityLevel): Color = when (priority) {
-    PriorityLevel.Low -> TudeeTheme.color.greenAccent
-    PriorityLevel.Medium -> TudeeTheme.color.yellowAccent
-    PriorityLevel.High -> TudeeTheme.color.pinkAccent
+    PriorityLevel.Low -> Theme.color.greenAccent
+    PriorityLevel.Medium -> Theme.color.yellowAccent
+    PriorityLevel.High -> Theme.color.pinkAccent
 }
 
 @Composable
