@@ -1,9 +1,44 @@
 <resources>
-    <string name="app_name">Tudee</string>
-    <string name="priority_label">Priority</string>
-    <string name="priority_high">High</string>
-    <string name="priority_medium">Medium</string>
-    <string name="priority_low">Low</string>
+    <string name="app_name" translatable="false">Tudee</string>
+    <string name="unexpected_error">Unexpected error</string>
+    <string name="category_error">Category error</string>
+    <string name="category_title_cannot_be_empty">Category title cannot be empty.</string>
+    <string name="failed_to_read_category">Failed to read category</string>
+    <string name="no_categories_found">No categories found</string>
+    <string name="failed_to_fetch_categories">Failed to fetch categories</string>
+    <string name="failed_to_delete_category">Failed to delete category</string>
+    <string name="failed_to_update_category">Failed to update category</string>
+    <string name="failed_to_create_category">Failed to create category</string>
+    <string name="task_error">Task error</string>
+    <string name="failed_to_change_task_state">Failed to change task state</string>
+    <string name="task_title_cannot_be_empty">Task title cannot be empty.</string>
+    <string name="failed_to_read_task">Failed to read task</string>
+    <string name="no_tasks_found">No tasks found</string>
+    <string name="failed_to_fetch_tasks">Failed to fetch tasks</string>
+    <string name="failed_to_delete_task">Failed to delete task</string>
+    <string name="failed_to_update_task">Failed to update task</string>
+    <string name="failed_to_create_task">Failed to create task</string>
 
+    <!-- Category names -->
+    <string name="cooking" translatable="false">Cooking</string>
+        <string name="coding" translatable="false">Coding</string>
+        <string name="agriculture" translatable="false">Agriculture</string>
+        <string name="traveling" translatable="false">Traveling</string>
+        <string name="cleaning" translatable="false">Cleaning</string>
+        <string name="fixing_bugs" translatable="false">Fixing bugs</string>
+        <string name="adoration" translatable="false">Adoration</string>
+        <string name="self_care" translatable="false">Self-care</string>
+        <string name="budgeting" translatable="false">Budgeting</string>
+        <string name="work" translatable="false">Work</string>
+        <string name="event" translatable="false">Event</string>
+        <string name="entertainment" translatable="false">Entertainment</string>
+        <string name="gym" translatable="false">Gym</string>
+        <string name="medical" translatable="false">Medical</string>
+        <string name="shopping" translatable="false">Shopping</string>
+        <string name="education" translatable="false">Education</string>
+        <string name="family_and_friend" translatable="false">Family &amp; friend</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high">High</string>
 
 </resources>
