@@ -6,10 +6,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.model.BottomNavItem
+import com.qudus.tudee.ui.designSystem.model.BottomNavItem
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
-import com.qudus.tudee.designSystem.component.BottomNavBar
+import com.qudus.tudee.ui.designSystem.component.BottomNavBar
 
 @Composable
 fun HomeScreen() {
