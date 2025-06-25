@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Tudee</string>
+    <string name="tudee_tagline">Your cute Helper for Every Task</string>
     <string name="unexpected_error">Unexpected error</string>
     <string name="category_error">Category error</string>
     <string name="category_title_cannot_be_empty">Category title cannot be empty.</string>
@@ -21,6 +22,8 @@
 
     <!-- Category names -->
     <string name="cooking" translatable="false">Cooking</string>
+ CategoryTaskComponent -->
+
         <string name="coding" translatable="false">Coding</string>
         <string name="agriculture" translatable="false">Agriculture</string>
         <string name="traveling" translatable="false">Traveling</string>
@@ -53,6 +56,7 @@
     <string name="medium">Medium</string>
     <string name="high">High</string>
 
+
     <!--    content description -->
     <string name="in_progress">In Progress</string>
     <string name="done">Done</string>
@@ -63,7 +67,7 @@
 
 
     <string name="tadaa">Tadaa!</string>
-    <string name="amazing_message">You’re doing amazing!!!\nTudee is_proud_of_you.</string>
+    <string name="amazing_message">You're doing amazing!!!\nTudee is_proud_of_you.</string>
 
 
     <string name="zero_progress">Zero progress?!</string>
