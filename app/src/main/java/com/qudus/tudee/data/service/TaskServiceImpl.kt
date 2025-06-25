@@ -29,7 +29,7 @@ class TaskServiceImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getTaskByID(id: Long): Task {
+    override suspend fun getTaskById(id: Long): Task {
         TODO("Not yet implemented")
     }
 }

@@ -12,10 +12,10 @@ interface TaskDao {
     suspend fun upsertTask(task: TaskDto)
 
     @Query("SELECT * FROM Task")
-    fun getAllTasks(): Flow<List<TaskDto>>
+    fun getTasks(): Flow<List<TaskDto>>
 
     @Query("SELECT * FROM Task Where id = :id")
-    suspend fun getTasksById(id: Long): TaskDto
+    suspend fun getTaskById(id: Long): TaskDto
 
     @Query("DELETE FROM Task WHERE id = :id")
     suspend fun deleteTaskById(id: Long)
