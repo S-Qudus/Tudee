@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.color
+package com.qudus.tudee.ui.designSystem.color
 
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color

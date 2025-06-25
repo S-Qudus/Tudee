@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.textStyle
+package com.qudus.tudee.ui.designSystem.textStyle
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle

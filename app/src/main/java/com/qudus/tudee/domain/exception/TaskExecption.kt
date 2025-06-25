@@ -1,6 +1,6 @@
 package com.qudus.tudee.domain.exception
 
-open class TaskException : Exception()
+open class TaskException : TudeeExecption()
 
 class TaskCreationFailedException : TaskException()
 

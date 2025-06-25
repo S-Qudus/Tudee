@@ -1,6 +1,6 @@
 package com.qudus.tudee.domain.exception
 
-open class CategoryException : Exception()
+open class CategoryException : TudeeExecption()
 
 class CategoryCreationFailedException : CategoryException()
 

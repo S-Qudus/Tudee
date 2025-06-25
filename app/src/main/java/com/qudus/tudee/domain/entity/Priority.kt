@@ -1,4 +1,4 @@
-package com.qudus.tudee.domain.type
+package com.qudus.tudee.domain.entity
 
 enum class Priority {
     HIGH,
