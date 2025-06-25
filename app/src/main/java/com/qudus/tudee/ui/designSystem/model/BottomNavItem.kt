@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.model
+package com.qudus.tudee.ui.designSystem.model
 
 import androidx.compose.ui.graphics.painter.Painter
 

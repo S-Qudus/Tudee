@@ -5,8 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.theme.Theme
-import com.qudus.tudee.designSystem.theme.TudeeTheme
+import com.qudus.tudee.ui.designSystem.theme.Theme
 
 enum class PriorityLevel {
     Low,

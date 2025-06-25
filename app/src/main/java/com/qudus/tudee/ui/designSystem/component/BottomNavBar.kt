@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component
+package com.qudus.tudee.ui.designSystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,8 +20,8 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.qudus.tudee.designSystem.model.BottomNavItem
-import com.qudus.tudee.designSystem.theme.Theme
+import com.qudus.tudee.ui.designSystem.model.BottomNavItem
+import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @Composable
 fun BottomNavBar(

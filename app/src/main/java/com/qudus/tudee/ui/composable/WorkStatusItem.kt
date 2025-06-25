@@ -22,9 +22,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.color.lightThemeColor
-import com.qudus.tudee.designSystem.textStyle.Nunito
-import com.qudus.tudee.designSystem.textStyle.defaultTextStyle
+import com.qudus.tudee.ui.designSystem.color.lightThemeColor
+import com.qudus.tudee.ui.designSystem.textStyle.Nunito
+import com.qudus.tudee.ui.designSystem.textStyle.defaultTextStyle
 
 @Composable
 fun WorkStatusItem(workStatus: WorkStatus) {

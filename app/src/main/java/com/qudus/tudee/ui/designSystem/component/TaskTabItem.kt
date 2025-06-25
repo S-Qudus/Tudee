@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.qudus.tudee.designSystem.theme.Theme
+import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @Composable
 fun TaskTabItem(tab: TaskStatus, isSelected: Boolean) {

@@ -18,9 +18,7 @@
     <string name="failed_to_delete_task">Failed to delete task</string>
     <string name="failed_to_update_task">Failed to update task</string>
     <string name="failed_to_create_task">Failed to create task</string>
-    <string name="app_name">Tudee
 
-=======
     <!-- Category names -->
     <string name="cooking" translatable="false">Cooking</string>
         <string name="coding" translatable="false">Coding</string>

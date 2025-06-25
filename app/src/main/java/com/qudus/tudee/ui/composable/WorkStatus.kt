@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.theme.TudeeTheme
+import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 
 @Composable
 fun LoadWorkSummaries(completedTasks: Int, totalTasks: Int) {
