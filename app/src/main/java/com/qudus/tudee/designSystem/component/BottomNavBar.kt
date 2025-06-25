@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,18 +20,17 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.qudus.tudee.designSystem.color.LocalTudeeColors
-import com.qudus.tudee.designSystem.color.TudeeColors
 import com.qudus.tudee.designSystem.model.BottomNavItem
 import com.qudus.tudee.designSystem.theme.Theme
 
 @Composable
 fun BottomNavBar(
+    modifier: Modifier = Modifier,
     navController : NavController,
     items : List<BottomNavItem>,
     selectedRoute: String,
     ) {
-    Row(modifier = Modifier
+    Row(modifier = modifier
         .fillMaxWidth()
         .shadow(
             elevation = 12.dp,
