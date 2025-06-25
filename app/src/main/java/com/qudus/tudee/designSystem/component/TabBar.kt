@@ -1,6 +1,8 @@
 package com.qudus.tudee.designSystem.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -32,6 +35,7 @@ import com.qudus.tudee.designSystem.theme.Theme
 fun TabBar(
     startTab: TaskStatus = TaskStatus.IN_PROGRESS,
     onTabSelected: (TaskStatus) -> Unit = {},
+    modifier: Modifier,
 ) {
     var selectedTabIndex by rememberSaveable { mutableStateOf(startTab.ordinal) }
     val tabs = TaskStatus.values()
@@ -40,7 +44,7 @@ fun TabBar(
     PrimaryTabRow(
         selectedTabIndex = selectedTabIndex,
         containerColor = Theme.color.surfaceHigh,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(48.dp),
         divider = {
@@ -63,7 +67,6 @@ fun TabBar(
         }
     ) {
         tabs.forEachIndexed { index, tab ->
-
             Tab(
                 selected = selectedTabIndex == index,
                 onClick = {
@@ -72,37 +75,16 @@ fun TabBar(
                 },
                 selectedContentColor = Theme.color.title,
                 unselectedContentColor = Theme.color.hint,
+                interactionSource = remember { MutableInteractionSource() },
+                modifier = Modifier.indication(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ),
                 text = {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            text = tab.title,
-                            textAlign = TextAlign.Center,
-                            style = if (selectedTabIndex == index)
-                                Theme.textStyle.label.medium else Theme.textStyle.label.small,
-                        )
-
-                        if (tab.count > 0 && selectedTabIndex == index) {
-                            Box(
-                                modifier = Modifier
-                                    .padding(start = 4.dp)
-                                    .size(26.dp)
-                                    .background(Theme.color.surface, CircleShape),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = tab.count.toString(),
-                                    style = Theme.textStyle.label.medium,
-                                    color = Theme.color.body
-                                )
-                            }
-                        }
-                    }
+                    TaskTabItem(tab = tab, isSelected = selectedTabIndex == index)
                 }
             )
         }
-
     }
 }
 
@@ -112,8 +94,9 @@ enum class TaskStatus(val title: String, val count: Int) {
     DONE("Done", 3)
 }
 
+
 @Preview
 @Composable
 private fun TapBarPreview() {
-    TabBar()
+    TabBar(modifier = Modifier)
 }
