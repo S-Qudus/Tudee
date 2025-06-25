@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Tudee</string>
+    <string name="app_name">Tudee</string>
     <string name="unexpected_error">Unexpected error</string>
     <string name="category_error">Category error</string>
     <string name="category_title_cannot_be_empty">Category title cannot be empty.</string>
@@ -37,8 +37,37 @@
         <string name="shopping" translatable="false">Shopping</string>
         <string name="education" translatable="false">Education</string>
         <string name="family_and_friend" translatable="false">Family &amp; friend</string>
+
+    <!-- CategoryTaskComponent -->
+    <string name="default_task_title">Organize Study Desk</string>
+    <string name="default_task_description">Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...</string>
+    <string name="default_priority">Medium</string>
+
+    <!-- Task Status -->
+    <string name="todo">To Do</string>
+
     <string name="low">Low</string>
-    <string name="medium">Medium</string>
-    <string name="high">High</string>
+        <string name="medium">Medium</string>
+       <string name="high">High</string>
+    <!--    content description -->
+    <string name="in_progress">In Progress</string>
+    <string name="done">Done</string>
+
+    <!--    slider component  -->
+    <string name="stay_working">Stay working</string>
+    <string name="tasks_completed_message">You\'ve completed %1$d out of %2$d tasks\nKeep going!</string>
+
+
+    <string name="tadaa">Tadaa!</string>
+    <string name="amazing_message">You’re doing amazing!!!\nTudee is_proud_of_you.</string>
+
+
+    <string name="zero_progress">Zero progress?!</string>
+    <string name="scrolling_warning">You just scrolling, not working.\nTudee is watching. Back to work!!!</string>
+
+
+    <string name="nothing_on_list">Nothing on your list…</string>
+    <string name="fill_day_message">Fill your day with something\nawesome</string>
+
 
 </resources>
