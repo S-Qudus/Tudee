@@ -58,14 +58,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     
     // koin
-    val koinVersion = "4.0.3"
-    implementation(platform("io.insert-koin:koin-bom:$koinVersion"))
-    implementation("io.insert-koin:koin-android")
-    implementation("io.insert-koin:koin-androidx-compose")
-    implementation("io.insert-koin:koin-core")
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.core)
 
     // navigation
-    val navVersion = "2.9.0"
-    implementation("androidx.navigation:navigation-compose:$navVersion")
+    implementation(libs.androidx.navigation.compose)
+
 
 }
