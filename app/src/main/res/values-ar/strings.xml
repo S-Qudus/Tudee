@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">تادي</string>
+    <string name="default_task_title">تنظيم مكتب الدراسة</string>
+    <string name="default_task_description">راجع بنية الخلية ووظائفها للغد...</string>
+    <string name="default_priority">متوسطة</string>
+
+    <!-- Task Status -->
+    <string name="todo">قيد التنفيذ</string>
+
+    <!-- Task Priority -->
+    <string name="low">منخفض</string>
+    <string name="medium">متوسط</string>
+    <string name="high">مرتفع</string>
+
+    <!--    content description -->
+    <string name="in_progress">قيد التنفيذ</string>
+    <string name="done">مكتملة</string>
+
+
+
+</resources>
