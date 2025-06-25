@@ -7,6 +7,6 @@ interface CategoryService {
     suspend fun createCategory(category : Category)
     suspend fun updateCategory(category : Category)
     suspend fun deleteCategory(id: Long)
-    suspend fun getCategories(): Flow<List<Category>>
+    fun getCategories(): Flow<List<Category>>
     suspend fun getCategoryById(id: Long): Category
 }
