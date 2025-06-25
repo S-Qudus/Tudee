@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 
 val lightThemeColor = TudeeColors(
     primary = Color(0xFF49BAF2),
-    secondary = Color(0xFFFF8C42),
+    secondary = Color(0xFFF49061),
     primaryVariant = Color(0xFFEFF9FE),
     primaryGradient = Brush.linearGradient(
         colors = listOf(

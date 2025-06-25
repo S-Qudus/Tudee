@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -56,26 +56,16 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    // compose
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
-
-    // view model
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
-
+    
     // koin
-    implementation("io.insert-koin:koin-core:4.0.2")
-    implementation("io.insert-koin:koin-annotations:2.0.0")
-    implementation("io.insert-koin:koin-android:3.5.3")
-    implementation("io.insert-koin:koin-androidx-compose:3.5.3")
+    val koinVersion = "4.0.3"
+    implementation(platform("io.insert-koin:koin-bom:$koinVersion"))
+    implementation("io.insert-koin:koin-android")
+    implementation("io.insert-koin:koin-androidx-compose")
+    implementation("io.insert-koin:koin-core")
 
-    // serialization json
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    // navigation
+    val navVersion = "2.9.0"
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 
-    // ktor
-    implementation("io.ktor:ktor-client-core:2.3.13")
-    implementation("io.ktor:ktor-client-cio:2.3.13")
-
-    // coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 }
