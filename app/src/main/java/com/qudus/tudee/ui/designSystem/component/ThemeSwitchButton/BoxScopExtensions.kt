@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component.buttons.ThemeSwitchButton
+package com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
@@ -25,12 +25,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.theme.Theme
+import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @Composable
 internal fun BoxScope.AnimatedSun(
@@ -71,7 +70,7 @@ internal fun BoxScope.AnimatedMoon(
         Box(
             modifier = Modifier
                 .size(28.dp)
-                .background(Color(0xFFE9EFFF), CircleShape)
+                .background(Theme.color.surfaceHigh, CircleShape)
         )
     }
 }
@@ -88,8 +87,8 @@ internal fun BoxScope.MoonCraterLarge(isDarkMode: Boolean) {
                 .size(8.dp)
                 .align(Alignment.CenterEnd)
                 .offset(x = (-10).dp, y = (-8).dp)
-                .background(Color(0xFFE9EFFF), CircleShape)
-                .border(1.dp, Color(0xFFBFD2FF), CircleShape)
+                .background(Theme.color.surfaceHigh, CircleShape)
+                .border(1.dp, Theme.color.primary, CircleShape)
         )
     }
 }
@@ -106,8 +105,8 @@ internal fun BoxScope.MoonCraterMedium(isDarkMode: Boolean) {
                 .size(14.dp)
                 .align(Alignment.CenterEnd)
                 .offset(x = (-20).dp, y = 0.dp)
-                .background(Color(0xFFE9EFFF), CircleShape)
-                .border(1.dp, Color(0xFFBFD2FF), CircleShape)
+                .background(Theme.color.surfaceHigh, CircleShape)
+                .border(1.dp, Theme.color.primary, CircleShape)
         )
     }
 }
@@ -124,8 +123,8 @@ internal fun BoxScope.MoonCraterSmall(isDarkMode: Boolean) {
                 .size(4.dp)
                 .align(Alignment.CenterEnd)
                 .offset(x = (-12).dp, y = 6.dp)
-                .background(Color(0xFFE9EFFF), CircleShape)
-                .border(1.dp, Color(0xFFBFD2FF), CircleShape)
+                .background(Theme.color.surfaceHigh, CircleShape)
+                .border(1.dp, Theme.color.primary, CircleShape)
         )
     }
 }
@@ -161,7 +160,7 @@ internal fun BoxScope.FirstGreyCloud(isDarkMode: Boolean) {
         clickedOffsetX = 50.dp,
         startOffsetY = (-3).dp,
         clickedOffsetY = 50.dp,
-        color = Color(0xFFF0F0F0)
+        color = Theme.color.surfaceLow
     )
 }
 
@@ -175,7 +174,7 @@ internal fun BoxScope.SecondGreyCloud(isDarkMode: Boolean) {
         clickedOffsetX = 50.dp,
         startOffsetY = (0).dp,
         clickedOffsetY = 50.dp,
-        color = Color(0xFFF0F0F0)
+        color = Theme.color.surfaceLow
     )
 }
 
@@ -219,7 +218,7 @@ internal fun BoxScope.TransformingWhiteCloud(
             modifier = Modifier
                 .size(14.dp, 16.dp)
                 .offset(x = (-12).dp, y = 8.dp)
-                .background(Color.White, RoundedCornerShape(100.dp))
+                .background(Theme.color.surfaceHigh, RoundedCornerShape(100.dp))
         )
     }
 }
@@ -234,7 +233,7 @@ internal fun BoxScope.AnimatedTransformingMoonCircle(
         animationSpec = tween(animationDuration, easing = EaseOut)
     )
     val circleColor by animateColorAsState(
-        targetValue = if (isDarkMode) Color(0xFFE9EFFF) else Color.White,
+        targetValue = if (isDarkMode) Theme.color.surfaceHigh else Theme.color.surfaceHigh,
         animationSpec = tween(animationDuration, easing = EaseOut)
     )
     AnimatedCircle(

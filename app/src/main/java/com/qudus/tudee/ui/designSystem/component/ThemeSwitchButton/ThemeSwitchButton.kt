@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component.buttons.ThemeSwitchButton
+package com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.EaseOut
@@ -9,7 +9,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,11 +24,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.qudus.tudee.designSystem.theme.Theme
+import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @Composable
 fun ThemeSwitchButton(
@@ -39,7 +37,7 @@ fun ThemeSwitchButton(
 ) {
     val animationDuration = 800
     val bgColor by animateColorAsState(
-        targetValue = if (isDarkMode) Color(0xFF151535) else Theme.color.primary,
+        targetValue = if (isDarkMode) Theme.color.surface else Theme.color.primary,
         animationSpec = tween(durationMillis = animationDuration, easing = EaseOut)
     )
 
@@ -95,7 +93,7 @@ internal fun AnimatedCircle(
         animationSpec = tween(durationMillis, easing = EaseOut)
     )
     val innerShadowColor by animateColorAsState(
-        targetValue = if (isClicked && hasInnerShadow) Color(0xFFBFD2FF) else Color.Transparent,
+        targetValue = if (isClicked && hasInnerShadow) Theme.color.primary else Color.Transparent,
         animationSpec = tween(durationMillis, easing = EaseOut)
     )
 

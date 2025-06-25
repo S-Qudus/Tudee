@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component.TudeeHeader
+package com.qudus.tudee.ui.designSystem.component.TudeeHeader
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,14 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.buttons.ThemeSwitchButton.ThemeSwitchButton
-import com.qudus.tudee.designSystem.theme.Theme
-import com.qudus.tudee.designSystem.textStyle.CherryBomb
+import com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton.ThemeSwitchButton
+import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.designSystem.textStyle.CherryBomb
 
 @Composable
 fun TudeeHeader(
@@ -52,14 +51,14 @@ fun TudeeHeader(
             )
             Column {
                 Text(
-                    text = "Tudee",
+                    text = stringResource(R.string.app_name),
                     style = Theme.textStyle.title.large.copy(
                         fontFamily = CherryBomb
                     ),
                     color = Theme.color.onPrimary
                 )
                 Text(
-                    text = "Your cute Helper for Every Task",
+                    text = stringResource(R.string.tudee_tagline),
                     style = Theme.textStyle.label.small,
                     color = Theme.color.onPrimaryCaption
                 )

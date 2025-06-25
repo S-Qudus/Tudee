@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.theme
+package com.qudus.tudee.ui.designSystem.theme
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

@@ -6,10 +6,6 @@ import com.qudus.tudee.ui.designSystem.color.LocalTudeeColors
 import com.qudus.tudee.ui.designSystem.color.TudeeColors
 import com.qudus.tudee.ui.designSystem.textStyle.LocalTudeeTextStyle
 import com.qudus.tudee.ui.designSystem.textStyle.TudeeTextStyle
-import com.qudus.tudee.designSystem.color.LocalTudeeColors
-import com.qudus.tudee.designSystem.color.TudeeColors
-import com.qudus.tudee.designSystem.textStyle.LocalTudeeTextStyle
-import com.qudus.tudee.designSystem.textStyle.TudeeTextStyle
 import androidx.compose.runtime.staticCompositionLocalOf
 
 object Theme {
