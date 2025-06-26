@@ -67,7 +67,7 @@
 
 
     <string name="tadaa">Tadaa!</string>
-    <string name="amazing_message">You're doing amazing!!!\nTudee is_proud_of_you.</string>
+    <string name="amazing_message">You\'re doing amazing!!!\nTudee is_proud_of_you.</string>
 
 
     <string name="zero_progress">Zero progress?!</string>
@@ -76,5 +76,8 @@
 
     <string name="nothing_on_list">Nothing on your list…</string>
     <string name="fill_day_message">Fill your day with something\nawesome</string>
+    <string name="priority_high" />
+    <string name="priority_medium" />
+    <string name="priority_low" />
 
 </resources>
