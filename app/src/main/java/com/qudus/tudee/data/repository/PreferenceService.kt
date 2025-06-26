@@ -2,7 +2,7 @@ package com.qudus.tudee.data.repository
 
 import kotlinx.coroutines.flow.Flow
 
-interface ConfigurationDataSource {
+interface PreferenceService {
     suspend fun setDarkTheme(isDarkTheme: Boolean)
     fun getDarkTheme(): Flow<Boolean>
     suspend fun setIsCompleteOnBoarding(isCompleteOnBoarding: Boolean)
