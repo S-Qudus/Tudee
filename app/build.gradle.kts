@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -57,7 +58,25 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+<<<<<<< features/setup-preferences-data-source
     // DataStore libraries
     implementation(libs.androidx.datastore.core)
     implementation(libs.androidx.datastore.preferences)
+=======
+    //Room
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.room.compiler)
+    annotationProcessor(libs.androidx.room.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    testImplementation(libs.androidx.room.testing)
+
+    // koin
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.core)
+
+    // navigation
+    implementation(libs.androidx.navigation.compose)
+
+>>>>>>> develop
 }
