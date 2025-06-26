@@ -76,5 +76,6 @@
 
     <string name="nothing_on_list">Nothing on your list…</string>
     <string name="fill_day_message">Fill your day with something\nawesome</string>
+    <string name="task_details">Task details</string>
 
 </resources>

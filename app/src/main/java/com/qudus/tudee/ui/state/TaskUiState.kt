@@ -1,7 +1,5 @@
 package com.qudus.tudee.ui.state
 
-import androidx.annotation.StringRes
-import com.qudus.tudee.R
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -17,8 +15,3 @@ data class TaskUiState(
     val taskAssignedDate: LocalDate = Clock.System.now()
         .toLocalDateTime(TimeZone.currentSystemDefault()).date,
 )
-enum class TaskStatusUiState(@StringRes val status:Int){
-    TODO(R.string.todo),
-    IN_PROGRESS(R.string.in_progress),
-    DONE(R.string.done)
-}
