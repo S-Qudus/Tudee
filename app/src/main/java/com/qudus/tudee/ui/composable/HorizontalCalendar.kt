@@ -42,27 +42,6 @@ fun HorizontalCalendar(
 }
 
 
-//fun HorizontalCalendar(){
-//    var currentMonth by remember { mutableStateOf(LocalDate.now()) }
-//    var selectedDate by remember { mutableStateOf(LocalDate.now()) }
-//
-//    Column(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .background(Theme.color.surfaceHigh)
-//            .padding(bottom = 8.dp)
-//
-//    ) {
-//        MonthNavigationHeader(currentMonth) {
-//            currentMonth = it
-//        }
-//        DayPicker(currentMonth, selectedDate) {
-//            selectedDate = it
-//        }
-//    }
-//}
-
-
 
 
 
