@@ -45,7 +45,7 @@
     <string name="default_priority">Medium</string>
 
     <!-- Task Status -->
-    <string name="todo">To Do</string>
+    <string name="to_do">To Do</string>
     <string name="in_progress">In Progress</string>
     <string name="done">Done</string>
 
@@ -58,8 +58,8 @@
     <string name="priority_low">Low</string>
 
     <!-- Work Status Messages -->
-    <string name="stay_working">Stay working</string>
-    <string name="tasks_completed_message">You\'ve completed %1$d out of %2$d tasks\nKeep going!</string>
+    <string name="stay_working">Stay working! 😃</string>
+    <string name="tasks_completed_message_only">You\'ve completed %1$d out of %2$d tasks</string>
     <string name="tadaa">Tadaa!</string>
     <string name="amazing_message">You\'re doing amazing!!!\nTudee is_proud_of_you.</string>
     <string name="zero_progress" translatable="false">Zero progress?!</string>
@@ -67,5 +67,7 @@
     <string name="nothing_on_list">Nothing on your list…</string>
     <string name="fill_day_message">Fill your day with something\nawesome</string>
     <string name="add_task">Add Task\n</string>
+    <string name="overview">Overview</string>
+    <string name="keep_going">Keep going!</string>
 
 </resources>

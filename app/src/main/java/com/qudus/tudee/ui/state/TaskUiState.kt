@@ -18,7 +18,7 @@ data class TaskUiState(
         .toLocalDateTime(TimeZone.currentSystemDefault()).date,
 )
 enum class TaskStatusUiState(@StringRes val status:Int){
-    TODO(R.string.todo),
+    TODO(R.string.to_do),
     IN_PROGRESS(R.string.in_progress),
     DONE(R.string.done)
 }

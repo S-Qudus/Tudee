@@ -3,28 +3,34 @@ package com.qudus.tudee.ui.screen
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.component.TudeeHeader.TudeeHeader
-import com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton.ThemeSwitchButton
-import com.qudus.tudee.ui.designSystem.component.TudeeScaffold
-import androidx.compose.foundation.layout.*
 import androidx.compose.ui.tooling.preview.Preview
-import com.qudus.tudee.ui.composable.TudeeIconButton
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material3.Text
 import androidx.compose.ui.unit.dp
-import com.qudus.tudee.ui.designSystem.theme.Theme
-import androidx.compose.ui.Alignment
-import com.qudus.tudee.ui.designSystem.component.BottomNavBar
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.qudus.tudee.R
+import com.qudus.tudee.designSystem.component.PriorityLevel
+import com.qudus.tudee.ui.composable.TudeeIconButton
+import com.qudus.tudee.ui.designSystem.component.BottomNavBar
+import com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton.ThemeSwitchButton
+import com.qudus.tudee.ui.designSystem.component.TudeeHeader.TudeeHeader
+import com.qudus.tudee.ui.designSystem.component.TudeeScaffold
 import com.qudus.tudee.ui.designSystem.model.BottomNavItem
+import com.qudus.tudee.ui.designSystem.theme.Dimension
+import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.screen.components.OverviewSection
+import com.qudus.tudee.ui.screen.components.TaskItem
+import com.qudus.tudee.ui.screen.components.TaskSection
+import com.qudus.tudee.ui.screen.data.getInProgressTasks
+import com.qudus.tudee.ui.screen.data.getToDoTasks
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(navController: NavController) {
     var isDarkMode by remember { mutableStateOf(false) }
@@ -39,8 +45,7 @@ fun HomeScreen(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TudeeHeader(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     endContent = {
                         ThemeSwitchButton(
                             isDarkMode = isDarkMode,
@@ -51,6 +56,7 @@ fun HomeScreen(navController: NavController) {
                 )
             }
         },
+        contentBackground = Theme.color.surface,
         floatingActionButton = {
             TudeeIconButton(
                 onClickIconButton = { },
@@ -69,17 +75,42 @@ fun HomeScreen(navController: NavController) {
             )
         },
         content = {
-
-
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(bottom = Dimension.large)
+            ) {
+                OverviewSection(
+                    completedTasks = 3,
+                    totalTasks = 10
+                )
+                
+                Spacer(modifier = Modifier.height(Dimension.large))
+                
+                TaskSection(
+                    title = stringResource(R.string.in_progress),
+                    taskCount = 3,
+                    tasks = getInProgressTasks(),
+                    onTaskClick = { taskId -> }
+                )
+                
+                Spacer(modifier = Modifier.height(Dimension.large))
+                
+                TaskSection(
+                    title = stringResource(R.string.to_do),
+                    taskCount = 5,
+                    tasks = getToDoTasks(),
+                    onTaskClick = { taskId -> }
+                )
+            }
         }
     )
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
-fun HomeScreenPreview() {
-    HomeScreen(navController = NavController(
-        context = TODO()
-    ))
+private fun HomeScreenPreview() {
+    HomeScreen(navController = rememberNavController())
 }
+
+

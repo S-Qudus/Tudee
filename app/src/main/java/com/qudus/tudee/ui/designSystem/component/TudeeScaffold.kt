@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,27 +28,28 @@ fun TudeeScaffold(
         color = contentBackground
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            topBar?.invoke()
-            
-            Box(
+            Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .weight(1f)
+                    .verticalScroll(rememberScrollState())
             ) {
+                topBar?.invoke()
                 content()
-                
-                floatingActionButton?.let {
-                    Box(
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(24.dp)
-                    ) {
-                        it()
-                    }
-                }
             }
             
             bottomBar?.invoke()
+        }
+        
+        floatingActionButton?.let {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(24.dp),
+                contentAlignment = Alignment.BottomEnd
+            ) {
+                it()
+            }
         }
     }
 } 
