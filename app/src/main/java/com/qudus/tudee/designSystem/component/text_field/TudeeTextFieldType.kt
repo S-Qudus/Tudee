@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.dp
 sealed class TudeeTextFieldType {
     data class Paragraph(
         val maxLength: Int = 500,
-        val maxLines: Int = 2,
+        val maxLines: Int = 10,
         val height: Dp = 168.dp
     ) : TudeeTextFieldType()
 
