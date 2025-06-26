@@ -25,17 +25,19 @@ import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton.ThemeSwitchButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.textStyle.CherryBomb
+import androidx.compose.foundation.layout.PaddingValues
 
 @Composable
 fun TudeeHeader(
     modifier: Modifier = Modifier,
+    paddingValues: PaddingValues = PaddingValues(vertical = Theme.dimension.regular, horizontal = Theme.dimension.medium),
     endContent: @Composable () -> Unit = {},
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .background(Theme.color.primary)
-            .padding(vertical = Theme.dimension.regular, horizontal = Theme.dimension.medium),
+            .padding(paddingValues),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

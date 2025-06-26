@@ -15,13 +15,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
+import com.qudus.tudee.ui.screen.HomeScreen
+import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TudeeTheme(isDarkTheme = false) { }
+            TudeeTheme(isDarkTheme = false) {
+                val navController = rememberNavController()
+                HomeScreen(navController = navController)
+            }
         }
     }
 }
