@@ -58,6 +58,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+<<<<<<< features/setup-preferences-data-source
+    // DataStore libraries
+    implementation(libs.androidx.datastore.core)
+    implementation(libs.androidx.datastore.preferences)
+=======
     //Room
     implementation(libs.androidx.room.runtime)
     ksp(libs.room.compiler)
@@ -73,4 +78,5 @@ dependencies {
     // navigation
     implementation(libs.androidx.navigation.compose)
 
+>>>>>>> develop
 }
