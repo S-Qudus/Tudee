@@ -1,0 +1,45 @@
+package com.qudus.tudee.ui.composable
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Icon
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.qudus.tudee.R
+import com.qudus.tudee.designSystem.component.CategoryTask
+import com.qudus.tudee.designSystem.component.PriorityLevel
+import com.qudus.tudee.ui.designSystem.theme.Theme
+
+@Composable
+fun TaskListSection( modifier: Modifier = Modifier){
+    LazyColumn(
+        modifier = modifier
+            .padding(start = 16.dp, end = 16.dp)
+            .background(Theme.color.surface),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(top = 12.dp, bottom = 12.dp),
+    ) {
+        items(15) {
+            CategoryTask(
+                title = stringResource(R.string.default_task_title),
+                description = stringResource(R.string.default_task_description),
+                priorityLevel = PriorityLevel.Medium,
+                onClick = {},
+                taskRes = { modifier ->
+                    Icon(
+                        painter = painterResource(id = R.drawable.icon_category_book_open),
+                        contentDescription = "Task Icon",
+                        modifier = modifier,
+                        tint = Theme.color.purpleAccent
+                    )
+                }
+            )
+        }
+    }
+}
