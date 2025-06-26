@@ -7,6 +7,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +32,8 @@ fun CalendarDay(
     isSelected: Boolean = false,
 ) {
     val background: Modifier =
-        if (isSelected) modifier.background(brush = Theme.color.primaryGradient) else modifier.background(
+        if (isSelected) modifier.background(brush = Theme.color.primaryGradient)
+        else modifier.background(
             color = Theme.color.surface
         )
     val dayColor by animateColorAsState(
@@ -44,14 +46,15 @@ fun CalendarDay(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(2.dp),
         modifier = modifier
+            .width(56.dp)
             .clip(RoundedCornerShape(16.dp))
-            .then(background)
-            .padding(12.dp)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
                 onClick = onClick
             )
+            .then(background)
+            .padding(horizontal = 12.dp, vertical = 8.dp)
     ) {
         Text(
             text = date,
