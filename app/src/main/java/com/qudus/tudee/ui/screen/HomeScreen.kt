@@ -1,51 +1,98 @@
 package com.qudus.tudee.ui.screen
 
-import androidx.compose.material3.Text
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.model.BottomNavItem
-import androidx.compose.runtime.Composable
-import androidx.navigation.compose.NavHost
-import com.qudus.tudee.ui.designSystem.component.BottomNavBar
+import com.qudus.tudee.ui.designSystem.component.TudeeHeader.TudeeHeader
+import com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton.ThemeSwitchButton
+import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import androidx.compose.foundation.background
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.tooling.preview.Preview
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen() {
-
-    val navController = rememberNavController()
-    val items = listOf(
-        BottomNavItem(
-            route = "home",
-            iconFill = painterResource(R.drawable.icon_home_filled),
-            iconStroke = painterResource(R.drawable.icon_home_stroke)
-        ),
-        BottomNavItem(
-            route = "note",
-            iconFill = painterResource(R.drawable.icon_note_filled),
-            iconStroke = painterResource(R.drawable.icon_note_stroke)
-        ),
-        BottomNavItem(
-            route = "more",
-            iconFill = painterResource(R.drawable.icon_more_filled),
-            iconStroke = painterResource(R.drawable.icon_more_stroke)
-        )
-    )
-    val currentBackStackEntry = navController.currentBackStackEntryAsState()
-    val currentRoute = currentBackStackEntry.value
-        ?.destination?.route ?: "home"
-
-    NavHost(navController = navController, startDestination = "home") {
-        composable("home") { Text("Home Screen") }
-        composable("note") { Text("Note Screen") }
-        composable("more") { Text("More Screen") }
+    var isDarkMode by remember { mutableStateOf(false) }
+    val today = remember {
+        LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy"))
     }
 
-    BottomNavBar(
-    navController = navController,
-    items = items,
-    selectedRoute = currentRoute
-    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .verticalScroll(rememberScrollState())
+    ) {
+        // Top App Bar
+        TudeeHeader(
+            endContent = {
+                ThemeSwitchButton(
+                    isDarkMode = isDarkMode,
+                    onCheckedChange = { isDarkMode = it },
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+        )
+    }
 
+//        Spacer(modifier = Modifier.height(12.dp))
+//
+//        // Status Section
+//        Box(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(horizontal = 16.dp, vertical = 8.dp)
+//        ) {
+//            Row(
+//                verticalAlignment = Alignment.CenterVertically,
+//                modifier = Modifier.fillMaxWidth()
+//            ) {
+//                Column(modifier = Modifier.weight(1f)) {
+//                    Text(
+//                        text = today,
+//                        color = Color.Gray
+//                    )
+//                    Spacer(modifier = Modifier.height(4.dp))
+//                    Text(
+//                        text = stringResource(R.string.stay_working),
+//                    )
+//                    Spacer(modifier = Modifier.height(2.dp))
+//                    Text(
+//                        text = stringResource(R.string.tasks_completed_message, 3, 10),
+//                        color = Color.Gray
+//                    )
+//                }
+//                Spacer(modifier = Modifier.width(8.dp))
+//                Image(
+//                    painter = painterResource(R.drawable.image_happy_tudee),
+//                    contentDescription = null,
+//                    modifier = Modifier.size(64.dp)
+//                )
+//            }
+//        }
+//
+//        // TODO: Add Overview Section here
+//        // TODO: Add In Progress Section here
+//        // TODO: Add FAB and BottomNavBar
+//    }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun HomeScreenPreview() {
+    HomeScreen()
 }
