@@ -4,11 +4,19 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.BottomSheetDefaults.DragHandle
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -20,15 +28,22 @@ fun TudeeBottomSheet(
     isSheetOpen: Boolean,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
+    expanded: Boolean = true,
     content: @Composable ColumnScope.() -> Unit
 ) {
+    val sheetState =
+        rememberModalBottomSheetState(
+            skipPartiallyExpanded = expanded,
+        )
+
     AnimatedVisibility(
         visible = isSheetOpen,
         enter = slideInVertically(),
         exit = slideOutVertically()
     ) {
         ModalBottomSheet(
-            modifier = modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth().navigationBarsPadding(),
+            sheetState = sheetState,
             onDismissRequest = onDismissRequest,
             containerColor = Theme.color.surface,
             dragHandle = { TudeeDragHandle() }
