@@ -40,24 +40,13 @@ fun CategoryBadgeItem(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Box {
-            Box(
-                modifier = Modifier.size(78.dp).clip(CircleShape)
-                .background(color = Theme.color.surfaceHigh, shape = CircleShape)
-                .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = ripple(color = Theme.color.primaryVariant),
-                        enabled = isClickable,
-                        onClick = onItemClick
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = iconPainter,
-                    contentDescription = title,
-                    contentScale = ContentScale.Crop
-                )
-            }
-
+            CategoryIcon(
+                modifier = Modifier.size(78.dp),
+                iconPainter = iconPainter,
+                title = title,
+                isClickable = isClickable,
+                onItemClick = onItemClick,
+            )
             badge()
         }
 
@@ -65,6 +54,34 @@ fun CategoryBadgeItem(
             text = title,
             style = Theme.textStyle.label.small,
             color = Theme.color.body
+        )
+    }
+}
+
+@Composable
+fun CategoryIcon(
+    modifier: Modifier = Modifier,
+    iconPainter: Painter,
+    title: String,
+    isClickable: Boolean,
+    onItemClick: () -> Unit = {},
+) {
+    Box(
+        modifier = modifier
+            .clip(CircleShape)
+            .background(color = Theme.color.surfaceHigh, shape = CircleShape)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = ripple(color = Theme.color.primaryVariant),
+                enabled = isClickable,
+                onClick = onItemClick
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = iconPainter,
+            contentDescription = title,
+            contentScale = ContentScale.Crop
         )
     }
 }

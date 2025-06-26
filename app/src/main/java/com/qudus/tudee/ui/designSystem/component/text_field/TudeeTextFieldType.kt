@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component.text_field
+package com.qudus.tudee.ui.designSystem.component.text_field
 
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.Dp
