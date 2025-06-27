@@ -3,6 +3,7 @@ package com.qudus.tudee.domain.service
 import com.qudus.tudee.domain.entity.Task
 import kotlinx.coroutines.flow.Flow
 import com.qudus.tudee.domain.entity.State
+import java.time.LocalDate
 
 interface TaskService {
     suspend fun createTake(task: Task)
@@ -12,4 +13,7 @@ interface TaskService {
     suspend fun getTaskById(id: Long): Task
     fun getTasksCountByState(state: State): Flow<Int>
 
+    fun getTasksByDate(date: LocalDate): Flow<List<Task>>
+
+    fun getTasksByState(state: State): Flow<List<Task>>
 }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,12 +21,26 @@ import com.qudus.tudee.designSystem.component.TabBar
 import com.qudus.tudee.ui.composable.HeaderTitle
 import com.qudus.tudee.ui.composable.TaskListSection
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDate
+import com.qudus.tudee.domain.entity.State
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun TasksScreen() {
+fun TasksScreen(
+    viewModel: TaskViewModel = koinViewModel()
+) {
+
+    val tasks by viewModel.tasks.collectAsState(initial = emptyList())
+    val selectedDate by viewModel.selectedDate.collectAsState()
+    val selectedState by viewModel.selectedState.collectAsState()
+    val countsState = remember(tasks) {
+        State.values().associateWith { state ->
+            tasks.count { it.state == state }
+        }
+    }
+
     Scaffold(
         modifier = Modifier
             .background(Theme.color.surface)
@@ -40,18 +55,23 @@ fun TasksScreen() {
             HeaderTitle("Tasks")
 
             var currentMonth by remember { mutableStateOf(LocalDate.now()) }
-            var selectedDate by remember { mutableStateOf(LocalDate.now()) }
+//            var selectedDate by remember { mutableStateOf(LocalDate.now()) }
 
             HorizontalCalendar(
-                currentMonth = currentMonth,
+                currentMonth = selectedDate,
                 onMonthChange = { currentMonth = it },
                 selectedDate = selectedDate,
-                onDateSelected = { selectedDate = it }
+                onDateSelected = { viewModel.selectDate(it) }
             )
 
-            TabBar(modifier = Modifier)
+            TabBar(
+                modifier = Modifier,
+                selectedState = selectedState,
+                onStateSelected = { viewModel.selectState(it) },
+                countForState = countsState,
+            )
 
-            TaskListSection(modifier = Modifier.weight(1f))
+            TaskListSection(modifier = Modifier.weight(1f), tasks = tasks)
 
         }
     }

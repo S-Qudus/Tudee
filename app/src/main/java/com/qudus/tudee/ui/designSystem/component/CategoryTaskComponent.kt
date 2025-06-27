@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
+import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @Composable
@@ -30,10 +31,10 @@ fun CategoryTask(
     modifier: Modifier = Modifier,
     title: String,
     description: String?,
-    priorityLevel: PriorityLevel,
+    priorityLevel: PriorityLevel = PriorityLevel.High,
     onClick: () -> Unit,
     dateText: String? = null,
-   taskRes: @Composable (Modifier) -> Unit,
+    taskRes: @Composable (Modifier) -> Unit,
 ) {
     Column(
         modifier = modifier

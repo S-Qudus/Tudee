@@ -12,26 +12,24 @@ import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TabBar(
-    startTab: TaskStatus = TaskStatus.IN_PROGRESS,
-    onTabSelected: (TaskStatus) -> Unit = {},
+    selectedState: State,
+    countForState: Map<State, Int>,
+    onStateSelected: (State) -> Unit,
     modifier: Modifier,
 ) {
-    var selectedTabIndex by rememberSaveable { mutableStateOf(startTab.ordinal) }
-    val tabs = TaskStatus.values()
+    val tabs = State.values()
+    val selectedTabIndex = tabs.indexOf(selectedState)
 
 
     PrimaryTabRow(
@@ -59,12 +57,11 @@ fun TabBar(
             )
         }
     ) {
-        tabs.forEachIndexed { index, tab ->
+        tabs.forEachIndexed { index, state ->
             Tab(
                 selected = selectedTabIndex == index,
                 onClick = {
-                    selectedTabIndex = index
-                    onTabSelected(tab)
+                    onStateSelected(state)
                 },
                 selectedContentColor = Theme.color.title,
                 unselectedContentColor = Theme.color.hint,
@@ -74,22 +71,23 @@ fun TabBar(
                     indication = null
                 ),
                 text = {
-                    TaskTabItem(tab = tab, isSelected = selectedTabIndex == index)
+                    TaskTabItem(
+                        tab = state,
+                        isSelected = selectedTabIndex == index,
+                        count = countForState[state] ?: 0
+                    )
                 }
             )
         }
     }
 }
 
-enum class TaskStatus(val title: String, val count: Int) {
-    IN_PROGRESS("In progress", 14),
-    TODO("To Do", 2),
-    DONE("Done", 3)
-}
-
 
 @Preview
 @Composable
 private fun TapBarPreview() {
-    TabBar(modifier = Modifier)
+    TabBar(
+        selectedState = State.TODO, onStateSelected = {}, modifier = Modifier,
+        countForState = TODO(),
+    )
 }

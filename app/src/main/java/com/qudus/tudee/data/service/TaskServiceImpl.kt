@@ -1,14 +1,18 @@
 package com.qudus.tudee.data.service
 
-import com.qudus.tudee.data.dto.TaskDto
+import com.qudus.tudee.data.database.dao.CategoryDao
+import com.qudus.tudee.data.database.dao.TaskDao
+import com.qudus.tudee.data.mapper.toTask
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.TaskService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import java.time.LocalDate
 
 class TaskServiceImpl(
-    private val taskDto: TaskDto
-): TaskService {
+    private val taskDao: TaskDao,
+) : TaskService {
     override suspend fun createTake(task: Task) {
         TODO("Not yet implemented")
     }
@@ -31,5 +35,17 @@ class TaskServiceImpl(
 
     override suspend fun getTaskById(id: Long): Task {
         TODO("Not yet implemented")
+    }
+
+    override fun getTasksByDate(date: LocalDate): Flow<List<Task>> {
+        return taskDao.getTasksByDate(date.toString()).map { dtoList ->
+            dtoList.map { it.toTask() }
+        }
+    }
+
+    override fun getTasksByState(state: State): Flow<List<Task>> {
+        return taskDao.getTasksByState(state).map { dtoList ->
+            dtoList.map { it.toTask() }
+        }
     }
 }

@@ -13,19 +13,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.domain.entity.State
 
 @Composable
-fun TaskTabItem(tab: TaskStatus, isSelected: Boolean) {
+fun TaskTabItem(tab: State, isSelected: Boolean, count: Int) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = tab.title,
+            text = tab.name,
             textAlign = TextAlign.Center,
             style = if (isSelected)
                 Theme.textStyle.label.medium else Theme.textStyle.label.small,
         )
-        if (tab.count > 0 && isSelected) {
+        if (count > 0 && isSelected) {
             Box(
                 modifier = Modifier
                     .padding(start = 4.dp)
@@ -34,7 +35,7 @@ fun TaskTabItem(tab: TaskStatus, isSelected: Boolean) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = tab.count.toString(),
+                    text = count.toString(),
                     style = Theme.textStyle.label.medium,
                     color = Theme.color.body
                 )
