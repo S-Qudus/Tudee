@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.qudus.tudee.data.dataSource.PreferenceServiceImpl
-import com.qudus.tudee.data.repository.PreferenceService
+import com.qudus.tudee.domain.service.PreferenceService
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 

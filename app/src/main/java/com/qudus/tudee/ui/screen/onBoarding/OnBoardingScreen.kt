@@ -36,7 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.composable.TudeeIconButton
+import com.qudus.tudee.ui.composable.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 import org.koin.androidx.compose.koinViewModel
@@ -166,7 +166,7 @@ private fun OnBoardingContent(
 
                         }
 
-                        TudeeIconButton(
+                        TudeeFloatingActionButton(
                             onClickIconButton = { onBoardingInteractionListener.onClickNextButton() },
                             isEnabled = true,
                             isLoading = false,
