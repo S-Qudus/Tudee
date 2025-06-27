@@ -38,7 +38,7 @@ fun OverviewSection(
             .fillMaxWidth()
             .offset(y = (-32).dp)
             .background(
-                color = Color.White,
+                color = Theme.color.surface,
                 shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
             )
             .padding(horizontal = 16.dp, vertical = 20.dp)

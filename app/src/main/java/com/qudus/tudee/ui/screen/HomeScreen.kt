@@ -15,26 +15,25 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.PriorityLevel
 import com.qudus.tudee.ui.composable.TudeeIconButton
 import com.qudus.tudee.ui.designSystem.component.BottomNavBar
 import com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton.ThemeSwitchButton
 import com.qudus.tudee.ui.designSystem.component.TudeeHeader.TudeeHeader
 import com.qudus.tudee.ui.designSystem.component.TudeeScaffold
-import com.qudus.tudee.ui.designSystem.model.BottomNavItem
 import com.qudus.tudee.ui.designSystem.theme.Dimension
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.components.OverviewSection
-import com.qudus.tudee.ui.screen.components.TaskItem
 import com.qudus.tudee.ui.screen.components.TaskSection
 import com.qudus.tudee.ui.screen.data.getInProgressTasks
 import com.qudus.tudee.ui.screen.data.getToDoTasks
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeScreen(navController: NavController) {
-    var isDarkMode by remember { mutableStateOf(false) }
-
+fun HomeScreen(
+    navController: NavController,
+    isDarkTheme: Boolean,
+    onThemeChange: (Boolean) -> Unit
+) {
     TudeeScaffold(
         topBar = {
             Row(
@@ -48,8 +47,8 @@ fun HomeScreen(navController: NavController) {
                     modifier = Modifier.fillMaxWidth(),
                     endContent = {
                         ThemeSwitchButton(
-                            isDarkMode = isDarkMode,
-                            onCheckedChange = { isDarkMode = it },
+                            isDarkMode = isDarkTheme,
+                            onCheckedChange = onThemeChange,
                             modifier = Modifier
                         )
                     }
@@ -110,7 +109,11 @@ fun HomeScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen(navController = rememberNavController())
+    HomeScreen(
+        navController = rememberNavController(),
+        isDarkTheme = false,
+        onThemeChange = { }
+    )
 }
 
 
