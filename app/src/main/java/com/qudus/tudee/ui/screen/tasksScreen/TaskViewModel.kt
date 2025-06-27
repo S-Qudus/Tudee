@@ -1,5 +1,7 @@
 package com.qudus.tudee.ui.screen.tasksScreen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.TaskService
@@ -19,13 +21,16 @@ import java.time.ZoneId
 
 class TaskViewModel(private val taskService: TaskService) : ViewModel() {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private val _selectedDate =
         MutableStateFlow(LocalDate.now(ZoneId.systemDefault()))
+    @RequiresApi(Build.VERSION_CODES.O)
     val selectedDate: StateFlow<LocalDate> = _selectedDate
 
     private val _selectedState = MutableStateFlow(State.TODO)
     val selectedState: StateFlow<State> = _selectedState
 
+    @RequiresApi(Build.VERSION_CODES.O)
     val tasks: StateFlow<List<Task>> =
         combine(_selectedDate, _selectedState) { d, s -> d to s }
             .flatMapLatest { (date, state) ->
@@ -42,6 +47,7 @@ class TaskViewModel(private val taskService: TaskService) : ViewModel() {
                 }
             }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun selectDate(date: LocalDate) {
         _selectedDate.value = date
     }
