@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
+import com.qudus.tudee.ui.designSystem.component.TudeeChip
 import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @Composable
@@ -33,7 +34,7 @@ fun CategoryTask(
     priorityLevel: PriorityLevel,
     onClick: () -> Unit,
     dateText: String? = null,
-   taskRes: @Composable (Modifier) -> Unit,
+    taskRes: @Composable (Modifier) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -57,8 +58,7 @@ fun CategoryTask(
                 TudeeChip(
                     label = dateText,
                     icon = painterResource(id = R.drawable.icon_calendar),
-                    backgroundColor = Theme.color.surface,
-                    labelColor = Theme.color.body
+                    activeBackgroundColor = Theme.color.surface,
                 )
                 Spacer(modifier = Modifier.width(4.dp))
             }
@@ -66,8 +66,7 @@ fun CategoryTask(
             TudeeChip(
                 label = getLabelForPriority(priorityLevel),
                 icon = painterResource(id = getIconForPriority(priorityLevel)),
-                backgroundColor = getColorForPriority(priorityLevel),
-                labelColor = Theme.color.onPrimary
+                activeBackgroundColor = getColorForPriority(priorityLevel),
             )
         }
 
@@ -86,7 +85,7 @@ private fun CategoryTaskComponentInformation(
     title: String,
     description: String?,
 
-) {
+    ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -120,7 +119,7 @@ private fun CategoryTaskPreview() {
         priorityLevel = PriorityLevel.Medium,
         onClick = {},
         taskRes = {
-            modifier ->
+                modifier ->
             Icon(
                 painter = painterResource(id = R.drawable.icon_category_book_open),
                 contentDescription = "Task Icon",
