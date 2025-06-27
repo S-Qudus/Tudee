@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component
+package com.qudus.tudee.ui.designSystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +23,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.component.TudeeChip
+import com.qudus.tudee.designSystem.component.PriorityLevel
+import com.qudus.tudee.designSystem.component.getColorForPriority
+import com.qudus.tudee.designSystem.component.getIconForPriority
+import com.qudus.tudee.designSystem.component.getLabelForPriority
 import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @Composable
