@@ -1,28 +1,36 @@
 package com.qudus.tudee.data.service
 
+import com.qudus.tudee.data.database.dao.CategoryDao
+import com.qudus.tudee.data.mapper.toDomain
+import com.qudus.tudee.data.mapper.toEntity
 import com.qudus.tudee.domain.entity.Category
 import com.qudus.tudee.domain.service.CategoryService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-class CategoryServiceImpl: CategoryService {
+class CategoryServiceImpl(
+    private val categoryDao: CategoryDao
+) : CategoryService {
+
     override suspend fun createCategory(category: Category) {
-        TODO("Not yet implemented")
+        categoryDao.upsertCategory(category.toEntity())
     }
 
     override suspend fun updateCategory(category: Category) {
-        TODO("Not yet implemented")
+        categoryDao.upsertCategory(category.toEntity())
     }
 
     override suspend fun deleteCategory(id: Long) {
-        TODO("Not yet implemented")
+        categoryDao.deleteCategoryById(id)
     }
 
     override fun getCategories(): Flow<List<Category>> {
-        TODO("Not yet implemented")
+        return categoryDao.getCategories().map { list ->
+            list.map { it.toDomain() }
+        }
     }
 
     override suspend fun getCategoryById(id: Long): Category {
-        TODO("Not yet implemented")
+        return categoryDao.getCategoryById(id).toDomain()
     }
-
 }
