@@ -1,9 +1,6 @@
 package com.qudus.tudee.ui.designSystem.component
 
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,8 +10,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,32 +27,17 @@ import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 @Composable
 fun TudeeChip(
     label: String,
-    icon: Painter,
     modifier: Modifier = Modifier,
-    isActive: Boolean = false,
-    isClickEnabled: Boolean = false,
-    onChipClick: () -> Unit = {},
-    activeBackgroundColor: Color = Theme.color.primary,
+    labelColor: Color = Theme.color.onPrimary,
+    icon: Painter,
+    backgroundColor: Color = Theme.color.primary,
     labelSize: TextUnit = Theme.textStyle.label.small.fontSize,
     iconSize: Dp = 12.dp
 ) {
-    val animatedContainerColor by animateColorAsState(
-        targetValue = if (isActive) activeBackgroundColor else Theme.color.surfaceLow,
-    )
-    val animatedContentColor = animateColorAsState(
-        targetValue = if (isActive) Theme.color.onPrimary else Theme.color.hint,
-    )
-
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(100.dp))
-            .background(animatedContainerColor)
-            .clickable(
-                enabled = isClickEnabled,
-                onClick = { onChipClick() },
-                indication = null,
-                interactionSource = remember { MutableInteractionSource() }
-            )
+            .background(backgroundColor)
             .padding(horizontal = 8.dp, vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -65,12 +45,12 @@ fun TudeeChip(
         Icon(
             painter = icon,
             contentDescription = "label",
-            tint = animatedContentColor.value,
+            tint = labelColor,
             modifier = Modifier.size(iconSize)
         )
         Text(
             text = label,
-            color = animatedContentColor.value,
+            color = labelColor,
             style = Theme.textStyle.label.small.copy(fontSize = labelSize)
         )
 
@@ -83,27 +63,25 @@ fun PriorityChipsPreview() {
     val colors = Theme.color
     val textColor = colors.onPrimary
     TudeeTheme(true) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             TudeeChip(
                 label = "High",
                 icon = painterResource(id = R.drawable.icon_priority_high),
-                activeBackgroundColor = colors.pinkAccent,
+                backgroundColor = colors.pinkAccent,
+                labelColor = textColor
             )
             TudeeChip(
                 label = "Medium",
                 icon = painterResource(id = R.drawable.icon_priority_medium),
-                activeBackgroundColor = colors.yellowAccent,
+                backgroundColor = colors.yellowAccent,
+                labelColor = textColor
             )
             TudeeChip(
                 label = "Low",
                 icon = painterResource(id = R.drawable.icon_priority_low),
-                activeBackgroundColor = colors.greenAccent,
+                backgroundColor = colors.greenAccent,
+                labelColor = textColor
             )
         }
     }
 }
-
-
