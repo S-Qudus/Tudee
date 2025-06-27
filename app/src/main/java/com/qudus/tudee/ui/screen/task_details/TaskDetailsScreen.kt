@@ -30,11 +30,19 @@ fun TaskDetailsScreen(
     val state by taskDetailsViewModel.state.collectAsState()
     TaskDetailsContent(
         state = state,
-        onDismissRequest = taskDetailsViewModel::hidden
+        onDismissRequest = taskDetailsViewModel::onDismiss,
+        onEditTaskClick = taskDetailsViewModel::onEditTaskClick,
+        onMoveTaskStatusClick = taskDetailsViewModel::onMoveTaskStatusClick,
     )
 }
+
 @Composable
-fun TaskDetailsContent(state: TaskDetailsUiState, onDismissRequest: () -> Unit) {
+fun TaskDetailsContent(
+    state: TaskDetailsUiState,
+    onDismissRequest: () -> Unit,
+    onEditTaskClick: () -> Unit,
+    onMoveTaskStatusClick: () -> Unit
+) {
     TudeeBottomSheet(
         isSheetOpen = state.isVisible,
         onDismissRequest = onDismissRequest
@@ -82,7 +90,11 @@ fun TaskDetailsContent(state: TaskDetailsUiState, onDismissRequest: () -> Unit) 
                 TaskStatusAndPrioritySection(state)
             }
             item {
-                TaskActionButtons()
+                TaskActionButtons(
+                    state = state,
+                    onEditTaskClick = onEditTaskClick,
+                    onMoveTaskStatusClick = onMoveTaskStatusClick
+                )
             }
         }
     }
@@ -94,7 +106,9 @@ fun TaskDetailsContentPreview() {
     TudeeTheme(isDarkTheme = false) {
         TaskDetailsContent(
             state = TaskDetailsUiState(),
-            onDismissRequest = {}
+            onDismissRequest = {},
+            onEditTaskClick = {},
+            onMoveTaskStatusClick = {}
         )
     }
 }

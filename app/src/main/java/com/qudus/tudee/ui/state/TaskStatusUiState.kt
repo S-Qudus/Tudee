@@ -5,8 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.util.extension.toStringResource
 
-enum class TaskStatusUiState(@StringRes val status:Int){
+enum class TaskStatusUiState(@StringRes val status: Int) {
     TODO(R.string.todo),
     IN_PROGRESS(R.string.in_progress),
     DONE(R.string.done);
@@ -24,4 +25,15 @@ enum class TaskStatusUiState(@StringRes val status:Int){
         IN_PROGRESS -> Theme.color.purpleVariant
         DONE -> Theme.color.greenVariant
     }
+
+    @Composable
+    fun getStatusText(): String {
+       return this.status.toStringResource()
+    }
+
+    fun getNextState(): TaskStatusUiState = when (this) {
+        TODO -> IN_PROGRESS
+        else -> DONE
+    }
+
 }
