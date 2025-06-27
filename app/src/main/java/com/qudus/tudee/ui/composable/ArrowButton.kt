@@ -27,11 +27,11 @@ fun ArrowButton(
     Box(
         modifier = modifier
             .size(size)
-            .let { m ->
+            .let { modifier ->
                 if (showBorder)
-                    m.border(1.dp, Theme.color.stroke, CircleShape)
+                    modifier.border(1.dp, Theme.color.stroke, CircleShape)
                 else
-                    m
+                    modifier
             }
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
