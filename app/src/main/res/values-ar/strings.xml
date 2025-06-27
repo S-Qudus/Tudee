@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">تادي</string>
+    <string name="app_name">تودي</string>
     <string name="default_task_title">تنظيم مكتب الدراسة</string>
     <string name="default_task_description">راجع بنية الخلية ووظائفها للغد...</string>
     <string name="default_priority">متوسطة</string>
@@ -16,7 +16,16 @@
     <!--    content description -->
     <string name="in_progress">قيد التنفيذ</string>
     <string name="done">مكتملة</string>
-
+    <string name="delete">حذف</string>
+    <!-- Category names -->
+    <string name="category_image_desc">صورة الصنف</string>
+    <string name="add_new_category">اضافة صنف جديد</string>
+    <string name="category_name">اسم الصنف </string>
+    <string name="edit_image">تعديل الصورة</string>
+    <string name="edit_category">تعديل الصنف</string>
+    <string name="upload">تحميل</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">الغاء</string>
 
 
 </resources>

@@ -22,6 +22,9 @@
 
     <!-- Category names -->
     <string name="cooking" translatable="false">Cooking</string>
+    <string name="category_image_desc">Category Image</string>
+    <string name="add_new_category">Add new category</string>
+
  CategoryTaskComponent -->
 
         <string name="coding" translatable="false">Coding</string>
@@ -60,6 +63,17 @@
     <!--    content description -->
     <string name="in_progress">In Progress</string>
     <string name="done">Done</string>
+    <string name="upload">Upload</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+
+
+    <string name="delete">Delete</string>
+    <string name="category_name">Category name</string>
+    <string name="edit_image">Edit image</string>
+    <string name="edit_category">Edit category</string>
+    <string name="category_name_required">Category name is required</string>
+
 
     <!--    slider component  -->
     <string name="stay_working">Stay working</string>
