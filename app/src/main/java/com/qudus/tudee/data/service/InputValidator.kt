@@ -10,9 +10,10 @@ class InputValidator {
     private val startWithLetterRegex = Regex("^[a-zA-Z\u0621-\u064A].*")
 
     fun validateTitle(input: String) {
-        if (input.isBlank()) throw EmptyInputException()
-        if (!startWithLetterRegex.matches(input)) throw InvalidStartCharacterException()
-        if (input.length < 3) throw InputTooShortException()
-        if (input.length > 100) throw InputTooLongException()
+        val trimmedInput = input.trim()
+        if (trimmedInput.isBlank()) throw EmptyInputException()
+        if (!startWithLetterRegex.matches(trimmedInput)) throw InvalidStartCharacterException()
+        if (trimmedInput.length < 3) throw InputTooShortException()
+        if (trimmedInput.length > 100) throw InputTooLongException()
     }
 }
