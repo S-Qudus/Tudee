@@ -12,6 +12,9 @@ interface CategoryDao {
     @Upsert
     suspend fun upsertCategory(category: CategoryDto)
 
+    @Upsert
+    suspend fun upsertCategories(categories: List<CategoryDto>)
+
     @Query("SELECT * FROM Category")
     fun getCategories(): Flow<List<CategoryDto>>
 
