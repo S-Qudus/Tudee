@@ -41,6 +41,17 @@ fun DayPicker(
         }
     }
 
+    LaunchedEffect(selectedDate) {
+        val index = daysInMonth.indexOf(selectedDate)
+        if (index == -1) return@LaunchedEffect
+
+        val isVisible = listState.layoutInfo.visibleItemsInfo.any { it.index == index }
+
+        if (!isVisible) {
+            listState.animateScrollToItem(index, scrollOffset = -150)
+        }
+    }
+
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = 16.dp),

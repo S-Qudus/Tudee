@@ -1,6 +1,5 @@
 package com.qudus.tudee.data.service
 
-import com.qudus.tudee.data.database.dao.CategoryDao
 import com.qudus.tudee.data.database.dao.TaskDao
 import com.qudus.tudee.data.mapper.toTask
 import com.qudus.tudee.domain.entity.State

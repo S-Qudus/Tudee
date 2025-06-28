@@ -30,7 +30,13 @@ fun HorizontalCalendar(
     ) {
         MonthNavigationHeader(
             currentMonth = currentMonth,
-            onMonthChange = onMonthChange
+            onMonthChange = onMonthChange,
+            selectedDate  = selectedDate,
+            onDatePicked  = { picked ->
+                val firstDay = picked.withDayOfMonth(1)
+                if (firstDay != currentMonth) onMonthChange(firstDay)
+                onDateSelected(picked)
+            }
         )
 
         DayPicker(

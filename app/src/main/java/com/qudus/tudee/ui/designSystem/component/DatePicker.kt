@@ -50,7 +50,7 @@ fun DatePicker(
             dismissButton = {},
             properties = DialogProperties()
         ) {
-            Column(modifier = Modifier.padding(horizontal = 12.dp)) {
+            Column(modifier = Modifier) {
                 DatePicker(
                     state = datePickerState,
                     colors = DatePickerDefaults.colors(

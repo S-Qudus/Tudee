@@ -26,7 +26,7 @@ fun TaskTabItem(tab: State, isSelected: Boolean, count: Int) {
             style = if (isSelected)
                 Theme.textStyle.label.medium else Theme.textStyle.label.small,
         )
-        if (count > 0 && isSelected) {
+        if (count >= 0 && isSelected) {
             Box(
                 modifier = Modifier
                     .padding(start = 4.dp)

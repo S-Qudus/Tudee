@@ -29,7 +29,9 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun MonthNavigationHeader(
     currentMonth: LocalDate,
-    onMonthChange: (LocalDate) -> Unit
+    selectedDate: LocalDate,
+    onMonthChange: (LocalDate) -> Unit,
+    onDatePicked: (LocalDate) -> Unit
 ) {
     var showDatePicker by remember { mutableStateOf(false) }
     Row(
@@ -65,7 +67,8 @@ fun MonthNavigationHeader(
                 contentDescription = "date picker",
                 showBorder = false,
                 size = 16.dp,
-                iconSize = 16.dp
+                iconSize = 16.dp,
+                onClick = { showDatePicker = true }
             )
         }
         ArrowButton(
@@ -78,11 +81,11 @@ fun MonthNavigationHeader(
         if (showDatePicker) {
             DatePicker(
                 showDialog = true,
-                selectedDate = currentMonth,
+                selectedDate = selectedDate,
                 onDismiss = { showDatePicker = false },
                 onClear = { showDatePicker = true },
-                onDateSelected = {
-                    onMonthChange(it)
+                onDateSelected = { picked ->
+                    onDatePicked(picked)
                     showDatePicker = false
                 }
             )

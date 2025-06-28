@@ -17,7 +17,7 @@ import com.qudus.tudee.ui.designSystem.theme.Theme
 @Composable
 fun ArrowButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    onClick: () -> Unit,
     imageVector: ImageVector,
     size: Dp = 32.dp,
     contentDescription: String,
