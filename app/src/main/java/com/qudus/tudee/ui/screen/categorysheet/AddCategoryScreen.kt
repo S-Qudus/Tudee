@@ -9,7 +9,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,27 +16,28 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.component.text_field.TudeeTextField
 import com.qudus.tudee.designSystem.component.text_field.TudeeTextFieldType
@@ -45,25 +45,57 @@ import com.qudus.tudee.ui.designSystem.component.PrimaryButton
 import com.qudus.tudee.ui.designSystem.component.SecondaryButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.util.UiImage
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
-data class CategoryData(
-    val name: String,
-    val uiImage: UiImage
-)
+
+@Composable
+fun AddCategorySheetScreen(
+    navController: NavController,
+    viewModel: AddCategoryViewModel = koinViewModel()
+) {
+    val uiState by viewModel.state.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+    LaunchedEffect(viewModel.event) {
+        viewModel.event.collect { event ->
+            when (event) {
+                is AddCategoryViewModel.Event.NavigateBack -> navController.popBackStack()
+                is AddCategoryViewModel.Event.ShowError -> {
+                    coroutineScope.launch {
+                        // error
+                    }
+                }
+            }
+        }
+    }
+
+    AddCategorySheetContent(
+        title = stringResource(R.string.add_new_category),
+        initialCategoryName = uiState.title,
+        initialCategoryImage = UiImage.fromString(uiState.image),
+        isBottomSheetVisible = true,
+        onBottomSheetDismissed = { viewModel.cancel() },
+        onAddButtonClicked = { data ->
+            viewModel.updateTitle(data.name)
+            viewModel.updateImage(data.uiImage)
+            viewModel.saveCategory()
+        },
+        onCancelButtonClicked = { viewModel.cancel() }
+    )
+
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategorySheet(
+fun AddCategorySheetContent(
     modifier: Modifier = Modifier,
     title: String,
     initialCategoryName: String,
     initialCategoryImage: UiImage,
     isBottomSheetVisible: Boolean,
-    isEditMode: Boolean,
     onBottomSheetDismissed: () -> Unit,
-    onSaveButtonClicked: (CategoryData) -> Unit,
-    onCancelButtonClicked: () -> Unit,
-    onDeleteButtonClicked: (() -> Unit)? = null,
+    onAddButtonClicked: (CategoryData) -> Unit,
+    onCancelButtonClicked: () -> Unit
 ) {
     var categoryName by remember(initialCategoryName) { mutableStateOf(initialCategoryName) }
     var selectedUiImage by remember(initialCategoryImage) { mutableStateOf(initialCategoryImage) }
@@ -96,26 +128,11 @@ fun CategorySheet(
                         .padding(bottom = 24.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = title,
-                            style = Theme.textStyle.title.large,
-                            color = Theme.color.title
-                        )
-                        if (isEditMode && onDeleteButtonClicked != null) {
-                            TextButton(onClick = onDeleteButtonClicked) {
-                                Text(
-                                    text = stringResource(R.string.delete),
-                                    style = Theme.textStyle.label.large,
-                                    color = Theme.color.error
-                                )
-                            }
-                        }
-                    }
+                    Text(
+                        text = title,
+                        style = Theme.textStyle.title.large,
+                        color = Theme.color.title
+                    )
 
                     TudeeTextField(
                         value = categoryName,
@@ -136,21 +153,13 @@ fun CategorySheet(
                             color = Theme.color.title,
                         )
 
-                        val isImageSelected = isEditMode || selectedUiImage != initialCategoryImage
+                        val isImageSelected = selectedUiImage != initialCategoryImage
 
                         Box(
                             modifier = Modifier
                                 .size(113.dp)
                                 .clip(RoundedCornerShape(16.dp))
                                 .background(Color(0x1A000000))
-                                .dashedBorder(
-                                    color = Theme.color.stroke,
-                                    shape = RoundedCornerShape(16.dp),
-                                    strokeWidth = 2.dp,
-                                    dashLength = 6.dp,
-                                    gapLength = 6.dp,
-                                    cap = StrokeCap.Round
-                                )
                                 .clickable {
                                     photoPickerLauncher.launch(
                                         PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
@@ -167,25 +176,6 @@ fun CategorySheet(
                                         .clip(RoundedCornerShape(16.dp)),
                                     contentScale = ContentScale.Crop
                                 )
-
-                                if (isEditMode) {
-                                    IconButton(onClick = {
-                                        photoPickerLauncher.launch(
-                                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                                        )
-                                    }) {
-                                        Icon(
-                                            painter = painterResource(R.drawable.icon_pencil_edit),
-                                            contentDescription = stringResource(R.string.edit_image),
-                                            modifier = Modifier
-                                                .clip(RoundedCornerShape(12.dp))
-                                                .background(Theme.color.surfaceHigh)
-                                                .padding(6.dp)
-                                                .size(20.dp),
-                                            tint = Theme.color.secondary
-                                        )
-                                    }
-                                }
                             } else {
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     Icon(
@@ -216,19 +206,17 @@ fun CategorySheet(
                     PrimaryButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            onSaveButtonClicked(
+                            onAddButtonClicked(
                                 CategoryData(
                                     name = categoryName.trim(),
                                     uiImage = selectedUiImage
                                 )
                             )
                         },
-                        isEnabled = isEditMode || (categoryName.trim().isNotEmpty() && selectedUiImage != initialCategoryImage)
-                    )
-
-                    {
+                        isEnabled = categoryName.trim().isNotEmpty() && selectedUiImage != initialCategoryImage
+                    ) {
                         Text(
-                            text = stringResource(R.string.save),
+                            text = stringResource(R.string.add),
                             style = Theme.textStyle.label.large,
                             color = Theme.color.onPrimary
                         )
@@ -249,18 +237,17 @@ fun CategorySheet(
         }
     }
 }
-@Preview(showBackground = true)
+
+@Preview(showBackground = true, wallpaper = Wallpapers.NONE)
 @Composable
-fun PreviewCategorySheet() {
-    CategorySheet(
-        title = "Edit category",
-        initialCategoryName = "Don't Be Shy :)",
+fun PreviewAddCategorySheetContent() {
+    AddCategorySheetContent(
+        title = "Add new category",
+        initialCategoryName = "",
         initialCategoryImage = UiImage.Drawable(R.drawable.image_shy_tudee),
         isBottomSheetVisible = true,
-        isEditMode = true,
         onBottomSheetDismissed = {},
-        onSaveButtonClicked = {},
-        onCancelButtonClicked = {},
-        onDeleteButtonClicked = {}
+        onAddButtonClicked = {},
+        onCancelButtonClicked = {}
     )
 }
