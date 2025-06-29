@@ -12,14 +12,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -216,44 +219,46 @@ private fun CategorySection(
         modifier = modifier.padding(horizontal = Theme.dimension.medium),
         title = stringResource(R.string.category),
     ) {
-        FlowRow(
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(104.dp),
             modifier = Modifier
                 .fillMaxWidth()
+                .heightIn(min = 300.dp, max = 1000.dp) //((state.categoryUiStates.count() * 102) - (state.categoryUiStates.count() * 24)).dp
                 .padding(top = Theme.dimension.small),
-            horizontalArrangement = Arrangement.Start,
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalArrangement = Arrangement.spacedBy(Theme.dimension.largeMedium),
-            maxItemsInEachRow = 3,
+            //userScrollEnabled = false
         ) {
-            state.categoryUiStates.forEach { category ->
-                key(category.id) {
-                    CategoryBadgeItem(
-                        modifier = Modifier.weight(1f),
-                        id = category.id,
-                        title = if (category.defaultCategoryType == null) category.title
-                                else getDefaultCategoryStringResourceByType(category.defaultCategoryType),
-                        isClickable = true,
-                        onItemClick = interaction::onCategoryTypeSelectChange,
-                        contentImage = if (category.defaultCategoryType != null) {
-                            {
-                                ImageFromRes(
-                                    drawableResId = getIconResForCategory(category.defaultCategoryType),
-                                    contentDescription = category.title
-                                )
-                            }
-                        } else {
-                            {
-                                ImageFromFilePath(
-                                    imagePath = category.imagePath,
-                                    contentDescription = category.title
-                                )
-                            }
+            items(state.categoryUiStates, key = { it.id }) { category ->
+                CategoryBadgeItem(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 4.dp),
+                    id = category.id,
+                    title = if (category.defaultCategoryType == null) category.title
+                    else getDefaultCategoryStringResourceByType(category.defaultCategoryType),
+                    isClickable = true,
+                    onItemClick = interaction::onCategoryTypeSelectChange,
+                    contentImage = if (category.defaultCategoryType != null) {
+                        {
+                            ImageFromRes(
+                                drawableResId = getIconResForCategory(category.defaultCategoryType),
+                                contentDescription = category.title
+                            )
                         }
-                    ) {
-                        TudeeCheckBadge(
-                            modifier = Modifier.align(Alignment.TopEnd),
-                            visible = category.isSelected
-                        )
+                    } else {
+                        {
+                            ImageFromFilePath(
+                                imagePath = category.imagePath,
+                                contentDescription = category.title
+                            )
+                        }
                     }
+                ) {
+                    TudeeCheckBadge(
+                        modifier = Modifier.align(Alignment.TopEnd),
+                        visible = category.isSelected
+                    )
                 }
             }
         }
