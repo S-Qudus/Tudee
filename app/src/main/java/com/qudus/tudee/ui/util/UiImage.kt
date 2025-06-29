@@ -24,4 +24,14 @@ sealed class UiImage {
         is External -> uri
 
     }
+    companion object {
+        fun fromString(value: String): UiImage {
+            return try {
+                val resId = value.toInt()
+                Drawable(resId)
+            } catch (e: NumberFormatException) {
+                External(value)
+            }
+        }
+    }
 }
