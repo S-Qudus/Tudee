@@ -1,10 +1,10 @@
-package com.qudus.tudee.ui.screen.addTask.composable
+package com.qudus.tudee.ui.screen.taskEditor.composable
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.screen.addTask.AddTaskUiState.CategoryErrorType
-import com.qudus.tudee.ui.screen.addTask.AddTaskUiState.TitleErrorType
+import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
+import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
 
 @Composable
 fun getCategoryErrorMessage(errorType: CategoryErrorType): String {
