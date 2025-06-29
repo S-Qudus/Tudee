@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.R
 import com.qudus.tudee.domain.service.PreferenceService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,7 +23,7 @@ class OnBoardingViewModel(
     }
 
     private fun loadOnBoardingData() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             preferenceService.getDarkTheme().collect { isDarkTheme ->
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -45,7 +46,7 @@ class OnBoardingViewModel(
     }
 
     override fun onClickSkipText() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             preferenceService.setIsCompleteOnBoarding(true)
             _uiState.update { currentState ->
                 currentState.copy(isCompleted = true)

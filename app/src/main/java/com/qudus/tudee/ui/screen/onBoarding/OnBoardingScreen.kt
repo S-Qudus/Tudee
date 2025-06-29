@@ -35,6 +35,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -97,7 +98,6 @@ private fun OnBoardingContent(
         contentAlignment = Alignment.BottomCenter
     ) {
         EllipseContent(onBoardingUiState)
-
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Bottom
@@ -114,6 +114,23 @@ private fun OnBoardingContent(
             )
 
         }
+        Box(
+            modifier = Modifier
+                .size(350.dp)
+                .offset(y = (-260).dp)
+                .background(
+                    brush = Brush.radialGradient(
+                        colors = listOf(
+                            Theme.color.surfaceHigh,
+                            Theme.color.surfaceHigh.copy(alpha = 0.1f)
+                        ),
+                        radius = 5f,
+
+                        ),
+                    shape = CircleShape,
+                    alpha = 0.5f
+                )
+        )
 
     }
     SkipText(
@@ -121,17 +138,18 @@ private fun OnBoardingContent(
         pagerState = pagerState,
         onBoardingInteractionListener = onBoardingInteractionListener
     )
+
 }
 
 @Composable
-private fun EllipseContent(onBoardingUiState: OnBoardingUiState) {
+private fun EllipseContent(onBoardingUiState: OnBoardingUiState, modifier: Modifier = Modifier) {
     val ellipseBackgroundStartColor =
         if (onBoardingUiState.isDarkTheme) Color(0x7F05202E) else Color(0x7FEFF9FE)
 
     val ellipseBackgroundEndColor =
         if (onBoardingUiState.isDarkTheme) Color(0x0005202E) else Color(0x00EFF9FE)
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier.fillMaxSize()) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -152,13 +170,13 @@ private fun EllipseContent(onBoardingUiState: OnBoardingUiState) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
-                .offset(x = 100.dp, y = 120.dp)
+                .offset(x = 100.dp, y = 200.dp)
                 .rotate(140f)
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(ellipseBackgroundStartColor, ellipseBackgroundEndColor),
-                        start = Offset(x = 0f, y = 0f),
-                        end = Offset(x = 75f, y = 355f),
+                        start = Offset(x = 100f, y = 0f),
+                        end = Offset(x = 0f, y = 355f),
                     )
                 ),
         )
@@ -167,7 +185,7 @@ private fun EllipseContent(onBoardingUiState: OnBoardingUiState) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(60.dp)
-                .offset(x = 200.dp, y = 320.dp)
+                .offset(x = 200.dp, y = 360.dp)
                 .rotate(140f)
                 .background(
                     brush = Brush.linearGradient(
@@ -184,25 +202,29 @@ private fun EllipseContent(onBoardingUiState: OnBoardingUiState) {
 private fun PagerContent(
     onBoardingUiState: OnBoardingUiState,
     pagerState: PagerState,
-    onBoardingInteractionListener: OnBoardingInteractionListener
+    onBoardingInteractionListener: OnBoardingInteractionListener,
+    modifier: Modifier = Modifier
 ) {
     HorizontalPager(
         state = pagerState,
     ) { pagerIndex ->
-        Column {
-            Spacer(modifier = Modifier.padding(86.dp))
+        Column(modifier = modifier) {
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(250.dp),
                 contentAlignment = Alignment.Center
             ) {
+
                 Image(
                     modifier = Modifier
-                        .size(width = 296.dp, height = 250.dp)
-                        .offset(y = 30.dp),
+                        .fillMaxWidth()
+                        .height(260.dp)
+                        .offset(y = 10.dp),
                     painter = painterResource(onBoardingUiState.onBoardingItemUiState[pagerIndex].imageRes),
-                    contentDescription = ""
+                    contentDescription = "",
+                    contentScale = ContentScale.Fit
                 )
             }
             Spacer(modifier = Modifier.padding(top = 32.dp))
@@ -271,9 +293,13 @@ private fun PagerContent(
 private fun SkipText(
     onBoardingUiState: OnBoardingUiState,
     pagerState: PagerState,
-    onBoardingInteractionListener: OnBoardingInteractionListener
+    onBoardingInteractionListener: OnBoardingInteractionListener,
+    modifier: Modifier = Modifier
 ) {
-    Box(modifier = Modifier.padding(start = 16.dp, top = 64.dp)) {
+    Box(
+        modifier = modifier.padding(start = 16.dp, top = 64.dp),
+        contentAlignment = Alignment.TopStart
+    ) {
         if (pagerState.currentPage != onBoardingUiState.onBoardingItemUiState.lastIndex) {
             Text(
                 text = stringResource(R.string.skip),
@@ -289,13 +315,16 @@ private fun SkipText(
 
         }
     }
-
 }
 
 @Composable
-private fun IndicatorPager(onBoardingUiState: OnBoardingUiState, pagerState: PagerState) {
+private fun IndicatorPager(
+    onBoardingUiState: OnBoardingUiState,
+    pagerState: PagerState,
+    modifier: Modifier = Modifier
+) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(bottom = 24.dp, top = 40.dp),
         horizontalArrangement = Arrangement.Center
