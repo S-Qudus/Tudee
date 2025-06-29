@@ -93,7 +93,6 @@ private fun OnBoardingContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Theme.color.surface)
             .background(Theme.color.overlay),
         contentAlignment = Alignment.BottomCenter
     ) {
