@@ -5,16 +5,13 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.qudus.tudee.data.dataSource.PreferenceServiceImpl
-import com.qudus.tudee.domain.service.PreferenceService
-import org.koin.android.ext.koin.androidApplication
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.qudus.tudee.data.dataSource.PreferenceServiceImpl
 import com.qudus.tudee.data.database.RoomCallBackImpl
 import com.qudus.tudee.data.database.TudeeDatabase
+import com.qudus.tudee.domain.service.PreferenceService
 import org.koin.android.ext.koin.androidApplication
-import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 

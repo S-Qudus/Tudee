@@ -73,9 +73,6 @@
 
     <string name="nothing_on_list">Nothing on your list…</string>
     <string name="fill_day_message">Fill your day with something\nawesome</string>
-    <string name="priority_high" />
-    <string name="priority_medium" />
-    <string name="priority_low" />
     <string name="add_new_task">Add new task</string>
     <string name="category">Category</string>
     <string name="priority">Priority</string>
