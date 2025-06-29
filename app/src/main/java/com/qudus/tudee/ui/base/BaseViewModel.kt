@@ -47,5 +47,4 @@ open class BaseViewModel<STATE>(initialState: STATE): ViewModel() {
             }
         }
     }
-
-}
+} 

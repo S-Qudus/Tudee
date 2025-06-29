@@ -13,11 +13,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 import androidx.navigation.compose.rememberNavController
-import com.qudus.tudee.ui.screen.HomeScreen
-import com.qudus.tudee.ui.viewModel.MainViewModel
+import com.qudus.tudee.ui.screen.HomeScreen.HomeScreen
+import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
@@ -26,15 +27,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val viewModel: MainViewModel = koinViewModel()
-            val isDarkTheme by viewModel.isDarkTheme.collectAsState()
-
-            TudeeTheme(isDarkTheme = isDarkTheme) {
+            val homeViewModel: HomeViewModel = koinViewModel()
+            val state by homeViewModel.uiState.collectAsStateWithLifecycle()
+            
+            TudeeTheme(isDarkTheme = state.isDarkTheme) {
                 val navController = rememberNavController()
+
                 HomeScreen(
                     navController = navController,
-                    isDarkTheme = isDarkTheme,
-                    onThemeChange = { viewModel.toggleTheme() }
+                    viewModel = homeViewModel
                 )
             }
         }

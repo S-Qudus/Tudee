@@ -22,7 +22,7 @@ import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @Composable
-fun OverviewStatCard(
+fun TaskCountByStatusCard(
     count: Int,
     label: String,
     color: Color,
@@ -95,8 +95,8 @@ fun OverviewStatCard(
 
 @Preview(showBackground = true)
 @Composable
-fun OverviewStatCardPreview() {
-    OverviewStatCard(
+fun TaskCountByStatusCardPreview() {
+    TaskCountByStatusCard(
         count = 5,
         label = stringResource(id = R.string.done),
         color = Theme.color.greenAccent,

@@ -1,12 +1,8 @@
 package com.qudus.tudee.ui.designSystem.component
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,6 +17,7 @@ fun TudeeScaffold(
     floatingActionButton: (@Composable () -> Unit)? = null,
     bottomBar: (@Composable () -> Unit)? = null,
     contentBackground: Color = Color.White,
+    snackbarHostState: SnackbarHostState? = null,
     content: @Composable () -> Unit
 ) {
     Surface(
@@ -28,19 +25,19 @@ fun TudeeScaffold(
         color = contentBackground
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-                    .verticalScroll(rememberScrollState())
             ) {
                 topBar?.invoke()
                 content()
             }
-            
+
             bottomBar?.invoke()
         }
-        
+
         floatingActionButton?.let {
             Box(
                 modifier = Modifier
@@ -51,5 +48,14 @@ fun TudeeScaffold(
                 it()
             }
         }
+
+        snackbarHostState?.let {
+            SnackbarHost(
+                hostState = it,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+        }
     }
-} 
+}
