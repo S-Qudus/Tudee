@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.addTask
+package com.qudus.tudee.ui.screen.taskEditor
 
 import com.qudus.tudee.domain.entity.DefaultCategoryType
 import com.qudus.tudee.domain.entity.Priority
@@ -6,7 +6,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
-data class AddTaskUiState(
+data class TaskEditorUiState(
     val title: String = "",
     val description: String = "",
     val date: String = getCurrentDate(),
@@ -14,7 +14,7 @@ data class AddTaskUiState(
     val categoryUiStates: List<CategoryItemUiState> = emptyList(),
     val isSheetOpen: Boolean = true,
     val isDatePickerOpen: Boolean = false,
-    val isAddButtonEnabled: Boolean = false,
+    val isPrimaryButtonEnabled: Boolean = false,
     val isLoading: Boolean = false,
     val titleErrorMessageType: TitleErrorType? = null,
     val categoryErrorMessageType: CategoryErrorType? = null
@@ -59,22 +59,10 @@ data class AddTaskUiState(
         }
     }
 
-    enum class TitleErrorType {
-        TOO_LONG,
-        INVALID_START,
-        EMPTY,
-        TOO_SHORT,
-        INVALID
-    }
-
-    enum class CategoryErrorType {
-        FAILED_IN_FETCH,
-        NOT_FOUND
-    }
 
     companion object {
         fun getCurrentDate(): String {
-            return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.toString()
+            return Clock.System.now().toLocalDateTime(TimeZone.Companion.currentSystemDefault()).date.toString()
         }
     }
 }
