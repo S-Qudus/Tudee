@@ -1,16 +1,20 @@
 package com.qudus.tudee.data.service
 
-import com.qudus.tudee.data.dto.TaskDto
+import com.qudus.tudee.data.database.dao.TaskDao
+import com.qudus.tudee.data.mapper.toDto
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.TaskService
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 
 class TaskServiceImpl(
-    private val taskDto: TaskDto
+    private val taskDao: TaskDao,
+    private val validator: InputValidator
 ): TaskService {
     override suspend fun createTake(task: Task) {
-        TODO("Not yet implemented")
+        validator.validateTitle(task.title)
+        taskDao.upsertTask(task.toDto())
     }
 
     override suspend fun updateTask(task: Task) {
