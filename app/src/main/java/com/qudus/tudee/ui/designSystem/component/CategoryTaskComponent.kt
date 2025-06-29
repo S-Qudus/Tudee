@@ -23,15 +23,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
+import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.ui.designSystem.component.TudeeChip
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.util.getColorForPriority
+import com.qudus.tudee.ui.util.getIconForPriority
+import com.qudus.tudee.ui.util.getLabelForPriority
 
 @Composable
 fun CategoryTask(
     modifier: Modifier = Modifier,
     title: String,
     description: String?,
-    priorityLevel: PriorityLevel,
+    priorityLevel: Priority,
     onClick: () -> Unit,
     dateText: String? = null,
    taskRes: @Composable (Modifier) -> Unit,
@@ -65,7 +69,7 @@ fun CategoryTask(
 
             TudeeChip(
                 label = getLabelForPriority(priorityLevel),
-                icon = painterResource(id = getIconForPriority(priorityLevel)),
+                icon = getIconForPriority(priorityLevel),
                 activeBackgroundColor = getColorForPriority(priorityLevel),
             )
         }
@@ -116,7 +120,7 @@ private fun CategoryTaskPreview() {
     CategoryTask(
         title = stringResource(R.string.default_task_title),
         description = stringResource(R.string.default_task_description),
-        priorityLevel = PriorityLevel.Medium,
+        priorityLevel = Priority.MEDIUM,
         onClick = {},
         taskRes = {
             modifier ->

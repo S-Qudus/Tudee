@@ -41,9 +41,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.text_field.TudeeTextField
-import com.qudus.tudee.designSystem.component.text_field.TudeeTextFieldType.Paragraph
-import com.qudus.tudee.designSystem.component.text_field.TudeeTextFieldType.WithIcon
 import com.qudus.tudee.ui.composable.CategoryBadgeItem
 import com.qudus.tudee.ui.composable.ImageFromFilePath
 import com.qudus.tudee.ui.composable.ImageFromRes
@@ -51,6 +48,9 @@ import com.qudus.tudee.ui.composable.TitledSection
 import com.qudus.tudee.ui.composable.TudeeButton
 import com.qudus.tudee.ui.composable.TudeeCheckBadge
 import com.qudus.tudee.ui.designSystem.component.TudeeBottomSheet
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.Paragraph
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.WithIcon
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.addTask.AddTaskUiState.CategoryErrorType
 import com.qudus.tudee.ui.screen.addTask.AddTaskUiState.TitleErrorType
@@ -223,7 +223,10 @@ private fun CategorySection(
             columns = GridCells.Adaptive(104.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 300.dp, max = 1000.dp) //((state.categoryUiStates.count() * 102) - (state.categoryUiStates.count() * 24)).dp
+                .heightIn(
+                    min = 300.dp,
+                    max = 1000.dp
+                ) //((state.categoryUiStates.count() * 102) - (state.categoryUiStates.count() * 24)).dp
                 .padding(top = Theme.dimension.small),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalArrangement = Arrangement.spacedBy(Theme.dimension.largeMedium),
@@ -299,8 +302,13 @@ private fun PrimaryActionsSection(
             onClick = interaction::onAddTaskClicked,
             isLoading = state.isLoading,
             isEnabled = state.isAddButtonEnabled,
-            title = stringResource(R.string.add),
-        )
+        ) {
+            Text(
+                text = stringResource(R.string.add),
+                style = Theme.textStyle.label.large,
+                color = Theme.color.onPrimary
+            )
+        }
 
         TudeeButton(
             modifier = Modifier.fillMaxWidth(),
@@ -308,7 +316,12 @@ private fun PrimaryActionsSection(
             isLoading = false,
             isEnabled = true,
             hasBorder = true,
-            title = stringResource(R.string.cancel),
-        )
+        ) {
+            Text(
+                text = stringResource(R.string.cancel),
+                style = Theme.textStyle.label.large,
+                color = Theme.color.primary
+            )
+        }
     }
 }

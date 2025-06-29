@@ -15,13 +15,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
+import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TudeeTheme(isDarkTheme = false) { }
+            TudeeTheme(isDarkTheme = false) { AddTaskScreen() }
         }
     }
 }

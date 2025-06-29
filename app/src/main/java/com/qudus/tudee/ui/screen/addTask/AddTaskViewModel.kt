@@ -1,6 +1,5 @@
 package com.qudus.tudee.ui.screen.addTask
 
-import android.util.Log
 import com.qudus.tudee.domain.entity.Category
 import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.domain.exception.CategoryFetchAllFailedException
@@ -35,7 +34,6 @@ class AddTaskViewModel(
     }
 
     private fun updateCategoriesUiState(categories: List<Category>) {
-        Log.e("bk", categories.toString())
         _state.update { it.copy(categoryUiStates = categories.map { it.toCategoryItemUiState() }) }
     }
 
@@ -46,7 +44,6 @@ class AddTaskViewModel(
         }
 
         _state.update { it.copy(categoryErrorMessageType = categoryErrorType) }
-
     }
 
     override fun onCategoryTypeSelectChange(id: Long) {

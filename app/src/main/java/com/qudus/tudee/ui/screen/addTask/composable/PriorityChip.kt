@@ -41,9 +41,9 @@ private fun getStringByPriorityType(type: Priority): String {
 @Composable
 private fun getPainterByPriorityType(type: Priority): Painter {
     return when (type) {
-        Priority.HIGH -> painterResource(R.drawable.icon_priority_high)
-        Priority.MEDIUM -> painterResource(R.drawable.icon_priority_medium)
-        Priority.LOW -> painterResource(R.drawable.icon_priority_low)
+        Priority.HIGH -> painterResource(R.drawable.icon_flag)
+        Priority.MEDIUM -> painterResource(R.drawable.icon_alert)
+        Priority.LOW -> painterResource(R.drawable.icon_trade_down)
     }
 }
 
