@@ -223,20 +223,14 @@ private fun CategorySection(
             columns = GridCells.Adaptive(104.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(
-                    min = 300.dp,
-                    max = 1000.dp
-                ) //((state.categoryUiStates.count() * 102) - (state.categoryUiStates.count() * 24)).dp
+                .heightIn(min = 300.dp, max = 1000.dp)
                 .padding(top = Theme.dimension.small),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalArrangement = Arrangement.spacedBy(Theme.dimension.largeMedium),
-            //userScrollEnabled = false
         ) {
             items(state.categoryUiStates, key = { it.id }) { category ->
                 CategoryBadgeItem(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 4.dp),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
                     id = category.id,
                     title = if (category.defaultCategoryType == null) category.title
                     else getDefaultCategoryStringResourceByType(category.defaultCategoryType),
