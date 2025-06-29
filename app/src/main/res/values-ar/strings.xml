@@ -63,4 +63,6 @@
     <string name="error_category_not_found">لم يتم العثور على الفئة.</string>
     <string name="error_category_failed_in_fetch">فشل في تحميل الفئات، يرجى المحاولة مرة أخرى.</string>
 
+    <string name="edit">تعديل</string>
+
 </resources>

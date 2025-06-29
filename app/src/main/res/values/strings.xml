@@ -96,5 +96,6 @@
     <!-- Category Error Messages -->
     <string name="error_category_not_found">Category not found.</string>
     <string name="error_category_failed_in_fetch">Failed to load categories. Please try again.</string>
+    <string name="edit">Edit</string>
 
 </resources>
