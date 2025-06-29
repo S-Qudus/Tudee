@@ -174,8 +174,8 @@ private fun EllipseContent(onBoardingUiState: OnBoardingUiState, modifier: Modif
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(ellipseBackgroundStartColor, ellipseBackgroundEndColor),
-                        start = Offset(x = 100f, y = 0f),
-                        end = Offset(x = 0f, y = 355f),
+                        start = Offset(x = 0f, y = 0f),
+                        end = Offset(x = 75f, y = 355f),
                     )
                 ),
         )
