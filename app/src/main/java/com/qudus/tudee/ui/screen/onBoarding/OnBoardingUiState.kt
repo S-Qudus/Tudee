@@ -7,8 +7,7 @@ data class OnBoardingUiState(
     val currentPage: Int = 0,
     val onBoardingItemUiState: List<OnBoardingItemUiState> = emptyList(),
     val isDarkTheme: Boolean = false,
-    val isCompleted: Boolean = false,
-    val totalPages: Int = 0
+    val isCompleted: Boolean = false
 )
 
 data class OnBoardingItemUiState(
