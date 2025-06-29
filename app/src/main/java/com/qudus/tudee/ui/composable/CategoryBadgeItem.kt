@@ -17,21 +17,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import java.io.File
 
 @Composable
 fun CategoryBadgeItem(
+    id: Long,
     title: String,
-    iconPainter: Painter,
     modifier: Modifier = Modifier,
     isClickable: Boolean = false,
-    onItemClick: () -> Unit = {},
+    onItemClick: (id: Long) -> Unit = {},
+    contentImage: @Composable () -> Unit,
     badge: @Composable BoxScope.() -> Unit,
 ) {
     Column(
@@ -41,21 +43,19 @@ fun CategoryBadgeItem(
     ) {
         Box {
             Box(
-                modifier = Modifier.size(78.dp).clip(CircleShape)
-                .background(color = Theme.color.surfaceHigh, shape = CircleShape)
-                .clickable(
+                modifier = Modifier
+                    .size(78.dp)
+                    .clip(CircleShape)
+                    .background(color = Theme.color.surfaceHigh, shape = CircleShape)
+                    .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = ripple(color = Theme.color.primaryVariant),
                         enabled = isClickable,
-                        onClick = onItemClick
+                        onClick = { onItemClick(id) }
                     ),
                 contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = iconPainter,
-                    contentDescription = title,
-                    contentScale = ContentScale.Crop
-                )
+                contentImage()
             }
 
             badge()
@@ -69,12 +69,36 @@ fun CategoryBadgeItem(
     }
 }
 
+@Composable
+fun ImageFromRes(drawableResId: Int, contentDescription: String = "") {
+    Image(
+        painter = painterResource(id = drawableResId),
+        contentDescription = contentDescription,
+        contentScale = ContentScale.Crop
+    )
+}
+
+@Composable
+fun ImageFromFilePath(imagePath: String, contentDescription: String = "") {
+    Image(
+        painter = rememberAsyncImagePainter(model = File(imagePath)),
+        contentDescription = contentDescription,
+        contentScale = ContentScale.Crop
+    )
+}
+
 @Preview(showSystemUi = false, showBackground = true)
 @Composable
 private fun CategoryTextBadgeItemPreview() {
     CategoryBadgeItem(
+        id = 0,
         title = "Education",
-        iconPainter = painterResource(R.drawable.icon_book_open),
+        contentImage = {
+            ImageFromRes(
+                drawableResId = R.drawable.icon_book_open,
+                contentDescription = ""
+            )
+        }
     ) {
         TudeeTextBadge(
             modifier = Modifier.align(Alignment.TopEnd),
@@ -89,9 +113,15 @@ private fun CategoryTextBadgeItemPreview() {
 @Composable
 private fun CategoryCheckBadgeItemPreview() {
     CategoryBadgeItem(
+        id = 0,
         title = "Education",
-        iconPainter = painterResource(R.drawable.icon_book_open),
         isClickable = true,
+        contentImage = {
+            ImageFromRes(
+                drawableResId = R.drawable.icon_book_open,
+                contentDescription = ""
+            )
+        },
         onItemClick = {}
     ) {
         TudeeCheckBadge(modifier = Modifier.align(Alignment.TopEnd), visible = true)
