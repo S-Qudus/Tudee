@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component.text_field
+package com.qudus.tudee.ui.designSystem.component.text_field
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
