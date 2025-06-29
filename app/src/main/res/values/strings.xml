@@ -80,4 +80,10 @@
     <string name="priority_medium" />
     <string name="priority_low" />
 
+
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="this_action_cannot_be_undone">This action cannot be undone.</string>
+
 </resources>

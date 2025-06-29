@@ -16,7 +16,10 @@
     <!--    content description -->
     <string name="in_progress">قيد التنفيذ</string>
     <string name="done">مكتملة</string>
-
+    <string name="delete">حذف</string>
+    <string name="cancel">الغاء</string>
+    <string name="are_you_sure">هل انت متأكد?</string>
+    <string name="this_action_cannot_be_undone">لا يمكن التراجع عن هذه الخطوة.</string>
 
 
 </resources>
