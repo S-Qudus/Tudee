@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.designSystem.component
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -10,6 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.BottomSheetDefaults.DragHandle
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,6 +30,7 @@ fun TudeeBottomSheet(
     val sheetState =
         rememberModalBottomSheetState(
             skipPartiallyExpanded = expanded,
+            confirmValueChange  = { it != SheetValue.Hidden }
         )
 
     AnimatedVisibility(
