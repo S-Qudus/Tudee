@@ -164,7 +164,7 @@ fun EditCategorySheetContent(
                     TudeeTextField(
                         value = categoryName,
                         onValueChange = { categoryName = it },
-                        placeholder = stringResource(R.string.add_new_category),
+                        placeholder = stringResource(R.string.edit_category),
                         type = TudeeTextFieldType.WithIcon(
                             icon = painterResource(R.drawable.icon_menu_circle)
                         )
