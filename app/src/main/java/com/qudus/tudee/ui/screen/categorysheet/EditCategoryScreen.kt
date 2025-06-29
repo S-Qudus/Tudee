@@ -208,7 +208,7 @@ fun EditCategorySheetContent(
                             }) {
                                 Icon(
                                     painter = painterResource(R.drawable.icon_pencil_edit),
-                                    contentDescription = stringResource(R.string.edit_image),
+                                    contentDescription = stringResource(R.string.edit_image) ,
                                     modifier = Modifier
                                         .clip(RoundedCornerShape(12.dp))
                                         .background(Theme.color.surfaceHigh)
