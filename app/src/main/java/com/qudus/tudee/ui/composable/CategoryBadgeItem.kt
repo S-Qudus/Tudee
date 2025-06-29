@@ -42,22 +42,12 @@ fun CategoryBadgeItem(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Box {
-            Box(
-                modifier = Modifier
-                    .size(78.dp)
-                    .clip(CircleShape)
-                    .background(color = Theme.color.surfaceHigh, shape = CircleShape)
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = ripple(color = Theme.color.primaryVariant),
-                        enabled = isClickable,
-                        onClick = { onItemClick(id) }
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                contentImage()
-            }
-
+            CategoryIcon(
+                isClickable = isClickable,
+                onItemClick = onItemClick,
+                id = id,
+                contentImage = contentImage
+            )
             badge()
         }
 
@@ -66,6 +56,31 @@ fun CategoryBadgeItem(
             style = Theme.textStyle.label.small,
             color = Theme.color.body
         )
+    }
+}
+
+@Composable
+fun CategoryIcon(
+    modifier: Modifier = Modifier,
+    isClickable: Boolean = false,
+    onItemClick: (Long) -> Unit = {},
+    id: Long = 0,
+    contentImage: @Composable (() -> Unit),
+) {
+    Box(
+        modifier = modifier
+            .size(78.dp)
+            .clip(CircleShape)
+            .background(color = Theme.color.surfaceHigh, shape = CircleShape)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = ripple(color = Theme.color.primaryVariant),
+                enabled = isClickable,
+                onClick = { onItemClick(id) }
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        contentImage()
     }
 }
 

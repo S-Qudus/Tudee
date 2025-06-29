@@ -15,12 +15,15 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.state.PriorityUiState
+import com.qudus.tudee.ui.state.getColor
+import com.qudus.tudee.ui.state.getIcon
+import com.qudus.tudee.ui.state.getLabel
 
 @Composable
 fun PriorityBadge(priority: PriorityUiState, modifier: Modifier = Modifier) {
     Surface(
         color = priority.getColor(),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(100.dp),
         modifier = modifier
     ) {
         Row(
@@ -36,7 +39,7 @@ fun PriorityBadge(priority: PriorityUiState, modifier: Modifier = Modifier) {
             Text(
                 text = priority.getLabel(),
                 color = Theme.color.onPrimary,
-                style = MaterialTheme.typography.labelSmall,
+                style = Theme.textStyle.label.small,
                 modifier = Modifier.padding(start = 2.dp)
 
             )

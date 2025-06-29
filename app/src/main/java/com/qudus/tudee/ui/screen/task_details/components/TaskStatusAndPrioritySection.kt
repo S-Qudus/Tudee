@@ -8,20 +8,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.component.priority.PriorityBadge
-import com.qudus.tudee.ui.screen.task_details.TaskDetailsUiState
+import com.qudus.tudee.ui.state.PriorityUiState
+import com.qudus.tudee.ui.state.TaskStatusUiState
+import com.qudus.tudee.ui.state.getBackgroundColor
+import com.qudus.tudee.ui.state.getTextColor
+import com.qudus.tudee.ui.util.extension.toStringResource
 
 @Composable
-fun TaskStatusAndPrioritySection(taskDetailsUiState: TaskDetailsUiState) {
+fun TaskStatusAndPrioritySection(
+    taskStatusUiState: TaskStatusUiState, priorityUiState: PriorityUiState
+) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TaskStatusBadge(
-            taskStatusUiState = taskDetailsUiState.taskUiState.taskStatusUiState,
-            modifier = Modifier.height(28.dp)
+            modifier = Modifier.height(28.dp),
+            backgroundColor = taskStatusUiState.getBackgroundColor(),
+            textColor = taskStatusUiState.getTextColor(),
+            title = taskStatusUiState.status.toStringResource()
         )
         PriorityBadge(
-            priority = taskDetailsUiState.taskUiState.taskPriority,
+            priority = priorityUiState,
             modifier = Modifier.height(28.dp)
         )
     }

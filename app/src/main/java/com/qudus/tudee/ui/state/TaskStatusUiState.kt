@@ -12,28 +12,27 @@ enum class TaskStatusUiState(@StringRes val status: Int) {
     IN_PROGRESS(R.string.in_progress),
     DONE(R.string.done);
 
-    @Composable
-    fun getTextColor(): Color = when (this) {
-        TODO -> Theme.color.yellowAccent
-        IN_PROGRESS -> Theme.color.purpleAccent
-        DONE -> Theme.color.greenAccent
-    }
-
-    @Composable
-    fun getBackgroundColor(): Color = when (this) {
-        TODO -> Theme.color.yellowVariant
-        IN_PROGRESS -> Theme.color.purpleVariant
-        DONE -> Theme.color.greenVariant
-    }
-
-    @Composable
-    fun getStatusText(): String {
-       return this.status.toStringResource()
-    }
-
     fun getNextState(): TaskStatusUiState = when (this) {
         TODO -> IN_PROGRESS
         else -> DONE
     }
+}
 
+@Composable
+fun TaskStatusUiState.getTextColor(): Color = when (this) {
+    TaskStatusUiState.TODO -> Theme.color.yellowAccent
+    TaskStatusUiState.IN_PROGRESS -> Theme.color.purpleAccent
+    TaskStatusUiState.DONE -> Theme.color.greenAccent
+}
+
+@Composable
+fun TaskStatusUiState.getBackgroundColor(): Color = when (this) {
+    TaskStatusUiState.TODO -> Theme.color.yellowVariant
+    TaskStatusUiState.IN_PROGRESS -> Theme.color.purpleVariant
+    TaskStatusUiState.DONE -> Theme.color.greenVariant
+}
+
+@Composable
+fun TaskStatusUiState.getStatusText(): String {
+    return this.status.toStringResource()
 }

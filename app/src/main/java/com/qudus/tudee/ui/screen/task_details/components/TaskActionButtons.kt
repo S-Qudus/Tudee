@@ -1,16 +1,10 @@
 package com.qudus.tudee.ui.screen.task_details.components
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandIn
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
-import androidx.compose.animation.shrinkOut
 import androidx.compose.animation.shrinkVertically
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -18,21 +12,23 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.composable.TudeeButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.task_details.TaskDetailsUiState
-import com.qudus.tudee.ui.util.extension.toPainter
-import com.qudus.tudee.ui.util.extension.toStringResource
 
 @Composable
 fun TaskActionButtons(
-    state: TaskDetailsUiState,
     onEditTaskClick: () -> Unit,
-    onMoveTaskStatusClick: () -> Unit
+    onMoveTaskStatusClick: () -> Unit,
+    visible: Boolean,
+    editButtonIcon: Painter,
+    editButtonIconContentDescription: String,
+    moveTaskStatusButtonTitle: String,
 ) {
     AnimatedVisibility(
-        visible = state.isTaskCompleted.not(),
+        visible = visible,
         enter = fadeIn() + expandVertically(),
         exit = fadeOut() + shrinkVertically()
     ) {
@@ -47,8 +43,8 @@ fun TaskActionButtons(
                 onClick = onEditTaskClick,
             ) {
                 Icon(
-                    painter = state.editIcon.toPainter(),
-                    contentDescription = state.editIconDescription,
+                    painter = editButtonIcon,
+                    contentDescription = editButtonIconContentDescription,
                     tint = Theme.color.primary
                 )
             }
@@ -60,9 +56,7 @@ fun TaskActionButtons(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = "${state.moveButtonTitle.toStringResource()} ${
-                        state.taskUiState.taskStatusUiState.getNextState().getStatusText()
-                    }",
+                    text = moveTaskStatusButtonTitle,
                     style = Theme.textStyle.label.large,
                     color = Theme.color.primary
                 )

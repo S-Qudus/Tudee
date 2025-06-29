@@ -16,19 +16,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.state.TaskStatusUiState
+import com.qudus.tudee.ui.state.getBackgroundColor
+import com.qudus.tudee.ui.state.getTextColor
 import com.qudus.tudee.ui.util.extension.toStringResource
 
 @Composable
 fun TaskStatusBadge(
-    taskStatusUiState: TaskStatusUiState,
-    modifier: Modifier = Modifier
+    backgroundColor: Color,
+    textColor: Color,
+    title: String,
+    modifier: Modifier = Modifier,
 ) {
-    val animatedBackgroundColor by animateColorAsState(targetValue = taskStatusUiState.getBackgroundColor())
-    val animatedColor by animateColorAsState(targetValue = taskStatusUiState.getTextColor())
+    val animatedBackgroundColor by animateColorAsState(targetValue = backgroundColor)
+    val animatedColor by animateColorAsState(targetValue = textColor)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -44,7 +49,7 @@ fun TaskStatusBadge(
                 .background(animatedColor),
         )
         Text(
-            text = taskStatusUiState.status.toStringResource(),
+            text = title,
             style = Theme.textStyle.label.small,
             color = animatedColor,
         )
@@ -57,8 +62,20 @@ fun TaskStatusBadgePreview() {
     Column(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        TaskStatusBadge(TaskStatusUiState.TODO)
-        TaskStatusBadge(TaskStatusUiState.IN_PROGRESS)
-        TaskStatusBadge(TaskStatusUiState.DONE)
+        TaskStatusBadge(
+            backgroundColor = TaskStatusUiState.TODO.getBackgroundColor(),
+            textColor = TaskStatusUiState.TODO.getTextColor(),
+            title = TaskStatusUiState.TODO.status.toStringResource()
+        )
+        TaskStatusBadge(
+            backgroundColor = TaskStatusUiState.IN_PROGRESS.getBackgroundColor(),
+            textColor = TaskStatusUiState.IN_PROGRESS.getTextColor(),
+            title = TaskStatusUiState.IN_PROGRESS.status.toStringResource()
+        )
+        TaskStatusBadge(
+            backgroundColor = TaskStatusUiState.DONE.getBackgroundColor(),
+            textColor = TaskStatusUiState.DONE.getTextColor(),
+            title = TaskStatusUiState.DONE.status.toStringResource()
+        )
     }
 }

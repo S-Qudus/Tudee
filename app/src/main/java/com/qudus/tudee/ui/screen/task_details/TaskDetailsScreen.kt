@@ -1,14 +1,15 @@
 package com.qudus.tudee.ui.screen.task_details
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
@@ -19,6 +20,7 @@ import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 import com.qudus.tudee.ui.screen.task_details.components.TaskActionButtons
 import com.qudus.tudee.ui.screen.task_details.components.TaskDetailsDivider
 import com.qudus.tudee.ui.screen.task_details.components.TaskStatusAndPrioritySection
+import com.qudus.tudee.ui.state.getStatusText
 import com.qudus.tudee.ui.util.extension.toPainter
 import com.qudus.tudee.ui.util.extension.toStringResource
 import org.koin.androidx.compose.koinViewModel
@@ -61,19 +63,20 @@ fun TaskDetailsContent(
             }
             item {
                 CategoryIcon(
-                    iconPainter = state.taskUiState.taskCategory.image.toPainter(),
-                    title = state.taskUiState.taskCategory.title,
-                    isClickable = false,
-                    modifier = Modifier
-                        .padding(top = 12.dp, bottom = 8.dp)
-                        .size(56.dp)
-                )
+                    modifier = Modifier.padding(top = 12.dp, bottom = 8.dp)
+                ) {
+                    Image(
+                        painter = state.taskUiState.taskCategory.image.toPainter(),
+                        contentDescription = state.taskUiState.taskCategory.title,
+                        contentScale = ContentScale.Crop,
+                    )
+                }
             }
             item {
                 Text(
                     text = state.taskUiState.taskTitle,
                     style = Theme.textStyle.title.medium,
-                    color = Theme.color.title
+                    color = Theme.color.title,
                 )
             }
             item {
@@ -87,13 +90,21 @@ fun TaskDetailsContent(
                 TaskDetailsDivider()
             }
             item {
-                TaskStatusAndPrioritySection(state)
+                TaskStatusAndPrioritySection(
+                    taskStatusUiState = state.taskUiState.taskStatusUiState,
+                    priorityUiState = state.taskUiState.taskPriority
+                )
             }
             item {
                 TaskActionButtons(
-                    state = state,
+                    visible = state.isTaskCompleted.not(),
+                    editButtonIcon = state.editIcon.toPainter(),
+                    editButtonIconContentDescription = state.editIconDescription,
+                    moveTaskStatusButtonTitle = "${state.moveButtonTitle.toStringResource()} ${
+                        state.taskUiState.taskStatusUiState.getNextState().getStatusText()
+                    }",
                     onEditTaskClick = onEditTaskClick,
-                    onMoveTaskStatusClick = onMoveTaskStatusClick
+                    onMoveTaskStatusClick = onMoveTaskStatusClick,
                 )
             }
         }
