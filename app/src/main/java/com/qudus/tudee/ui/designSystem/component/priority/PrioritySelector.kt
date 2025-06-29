@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component
+package com.qudus.tudee.ui.designSystem.component.priority
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -23,13 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.state.PriorityUiState
-import com.qudus.tudee.ui.util.getColor
 
 @Composable
 fun PrioritySelector(
@@ -43,7 +41,7 @@ fun PrioritySelector(
     ) {
         PriorityUiState.entries.forEach { priority ->
             val isSelected = priority == selectedPriority
-            val targetColor = if (isSelected) priority.getColor() else  Theme.color.surfaceLow
+            val targetColor = if (isSelected) priority.getColor() else Theme.color.surfaceLow
             val contentColor = if (isSelected) Theme.color.onPrimary else Theme.color.emojiTint
             val backgroundColor by animateColorAsState(
                 targetValue = targetColor,
@@ -53,8 +51,8 @@ fun PrioritySelector(
 
             PriorityItem(
                 backgroundColor = backgroundColor,
-                iconRes = priority.iconRes,
-                labelResId = priority.labelResId,
+                iconRes = priority.getIcon(),
+                labelResId = priority.getLabel(),
                 contentColor = contentColor,
                 isSelected = isSelected,
                 onClick = { onPrioritySelected(priority) }
@@ -66,8 +64,8 @@ fun PrioritySelector(
 @Composable
 private fun PriorityItem(
     backgroundColor: Color,
-    iconRes: Int,
-    labelResId: Int,
+    iconRes: Painter,
+    labelResId: String,
     contentColor: Color,
     isSelected: Boolean,
     onClick: () -> Unit
@@ -85,23 +83,20 @@ private fun PriorityItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                painter = painterResource(iconRes),
+                painter = iconRes,
                 contentDescription = null,
                 tint = contentColor,
                 modifier = Modifier.size(16.dp)
             )
             Spacer(modifier = Modifier.width(6.dp))
             Text(
-                text = stringResource(labelResId),
+                text = labelResId,
                 color = contentColor,
                 style = MaterialTheme.typography.labelMedium
             )
         }
     }
 }
-
-
-
 
 @PreviewLightDark
 @Composable
