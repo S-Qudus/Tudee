@@ -3,7 +3,6 @@ package com.qudus.tudee.ui.composable.confirm
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -122,15 +121,15 @@ fun ConfirmDelete(
 @Preview(showSystemUi = true)
 @Composable
 private fun ConfirmDeletePreview() {
-//    TudeeBottomSheet(isSheetOpen = true , onDismissRequest = {}) {
+    TudeeBottomSheet(isSheetOpen = true , onDismissRequest = {}) {
         ConfirmDelete(
             title = stringResource(R.string.are_you_sure),
             description = stringResource(R.string.this_action_cannot_be_undone),
-            image = painterResource(id = R.drawable.shy_tudee),
+            image = painterResource(id = R.mipmap.image_confirm_delete),
             onCancel = {},
             onConfirmDelete = {}
         )
 
-  //  }
+    }
 
 }
