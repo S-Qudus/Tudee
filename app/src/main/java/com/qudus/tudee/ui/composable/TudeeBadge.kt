@@ -55,8 +55,8 @@ fun TudeeCheckBadge(visible: Boolean, modifier: Modifier = Modifier) {
     AnimatedVisibility(
         modifier = modifier,
         visible = visible,
-        enter = scaleIn(animationSpec =  spring(stiffness = Spring.StiffnessMedium)),
-        exit = scaleOut(animationSpec =  spring(stiffness = Spring.StiffnessMedium))
+        enter = scaleIn(animationSpec =  spring(stiffness = Spring.StiffnessMediumLow)),
+        exit = scaleOut(animationSpec =  spring(stiffness = Spring.StiffnessMediumLow))
     ) {
         Icon(
             modifier = Modifier

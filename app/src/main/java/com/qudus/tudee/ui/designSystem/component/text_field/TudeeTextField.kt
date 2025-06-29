@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.designSystem.component.text_field
 
+import android.R.attr.enabled
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,14 +19,18 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,15 +42,18 @@ fun TudeeTextField(
     modifier: Modifier = Modifier,
     value: String,
     type: TudeeTextFieldType,
+    readOnly: Boolean = false,
+    enabled: Boolean = true,
+    primaryBordColor: Color = Theme.color.primary,
     onValueChange: (String) -> Unit,
     placeholder: String,
-    keyboardAction: ImeAction = ImeAction.Default,
-    onKeyboardAction: () -> Unit = {},
+    imeAction: ImeAction = ImeAction.Default,
+    keyboardAction: KeyboardActions = KeyboardActions(),
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
     val borderColor by animateColorAsState(
-        targetValue = if (isFocused) Theme.color.primary else Theme.color.stroke,
+        targetValue = if (isFocused && !readOnly) primaryBordColor else Theme.color.stroke,
         label = "border color"
     )
     val iconTint by animateColorAsState(
@@ -58,9 +66,11 @@ fun TudeeTextField(
             hintText = placeholder,
             maxLength = type.maxLength,
             onTextChange = onValueChange,
+            readOnly = readOnly,
+            enabled = enabled,
             interactionSource = interactionSource,
-            imeAction = keyboardAction,
-            onImeAction = onKeyboardAction,
+            imeAction = imeAction,
+            keyboardAction = keyboardAction,
             maxLines = type.maxLines,
             modifier = modifier
                 .border(1.dp, color = borderColor, shape = RoundedCornerShape(16.dp))
@@ -73,11 +83,13 @@ fun TudeeTextField(
             hintText = placeholder,
             icon = type.icon,
             iconTint = iconTint,
+            enabled = enabled,
             maxLength = type.maxLength,
             onTextChange = onValueChange,
+            readOnly = readOnly,
             interactionSource = interactionSource,
-            imeAction = keyboardAction,
-            onImeAction = onKeyboardAction,
+            imeAction = imeAction,
+            keyboardAction = keyboardAction,
             maxLines = type.maxLines,
             modifier = modifier
                 .border(1.dp, color = borderColor, shape = RoundedCornerShape(16.dp))
@@ -94,9 +106,11 @@ private fun TextWithIcon(
     iconTint: Color,
     maxLength: Int,
     onTextChange: (String) -> Unit,
+    readOnly: Boolean = false,
+    enabled: Boolean = true,
     interactionSource: MutableInteractionSource,
     imeAction: ImeAction,
-    onImeAction: () -> Unit,
+    keyboardAction: KeyboardActions = KeyboardActions(),
     maxLines: Int,
     modifier: Modifier = Modifier,
 ) {
@@ -124,10 +138,12 @@ private fun TextWithIcon(
             value = value,
             modifier = Modifier
                 .weight(1F),
+            readOnly = readOnly,
+            enabled = enabled,
             onTextChange = onTextChange,
             interactionSource = interactionSource,
             imeAction = imeAction,
-            onImeAction = onImeAction,
+            keyboardAction = keyboardAction,
             hintText = hintText,
             maxLines = maxLines,
             maxLength = maxLength
@@ -141,14 +157,26 @@ private fun TextField(
     onTextChange: (String) -> Unit,
     interactionSource: MutableInteractionSource,
     imeAction: ImeAction,
-    onImeAction: () -> Unit,
+    keyboardAction: KeyboardActions = KeyboardActions(),
     hintText: String,
+    readOnly: Boolean = false,
+    enabled: Boolean = true,
     modifier: Modifier = Modifier,
     maxLines: Int = 1,
     maxLength: Int = 100,
 ) {
+    val defaultVerticalPadding = 12.dp
+    var innerVerticalPadding by remember { mutableStateOf(defaultVerticalPadding) }
+    var lineCount by remember { mutableIntStateOf(0) }
+
+    LaunchedEffect(lineCount) {
+        innerVerticalPadding = if (lineCount >= maxLines) 0.dp else defaultVerticalPadding
+
+    }
+
     BasicTextField(
         value = value,
+        enabled = enabled,
         onValueChange = {
             onTextChange(it.take(maxLength))
         },
@@ -158,17 +186,26 @@ private fun TextField(
         textStyle = Theme.textStyle.body.medium.copy(color = Theme.color.body),
         interactionSource = interactionSource,
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
-        keyboardActions = KeyboardActions(onAny = { onImeAction() }),
+        keyboardActions = keyboardAction,
+        readOnly = readOnly,
         decorationBox = { innerTextField ->
-            if (value.isEmpty()) {
-                Text(
-                    text = hintText,
-                    style = Theme.textStyle.label.medium,
-                    color = Theme.color.hint
-                )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = innerVerticalPadding)
+            ) {
+                if (value.isEmpty()) {
+                    Text(
+                        text = hintText,
+                        style = Theme.textStyle.label.medium,
+                        color = Theme.color.hint
+                    )
+                }
+                innerTextField()
             }
-            innerTextField()
         }
+        ,
+        onTextLayout = {lineCount = it.lineCount }
     )
 }
 
@@ -184,8 +221,7 @@ fun PreviewTudeeTextFieldWithIcon() {
         type = TudeeTextFieldType.WithIcon(
             icon = painterResource(id = R.drawable.icon_user)
         ),
-        keyboardAction = ImeAction.Done,
-        onKeyboardAction = {},
+        imeAction = ImeAction.Done,
     )
 }
 
@@ -205,7 +241,6 @@ fun PreviewTudeeTextFieldParagraph() {
                 "\n" +
                 "Each screen is expected to have its own ViewModel. The ViewModel should depend on an abstraction called TasksServices, which will provide domain-level models called entities. The implementation of TasksServices should utilize DAOs from Room to retrieve and map data into domain entities.\n",
         type = TudeeTextFieldType.Paragraph(),
-        keyboardAction = ImeAction.Default,
-        onKeyboardAction = {},
+        imeAction = ImeAction.Default,
     )
 }
