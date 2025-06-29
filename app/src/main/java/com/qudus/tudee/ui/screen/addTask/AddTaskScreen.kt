@@ -299,8 +299,13 @@ private fun PrimaryActionsSection(
             onClick = interaction::onAddTaskClicked,
             isLoading = state.isLoading,
             isEnabled = state.isAddButtonEnabled,
-            title = stringResource(R.string.add),
-        )
+        ){
+            Text(
+                text =  stringResource(R.string.add),
+                style = Theme.textStyle.label.large,
+                color = Theme.color.onPrimary
+            )
+        }
 
         TudeeButton(
             modifier = Modifier.fillMaxWidth(),
@@ -308,7 +313,12 @@ private fun PrimaryActionsSection(
             isLoading = false,
             isEnabled = true,
             hasBorder = true,
-            title = stringResource(R.string.cancel),
-        )
+        ){
+            Text(
+                text = stringResource(R.string.cancel),
+                style = Theme.textStyle.label.large,
+                color = Theme.color.primary
+            )
+        }
     }
 }
