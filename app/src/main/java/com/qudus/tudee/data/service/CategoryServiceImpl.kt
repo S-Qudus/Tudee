@@ -24,7 +24,6 @@ class CategoryServiceImpl(
     }
 
     override fun getCategories(): Flow<List<Category>> {
-        Log.e("bk", "getCategories: ${categoryDao.getCategories()}")
         return  categoryDao.getCategories().map { it.map { it.toCategory() } }
     }
 
