@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SplashScreen.Tudee" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#0D0C14</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/tudee_logo</item>
+    </style>
+</resources>
