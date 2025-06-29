@@ -17,6 +17,29 @@
     <string name="in_progress">قيد التنفيذ</string>
     <string name="done">مكتملة</string>
 
+    <!-- Overview Card Status Messages -->
+    <string name="tadaa_title">تادا! 🎉</string>
+    <string name="stay_working_title">واصل العمل! 😃</string>
+    <string name="nothing_on_list_title">لا توجد مهام في قائمتك… 🤔</string>
+    <string name="zero_progress_title">لا تقدم؟! 😤</string>
+    
+    <string name="amazing_work_message">أنت تقوم بعمل رائع!!! تادي فخور بك.</string>
+    <string name="keep_going_message">لقد أنجزت %1$d من أصل %2$d مهام واصل التقدم!</string>
+    <string name="fill_day_message">املأ يومك بشيء رائع.</string>
+    <string name="fill_day_message_short">املأ يومك بشيء رائع.</string>
+    <string name="back_to_work_message">أنت فقط تتصفح، لا تعمل. تادي يراقب. عد للعمل!!!</string>
+    
+    <string name="overview">نظرة عامة</string>
+    <string name="to_do">للتنفيذ</string>
 
+    <!-- Task Date Labels -->
+    <string name="today">اليوم</string>
+    <string name="yesterday">أمس</string>
+    <string name="tomorrow">غداً</string>
+
+    <!-- Task Navigation -->
+    <string name="view_all_done_tasks">عرض جميع المهام المكتملة</string>
+    <string name="view_all_in_progress_tasks">عرض جميع المهام قيد التنفيذ</string>
+    <string name="view_all_todo_tasks">عرض جميع المهام للتنفيذ</string>
 
 </resources>

@@ -31,4 +31,10 @@ data class HomeUiState(
     val hasUpcomingTasks: Boolean get() = tasks.hasUpcomingTasks
     val progressPercentage: Float get() = overview.progressPercentage
     val taskCounts: List<Pair<Int, String>> get() = tasks.taskCounts
+    
+    // Overview Card specific properties
+    val completedTasksCount: Int get() = tasks.completedTasksCount
+    val inProgressTasksCount: Int get() = tasks.inProgressTasksCount
+    val todoTasksCount: Int get() = tasks.todoTasksCount
+    val todayDate: LocalDateTime get() = overview.todayDate
 }

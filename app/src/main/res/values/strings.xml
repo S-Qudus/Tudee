@@ -70,4 +70,25 @@
     <string name="overview">Overview</string>
     <string name="keep_going">Keep going!</string>
 
+    <!-- Overview Card Status Messages -->
+    <string name="tadaa_title">Tadaa! 🎉</string>
+    <string name="stay_working_title">Stay working! 😃</string>
+    <string name="nothing_on_list_title">Nothing on your list… 🤔</string>
+    <string name="zero_progress_title">Zero progress?! 😤</string>
+    
+    <string name="amazing_work_message">You\'re doing amazing!!! Tudee is proud of you.</string>
+    <string name="keep_going_message">You\'ve completed %1$d out of %2$d tasks Keep going!</string>
+    <string name="fill_day_message_short">Fill your day with something awesome.</string>
+    <string name="back_to_work_message">You just scrolling, not working. Tudee is watching. Back to work!!!</string>
+
+    <!-- Task Date Labels -->
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="tomorrow">Tomorrow</string>
+
+    <!-- Task Navigation -->
+    <string name="view_all_done_tasks">View all done tasks</string>
+    <string name="view_all_in_progress_tasks">View all in progress tasks</string>
+    <string name="view_all_todo_tasks">View all todo tasks</string>
+
 </resources>

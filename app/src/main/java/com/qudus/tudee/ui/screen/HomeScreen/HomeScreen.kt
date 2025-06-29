@@ -1,8 +1,8 @@
 package com.qudus.tudee.ui.screen.HomeScreen
 
-import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -37,6 +37,7 @@ import com.qudus.tudee.ui.screen.HomeScreen.component.HomeHeaderSection
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(
@@ -55,7 +56,8 @@ fun HomeScreen(
                 isLoading = false,
                 icon = painterResource(id = R.drawable.icon_note_add),
                 contentDescription = stringResource(R.string.add_task),
-                hasShadow = true
+                hasShadow = true,
+                modifier = Modifier.size(64.dp)
             )
         },
         bottomBar = {
@@ -72,7 +74,7 @@ fun HomeScreen(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(color = Theme.color.primary)
                     }
                 }
                 !state.hasTasks -> {
@@ -84,12 +86,15 @@ fun HomeScreen(
                     LazyColumn(
                         state = scrollState,
                         modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(bottom = Dimension.regular)
+                        contentPadding = PaddingValues(bottom = Theme.dimension.regular)
                     ) {
                         item {
                             HomeHeaderSection(
                                 isDarkTheme = state.isDarkTheme,
-                                onThemeToggle = { viewModel.onThemeToggle() }
+                                onThemeToggle = { viewModel.onThemeToggle() },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(Theme.color.primary)
                             )
                         }
                         item {
@@ -101,30 +106,39 @@ fun HomeScreen(
                                         .background(Theme.color.primary)
                                 )
                                 HomeOverviewCard(
-                                    completedTasks = state.finishedTaskCount,
-                                    totalTasks = state.allTaskCount
+                                    completedTasks = state.completedTasksCount,
+                                    totalTasks = state.allTaskCount,
+                                    inProgressTasks = state.inProgressTasksCount,
+                                    todayDate = viewModel.getFormattedDate(),
+                                    modifier = Modifier
+                                        .padding(horizontal = Theme.dimension.medium)
                                 )
                             }
                         }
 
-                        if (state.hasActiveTasks) {
-                            item {
+                        if (state.hasActiveTasks && state.inProgressTasksCount > 0) {
+                            stickyHeader {
                                 TaskSection(
                                     title = stringResource(R.string.in_progress),
-                                    taskCount = state.activeTasks.size,
-                                    tasks = state.activeTasks,
-                                    onTaskClick = { taskId -> viewModel.onTaskClicked(taskId) }
+                                    taskCount = state.inProgressTasksCount,
+                                    tasks = state.activeTasks.filter { it.state.name == "IN_PROGRESS" },
+                                    onTaskClick = { taskId -> viewModel.onTaskClicked(taskId) },
+                                    onNavigateToTaskScreen = { /* Navigate to in progress tasks */ },
+                                    modifier = Modifier.background(Theme.color.surface)
                                 )
                             }
                         }
 
+                        // TODO Tasks Section
                         if (state.hasUpcomingTasks) {
-                            item {
+                            stickyHeader {
                                 TaskSection(
                                     title = stringResource(R.string.to_do),
-                                    taskCount = state.upcomingTasks.size,
+                                    taskCount = state.todoTasksCount,
                                     tasks = state.upcomingTasks,
-                                    onTaskClick = { taskId -> viewModel.onTaskClicked(taskId) }
+                                    onTaskClick = { taskId -> viewModel.onTaskClicked(taskId) },
+                                    onNavigateToTaskScreen = { /* Navigate to todo tasks */ },
+                                    modifier = Modifier.background(Theme.color.surface)
                                 )
                             }
                         }

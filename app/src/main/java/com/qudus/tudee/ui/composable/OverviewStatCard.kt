@@ -9,6 +9,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
@@ -22,16 +24,16 @@ import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @Composable
-fun TaskCountByStatusCard(
+fun StatusCardItem(
     count: Int,
     label: String,
     color: Color,
     icon: Painter,
     modifier: Modifier = Modifier,
     backgroundColor: Color = color.copy(alpha = 0.15f),
-    iconBackgroundColor: Color = Theme.color.surfaceHigh.copy(alpha = 0.24f),
-    iconBorderColor: Color = Theme.color.stroke,
-    contentPadding: PaddingValues = PaddingValues(12.dp),
+    iconBackgroundColor: Color = Color.White.copy(alpha = 0.12f),
+    iconBorderColor: Color = Color.White.copy(alpha = 0.12f),
+    contentPadding: PaddingValues = PaddingValues(16.dp),
     iconSize: Dp = 24.dp,
     iconContainerSize: Dp = 40.dp,
     iconContainerPadding: Dp = 8.dp
@@ -39,14 +41,43 @@ fun TaskCountByStatusCard(
     Box(
         modifier = modifier
             .background(backgroundColor, shape = RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(20.dp))
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.image_overview_card_background),
-            contentDescription = null,
+        Box(
             modifier = Modifier
-                .size(39.dp, 38.dp)
                 .align(Alignment.TopEnd)
-        )
+                .offset(x = 40.dp, y = (-41).dp)
+                .alpha(0.16f)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(78.dp)
+                    .border(
+                        width = 1.dp,
+                        color = Color.White.copy(alpha = 0.87f),
+                        shape = RoundedCornerShape(200.dp)
+                    )
+            )
+            Box(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(45.09.dp)
+                    .background(
+                        color = Color.White.copy(alpha = 0.87f),
+                        shape = androidx.compose.foundation.shape.CircleShape
+                    )
+            )
+            Box(
+                modifier = Modifier
+                    .padding(bottom = 3.9.dp, start = 11.7.dp)
+                    .align(Alignment.BottomStart)
+                    .size(7.8.dp)
+                    .background(
+                        color = Color.White.copy(alpha = 0.87f),
+                        shape = androidx.compose.foundation.shape.CircleShape
+                    )
+            )
+        }
 
         Column(
             modifier = Modifier
@@ -55,6 +86,7 @@ fun TaskCountByStatusCard(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            // Icon Container
             Box(
                 modifier = Modifier
                     .border(
@@ -77,30 +109,20 @@ fun TaskCountByStatusCard(
                 )
             }
 
+            // Count Text
             Text(
                 text = "$count",
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                color = color
+                style = Theme.textStyle.headline.medium,
+                color = Theme.color.onPrimary,
+                fontWeight = FontWeight.Bold
             )
 
+            // Label Text
             Text(
                 text = label,
                 style = Theme.textStyle.label.small,
-                color = color
+                color = Theme.color.onPrimaryCaption
             )
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun TaskCountByStatusCardPreview() {
-    TaskCountByStatusCard(
-        count = 5,
-        label = stringResource(id = R.string.done),
-        color = Theme.color.greenAccent,
-        icon = painterResource(id = R.drawable.icon_overview_card_completed),
-        modifier = Modifier.width(120.dp)
-    )
-} 

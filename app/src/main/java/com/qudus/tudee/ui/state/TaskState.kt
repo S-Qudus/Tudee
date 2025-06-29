@@ -12,9 +12,13 @@ data class TaskState(
     val hasActiveTasks: Boolean = activeTasks.isNotEmpty()
     val hasUpcomingTasks: Boolean = upcomingTasks.isNotEmpty()
 
+    val completedTasksCount: Int = activeTasks.count { it.state == State.COMPLETED }
+    val inProgressTasksCount: Int = activeTasks.count { it.state == State.IN_PROGRESS }
+    val todoTasksCount: Int = upcomingTasks.size
+
     val taskCounts: List<Pair<Int, String>> = listOf(
-        activeTasks.count { it.state == State.COMPLETED } to "COMPLETED",
-        activeTasks.count { it.state == State.IN_PROGRESS } to "IN_PROGRESS",
-        upcomingTasks.size to "TODO"
+        completedTasksCount to "COMPLETED",
+        inProgressTasksCount to "IN_PROGRESS",
+        todoTasksCount to "TODO"
     )
 } 
