@@ -17,6 +17,12 @@
     <string name="in_progress">قيد التنفيذ</string>
     <string name="done">مكتملة</string>
     <string name="delete">حذف</string>
+    <string name="add">اضافة</string>
+    <string name="category_title_cannot_be_empty">العنوان لا يمكن أن يكون فارغًا</string>
+    <string name="category_title_must_start_with_letter">العنوان يجب أن يبدأ بحرف</string>
+    <string name="category_title_too_short">العنوان يجب أن يحتوي على 3 أحرف على الأقل</string>
+
+
     <!-- Category names -->
     <string name="category_image_desc">صورة الصنف</string>
     <string name="add_new_category">اضافة صنف جديد</string>
