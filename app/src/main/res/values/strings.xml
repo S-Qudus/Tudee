@@ -21,26 +21,23 @@
     <string name="failed_to_create_task">Failed to create task</string>
 
     <!-- Category names -->
-    <string name="cooking" translatable="false">Cooking</string>
- CategoryTaskComponent -->
-
-        <string name="coding" translatable="false">Coding</string>
-        <string name="agriculture" translatable="false">Agriculture</string>
-        <string name="traveling" translatable="false">Traveling</string>
-        <string name="cleaning" translatable="false">Cleaning</string>
-        <string name="fixing_bugs" translatable="false">Fixing bugs</string>
-        <string name="adoration" translatable="false">Adoration</string>
-        <string name="self_care" translatable="false">Self-care</string>
-        <string name="budgeting" translatable="false">Budgeting</string>
-        <string name="work" translatable="false">Work</string>
-        <string name="event" translatable="false">Event</string>
-        <string name="entertainment" translatable="false">Entertainment</string>
-        <string name="gym" translatable="false">Gym</string>
-        <string name="medical" translatable="false">Medical</string>
-        <string name="shopping" translatable="false">Shopping</string>
-        <string name="education" translatable="false">Education</string>
-        <string name="family_and_friend" translatable="false">Family &amp; friend</string>
-
+    <string name="cooking">Cooking</string>
+    <string name="coding">Coding</string>
+    <string name="agriculture">Agriculture</string>
+    <string name="traveling">Traveling</string>
+    <string name="cleaning">Cleaning</string>
+    <string name="fixing_bugs">Fixing bugs</string>
+    <string name="adoration">Adoration</string>
+    <string name="self_care">Self-care</string>
+    <string name="budgeting">Budgeting</string>
+    <string name="work">Work</string>
+    <string name="event">Event</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="gym">Gym</string>
+    <string name="medical">Medical</string>
+    <string name="shopping">Shopping</string>
+    <string name="education">Education</string>
+    <string name="family_and_friend">Family &amp; friend</string>
 
 
    <!-- CategoryTaskComponent -->
@@ -76,5 +73,28 @@
 
     <string name="nothing_on_list">Nothing on your list…</string>
     <string name="fill_day_message">Fill your day with something\nawesome</string>
+    <string name="priority_high" />
+    <string name="priority_medium" />
+    <string name="priority_low" />
+    <string name="add_new_task">Add new task</string>
+    <string name="category">Category</string>
+    <string name="priority">Priority</string>
+    <string name="task_title">Task title</string>
+    <string name="description">Description</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
+    <string name="ok">OK</string>
+
+    <!--    Task Title Error Messages  -->
+    <string name="error_title_too_long">Title must be less than 100 characters.</string>
+    <string name="error_title_too_short">Title must be upper than 2 characters.</string>
+    <string name="error_title_invalid_start">Title must start with a letter.</string>
+    <string name="error_title_empty">Title cannot be empty.</string>
+    <string name="error_title_invalid">Title contains invalid characters.</string>
+
+    <!-- Category Error Messages -->
+    <string name="error_category_not_found">Category not found.</string>
+    <string name="error_category_failed_in_fetch">Failed to load categories. Please try again.</string>
 
 </resources>

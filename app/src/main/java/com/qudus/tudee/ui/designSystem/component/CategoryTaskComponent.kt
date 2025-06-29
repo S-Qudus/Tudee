@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.designSystem.component
+package com.qudus.tudee.designSystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -6,9 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -22,20 +23,22 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.component.priority.PriorityBadge
+import com.qudus.tudee.domain.entity.Priority
+import com.qudus.tudee.ui.designSystem.component.TudeeChip
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.state.PriorityUiState
-import com.qudus.tudee.ui.util.extension.toPainter
+import com.qudus.tudee.ui.util.getColorForPriority
+import com.qudus.tudee.ui.util.getIconForPriority
+import com.qudus.tudee.ui.util.getLabelForPriority
 
 @Composable
 fun CategoryTask(
     modifier: Modifier = Modifier,
     title: String,
     description: String?,
-    priorityLevel: PriorityUiState,
+    priorityLevel: Priority,
     onClick: () -> Unit,
-    date: String? = null,
-    taskRes: @Composable (Modifier) -> Unit,
+    dateText: String? = null,
+   taskRes: @Composable (Modifier) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -49,39 +52,28 @@ fun CategoryTask(
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            verticalAlignment = Alignment.CenterVertically
         ) {
             taskRes(Modifier.padding(8.dp))
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (!date.isNullOrBlank()) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(2.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(100.dp))
-                            .background(Theme.color.surface)
-                            .padding(horizontal = 8.dp, vertical = 6.dp)
-                    ) {
-                        Icon(
-                            painter = R.drawable.icon_calendar.toPainter(),
-                            contentDescription = "Calender",
-                            modifier = Modifier.size(12.dp),
-                            tint = Theme.color.body
-                        )
-                        Text(
-                            text = date ?: "",
-                            style = Theme.textStyle.label.small,
-                            color = Theme.color.body
-                        )
-                    }
-                }
-                PriorityBadge(priority = priorityLevel, modifier = Modifier.padding(8.dp))
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            if (dateText != null){
+                TudeeChip(
+                    label = dateText,
+                    icon = painterResource(id = R.drawable.icon_calendar),
+                    activeBackgroundColor = Theme.color.surface,
+                )
+                Spacer(modifier = Modifier.width(4.dp))
             }
+
+            TudeeChip(
+                label = getLabelForPriority(priorityLevel),
+                icon = getIconForPriority(priorityLevel),
+                activeBackgroundColor = getColorForPriority(priorityLevel),
+            )
         }
+
         CategoryTaskComponentInformation(
             modifier = modifier,
             title = title,
@@ -97,7 +89,7 @@ private fun CategoryTaskComponentInformation(
     title: String,
     description: String?,
 
-    ) {
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -128,10 +120,10 @@ private fun CategoryTaskPreview() {
     CategoryTask(
         title = stringResource(R.string.default_task_title),
         description = stringResource(R.string.default_task_description),
-        priorityLevel = PriorityUiState.MEDIUM,
+        priorityLevel = Priority.MEDIUM,
         onClick = {},
-        date = "12-03-2025",
-        taskRes = { modifier ->
+        taskRes = {
+            modifier ->
             Icon(
                 painter = painterResource(id = R.drawable.icon_category_book_open),
                 contentDescription = "Task Icon",
