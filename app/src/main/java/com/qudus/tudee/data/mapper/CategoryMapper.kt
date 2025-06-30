@@ -11,11 +11,11 @@ fun CategoryDto.toCategory(): Category {
         defaultCategoryType = defaultCategoryType
     )
 }
-fun Category.toEntity(): CategoryDto {
+fun Category.toDto(): CategoryDto {
     return CategoryDto(
         id = this.id,
         title = this.title,
         imagePath = this.imagePath,
-        isDefaultCategory = this.isDefaultCategory
+        defaultCategoryType =this.defaultCategoryType
     )
 }
