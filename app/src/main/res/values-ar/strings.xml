@@ -62,6 +62,14 @@
     <!-- Category Error Messages -->
     <string name="error_category_not_found">لم يتم العثور على الفئة.</string>
     <string name="error_category_failed_in_fetch">فشل في تحميل الفئات، يرجى المحاولة مرة أخرى.</string>
+    <string name="overwhelmed_with_tasks">مُرهق بالمهام؟</string>
+    <string name="let_s_bring_some_order_to_the_chaos_tudee_is_here_to_help_you_sort_plan_and_breathe_easier">دعنا نُرتب هذه الفوضى. تودي هنا لمساعدتك في التنظيم والتخطيط والتنفس بسهولة أكبر.</string>
+    <string name="uh_oh_procrastinating_again">أوه! تُماطل مرة أخرى</string>
+    <string name="let_s_complete_task_and_celebrate_together">دعنا نُكمل المهمة ونحتفل معاً.</string>
+    <string name="tudee_not_mad_just_a_little_disappointed_let_s_get_back_on_track_together">تودي ليس غاضباً… فقط مُحبط قليلاً، دعنا نعود إلى المسار الصحيح معاً.</string>
+    <string name="progress_is_progress_tudee_will_celebrate_you_on_for_every_win_big_or_small">التقدم هو تقدم. تودي سيحتفل بك على كل انتصار، كبيراً كان أم صغيراً.</string>
+
+
 
     <string name="edit">تعديل</string>
 
