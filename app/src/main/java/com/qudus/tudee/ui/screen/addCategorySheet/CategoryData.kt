@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.categorysheet
+package com.qudus.tudee.ui.screen.addCategorySheet
 
 import com.qudus.tudee.ui.util.UiImage
 
