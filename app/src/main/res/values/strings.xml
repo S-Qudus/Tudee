@@ -59,7 +59,6 @@
     <string name="done">Done</string>
     <string name="upload">Upload</string>
     <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
     <string name="add">Add</string>
     <string name="category_title_must_start_with_letter">Title must start with a letter</string>
     <string name="category_title_too_short">Title must be at least 3 characters long</string>
@@ -67,9 +66,6 @@
 
 
     <string name="delete">Delete</string>
-    <string name="category_name">Category name</string>
-    <string name="edit_image">Edit image</string>
-    <string name="edit_category">Edit category</string>
     <string name="category_name_required">Category name is required</string>
 
 
@@ -77,6 +73,8 @@
     <string name="stay_working">Stay working</string>
     <string name="tasks_completed_message">You\'ve completed %1$d out of %2$d tasks\nKeep going!</string>
 
+    <string name="category_image_desc">category image </string>
+    <string name="add_new_category">Add New Category</string>
 
     <string name="tadaa">Tadaa!</string>
     <string name="amazing_message">You\'re doing amazing!!!\nTudee is_proud_of_you.</string>
@@ -93,10 +91,10 @@
     <string name="priority">Priority</string>
     <string name="task_title">Task title</string>
     <string name="description">Description</string>
-    <string name="add">Add</string>
     <string name="cancel">Cancel</string>
     <string name="clear">Clear</string>
     <string name="ok">OK</string>
+
 
     <!--    Task Title Error Messages  -->
     <string name="error_title_too_long">Title must be less than 100 characters.</string>
@@ -104,6 +102,9 @@
     <string name="error_title_invalid_start">Title must start with a letter.</string>
     <string name="error_title_empty">Title cannot be empty.</string>
     <string name="error_title_invalid">Title contains invalid characters.</string>
+    <string name="category_name">Category name</string>
+    <string name="edit_image">Edit image</string>
+    <string name="edit_category">Edit category</string>
 
     <!-- Category Error Messages -->
     <string name="error_category_not_found">Category not found.</string>
