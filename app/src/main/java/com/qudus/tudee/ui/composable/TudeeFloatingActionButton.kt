@@ -11,6 +11,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,10 +20,11 @@ import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 
 @Composable
-fun TudeeIconButton(
+fun TudeeFloatingActionButton(
     onClickIconButton: () -> Unit,
     isEnabled: Boolean,
     isLoading: Boolean,
+    painter: Painter,
     modifier: Modifier = Modifier
 ) {
     val buttonBackgroundColor by animateColorAsState(
@@ -45,7 +47,7 @@ fun TudeeIconButton(
                 TudeeLoadingIcon(tint = iconColor)
             } else {
                 Icon(
-                    painter = painterResource(R.drawable.icon_download),
+                    painter = painter,
                     contentDescription = "download icon",
                     tint = iconColor
                 )
@@ -60,11 +62,12 @@ fun TudeeIconButton(
 private fun TudeeIconButtonPrev() {
 
     TudeeTheme(isDarkTheme = false) {
-        TudeeIconButton(
+        TudeeFloatingActionButton(
             modifier = Modifier.padding(top = 128.dp),
             onClickIconButton = {},
             isEnabled = false,
-            isLoading = false
+            isLoading = false,
+            painter = painterResource(R.drawable.icon_download)
         )
     }
 }
