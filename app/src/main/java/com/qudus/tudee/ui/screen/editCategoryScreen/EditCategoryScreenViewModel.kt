@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.categorysheet
+package com.qudus.tudee.ui.screen.editCategoryScreen
 
 import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.data.service.CategoryServiceImpl
@@ -7,16 +7,17 @@ import com.qudus.tudee.domain.exception.CategoryTitleMustStartWithLetterExceptio
 import com.qudus.tudee.domain.exception.CategoryTitleTooShortException
 import com.qudus.tudee.domain.exception.EmptyCategoryTitleException
 import com.qudus.tudee.ui.base.BaseViewModel
+import com.qudus.tudee.ui.screen.addTask.AddTaskUiState
 import com.qudus.tudee.ui.state.CategoryUiState
-import com.qudus.tudee.ui.util.UiImage
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+
 class EditCategoryViewModel(
     private val categoryService: CategoryServiceImpl
-) : BaseViewModel<CategoryUiState>(CategoryUiState()) {
+) : BaseViewModel<EditCategoryUiState>(EditCategoryUiState()), EditCategoryInteraction {
 
     sealed class Event {
         object ShowConfirmDeleteDialog : Event()
@@ -28,43 +29,54 @@ class EditCategoryViewModel(
     val event = _event.asSharedFlow()
 
     fun setInitialState(category: CategoryUiState) {
-        _state.value = category
-    }
-
-    fun updateTitle(title: String) {
-        val trimmed = title.trim()
-        val isValid = trimmed.length >= 3 && trimmed[0].isLetter()
-
         _state.update {
             it.copy(
-                title = title,
-                isTitleValid = isValid
+                id = category.id,
+                title = category.title,
+                image = category.image,
+                isTitleValid = EditCategoryUiState.validateTitle(category.title),
+                isImageValid = category.image.isNotEmpty()
             )
         }
     }
 
-    fun updateImage(image: UiImage) {
-        _state.update { it.copy(image = image.toString()) }
+    override fun onTitleValueChange(newTitle: String) {
+        _state.update {
+            it.copy(
+                title = newTitle,
+                titleErrorMessageType = null,
+                isTitleValid = newTitle.isNotBlank()
+            )
+        }
     }
 
-    fun saveCategory() {
+    override fun onImageSelected(imageUri: String) {
+        _state.update {
+            it.copy(
+                image = imageUri,
+                isImageValid = imageUri.isNotEmpty()
+            )
+        }
+    }
+
+    override fun onSaveClicked() {
         val current = state.value
         val trimmedTitle = current.title.trim()
 
         if (trimmedTitle.isEmpty()) {
-            _state.update { it.copy(isTitleValid = false) }
+            _state.update { it.copy(titleErrorMessageType = AddTaskUiState.TitleErrorType.EMPTY) }
             emitEvent(Event.ShowError(EmptyCategoryTitleException()))
             return
         }
 
         if (!trimmedTitle[0].isLetter()) {
-            _state.update { it.copy(isTitleValid = false) }
+            _state.update { it.copy(titleErrorMessageType = AddTaskUiState.TitleErrorType.INVALID_START) }
             emitEvent(Event.ShowError(CategoryTitleMustStartWithLetterException()))
             return
         }
 
         if (trimmedTitle.length < 3) {
-            _state.update { it.copy(isTitleValid = false) }
+            _state.update { it.copy(titleErrorMessageType = AddTaskUiState.TitleErrorType.TOO_SHORT) }
             emitEvent(Event.ShowError(CategoryTitleTooShortException()))
             return
         }
@@ -75,31 +87,43 @@ class EditCategoryViewModel(
             imagePath = current.image
         )
 
+        _state.update { it.copy(isLoading = true) }
+
         tryToExecute(
             action = { categoryService.updateCategory(category) },
-            onSuccess = { emitEvent(Event.NavigateBack) },
-            onError = { emitEvent(Event.ShowError(it)) }
+            onSuccess = {
+                _state.update { it.copy(isLoading = false, isSheetOpen = false) }
+                emitEvent(Event.NavigateBack)
+            },
+            onError = {
+                _state.update { it.copy(isLoading = false, titleErrorMessageType = AddTaskUiState.TitleErrorType.INVALID) }
+                emitEvent(Event.ShowError(it))
+            }
         )
     }
 
-    fun onDeleteClicked() {
+    override fun onDeleteClicked() {
         emitEvent(Event.ShowConfirmDeleteDialog)
     }
 
     fun confirmDelete() {
         val id = state.value.id
-        deleteCategory(id)
-    }
+        _state.update { it.copy(isLoading = true) }
 
-    private fun deleteCategory(id: Long) {
         tryToExecute(
             action = { categoryService.deleteCategory(id) },
-            onSuccess = { emitEvent(Event.NavigateBack) },
-            onError = { emitEvent(Event.ShowError(it)) }
+            onSuccess = {
+                _state.update { it.copy(isLoading = false, isSheetOpen = false) }
+                emitEvent(Event.NavigateBack)
+            },
+            onError = {
+                _state.update { it.copy(isLoading = false) }
+                emitEvent(Event.ShowError(it))
+            }
         )
     }
 
-    fun cancel() {
+    override fun onCancelClicked() {
         emitEvent(Event.NavigateBack)
     }
 
