@@ -28,7 +28,7 @@ class AddTaskViewModel(
     override fun onAddTaskClicked() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
-            action = { taskService.createTake(state.value.toTask()) },
+            action = { taskService.createTask(state.value.toTask()) },
             onSuccess = ::onAddTaskSuccess,
             onError = ::onSubmitTaskError,
         )

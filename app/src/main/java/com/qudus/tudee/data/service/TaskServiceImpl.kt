@@ -12,7 +12,7 @@ class TaskServiceImpl(
     private val taskDao: TaskDao,
     private val validator: InputValidator
 ): TaskService {
-    override suspend fun createTake(task: Task) {
+    override suspend fun createTask(task: Task) {
         validator.validateTitle(task.title)
         taskDao.upsertTask(task.toDto())
     }
