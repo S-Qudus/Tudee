@@ -7,9 +7,11 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,17 +21,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -37,7 +44,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.composable.CategoryBadgeItem
 import com.qudus.tudee.ui.composable.ImageFromFilePath
@@ -53,12 +62,14 @@ import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.addTask.AddTaskInteraction
 import com.qudus.tudee.ui.screen.taskEditor.composable.PriorityChip
 import com.qudus.tudee.ui.screen.taskEditor.composable.getCategoryErrorMessage
+import com.qudus.tudee.ui.screen.taskEditor.composable.getTaskDataErrorMessageByType
 import com.qudus.tudee.ui.screen.taskEditor.composable.getTitleErrorMessage
 import com.qudus.tudee.ui.util.getDefaultCategoryStringResourceByType
-import com.qudus.tudee.ui.util.getIconResForCategory
+import com.qudus.tudee.ui.util.getIconPainterForCategory
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toLocalDate
+import java.io.File
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -79,21 +90,28 @@ fun TaskScreenContent(
                 .fillMaxWidth()
                 .fillMaxHeight(.8f)
         ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(bottom = 148.dp)
-            ) {
-                item { TaskInfoSection(state = state, interaction = interaction) }
-                item { PrioritySection(state = state, interaction = interaction) }
-                item { CategorySection(state = state, interaction = interaction) }
-            }
+            if (state.dataErrorMessageType == null) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(bottom = 148.dp)
+                ) {
+                    item { TaskInfoSection(state = state, interaction = interaction) }
+                    item { PrioritySection(state = state, interaction = interaction) }
+                    item { CategorySection(state = state, interaction = interaction) }
+                }
 
-            PrimaryActionsSection(
-                modifier = Modifier.align(Alignment.BottomCenter),
-                state = state,
-                interaction = interaction,
-                onPrimaryActionClick = { onPrimaryActionClick() }
-            )
+                PrimaryActionsSection(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    state = state,
+                    interaction = interaction,
+                    onPrimaryActionClick = { onPrimaryActionClick() }
+                )
+            } else {
+                DataErrorContent(
+                    dataErrorType = state.dataErrorMessageType,
+                    modifier = Modifier.padding(horizontal = Theme.dimension.medium)
+                )
+            }
         }
     }
 
@@ -118,7 +136,8 @@ private fun TaskInfoSection(state: TaskEditorUiState, interaction: TaskEditorInt
 
     TitledSection(
         modifier = Modifier.padding(horizontal = Theme.dimension.medium),
-        title = stringResource(R.string.add_new_task),
+        title = if (interaction is AddTaskInteraction) stringResource(R.string.add_new_task)
+        else stringResource(R.string.edit_task),
         titleStyle = Theme.textStyle.title.large
     ) {
         TudeeTextField(
@@ -197,7 +216,6 @@ private fun PrioritySection(
                 }
             }
         }
-
     }
 }
 
@@ -231,21 +249,11 @@ private fun CategorySection(
                     else getDefaultCategoryStringResourceByType(category.defaultCategoryType),
                     isClickable = true,
                     onItemClick = interaction::onCategoryTypeSelectChange,
-                    contentImage = if (category.defaultCategoryType != null) {
-                        {
-                            ImageFromRes(
-                                drawableResId = getIconResForCategory(category.defaultCategoryType),
-                                contentDescription = category.title
-                            )
-                        }
+                    imagePainter = if (category.defaultCategoryType != null) {
+                        getIconPainterForCategory(category.defaultCategoryType)
                     } else {
-                        {
-                            ImageFromFilePath(
-                                imagePath = category.imagePath,
-                                contentDescription = category.title
-                            )
-                        }
-                    }
+                        rememberAsyncImagePainter(model = File(category.imagePath))
+                    },
                 ) {
                     TudeeCheckBadge(
                         modifier = Modifier.align(Alignment.TopEnd),
@@ -315,5 +323,35 @@ private fun PrimaryActionsSection(
                 color = Theme.color.primary
             )
         }
+    }
+}
+
+@Composable
+private fun BoxScope.DataErrorContent(modifier: Modifier = Modifier, dataErrorType: DataErrorType) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .align(Alignment.Center)
+            .border(width = 2.dp, color = Theme.color.pinkAccent, shape = RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(8.dp))
+            .background(color = Theme.color.pinkAccent.copy(alpha = .2f))
+            .padding(Theme.dimension.medium)
+            .wrapContentHeight(),
+        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.medium),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            modifier = Modifier.size(32.dp),
+            painter = painterResource(R.drawable.icon_alert),
+            tint = Theme.color.pinkAccent,
+            contentDescription = getTaskDataErrorMessageByType(dataErrorType)
+        )
+
+        Text(
+            modifier = Modifier.wrapContentHeight(),
+            text = getTaskDataErrorMessageByType(dataErrorType),
+            style = Theme.textStyle.body.medium,
+            color = Theme.color.pinkAccent
+        )
     }
 }

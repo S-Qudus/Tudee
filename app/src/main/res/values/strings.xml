@@ -98,4 +98,8 @@
     <string name="error_category_failed_in_fetch">Failed to load categories. Please try again.</string>
     <string name="edit">Edit</string>
 
+    <string name="error_task_not_found_empathetic">Oops! We couldn\'t find the task you were looking for.</string>
+
+    <string name="error_data_load_faliled">Could not load data.</string>
+    <string name="edit_task">Edit task</string>
 </resources>

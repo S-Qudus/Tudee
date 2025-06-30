@@ -12,3 +12,8 @@ enum class CategoryErrorType {
     FAILED_IN_FETCH,
     NOT_FOUND
 }
+
+enum class DataErrorType {
+    NOT_FOUND,
+    GENERAL
+}

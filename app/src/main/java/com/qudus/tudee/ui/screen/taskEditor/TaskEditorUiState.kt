@@ -17,7 +17,8 @@ data class TaskEditorUiState(
     val isPrimaryButtonEnabled: Boolean = false,
     val isLoading: Boolean = false,
     val titleErrorMessageType: TitleErrorType? = null,
-    val categoryErrorMessageType: CategoryErrorType? = null
+    val categoryErrorMessageType: CategoryErrorType? = null,
+    val dataErrorMessageType: DataErrorType? = null
 ) {
 
     data class PriorityItemUiState(
@@ -58,7 +59,6 @@ data class TaskEditorUiState(
             }
         }
     }
-
 
     companion object {
         fun getCurrentDate(): String {

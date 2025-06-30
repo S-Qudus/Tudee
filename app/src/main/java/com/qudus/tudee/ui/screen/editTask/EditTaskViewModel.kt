@@ -1,12 +1,13 @@
 package com.qudus.tudee.ui.screen.editTask
 
-import com.qudus.tudee.domain.entity.Task
+import com.qudus.tudee.domain.exception.TaskNotFoundException
 import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.domain.service.CategoryService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.ui.mapper.toCategoryItemUiState
 import com.qudus.tudee.ui.mapper.toTask
 import com.qudus.tudee.ui.mapper.toTaskUiState
+import com.qudus.tudee.ui.screen.taskEditor.DataErrorType
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorViewModel
 import kotlinx.coroutines.flow.update
@@ -22,14 +23,19 @@ class EditTaskViewModel(
     init {
         tryToExecute(
             action = { taskService.getTaskById(id) },
-            onSuccess = ::onGetCurrentTaskSuccess,
+            onSuccess = { oldTask ->
+                getExistingCategories(oldTask.categoryId)
+                updateUiStateWithOldState(oldTask.toTaskUiState())
+            },
             onError = ::onGetCurrentTaskError,
         )
     }
 
-    private fun onGetCurrentTaskSuccess(oldTask: Task) {
-        getExistingCategories(oldTask.categoryId)
-        updateUiStateWithOldState(oldTask.toTaskUiState())
+    private fun onGetCurrentTaskError(exception: TudeeExecption) {
+        if (exception is TaskNotFoundException)
+            _state.update { it.copy(dataErrorMessageType = DataErrorType.NOT_FOUND) }
+        else
+            _state.update { it.copy(dataErrorMessageType = DataErrorType.GENERAL) }
     }
 
     private fun getExistingCategories(taskCategoryId: Long) {
@@ -41,7 +47,8 @@ class EditTaskViewModel(
                         categoryUiStates = categories.map {
                             it.toCategoryItemUiState(categoryId = taskCategoryId)
                         }
-                    ) }
+                    )
+                }
             },
             onError = ::onGetCategoriesError,
         )
@@ -57,10 +64,6 @@ class EditTaskViewModel(
                 categoryUiStates = oldTaskUiState.categoryUiStates,
             )
         }
-    }
-
-    private fun onGetCurrentTaskError(exception: TudeeExecption) {
-
     }
 
     override fun onEditTaskClicked() {
