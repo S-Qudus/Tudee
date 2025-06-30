@@ -44,13 +44,10 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.composable.CategoryBadgeItem
-import com.qudus.tudee.ui.composable.ImageFromFilePath
-import com.qudus.tudee.ui.composable.ImageFromRes
 import com.qudus.tudee.ui.composable.TitledSection
 import com.qudus.tudee.ui.composable.TudeeButton
 import com.qudus.tudee.ui.composable.TudeeCheckBadge
@@ -109,7 +106,7 @@ fun TaskScreenContent(
             } else {
                 DataErrorContent(
                     dataErrorType = state.dataErrorMessageType,
-                    modifier = Modifier.padding(horizontal = Theme.dimension.medium)
+                    modifier = Modifier.padding(horizontal = Theme.dimension.spacing16)
                 )
             }
         }
@@ -135,14 +132,14 @@ private fun TaskInfoSection(state: TaskEditorUiState, interaction: TaskEditorInt
     val focusManager = LocalFocusManager.current
 
     TitledSection(
-        modifier = Modifier.padding(horizontal = Theme.dimension.medium),
+        modifier = Modifier.padding(horizontal = Theme.dimension.spacing16),
         title = if (interaction is AddTaskInteraction) stringResource(R.string.add_new_task)
         else stringResource(R.string.edit_task),
         titleStyle = Theme.textStyle.title.large
     ) {
         TudeeTextField(
             modifier = Modifier
-                .padding(top = Theme.dimension.smallMedium)
+                .padding(top = Theme.dimension.spacing12)
                 .focusRequester(focusRequester),
             value = state.title,
             type = WithIcon(icon = painterResource(R.drawable.icon_note_stroke)),
@@ -158,7 +155,7 @@ private fun TaskInfoSection(state: TaskEditorUiState, interaction: TaskEditorInt
             exit = shrinkVertically()
         ) {
             Text(
-                modifier = Modifier.padding(top = Theme.dimension.extraSmall),
+                modifier = Modifier.padding(top = Theme.dimension.spacing2),
                 text = getTitleErrorMessage(state.titleErrorMessageType ?: TitleErrorType.INVALID),
                 style = Theme.textStyle.label.small,
                 color = Theme.color.pinkAccent
@@ -166,7 +163,7 @@ private fun TaskInfoSection(state: TaskEditorUiState, interaction: TaskEditorInt
         }
 
         TudeeTextField(
-            modifier = Modifier.padding(top = Theme.dimension.medium),
+            modifier = Modifier.padding(top = Theme.dimension.spacing16),
             value = state.description,
             type = Paragraph(),
             onValueChange = interaction::onDescriptionValueChange,
@@ -178,7 +175,7 @@ private fun TaskInfoSection(state: TaskEditorUiState, interaction: TaskEditorInt
 
         TudeeTextField(
             modifier = Modifier
-                .padding(top = Theme.dimension.medium)
+                .padding(top = Theme.dimension.spacing16)
                 .clickable(onClick = interaction::onDateFieldClick),
             value = state.date,
             type = WithIcon(icon = painterResource(R.drawable.icon_calendar_add)),
@@ -197,14 +194,14 @@ private fun PrioritySection(
     modifier: Modifier = Modifier
 ) {
     TitledSection(
-        modifier = modifier.padding(Theme.dimension.medium),
+        modifier = modifier.padding(Theme.dimension.spacing16),
         title = stringResource(R.string.priority),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = Theme.dimension.small),
-            horizontalArrangement = Arrangement.spacedBy(Theme.dimension.small)
+                .padding(top = Theme.dimension.spacing8),
+            horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
         ) {
             state.priorityUiStates.forEach { priorityState ->
                 key(priorityState.type) {
@@ -227,7 +224,7 @@ private fun CategorySection(
     modifier: Modifier = Modifier
 ) {
     TitledSection(
-        modifier = modifier.padding(horizontal = Theme.dimension.medium),
+        modifier = modifier.padding(horizontal = Theme.dimension.spacing16),
         title = stringResource(R.string.category),
     ) {
         LazyVerticalGrid(
@@ -235,9 +232,9 @@ private fun CategorySection(
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 300.dp, max = 1000.dp)
-                .padding(top = Theme.dimension.small),
+                .padding(top = Theme.dimension.spacing8),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalArrangement = Arrangement.spacedBy(Theme.dimension.largeMedium),
+            verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing24),
         ) {
             items(state.categoryUiStates, key = { it.id }) { category ->
                 CategoryBadgeItem(
@@ -270,7 +267,7 @@ private fun CategorySection(
             exit = shrinkVertically()
         ) {
             Text(
-                modifier = Modifier.padding(top = Theme.dimension.largeMedium),
+                modifier = Modifier.padding(top = Theme.dimension.spacing24),
                 text = getCategoryErrorMessage(
                     state.categoryErrorMessageType ?: CategoryErrorType.NOT_FOUND
                 ),
@@ -292,8 +289,8 @@ private fun PrimaryActionsSection(
         modifier = modifier
             .fillMaxWidth()
             .background(color = Theme.color.surface)
-            .padding(horizontal = Theme.dimension.medium, vertical = Theme.dimension.smallMedium),
-        verticalArrangement = Arrangement.spacedBy(Theme.dimension.smallMedium)
+            .padding(horizontal = Theme.dimension.spacing16, vertical = Theme.dimension.spacing12),
+        verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing12)
     ) {
         TudeeButton(
             modifier = Modifier.fillMaxWidth(),
@@ -335,9 +332,9 @@ private fun BoxScope.DataErrorContent(modifier: Modifier = Modifier, dataErrorTy
             .border(width = 2.dp, color = Theme.color.pinkAccent, shape = RoundedCornerShape(8.dp))
             .clip(RoundedCornerShape(8.dp))
             .background(color = Theme.color.pinkAccent.copy(alpha = .2f))
-            .padding(Theme.dimension.medium)
+            .padding(Theme.dimension.spacing16)
             .wrapContentHeight(),
-        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.medium),
+        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing16),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
