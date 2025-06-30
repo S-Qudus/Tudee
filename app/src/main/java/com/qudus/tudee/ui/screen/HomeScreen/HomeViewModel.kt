@@ -51,37 +51,23 @@ class HomeViewModel(
     }
 
     private fun updateTaskState(tasks: List<Task>) {
-        val taskStats = calculateTaskStats(tasks)
-        val categorizedTasks = categorizeTasks(tasks)
+        val completedCount = tasks.count { it.state == State.COMPLETED }
+        val inProgressTasks = tasks.filter { it.state == State.IN_PROGRESS }
+        val todoTasks = tasks.filter { it.state == State.TODO }
 
         _uiState.update {
             it.updateOverview { overview ->
                 overview.copy(
-                    finishedTaskCount = taskStats.completedCount,
+                    finishedTaskCount = completedCount,
                     allTaskCount = tasks.size
                 )
             }.updateTasks { taskState ->
                 taskState.copy(
-                    activeTasks = categorizedTasks.activeTasks,
-                    upcomingTasks = categorizedTasks.upcomingTasks
+                    activeTasks = inProgressTasks,
+                    upcomingTasks = todoTasks
                 )
             }.setLoading(false)
         }
-    }
-
-    private fun calculateTaskStats(tasks: List<Task>): TaskStats {
-        return TaskStats(
-            completedCount = tasks.count { it.state == State.COMPLETED },
-            inProgressCount = tasks.count { it.state == State.IN_PROGRESS },
-            todoCount = tasks.count { it.state == State.TODO }
-        )
-    }
-
-    private fun categorizeTasks(tasks: List<Task>): CategorizedTasks {
-        return CategorizedTasks(
-            activeTasks = tasks.filter { it.state == State.IN_PROGRESS },
-            upcomingTasks = tasks.filter { it.state == State.TODO }
-        )
     }
 
     private fun updateTodayDate() {
@@ -233,16 +219,4 @@ class HomeViewModel(
         )
     )
 }
-
-// Data classes for better organization
-private data class TaskStats(
-    val completedCount: Int,
-    val inProgressCount: Int,
-    val todoCount: Int
-)
-
-private data class CategorizedTasks(
-    val activeTasks: List<Task>,
-    val upcomingTasks: List<Task>
-)
 

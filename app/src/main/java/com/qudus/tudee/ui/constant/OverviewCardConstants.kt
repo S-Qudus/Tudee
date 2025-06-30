@@ -1,8 +1,5 @@
-package com.qudus.tudee.ui.screen.components
+package com.qudus.tudee.ui.constant
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
-import com.qudus.tudee.R
 
 object OverviewCardConstants {
     const val CARD_OFFSET_Y = -40
@@ -20,10 +17,10 @@ object OverviewCardConstants {
 }
 
 enum class UserStatus {
-    GOOD,   // إنجاز ممتاز
-    OKAY,   // إنجاز مقبول
-    POOR,   // إنجاز ضعيف
-    BAD     // لا يوجد إنجاز
+    GOOD,
+    OKAY,
+    POOR,
+    BAD
 }
 
 fun calculateUserStatus(completedTasks: Int, totalTasks: Int): UserStatus = when {

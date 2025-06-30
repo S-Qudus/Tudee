@@ -1,16 +1,13 @@
 package com.qudus.tudee.ui.state
 
 import com.qudus.tudee.domain.entity.Task
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 
 data class HomeUiState(
     val theme: ThemeState = ThemeState(),
     val overview: OverviewState = OverviewState(),
     val tasks: TaskState = TaskState(),
-    val ui: UiVisibilityState = UiVisibilityState()
+    val ui: UiVisibilityState = UiVisibilityState(errorMessage = null)
 ) {
     // Convenience properties for backward compatibility
     val isDarkTheme: Boolean get() = theme.isDarkTheme

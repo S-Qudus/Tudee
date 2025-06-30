@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.components
+package com.qudus.tudee.ui.composable.taskComposable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,7 +18,6 @@ import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.component.PriorityLevel
 import com.qudus.tudee.designSystem.component.TudeeChip
 import com.qudus.tudee.domain.entity.Task
-import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import kotlinx.datetime.*
 
@@ -155,15 +154,15 @@ private fun getPriorityColor(priority: PriorityLevel): Color = when (priority) {
 }
 
 @Composable
-private fun formatTaskDate(date: kotlinx.datetime.LocalDate): String {
-    val today = kotlinx.datetime.Clock.System.now()
-        .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
+private fun formatTaskDate(date: LocalDate): String {
+    val today = Clock.System.now()
+        .toLocalDateTime(TimeZone.currentSystemDefault())
         .date
 
     return when {
         date == today -> "Today"
-        date == today.minus(kotlinx.datetime.DatePeriod(days = 1)) -> "Yesterday"
-        date == today.plus(kotlinx.datetime.DatePeriod(days = 1)) -> "Tomorrow"
+        date == today.minus(DatePeriod(days = 1)) -> "Yesterday"
+        date == today.plus(DatePeriod(days = 1)) -> "Tomorrow"
         else -> "${date.dayOfMonth}/${date.monthNumber}/${date.year}"
     }
 }

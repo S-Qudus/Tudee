@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.components
+package com.qudus.tudee.ui.screen.HomeScreen.component
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -19,21 +19,19 @@ import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.composable.StatusCardItem
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.Locale
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import com.qudus.tudee.ui.constant.OverviewCardConstants
+import com.qudus.tudee.ui.constant.UserStatus
+import com.qudus.tudee.ui.constant.calculateUserStatus
+import com.qudus.tudee.ui.constant.getEmoji
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeOverviewCard(
+    modifier: Modifier = Modifier,
     completedTasks: Int,
     totalTasks: Int,
     inProgressTasks: Int = 0,
     todayDate: String = "",
-    modifier: Modifier = Modifier
 ) {
     val userStatus = calculateUserStatus(completedTasks, totalTasks)
     
@@ -180,7 +178,6 @@ private fun TudeeRobotImage(modifier: Modifier = Modifier) {
             .height(OverviewCardConstants.ROBOT_HEIGHT.dp),
         contentAlignment = Alignment.CenterStart
     ) {
-        // Circular Background
         Box(
             modifier = Modifier
                 .padding(top = 6.dp, start = 6.dp)
@@ -190,7 +187,6 @@ private fun TudeeRobotImage(modifier: Modifier = Modifier) {
                 .align(Alignment.BottomStart)
         )
         
-        // Tudee Robot Image
         Image(
             modifier = Modifier
                 .padding(start = 3.dp)

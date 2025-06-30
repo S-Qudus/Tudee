@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.components
+package com.qudus.tudee.ui.composable.taskComposable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.component.CategoryTask
@@ -22,10 +21,6 @@ import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.domain.entity.Task
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import kotlinx.datetime.Clock
-import kotlinx.datetime.DatePeriod
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.*
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

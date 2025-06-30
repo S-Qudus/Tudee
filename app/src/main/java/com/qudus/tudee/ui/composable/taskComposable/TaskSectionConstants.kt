@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.components
+package com.qudus.tudee.ui.composable.taskComposable
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
