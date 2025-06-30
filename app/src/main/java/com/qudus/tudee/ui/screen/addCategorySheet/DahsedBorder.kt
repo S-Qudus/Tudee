@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.categorysheet
+package com.qudus.tudee.ui.screen.addCategorySheet
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
