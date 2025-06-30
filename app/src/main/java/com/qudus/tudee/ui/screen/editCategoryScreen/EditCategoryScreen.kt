@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.categorysheet
+package com.qudus.tudee.ui.screen.editCategoryScreen
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -26,10 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,87 +33,68 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.text_field.TudeeTextField
-import com.qudus.tudee.designSystem.component.text_field.TudeeTextFieldType
 import com.qudus.tudee.ui.designSystem.component.PrimaryButton
 import com.qudus.tudee.ui.designSystem.component.SecondaryButton
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.state.CategoryUiState
+import com.qudus.tudee.ui.screen.addTask.composable.getTitleErrorMessage
 import com.qudus.tudee.ui.util.UiImage
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun EditCategorySheetScreen(
-    navController: NavController,
+fun EditCategoryScreen(
+   // navController: NavController,
     viewModel: EditCategoryViewModel = koinViewModel(),
+/*
     initialCategory: CategoryUiState
+*/
 ) {
     val uiState by viewModel.state.collectAsState()
-    val coroutineScope = rememberCoroutineScope()
-
-    LaunchedEffect(Unit) {
+// todo there we will take the category by id and edit it
+/* LaunchedEffect(Unit) {
         viewModel.setInitialState(initialCategory)
-    }
+}*/
 
-    LaunchedEffect(viewModel.event) {
+ // todo there we will use navigate to control
+
+/*    LaunchedEffect(viewModel.event) {
         viewModel.event.collect { event ->
             when (event) {
-                is EditCategoryViewModel.Event.NavigateBack -> navController.popBackStack()
+                EditCategoryViewModel.Event.NavigateBack -> navController.popBackStack()
                 is EditCategoryViewModel.Event.ShowError -> {
-                    coroutineScope.launch {
-                      //
-                    }
+                    // Handle error if needed
                 }
-                is EditCategoryViewModel.Event.ShowConfirmDeleteDialog -> {
-                    //
+                EditCategoryViewModel.Event.ShowConfirmDeleteDialog -> {
+                    // Show delete confirmation dialog
+                    viewModel.confirmDelete()
                 }
             }
         }
-    }
+    }*/
 
-    EditCategorySheetContent(
-        title = stringResource(R.string.edit_category),
-        initialCategoryName = uiState.title,
-        initialCategoryImage = UiImage.fromString(uiState.image),
-        isBottomSheetVisible = true,
-        onBottomSheetDismissed = { viewModel.cancel() },
-        onSaveButtonClicked = { data ->
-            viewModel.updateTitle(data.name)
-            viewModel.updateImage(data.uiImage)
-            viewModel.saveCategory()
-        },
-        onCancelButtonClicked = { viewModel.cancel() },
-        onDeleteButtonClicked = { viewModel.onDeleteClicked() }
+    EditCategoryContent(
+        state = uiState,
+        interaction = viewModel,
+        isBottomSheetVisible = uiState.isSheetOpen,
+        onBottomSheetDismissed = viewModel::onCancelClicked
     )
-
 }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditCategorySheetContent(
+fun EditCategoryContent(
     modifier: Modifier = Modifier,
-    title: String,
-    initialCategoryName: String,
-    initialCategoryImage: UiImage,
+    state: EditCategoryUiState,
+    interaction: EditCategoryInteraction,
     isBottomSheetVisible: Boolean,
-    onBottomSheetDismissed: () -> Unit,
-    onSaveButtonClicked: (CategoryData) -> Unit,
-    onCancelButtonClicked: () -> Unit,
-    onDeleteButtonClicked: () -> Unit
+    onBottomSheetDismissed: () -> Unit
 ) {
-    var categoryName by remember(initialCategoryName) { mutableStateOf(initialCategoryName) }
-    var selectedUiImage by remember(initialCategoryImage) { mutableStateOf(initialCategoryImage) }
-
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
     ) { uri ->
-        uri?.let { selectedUiImage = UiImage.External(it.toString()) }
+        uri?.let { interaction.onImageSelected(it.toString()) }
     }
 
     val sheetState = rememberModalBottomSheetState()
@@ -148,11 +125,11 @@ fun EditCategorySheetContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = title,
+                            text = stringResource(R.string.edit_category),
                             style = Theme.textStyle.title.large,
                             color = Theme.color.title
                         )
-                        TextButton(onClick = onDeleteButtonClicked) {
+                        TextButton(onClick = interaction::onDeleteClicked) {
                             Text(
                                 text = stringResource(R.string.delete),
                                 style = Theme.textStyle.label.large,
@@ -162,20 +139,31 @@ fun EditCategorySheetContent(
                     }
 
                     TudeeTextField(
-                        value = categoryName,
-                        onValueChange = { categoryName = it },
+                        value = state.title,
+                        onValueChange = interaction::onTitleValueChange,
                         placeholder = stringResource(R.string.edit_category),
                         type = TudeeTextFieldType.WithIcon(
                             icon = painterResource(R.drawable.icon_menu_circle)
-                        )
+                        ),
+                        primaryBordColor = if (state.titleErrorMessageType != null)
+                            Theme.color.pinkAccent else Theme.color.primary
                     )
+
+                    if (state.titleErrorMessageType != null) {
+                        Text(
+                            text = getTitleErrorMessage(state.titleErrorMessageType),
+                            style = Theme.textStyle.label.small,
+                            color = Theme.color.pinkAccent,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                    }
 
                     Column(
                         modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Text(
-                            text = stringResource(R.string.category_image_desc),
+                            text = stringResource(R.string.edit_image),
                             style = Theme.textStyle.title.medium,
                             color = Theme.color.title,
                         )
@@ -192,30 +180,46 @@ fun EditCategorySheetContent(
                                 },
                             contentAlignment = Alignment.Center
                         ) {
-                            Image(
-                                painter = selectedUiImage.asPainter(),
-                                contentDescription = stringResource(R.string.category_image_desc),
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clip(RoundedCornerShape(16.dp)),
-                                contentScale = ContentScale.Crop
-                            )
-
-                            IconButton(onClick = {
-                                photoPickerLauncher.launch(
-                                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                                )
-                            }) {
-                                Icon(
-                                    painter = painterResource(R.drawable.icon_pencil_edit),
-                                    contentDescription = stringResource(R.string.edit_image) ,
+                            if (state.image.isNotEmpty()) {
+                                Image(
+                                    painter = UiImage.fromString(state.image).asPainter(),
+                                    contentDescription = stringResource(R.string.edit_image),
                                     modifier = Modifier
-                                        .clip(RoundedCornerShape(12.dp))
-                                        .background(Theme.color.surfaceHigh)
-                                        .padding(6.dp)
-                                        .size(20.dp),
-                                    tint = Theme.color.secondary
+                                        .fillMaxSize()
+                                        .clip(RoundedCornerShape(16.dp)),
+                                    contentScale = ContentScale.Crop
                                 )
+
+                                IconButton(onClick = {
+                                    photoPickerLauncher.launch(
+                                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                                    )
+                                }) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.icon_pencil_edit),
+                                        contentDescription = stringResource(R.string.edit_image),
+                                        modifier = Modifier
+                                            .clip(RoundedCornerShape(12.dp))
+                                            .background(Theme.color.surfaceHigh)
+                                            .padding(6.dp)
+                                            .size(20.dp),
+                                        tint = Theme.color.secondary
+                                    )
+                                }
+                            } else {
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.icon_upload),
+                                        contentDescription = "Upload icon",
+                                        tint = Theme.color.stroke,
+                                        modifier = Modifier.size(24.dp)
+                                    )
+                                    Text(
+                                        text = stringResource(R.string.upload),
+                                        style = Theme.textStyle.body.small,
+                                        color = Theme.color.stroke
+                                    )
+                                }
                             }
                         }
                     }
@@ -231,15 +235,9 @@ fun EditCategorySheetContent(
                 ) {
                     PrimaryButton(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = {
-                            onSaveButtonClicked(
-                                CategoryData(
-                                    name = categoryName.trim(),
-                                    uiImage = selectedUiImage
-                                )
-                            )
-                        },
-                        isEnabled = true
+                        onClick = interaction::onSaveClicked,
+                        isEnabled = state.isTitleValid && state.isImageValid,
+                        isLoading = state.isLoading
                     ) {
                         Text(
                             text = stringResource(R.string.save),
@@ -250,7 +248,7 @@ fun EditCategorySheetContent(
 
                     SecondaryButton(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = onCancelButtonClicked
+                        onClick = interaction::onCancelClicked
                     ) {
                         Text(
                             text = stringResource(R.string.cancel),
@@ -262,19 +260,4 @@ fun EditCategorySheetContent(
             }
         }
     }
-}
-
-@Preview(showBackground = true, wallpaper = Wallpapers.NONE)
-@Composable
-fun PreviewEditCategorySheetContent() {
-    EditCategorySheetContent(
-        title = "Edit category",
-        initialCategoryName = "Don't Be Shy :)",
-        initialCategoryImage = UiImage.Drawable(R.drawable.image_shy_tudee),
-        isBottomSheetVisible = true,
-        onBottomSheetDismissed = {},
-        onSaveButtonClicked = {},
-        onCancelButtonClicked = {},
-        onDeleteButtonClicked = {}
-    )
 }
