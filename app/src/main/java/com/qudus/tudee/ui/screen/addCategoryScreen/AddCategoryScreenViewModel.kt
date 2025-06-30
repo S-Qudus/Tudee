@@ -16,13 +16,7 @@ import kotlinx.coroutines.launch
 class AddCategoryViewModel(
     private val categoryService: CategoryServiceImpl
 ) : BaseViewModel<AddCategoryUiState>(AddCategoryUiState()), AddCategoryInteraction {
-
-    sealed class Event {
-        object NavigateBack : Event()
-        data class ShowError(val exception: Throwable) : Event()
-    }
-
-    private val _event = MutableSharedFlow<Event>()
+    private val _event = MutableSharedFlow<AddCategoryEvent>()
     val event = _event.asSharedFlow()
 
     override fun onTitleValueChange(newTitle: String) {
@@ -50,19 +44,19 @@ class AddCategoryViewModel(
 
         if (trimmedTitle.isEmpty()) {
             _state.update { it.copy(titleErrorMessageType = AddTaskUiState.TitleErrorType.EMPTY) }
-            emitEvent(Event.ShowError(EmptyCategoryTitleException()))
+            emitEvent(AddCategoryEvent.ShowError(EmptyCategoryTitleException()))
             return
         }
 
         if (!trimmedTitle[0].isLetter()) {
             _state.update { it.copy(titleErrorMessageType = AddTaskUiState.TitleErrorType.INVALID_START) }
-            emitEvent(Event.ShowError(CategoryTitleMustStartWithLetterException()))
+            emitEvent(AddCategoryEvent.ShowError(CategoryTitleMustStartWithLetterException()))
             return
         }
 
         if (trimmedTitle.length < 3) {
             _state.update { it.copy(titleErrorMessageType = AddTaskUiState.TitleErrorType.TOO_SHORT) }
-            emitEvent(Event.ShowError(CategoryTitleTooShortException()))
+            emitEvent(AddCategoryEvent.ShowError(CategoryTitleTooShortException()))
             return
         }
 
@@ -82,20 +76,20 @@ class AddCategoryViewModel(
             action = { categoryService.createCategory(category) },
             onSuccess = {
                 _state.update { it.copy(isLoading = false, isSheetOpen = false) }
-                emitEvent(Event.NavigateBack)
+                emitEvent(AddCategoryEvent.NavigateBack)
             },
             onError = {
                 _state.update { it.copy(isLoading = false, titleErrorMessageType = AddTaskUiState.TitleErrorType.INVALID) }
-                emitEvent(Event.ShowError(it))
+                emitEvent(AddCategoryEvent.ShowError(it))
             }
         )
     }
 
     override fun onCancelClicked() {
-        emitEvent(Event.NavigateBack)
+        emitEvent(AddCategoryEvent.NavigateBack)
     }
 
-    private fun emitEvent(event: Event) {
+    private fun emitEvent(event: AddCategoryEvent) {
         viewModelScope.launch {
             _event.emit(event)
         }

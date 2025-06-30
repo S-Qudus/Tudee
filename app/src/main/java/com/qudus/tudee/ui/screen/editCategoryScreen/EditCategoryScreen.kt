@@ -39,7 +39,14 @@ import com.qudus.tudee.ui.designSystem.component.PrimaryButton
 import com.qudus.tudee.ui.designSystem.component.SecondaryButton
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing12
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing16
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing24
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing4
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing6
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing8
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.screen.addCategoryScreen.EditCategoryInteraction
 import com.qudus.tudee.ui.screen.addTask.composable.getTitleErrorMessage
 import com.qudus.tudee.ui.util.UiImage
 import org.koin.androidx.compose.koinViewModel
@@ -115,9 +122,9 @@ fun EditCategoryContent(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 24.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                        .padding(horizontal = spacing16)
+                        .padding(bottom = spacing24),
+                    verticalArrangement = Arrangement.spacedBy(spacing12)
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -154,13 +161,13 @@ fun EditCategoryContent(
                             text = getTitleErrorMessage(state.titleErrorMessageType),
                             style = Theme.textStyle.label.small,
                             color = Theme.color.pinkAccent,
-                            modifier = Modifier.padding(top = 4.dp)
+                            modifier = Modifier.padding(top =spacing4)
                         )
                     }
 
                     Column(
                         modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        verticalArrangement = Arrangement.spacedBy(spacing8)
                     ) {
                         Text(
                             text = stringResource(R.string.edit_image),
@@ -201,7 +208,7 @@ fun EditCategoryContent(
                                         modifier = Modifier
                                             .clip(RoundedCornerShape(12.dp))
                                             .background(Theme.color.surfaceHigh)
-                                            .padding(6.dp)
+                                            .padding(spacing6)
                                             .size(20.dp),
                                         tint = Theme.color.secondary
                                     )
@@ -229,9 +236,9 @@ fun EditCategoryContent(
                     Modifier
                         .fillMaxWidth()
                         .background(Theme.color.surfaceHigh)
-                        .padding(horizontal = 16.dp)
-                        .padding(vertical = 12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                        .padding(horizontal = spacing16)
+                        .padding(vertical = spacing12),
+                    verticalArrangement = Arrangement.spacedBy(spacing12)
                 ) {
                     PrimaryButton(
                         modifier = Modifier.fillMaxWidth(),

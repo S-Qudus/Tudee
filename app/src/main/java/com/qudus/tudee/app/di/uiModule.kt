@@ -10,7 +10,7 @@ import org.koin.dsl.module
 val uiModule = module{
     viewModelOf(::AddTaskViewModel)
     viewModelOf(::OnBoardingViewModel)
-    viewModelOf(:: AddCategoryViewModel)
+    viewModelOf(::AddCategoryViewModel)
     viewModelOf(::EditCategoryViewModel)
 
 }

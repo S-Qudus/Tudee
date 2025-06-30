@@ -7,6 +7,7 @@ import com.qudus.tudee.domain.exception.CategoryTitleMustStartWithLetterExceptio
 import com.qudus.tudee.domain.exception.CategoryTitleTooShortException
 import com.qudus.tudee.domain.exception.EmptyCategoryTitleException
 import com.qudus.tudee.ui.base.BaseViewModel
+import com.qudus.tudee.ui.screen.addCategoryScreen.EditCategoryInteraction
 import com.qudus.tudee.ui.screen.addTask.AddTaskUiState
 import com.qudus.tudee.ui.state.CategoryUiState
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,11 +20,6 @@ class EditCategoryViewModel(
     private val categoryService: CategoryServiceImpl
 ) : BaseViewModel<EditCategoryUiState>(EditCategoryUiState()), EditCategoryInteraction {
 
-    sealed class Event {
-        object ShowConfirmDeleteDialog : Event()
-        object NavigateBack : Event()
-        data class ShowError(val exception: Throwable) : Event()
-    }
 
     private val _event = MutableSharedFlow<Event>()
     val event = _event.asSharedFlow()
