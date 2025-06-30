@@ -3,7 +3,6 @@ package com.qudus.tudee.ui.composable.taskComposable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.PriorityLevel
 import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.ui.designSystem.theme.Theme
@@ -14,13 +13,6 @@ object TaskSectionConstants {
     const val TASK_CARD_VERTICAL_SPACING = 8
     const val MAX_ITEMS_PER_ROW = 2
     const val MAX_LINES = 2
-}
-
-// Extension functions for better organization
-fun Priority.toPriorityLevel(): PriorityLevel = when (this) {
-    Priority.HIGH -> PriorityLevel.High
-    Priority.MEDIUM -> PriorityLevel.Medium
-    Priority.LOW -> PriorityLevel.Low
 }
 
 fun State.getIconRes(): Int = when (this) {

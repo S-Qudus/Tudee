@@ -6,6 +6,8 @@ import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.service.PreferencesManager
+import com.qudus.tudee.domain.service.TaskService
+import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.ui.state.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +17,8 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toLocalDateTime
 
 class HomeViewModel(
-    private val preferencesManager: PreferencesManager
+    private val preferencesManager: PreferencesManager,
+    private val taskService: TaskService
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -26,7 +29,7 @@ class HomeViewModel(
     }
 
     private fun loadInitialData() {
-        loadInitialTasks()
+        loadTasks()
         loadThemePreference()
         updateTodayDate()
     }
@@ -39,14 +42,27 @@ class HomeViewModel(
         }
     }
 
-    private fun loadInitialTasks() {
+    private fun loadTasks() {
         _uiState.update { it.setLoading(true) }
         
-        try {
-            val tasks = getSampleTasks()
-            updateTaskState(tasks)
-        } catch (e: Exception) {
-            _uiState.update { it.setLoading(false) }
+        viewModelScope.launch {
+            try {
+                // Get all tasks from the service
+                val allTasks = (taskService as com.qudus.tudee.data.service.TaskServiceImpl).getAllTasks()
+                updateTaskState(allTasks)
+            } catch (e: TudeeExecption) {
+                _uiState.update { 
+                    it.setLoading(false).updateUi { ui ->
+                        ui.copy(errorMessage = e.message ?: "Failed to load tasks")
+                    }
+                }
+            } catch (e: Exception) {
+                _uiState.update { 
+                    it.setLoading(false).updateUi { ui ->
+                        ui.copy(errorMessage = "Unexpected error: ${e.message}")
+                    }
+                }
+            }
         }
     }
 
@@ -122,101 +138,39 @@ class HomeViewModel(
     // Function to format date as string for composables
     fun getFormattedDate(): String {
         val date = _uiState.value.todayDate.date
-        return "${date.dayOfWeek.name.take(3)}, ${date.dayOfMonth} ${date.month.name.take(3)} ${date.year}"
+        val dayOfWeek = when (date.dayOfWeek.name) {
+            "MONDAY" -> "الاثنين"
+            "TUESDAY" -> "الثلاثاء"
+            "WEDNESDAY" -> "الأربعاء"
+            "THURSDAY" -> "الخميس"
+            "FRIDAY" -> "الجمعة"
+            "SATURDAY" -> "السبت"
+            "SUNDAY" -> "الأحد"
+            else -> date.dayOfWeek.name.take(3)
+        }
+        
+        val month = when (date.month.name) {
+            "JANUARY" -> "يناير"
+            "FEBRUARY" -> "فبراير"
+            "MARCH" -> "مارس"
+            "APRIL" -> "أبريل"
+            "MAY" -> "مايو"
+            "JUNE" -> "يونيو"
+            "JULY" -> "يوليو"
+            "AUGUST" -> "أغسطس"
+            "SEPTEMBER" -> "سبتمبر"
+            "OCTOBER" -> "أكتوبر"
+            "NOVEMBER" -> "نوفمبر"
+            "DECEMBER" -> "ديسمبر"
+            else -> date.month.name.take(3)
+        }
+        
+        return "$dayOfWeek، ${date.dayOfMonth} $month ${date.year}"
     }
 
-    // Sample Data
-    private fun getSampleTasks(): List<Task> = listOf(
-        Task(
-            id = 1,
-            title = "Complete UI Design",
-            description = "Work on the UI components and improve user experience",
-            createdAt = LocalDate(2024, 6, 1),
-            priority = Priority.HIGH,
-            state = State.IN_PROGRESS,
-            categoryId = 1L // Book/Study
-        ),
-        Task(
-            id = 2,
-            title = "Code Review",
-            description = "Review and improve code quality across the project",
-            createdAt = LocalDate(2024, 6, 2),
-            priority = Priority.MEDIUM,
-            state = State.TODO,
-            categoryId = 6L // Development
-        ),
-        Task(
-            id = 3,
-            title = "Gym Workout",
-            description = "Complete daily workout routine",
-            createdAt = LocalDate(2024, 6, 3),
-            priority = Priority.HIGH,
-            state = State.IN_PROGRESS,
-            categoryId = 5L // Health/Fitness
-        ),
-        Task(
-            id = 4,
-            title = "Shopping List",
-            description = "Buy groceries and household items",
-            createdAt = LocalDate(2024, 6, 4),
-            priority = Priority.LOW,
-            state = State.TODO,
-            categoryId = 4L // Shopping
-        ),
-        Task(
-            id = 5,
-            title = "Personal Project",
-            description = "Work on personal side project",
-            createdAt = LocalDate(2024, 6, 5),
-            priority = Priority.MEDIUM,
-            state = State.TODO,
-            categoryId = 3L // Personal
-        ),
-        Task(
-            id = 6,
-            title = "Team Meeting",
-            description = "Weekly team sync meeting",
-            createdAt = LocalDate(2024, 6, 6),
-            priority = Priority.HIGH,
-            state = State.IN_PROGRESS,
-            categoryId = 2L // Work
-        ),
-        Task(
-            id = 7,
-            title = "Cook Dinner",
-            description = "Prepare healthy dinner for family",
-            createdAt = LocalDate(2024, 6, 7),
-            priority = Priority.MEDIUM,
-            state = State.TODO,
-            categoryId = 7L // Food/Cooking
-        ),
-        Task(
-            id = 8,
-            title = "Budget Planning",
-            description = "Plan monthly budget and expenses",
-            createdAt = LocalDate(2024, 6, 8),
-            priority = Priority.HIGH,
-            state = State.TODO,
-            categoryId = 9L // Finance
-        ),
-        Task(
-            id = 9,
-            title = "Morning Exercise",
-            description = "Complete morning workout routine",
-            createdAt = LocalDate(2024, 6, 9),
-            priority = Priority.MEDIUM,
-            state = State.COMPLETED,
-            categoryId = 5L // Health/Fitness
-        ),
-        Task(
-            id = 10,
-            title = "Read Documentation",
-            description = "Read project documentation",
-            createdAt = LocalDate(2024, 6, 10),
-            priority = Priority.LOW,
-            state = State.COMPLETED,
-            categoryId = 1L // Book/Study
-        )
-    )
+    // Refresh tasks after adding a new one
+    fun refreshTasks() {
+        loadTasks()
+    }
 }
 

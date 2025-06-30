@@ -45,7 +45,11 @@ fun TudeeScaffold(
                     .padding(24.dp),
                 contentAlignment = Alignment.BottomEnd
             ) {
-                it()
+                Box(
+                    modifier = Modifier.offset(y = (-16).dp)
+                ) {
+                    it()
+                }
             }
         }
 

@@ -12,7 +12,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,15 +22,13 @@ import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 
 @Composable
 fun TudeeFloatingActionButton(
+    modifier: Modifier = Modifier,
     onClickIconButton: () -> Unit,
     isEnabled: Boolean,
     isLoading: Boolean,
-    icon: Painter,
     contentDescription: String? = null,
-    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
-    hasShadow: Boolean = true
+    hasShadow: Boolean = true,
     painter: Painter,
-    modifier: Modifier = Modifier
 ) {
     val buttonBackgroundColor by animateColorAsState(
         targetValue = if (isEnabled) Theme.color.primary else Theme.color.disable
@@ -57,7 +54,7 @@ fun TudeeFloatingActionButton(
                 TudeeLoadingIcon(tint = iconColor)
             } else {
                 Icon(
-                    painter = icon,
+                    painter = painter,
                     contentDescription = contentDescription,
                     tint = iconColor
                 )
@@ -77,7 +74,9 @@ private fun TudeeIconButtonPrev() {
             onClickIconButton = {},
             isEnabled = false,
             isLoading = false,
-            painter = painterResource(R.drawable.icon_download)
+            painter = painterResource(R.drawable.icon_download),
+            contentDescription = TODO(),
+            hasShadow = TODO()
         )
     }
 }

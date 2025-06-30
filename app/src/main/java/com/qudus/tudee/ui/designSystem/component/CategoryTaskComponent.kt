@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component
+package com.qudus.tudee.ui.designSystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -63,6 +63,7 @@ fun CategoryTask(
                     label = dateText,
                     icon = painterResource(id = R.drawable.icon_calendar),
                     activeBackgroundColor = Theme.color.surface,
+                    backgroundColor = Theme.color.surface,
                 )
                 Spacer(modifier = Modifier.width(4.dp))
             }
@@ -71,6 +72,7 @@ fun CategoryTask(
                 label = getLabelForPriority(priorityLevel),
                 icon = getIconForPriority(priorityLevel),
                 activeBackgroundColor = getColorForPriority(priorityLevel),
+                backgroundColor = Theme.color.surface,
             )
         }
 

@@ -40,8 +40,8 @@ fun HomeOverviewCard(
             .fillMaxWidth()
             .offset(y = OverviewCardConstants.CARD_OFFSET_Y.dp)
             .padding(
-                start = Theme.dimension.medium,
-                end = Theme.dimension.medium,
+                start = Theme.dimension.small,
+                end = Theme.dimension.small,
                 top = Theme.dimension.medium,
                 bottom = Theme.dimension.medium
             )

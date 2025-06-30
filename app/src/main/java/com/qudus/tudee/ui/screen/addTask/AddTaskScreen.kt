@@ -61,16 +61,24 @@ import com.qudus.tudee.ui.util.getDefaultCategoryStringResourceByType
 import com.qudus.tudee.ui.util.getIconResForCategory
 import kotlinx.datetime.toLocalDate
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddTaskScreen(
     modifier: Modifier = Modifier,
-    viewModel: AddTaskViewModel = koinViewModel<AddTaskViewModel>()
+    onDismiss: () -> Unit = {},
+    onTaskAdded: () -> Unit = {},
+    viewModel: AddTaskViewModel = koinViewModel { parametersOf(onDismiss, onTaskAdded) }
 ) {
     val state by viewModel.state.collectAsState()
 
-    AddTaskScreenContent(modifier = modifier, interaction = viewModel, state = state)
+    AddTaskScreenContent(
+        modifier = modifier, 
+        interaction = viewModel, 
+        state = state,
+        onDismiss = onDismiss
+    )
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -78,13 +86,14 @@ fun AddTaskScreen(
 private fun AddTaskScreenContent(
     modifier: Modifier = Modifier,
     state: AddTaskUiState,
-    interaction: AddTaskInteraction
+    interaction: AddTaskInteraction,
+    onDismiss: () -> Unit = {}
 ) {
 
     TudeeBottomSheet(
         modifier = modifier,
-        isSheetOpen = state.isSheetOpen,
-        onDismissRequest = interaction::onCancelAddTask
+        isSheetOpen = true, // Always show when this composable is called
+        onDismissRequest = onDismiss
     ) {
         Box(
             modifier = Modifier

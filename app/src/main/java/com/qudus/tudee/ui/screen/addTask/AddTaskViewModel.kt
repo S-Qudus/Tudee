@@ -22,7 +22,9 @@ import kotlinx.datetime.LocalDate
 
 class AddTaskViewModel(
     categoryService: CategoryService,
-    private val taskService: TaskService
+    private val taskService: TaskService,
+    private val onDismiss: () -> Unit = {},
+    private val onTaskAdded: () -> Unit = {}
 ) : BaseViewModel<AddTaskUiState>(AddTaskUiState()), AddTaskInteraction {
 
     init {
@@ -96,9 +98,9 @@ class AddTaskViewModel(
     }
 
     private fun onAddTaskSuccess(unit: Unit) {
-        _state.update { it.copy(isLoading = false, isSheetOpen = false) }
-
-        //todo: move to the prev screen with success params true
+        _state.update { it.copy(isLoading = false) }
+        onTaskAdded() // Refresh the task list
+        onDismiss() // Close the bottom sheet after successful task creation
     }
 
     private fun onAddTaskError(exception: TudeeExecption) {
@@ -110,13 +112,9 @@ class AddTaskViewModel(
             else -> AddTaskUiState.TitleErrorType.INVALID
         }
         _state.update { it.copy(isLoading = false, titleErrorMessageType = errorType) }
-
-        //todo: move to the prev screen with success params false
     }
 
     override fun onCancelAddTask() {
-        _state.update { it.copy(isSheetOpen = false) }
-
-        //todo: clear and return to prev screen
+        onDismiss() // Close the bottom sheet when cancelled
     }
 }

@@ -12,13 +12,22 @@ data class TaskUiState(
     val taskTitle: String = "",
     val taskDescription: String = "",
     val taskPriority: PriorityUiState = PriorityUiState.MEDIUM,
-    val taskCategory: CategoryUiState = CategoryUiState(),
+    val taskCategoryId: Long = 0L,
+    val taskCategoryTitle: String = "",
     val taskStatusUiState: TaskStatusUiState = TaskStatusUiState.TODO,
     val taskAssignedDate: LocalDate = Clock.System.now()
         .toLocalDateTime(TimeZone.currentSystemDefault()).date,
 )
-enum class TaskStatusUiState(@StringRes val status:Int){
-    TODO(R.string.todo),
+
+data class CategoryUiState(
+    val id: Long = 0L,
+    val title: String = "",
+    val imagePath: String = "",
+    val defaultCategoryType: String? = null
+)
+
+enum class TaskStatusUiState(@StringRes val status: Int) {
+    TODO(R.string.to_do),
     IN_PROGRESS(R.string.in_progress),
     DONE(R.string.done)
 }

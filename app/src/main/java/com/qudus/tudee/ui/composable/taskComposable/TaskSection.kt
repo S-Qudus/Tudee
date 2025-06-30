@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.CategoryTask
+import com.qudus.tudee.ui.designSystem.component.CategoryTask
 import com.qudus.tudee.ui.composable.TudeeTextBadge
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.domain.entity.Task
@@ -138,7 +138,7 @@ private fun TaskCard(
     CategoryTask(
         title = task.title,
         description = task.description,
-        priorityLevel = task.priority.toPriorityLevel(),
+        priorityLevel = task.priority,
         onClick = { onTaskClick(task.id) },
         modifier = modifier.width(TaskSectionConstants.TASK_CARD_WIDTH.dp),
         taskRes = { iconModifier ->

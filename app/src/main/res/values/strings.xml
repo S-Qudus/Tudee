@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Tudee</string>
-    <string name="tudee_tagline" translatable="false">Your cute Helper for Every Task</string>
+    <string name="tudee_tagline">Your cute Helper for Every Task</string>
+    
+    <!-- Error Messages -->
     <string name="unexpected_error" translatable="false">Unexpected error</string>
     <string name="category_error" translatable="false">Category error</string>
     <string name="category_title_cannot_be_empty" translatable="false">Category title cannot be empty.</string>
@@ -39,7 +41,7 @@
     <string name="education" translatable="false">Education</string>
     <string name="family_and_friend" translatable="false">Family &amp; friend</string>
 
-    <!-- CategoryTaskComponent -->
+    <!-- Default Task Values -->
     <string name="default_task_title">Organize Study Desk</string>
     <string name="default_task_description">Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...</string>
     <string name="default_priority">Medium</string>
@@ -61,7 +63,7 @@
     <string name="stay_working">Stay working! 😃</string>
     <string name="tasks_completed_message_only">You\'ve completed %1$d out of %2$d tasks</string>
     <string name="tadaa">Tadaa!</string>
-    <string name="amazing_message">You\'re doing amazing!!!\nTudee is_proud_of_you.</string>
+    <string name="amazing_message">You\'re doing amazing!!!\nTudee is proud of you.</string>
     <string name="zero_progress" translatable="false">Zero progress?!</string>
     <string name="scrolling_warning">You just scrolling, not working.\nTudee is watching. Back to work!!!</string>
     <string name="nothing_on_list">Nothing on your list…</string>
@@ -99,8 +101,9 @@
     <string name="cancel">Cancel</string>
     <string name="clear">Clear</string>
     <string name="ok">OK</string>
+    <string name="skip">Skip</string>
 
-    <!--    Task Title Error Messages  -->
+    <!-- Task Title Error Messages -->
     <string name="error_title_too_long">Title must be less than 100 characters.</string>
     <string name="error_title_too_short">Title must be upper than 2 characters.</string>
     <string name="error_title_invalid_start">Title must start with a letter.</string>
@@ -110,15 +113,13 @@
     <!-- Category Error Messages -->
     <string name="error_category_not_found">Category not found.</string>
     <string name="error_category_failed_in_fetch">Failed to load categories. Please try again.</string>
-    <string name="priority_high" />
-    <string name="priority_medium" />
-    <string name="priority_low" />
-    <string name="skip">Skip</string>
+
+    <!-- Motivation Messages -->
     <string name="overwhelmed_with_tasks">Overwhelmed with tasks?</string>
-    <string name="let_s_bring_some_order_to_the_chaos_tudee_is_here_to_help_you_sort_plan_and_breathe_easier">Let’s bring some order to the chaos. Tudee is here to help you sort, plan, and breathe easier.</string>
+    <string name="let_s_bring_some_order_to_the_chaos_tudee_is_here_to_help_you_sort_plan_and_breathe_easier">Let\'s bring some order to the chaos. Tudee is here to help you sort, plan, and breathe easier.</string>
     <string name="uh_oh_procrastinating_again">Uh-oh! Procrastinating again</string>
-    <string name="let_s_complete_task_and_celebrate_together">Let’s complete task and celebrate together.</string>
-    <string name="tudee_not_mad_just_a_little_disappointed_let_s_get_back_on_track_together">Tudee not mad… just a little disappointed, Let’s get back on track together.</string>
+    <string name="let_s_complete_task_and_celebrate_together">Let\'s complete task and celebrate together.</string>
+    <string name="tudee_not_mad_just_a_little_disappointed_let_s_get_back_on_track_together">Tudee not mad… just a little disappointed, Let\'s get back on track together.</string>
     <string name="progress_is_progress_tudee_will_celebrate_you_on_for_every_win_big_or_small">Progress is progress. Tudee will celebrate you on for every win, big or small.</string>
 
 </resources>

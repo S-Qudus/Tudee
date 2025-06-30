@@ -119,7 +119,7 @@ private fun OverviewCardSection(
             inProgressTasks = state.inProgressTasksCount,
             todayDate = viewModel.getFormattedDate(),
             modifier = Modifier
-                .padding(horizontal = Theme.dimension.medium)
+                .padding(horizontal = Theme.dimension.small)
         )
     }
 } 
