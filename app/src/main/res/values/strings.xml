@@ -73,8 +73,6 @@
 
     <string name="nothing_on_list">Nothing on your list…</string>
     <string name="fill_day_message">Fill your day with something\nawesome</string>
-    <string name="task_details">Task details</string>
-    <string name="move_to">Move to</string>
     <string name="priority_high" />
     <string name="priority_medium" />
     <string name="priority_low" />
@@ -98,5 +96,9 @@
     <!-- Category Error Messages -->
     <string name="error_category_not_found">Category not found.</string>
     <string name="error_category_failed_in_fetch">Failed to load categories. Please try again.</string>
+
+    <!-- Task Details -->
+    <string name="task_details">Task details</string>
+    <string name="move_to">Move to</string>
 
 </resources>

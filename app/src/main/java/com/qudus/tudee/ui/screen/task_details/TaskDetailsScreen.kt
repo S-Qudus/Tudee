@@ -20,7 +20,12 @@ import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 import com.qudus.tudee.ui.screen.task_details.components.TaskActionButtons
 import com.qudus.tudee.ui.screen.task_details.components.TaskDetailsDivider
 import com.qudus.tudee.ui.screen.task_details.components.TaskStatusAndPrioritySection
+import com.qudus.tudee.ui.state.getBackgroundColor
+import com.qudus.tudee.ui.state.getColor
+import com.qudus.tudee.ui.state.getIcon
+import com.qudus.tudee.ui.state.getLabel
 import com.qudus.tudee.ui.state.getStatusText
+import com.qudus.tudee.ui.state.getTextColor
 import com.qudus.tudee.ui.util.extension.toPainter
 import com.qudus.tudee.ui.util.extension.toStringResource
 import org.koin.androidx.compose.koinViewModel
@@ -91,8 +96,12 @@ fun TaskDetailsContent(
             }
             item {
                 TaskStatusAndPrioritySection(
-                    taskStatusUiState = state.taskUiState.taskStatusUiState,
-                    priorityUiState = state.taskUiState.taskPriority
+                    priorityIcon = state.taskUiState.taskPriority.getIcon(),
+                    priorityTitle = state.taskUiState.taskPriority.getLabel(),
+                    priorityBackgroundColor = state.taskUiState.taskPriority.getColor(),
+                    statusTitle = state.taskUiState.taskStatusUiState.getStatusText(),
+                    statusTextColor = state.taskUiState.taskStatusUiState.getTextColor(),
+                    statusBackgroundColor = state.taskUiState.taskStatusUiState.getBackgroundColor()
                 )
             }
             item {

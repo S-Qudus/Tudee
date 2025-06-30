@@ -6,17 +6,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.component.priority.PriorityBadge
-import com.qudus.tudee.ui.state.PriorityUiState
-import com.qudus.tudee.ui.state.TaskStatusUiState
-import com.qudus.tudee.ui.state.getBackgroundColor
-import com.qudus.tudee.ui.state.getTextColor
-import com.qudus.tudee.ui.util.extension.toStringResource
 
 @Composable
 fun TaskStatusAndPrioritySection(
-    taskStatusUiState: TaskStatusUiState, priorityUiState: PriorityUiState
+    priorityBackgroundColor: Color,
+    priorityIcon: Painter,
+    priorityTitle: String,
+    statusBackgroundColor: Color,
+    statusTextColor: Color,
+    statusTitle: String
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -24,13 +26,15 @@ fun TaskStatusAndPrioritySection(
     ) {
         TaskStatusBadge(
             modifier = Modifier.height(28.dp),
-            backgroundColor = taskStatusUiState.getBackgroundColor(),
-            textColor = taskStatusUiState.getTextColor(),
-            title = taskStatusUiState.status.toStringResource()
+            backgroundColor = statusBackgroundColor,
+            textColor = statusTextColor,
+            title = statusTitle
         )
         PriorityBadge(
-            priority = priorityUiState,
-            modifier = Modifier.height(28.dp)
+            modifier = Modifier.height(28.dp),
+            backgroundColor = priorityBackgroundColor,
+            icon = priorityIcon,
+            title = priorityTitle
         )
     }
 }

@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.state.TaskStatusUiState
 import com.qudus.tudee.ui.state.getBackgroundColor
+import com.qudus.tudee.ui.state.getStatusText
 import com.qudus.tudee.ui.state.getTextColor
-import com.qudus.tudee.ui.util.extension.toStringResource
 
 @Composable
 fun TaskStatusBadge(
@@ -65,17 +65,17 @@ fun TaskStatusBadgePreview() {
         TaskStatusBadge(
             backgroundColor = TaskStatusUiState.TODO.getBackgroundColor(),
             textColor = TaskStatusUiState.TODO.getTextColor(),
-            title = TaskStatusUiState.TODO.status.toStringResource()
+            title = TaskStatusUiState.TODO.getStatusText()
         )
         TaskStatusBadge(
             backgroundColor = TaskStatusUiState.IN_PROGRESS.getBackgroundColor(),
             textColor = TaskStatusUiState.IN_PROGRESS.getTextColor(),
-            title = TaskStatusUiState.IN_PROGRESS.status.toStringResource()
+            title = TaskStatusUiState.IN_PROGRESS.getStatusText()
         )
         TaskStatusBadge(
             backgroundColor = TaskStatusUiState.DONE.getBackgroundColor(),
             textColor = TaskStatusUiState.DONE.getTextColor(),
-            title = TaskStatusUiState.DONE.status.toStringResource()
+            title = TaskStatusUiState.DONE.getStatusText()
         )
     }
 }
