@@ -14,21 +14,24 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.state.StateUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TabBar(
-    selectedState: State,
-    countForState: Map<State, Int>,
-    onStateSelected: (State) -> Unit,
+    selectedState: StateUiState,
+    countForState: Map<StateUiState, Int>,
+    onStateSelected: (StateUiState) -> Unit,
     modifier: Modifier,
 ) {
-    val tabs = State.values()
+    val tabs = StateUiState.values()
     val selectedTabIndex = tabs.indexOf(selectedState)
 
 
@@ -48,8 +51,11 @@ fun TabBar(
         },
         indicator = {
             TabRowDefaults.PrimaryIndicator(
-                modifier = Modifier
-                    .tabIndicatorOffset(selectedTabIndex, matchContentSize = true),
+                modifier = Modifier.run {
+                    if (LocalLayoutDirection.current == LayoutDirection.Rtl)
+                        scale(-1f, 1f)
+                    else this
+                }.tabIndicatorOffset(selectedTabIndex, true),
                 height = 4.dp,
                 width = Dp.Unspecified,
                 color = Theme.color.secondary,
@@ -80,14 +86,4 @@ fun TabBar(
             )
         }
     }
-}
-
-
-@Preview
-@Composable
-private fun TapBarPreview() {
-    TabBar(
-        selectedState = State.TODO, onStateSelected = {}, modifier = Modifier,
-        countForState = TODO(),
-    )
 }

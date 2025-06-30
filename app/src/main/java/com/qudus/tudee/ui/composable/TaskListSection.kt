@@ -12,12 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.CategoryTask
-import com.qudus.tudee.domain.entity.Task
+import com.qudus.tudee.ui.designSystem.component.CategoryTask
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.screen.tasksScreen.state.TaskUiState
 
 @Composable
-fun TaskListSection(modifier: Modifier = Modifier, tasks: List<Task>) {
+fun TaskListSection(modifier: Modifier = Modifier, tasks: List<TaskUiState>) {
 
     if (tasks.isEmpty()) {
         NoTasks()
@@ -29,12 +29,13 @@ fun TaskListSection(modifier: Modifier = Modifier, tasks: List<Task>) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(top = 12.dp, bottom = 12.dp),
         ) {
-            items(tasks) {
+            items(tasks) { task ->
                 CategoryTask(
-                    title = it.title,
-                    description = it.description,
-                    //  priorityLevel = null,
+                    title = task.title,
+                    description = task.description ?: "",
+                    priorityLevel = task.priority,
                     onClick = {},
+                    date = task.createdAt,
                     taskRes = { modifier ->
                         Icon(
                             painter = painterResource(id = R.drawable.icon_category_book_open),

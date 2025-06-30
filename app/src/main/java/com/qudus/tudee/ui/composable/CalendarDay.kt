@@ -7,7 +7,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,7 +46,7 @@ fun CalendarDay(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(2.dp),
         modifier = modifier
-            .width(56.dp)
+            .size(width = 65.dp, height = 70.dp)
             .clip(RoundedCornerShape(16.dp))
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
@@ -54,7 +54,7 @@ fun CalendarDay(
                 onClick = onClick
             )
             .then(background)
-            .padding(horizontal = 12.dp, vertical = 8.dp)
+            .padding(horizontal = 12.dp, vertical = 12.dp)
     ) {
         Text(
             text = date,

@@ -19,12 +19,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.dropShadow
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.util.extension.dropShadow
+import com.qudus.tudee.ui.util.extension.mirrorRtl
 
 @Composable
 fun NoTasks() {
@@ -60,12 +61,12 @@ fun NoTasks() {
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        "No tasks here!",
+                        stringResource(R.string.no_tasks),
                         color = Theme.color.body,
                         style = Theme.textStyle.title.small
                     )
                     Text(
-                        "Tap the + button to add your first one.",
+                        stringResource(R.string.add_task),
                         color = Theme.color.hint,
                         style = Theme.textStyle.body.small
                     )
@@ -77,6 +78,7 @@ fun NoTasks() {
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
                         .offset(x = 33.dp, y = 53.dp)
+                        .mirrorRtl()
                 )
             }
 

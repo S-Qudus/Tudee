@@ -22,43 +22,51 @@
 
     <!-- Category names -->
     <string name="cooking" translatable="false">Cooking</string>
- CategoryTaskComponent -->
+    CategoryTaskComponent -->
 
-        <string name="coding" translatable="false">Coding</string>
-        <string name="agriculture" translatable="false">Agriculture</string>
-        <string name="traveling" translatable="false">Traveling</string>
-        <string name="cleaning" translatable="false">Cleaning</string>
-        <string name="fixing_bugs" translatable="false">Fixing bugs</string>
-        <string name="adoration" translatable="false">Adoration</string>
-        <string name="self_care" translatable="false">Self-care</string>
-        <string name="budgeting" translatable="false">Budgeting</string>
-        <string name="work" translatable="false">Work</string>
-        <string name="event" translatable="false">Event</string>
-        <string name="entertainment" translatable="false">Entertainment</string>
-        <string name="gym" translatable="false">Gym</string>
-        <string name="medical" translatable="false">Medical</string>
-        <string name="shopping" translatable="false">Shopping</string>
-        <string name="education" translatable="false">Education</string>
-        <string name="family_and_friend" translatable="false">Family &amp; friend</string>
+    <string name="coding" translatable="false">Coding</string>
+    <string name="agriculture" translatable="false">Agriculture</string>
+    <string name="traveling" translatable="false">Traveling</string>
+    <string name="cleaning" translatable="false">Cleaning</string>
+    <string name="fixing_bugs" translatable="false">Fixing bugs</string>
+    <string name="adoration" translatable="false">Adoration</string>
+    <string name="self_care" translatable="false">Self-care</string>
+    <string name="budgeting" translatable="false">Budgeting</string>
+    <string name="work" translatable="false">Work</string>
+    <string name="event" translatable="false">Event</string>
+    <string name="entertainment" translatable="false">Entertainment</string>
+    <string name="gym" translatable="false">Gym</string>
+    <string name="medical" translatable="false">Medical</string>
+    <string name="shopping" translatable="false">Shopping</string>
+    <string name="education" translatable="false">Education</string>
+    <string name="family_and_friend" translatable="false">Family &amp; friend</string>
 
 
-
-   <!-- CategoryTaskComponent -->
+    <!-- CategoryTaskComponent -->
     <string name="default_task_title">Organize Study Desk</string>
     <string name="default_task_description">Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...</string>
     <string name="default_priority">Medium</string>
 
     <!-- Task Status -->
-    <string name="todo">To Do</string>
+    <string name="tasks">Tasks</string>
+    <string name="no_tasks">No tasks here!</string>
+    <string name="add_task">Tap the + button to add your first one.</string>
+
 
     <!-- Task Priority -->
     <string name="low">Low</string>
     <string name="medium">Medium</string>
     <string name="high">High</string>
 
+    <!--    Date Picker-->
+    <string name="clear">Clear</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+
 
     <!--    content description -->
-    <string name="in_progress">In Progress</string>
+    <string name="todo">To Do</string>
+    <string name="in_progress">In progress</string>
     <string name="done">Done</string>
 
     <!--    slider component  -->

@@ -1,10 +1,9 @@
-package com.qudus.tudee.ui.screen.tasksScreen
+package com.qudus.tudee.ui.screen.tasksScreen.state
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.qudus.tudee.domain.entity.Priority
-import com.qudus.tudee.domain.entity.Task
-import com.qudus.tudee.domain.entity.State
+import com.qudus.tudee.ui.state.PriorityUiState
+import com.qudus.tudee.ui.state.StateUiState
 import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -12,7 +11,7 @@ import java.time.LocalDate
 data class TasksUiState(
     val currentMonth: LocalDate = LocalDate.now().withDayOfMonth(1),
     val selectedDate: LocalDate = LocalDate.now(),
-    val selectedState: State = State.TODO,
+    val selectedState: StateUiState = StateUiState.TODO,
     val tasks: List<TaskUiState> = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null
@@ -27,15 +26,3 @@ data class TaskUiState(
     val state: StateUiState,
     val categoryId: Long
 )
-
-enum class PriorityUiState(val title: String) {
-    HIGH("High"),
-    MEDIUM("Medium"),
-    LOW("Low")
-}
-
-enum class StateUiState(val title: String) {
-    TODO("To Do"),
-    IN_PROGRESS("In Progress"),
-    DONE("Done");
-}
