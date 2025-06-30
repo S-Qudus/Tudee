@@ -1,5 +1,6 @@
-package com.qudus.tudee.ui.screen.categorysheet
+package com.qudus.tudee.ui.screen.addCategorySheet
 
+import AddCategoryUiState
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,10 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,76 +32,59 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.text_field.TudeeTextField
-import com.qudus.tudee.designSystem.component.text_field.TudeeTextFieldType
 import com.qudus.tudee.ui.designSystem.component.PrimaryButton
 import com.qudus.tudee.ui.designSystem.component.SecondaryButton
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.screen.addTask.composable.getTitleErrorMessage
 import com.qudus.tudee.ui.util.UiImage
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun AddCategorySheetScreen(
-    navController: NavController,
+fun AddCategoryScreen(
+    //navController: NavController,
     viewModel: AddCategoryViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
     val coroutineScope = rememberCoroutineScope()
-    LaunchedEffect(viewModel.event) {
+// todo there we will use navigate to control
+
+  /*  LaunchedEffect(viewModel.event) {
         viewModel.event.collect { event ->
             when (event) {
-                is AddCategoryViewModel.Event.NavigateBack -> navController.popBackStack()
+                AddCategoryViewModel.Event.NavigateBack -> navController.popBackStack()
                 is AddCategoryViewModel.Event.ShowError -> {
-                    coroutineScope.launch {
-                        // error
-                    }
+
                 }
             }
         }
-    }
+    }*/
 
     AddCategorySheetContent(
-        title = stringResource(R.string.add_new_category),
-        initialCategoryName = uiState.title,
-        initialCategoryImage = UiImage.fromString(uiState.image),
-        isBottomSheetVisible = true,
-        onBottomSheetDismissed = { viewModel.cancel() },
-        onAddButtonClicked = { data ->
-            viewModel.updateTitle(data.name)
-            viewModel.updateImage(data.uiImage)
-            viewModel.saveCategory()
-        },
-        onCancelButtonClicked = { viewModel.cancel() }
+        state = uiState,
+        interaction = viewModel,
+        isBottomSheetVisible = uiState.isSheetOpen,
+        onBottomSheetDismissed = viewModel::onCancelClicked
     )
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddCategorySheetContent(
     modifier: Modifier = Modifier,
-    title: String,
-    initialCategoryName: String,
-    initialCategoryImage: UiImage,
+    state: AddCategoryUiState,
+    interaction: AddCategoryInteraction,
     isBottomSheetVisible: Boolean,
-    onBottomSheetDismissed: () -> Unit,
-    onAddButtonClicked: (CategoryData) -> Unit,
-    onCancelButtonClicked: () -> Unit
+    onBottomSheetDismissed: () -> Unit
 ) {
-    var categoryName by remember(initialCategoryName) { mutableStateOf(initialCategoryName) }
-    var selectedUiImage by remember(initialCategoryImage) { mutableStateOf(initialCategoryImage) }
-
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
     ) { uri ->
-        uri?.let { selectedUiImage = UiImage.External(it.toString()) }
+        uri?.let { interaction.onImageSelected(it.toString()) }
     }
 
     val sheetState = rememberModalBottomSheetState()
@@ -129,19 +110,30 @@ fun AddCategorySheetContent(
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
-                        text = title,
+                        text = stringResource(R.string.add_new_category),
                         style = Theme.textStyle.title.large,
                         color = Theme.color.title
                     )
 
                     TudeeTextField(
-                        value = categoryName,
-                        onValueChange = { categoryName = it },
+                        value = state.title,
+                        onValueChange = interaction::onTitleValueChange,
                         placeholder = stringResource(R.string.add_new_category),
                         type = TudeeTextFieldType.WithIcon(
                             icon = painterResource(R.drawable.icon_menu_circle)
-                        )
+                        ),
+                        primaryBordColor = if (state.titleErrorMessageType != null)
+                            Theme.color.pinkAccent else Theme.color.primary
                     )
+
+                    if (state.titleErrorMessageType != null) {
+                        Text(
+                            text = getTitleErrorMessage(state.titleErrorMessageType),
+                            style = Theme.textStyle.label.small,
+                            color = Theme.color.pinkAccent,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                    }
 
                     Column(
                         modifier = Modifier.fillMaxWidth(),
@@ -152,8 +144,6 @@ fun AddCategorySheetContent(
                             style = Theme.textStyle.title.medium,
                             color = Theme.color.title,
                         )
-
-                        val isImageSelected = selectedUiImage != initialCategoryImage
 
                         Box(
                             modifier = Modifier
@@ -167,9 +157,9 @@ fun AddCategorySheetContent(
                                 },
                             contentAlignment = Alignment.Center
                         ) {
-                            if (isImageSelected) {
+                            if (state.image.isNotEmpty()) {
                                 Image(
-                                    painter = selectedUiImage.asPainter(),
+                                    painter = UiImage.fromString(state.image).asPainter(),
                                     contentDescription = stringResource(R.string.category_image_desc),
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -205,15 +195,9 @@ fun AddCategorySheetContent(
                 ) {
                     PrimaryButton(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = {
-                            onAddButtonClicked(
-                                CategoryData(
-                                    name = categoryName.trim(),
-                                    uiImage = selectedUiImage
-                                )
-                            )
-                        },
-                        isEnabled = categoryName.trim().isNotEmpty() && selectedUiImage != initialCategoryImage
+                        onClick = interaction::onAddCategoryClicked,
+                        isEnabled = state.isTitleValid && state.isImageValid,
+                        isLoading = state.isLoading
                     ) {
                         Text(
                             text = stringResource(R.string.add),
@@ -224,7 +208,7 @@ fun AddCategorySheetContent(
 
                     SecondaryButton(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = onCancelButtonClicked
+                        onClick = interaction::onCancelClicked
                     ) {
                         Text(
                             text = stringResource(R.string.cancel),
@@ -236,18 +220,4 @@ fun AddCategorySheetContent(
             }
         }
     }
-}
-
-@Preview(showBackground = true, wallpaper = Wallpapers.NONE)
-@Composable
-fun PreviewAddCategorySheetContent() {
-    AddCategorySheetContent(
-        title = "Add new category",
-        initialCategoryName = "",
-        initialCategoryImage = UiImage.Drawable(R.drawable.image_shy_tudee),
-        isBottomSheetVisible = true,
-        onBottomSheetDismissed = {},
-        onAddButtonClicked = {},
-        onCancelButtonClicked = {}
-    )
 }
