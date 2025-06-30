@@ -1,8 +1,8 @@
 package com.qudus.tudee.data.service
 
-import android.util.Log
 import com.qudus.tudee.data.database.dao.CategoryDao
 import com.qudus.tudee.data.mapper.toCategory
+import com.qudus.tudee.data.mapper.toDto
 import com.qudus.tudee.domain.entity.Category
 import com.qudus.tudee.domain.service.CategoryService
 import kotlinx.coroutines.flow.Flow
@@ -12,11 +12,11 @@ class CategoryServiceImpl(
     private val categoryDao: CategoryDao
 ): CategoryService {
     override suspend fun createCategory(category: Category) {
-        categoryDao.upsertCategory(category.toCategory())
+        categoryDao.upsertCategory(category.toDto())
     }
 
     override suspend fun updateCategory(category: Category) {
-        categoryDao.upsertCategory(category.toCategory())
+        categoryDao.upsertCategory(category.toDto())
     }
 
     override suspend fun deleteCategory(id: Long) {
@@ -25,9 +25,6 @@ class CategoryServiceImpl(
 
     override fun getCategories(): Flow<List<Category>> {
         return  categoryDao.getCategories().map { it.map { it.toCategory() } }
-        return categoryDao.getCategories().map { list ->
-            list.map { it.toDomain() }
-        }
     }
 
     override suspend fun getCategoryById(id: Long): Category {
