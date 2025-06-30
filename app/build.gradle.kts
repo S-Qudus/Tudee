@@ -58,6 +58,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // DataStore libraries
+    implementation(libs.androidx.datastore.core)
+    implementation(libs.androidx.datastore.preferences)
     //Room
     implementation(libs.androidx.room.runtime)
     ksp(libs.room.compiler)
@@ -76,5 +79,8 @@ dependencies {
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    //coil
+    implementation(libs.coil.compose)
 
 }

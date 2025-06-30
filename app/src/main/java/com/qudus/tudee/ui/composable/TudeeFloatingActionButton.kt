@@ -22,7 +22,7 @@ import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 
 @Composable
-fun TudeeIconButton(
+fun TudeeFloatingActionButton(
     onClickIconButton: () -> Unit,
     isEnabled: Boolean,
     isLoading: Boolean,
@@ -30,6 +30,8 @@ fun TudeeIconButton(
     contentDescription: String? = null,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
     hasShadow: Boolean = true
+    painter: Painter,
+    modifier: Modifier = Modifier
 ) {
     val buttonBackgroundColor by animateColorAsState(
         targetValue = if (isEnabled) Theme.color.primary else Theme.color.disable
@@ -62,6 +64,7 @@ fun TudeeIconButton(
             }
         }
     }
+
 }
 
 @Preview(showSystemUi = true, showBackground = false)
@@ -69,13 +72,12 @@ fun TudeeIconButton(
 private fun TudeeIconButtonPrev() {
 
     TudeeTheme(isDarkTheme = false) {
-        TudeeIconButton(
+        TudeeFloatingActionButton(
             modifier = Modifier.padding(top = 128.dp),
             onClickIconButton = {},
             isEnabled = false,
             isLoading = false,
-            icon = painterResource(id = R.drawable.icon_download),
-            contentDescription = "download icon"
+            painter = painterResource(R.drawable.icon_download)
         )
     }
 }

@@ -22,15 +22,67 @@
     <string name="stay_working_title">واصل العمل! 😃</string>
     <string name="nothing_on_list_title">لا توجد مهام في قائمتك… 🤔</string>
     <string name="zero_progress_title">لا تقدم؟! 😤</string>
-    
+
     <string name="amazing_work_message">أنت تقوم بعمل رائع!!! تادي فخور بك.</string>
     <string name="keep_going_message">لقد أنجزت %1$d من أصل %2$d مهام واصل التقدم!</string>
     <string name="fill_day_message">املأ يومك بشيء رائع.</string>
     <string name="fill_day_message_short">املأ يومك بشيء رائع.</string>
     <string name="back_to_work_message">أنت فقط تتصفح، لا تعمل. تادي يراقب. عد للعمل!!!</string>
-    
+
     <string name="overview">نظرة عامة</string>
     <string name="to_do">للتنفيذ</string>
+    <string name="nothing_on_list">لا يوجد شيء في قائمتك…</string>
+    <string name="fill_day_message">املأ يومك بشيء رائع</string>
+    <string name="priority_high">عالية</string>
+    <string name="priority_medium">متوسطة</string>
+    <string name="priority_low">منخفضة</string>
+    <string name="add_new_task">أضف مهمة جديدة</string>
+    <string name="category">الفئة</string>
+    <string name="priority">الأولوية</string>
+    <string name="task_title">عنوان المهمة</string>
+    <string name="description">الوصف</string>
+    <string name="add">إضافة</string>
+    <string name="cancel">إلغاء</string>
+    <string name="clear">مسح</string>
+    <string name="ok">موافق</string>
+
+    <!-- Default Category names -->
+    <string name="cooking">طبخ</string>
+    <string name="coding">برمجة</string>
+    <string name="agriculture">زراعة</string>
+    <string name="traveling">سفر</string>
+    <string name="cleaning">تنظيف</string>
+    <string name="fixing_bugs">حل المشاكل</string>
+    <string name="adoration">عبادة</string>
+    <string name="self_care">عناية نفسية</string>
+    <string name="budgeting">ميزانية</string>
+    <string name="work">عمل</string>
+    <string name="event">حدث</string>
+    <string name="entertainment">تسلية</string>
+    <string name="gym">نادي رياضي</string>
+    <string name="medical">صحي</string>
+    <string name="shopping">تسوق</string>
+    <string name="education">تعليم</string>
+    <string name="family_and_friend">العائلة والأصدقاء</string>
+
+
+    <!--    Task Title Error Messages  -->
+    <string name="error_title_too_long">يجب أن يكون العنوان أقل من 100 حرف.</string>
+    <string name="error_title_too_short">يجب أن يكون العنوان أكثر من حرفين.</string>
+    <string name="error_title_invalid_start">يجب أن يبدأ العنوان بحرف.</string>
+    <string name="error_title_empty">لا يمكن أن يكون العنوان فارغًا.</string>
+    <string name="error_title_invalid">يحتوي العنوان على أحرف غير صالحة.</string>
+
+    <!-- Category Error Messages -->
+    <string name="error_category_not_found">لم يتم العثور على الفئة.</string>
+    <string name="error_category_failed_in_fetch">فشل في تحميل الفئات، يرجى المحاولة مرة أخرى.</string>
+    <string name="overwhelmed_with_tasks">مُرهق بالمهام؟</string>
+    <string name="let_s_bring_some_order_to_the_chaos_tudee_is_here_to_help_you_sort_plan_and_breathe_easier">دعنا نُرتب هذه الفوضى. تودي هنا لمساعدتك في التنظيم والتخطيط والتنفس بسهولة أكبر.</string>
+    <string name="uh_oh_procrastinating_again">أوه! تُماطل مرة أخرى</string>
+    <string name="let_s_complete_task_and_celebrate_together">دعنا نُكمل المهمة ونحتفل معاً.</string>
+    <string name="tudee_not_mad_just_a_little_disappointed_let_s_get_back_on_track_together">تودي ليس غاضباً… فقط مُحبط قليلاً، دعنا نعود إلى المسار الصحيح معاً.</string>
+    <string name="progress_is_progress_tudee_will_celebrate_you_on_for_every_win_big_or_small">التقدم هو تقدم. تودي سيحتفل بك على كل انتصار، كبيراً كان أم صغيراً.</string>
+
 
     <!-- Task Date Labels -->
     <string name="today">اليوم</string>

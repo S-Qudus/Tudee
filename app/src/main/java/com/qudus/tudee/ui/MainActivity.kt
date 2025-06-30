@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
+import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
 import androidx.navigation.compose.rememberNavController
 import com.qudus.tudee.ui.screen.HomeScreen.HomeScreen
 import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
@@ -27,9 +28,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            TudeeTheme(isDarkTheme = false) { AddTaskScreen() }
             val homeViewModel: HomeViewModel = koinViewModel()
             val state by homeViewModel.uiState.collectAsStateWithLifecycle()
-            
+
             TudeeTheme(isDarkTheme = state.isDarkTheme) {
                 val navController = rememberNavController()
 
@@ -42,22 +44,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun MyComposable() {
-    Text(
-        text = "Hello Design System!",
-        color = Theme.color.title,
-        style = Theme.textStyle.headline.medium,
-        modifier = Modifier
-            .background(Theme.color.primary)
-            .padding(12.dp)
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TudeePreview() {
-    TudeeTheme(isDarkTheme = true) {
-        MyComposable()
-    }
-}
