@@ -231,7 +231,7 @@ private fun PagerContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(220.dp)
-                    .padding(Theme.dimension.medium),
+                    .padding(Theme.dimension.spacing16),
                 contentAlignment = Alignment.Center
             ) {
 
