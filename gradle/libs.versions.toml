@@ -22,7 +22,6 @@ coil = "2.5.0"
 
 
 [libraries]
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 koin-android = { module = "io.insert-koin:koin-android" }
