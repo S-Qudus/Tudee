@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.addCategorySheet
+package com.qudus.tudee.ui.screen.addCategoryScreen
 import AddCategoryUiState
 import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.data.service.CategoryServiceImpl

@@ -1,6 +1,6 @@
 package com.qudus.tudee.app.di
 
-import com.qudus.tudee.ui.screen.addCategorySheet.AddCategoryViewModel
+import com.qudus.tudee.ui.screen.addCategoryScreen.AddCategoryViewModel
 import com.qudus.tudee.ui.screen.addTask.AddTaskViewModel
 import com.qudus.tudee.ui.screen.editCategoryScreen.EditCategoryViewModel
 import com.qudus.tudee.ui.screen.onBoarding.OnBoardingViewModel

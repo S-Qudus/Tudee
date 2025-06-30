@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.addCategorySheet
+package com.qudus.tudee.ui.screen.addCategoryScreen
 
 interface AddCategoryInteraction {
     fun onTitleValueChange(newTitle: String)
