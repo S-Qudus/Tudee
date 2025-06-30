@@ -73,9 +73,6 @@
 
     <string name="nothing_on_list">Nothing on your list…</string>
     <string name="fill_day_message">Fill your day with something\nawesome</string>
-    <string name="priority_high" />
-    <string name="priority_medium" />
-    <string name="priority_low" />
     <string name="add_new_task">Add new task</string>
     <string name="category">Category</string>
     <string name="priority">Priority</string>
@@ -96,6 +93,16 @@
     <!-- Category Error Messages -->
     <string name="error_category_not_found">Category not found.</string>
     <string name="error_category_failed_in_fetch">Failed to load categories. Please try again.</string>
+    <string name="priority_high" />
+    <string name="priority_medium" />
+    <string name="priority_low" />
+    <string name="skip">Skip</string>
+    <string name="overwhelmed_with_tasks">Overwhelmed with tasks?</string>
+    <string name="let_s_bring_some_order_to_the_chaos_tudee_is_here_to_help_you_sort_plan_and_breathe_easier">Let’s bring some order to the chaos. Tudee is here to help you sort, plan, and breathe easier.</string>
+    <string name="uh_oh_procrastinating_again">Uh-oh! Procrastinating again</string>
+    <string name="let_s_complete_task_and_celebrate_together">Let’s complete task and celebrate together.</string>
+    <string name="tudee_not_mad_just_a_little_disappointed_let_s_get_back_on_track_together">Tudee not mad… just a little disappointed, Let’s get back on track together.</string>
+    <string name="progress_is_progress_tudee_will_celebrate_you_on_for_every_win_big_or_small">Progress is progress. Tudee will celebrate you on for every win, big or small.</string>
 
     <!-- Task Details -->
     <string name="task_details">Task details</string>

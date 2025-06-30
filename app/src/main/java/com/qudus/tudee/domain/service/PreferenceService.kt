@@ -1,4 +1,4 @@
-package com.qudus.tudee.data.repository
+package com.qudus.tudee.domain.service
 
 import kotlinx.coroutines.flow.Flow
 
