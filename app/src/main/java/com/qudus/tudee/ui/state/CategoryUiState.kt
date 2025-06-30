@@ -5,6 +5,5 @@ data class CategoryUiState (
     val title: String = "",
     val image: String="",
     val isPredefined: Boolean = false,
-    val isEditMode: Boolean = false,
     val isTitleValid: Boolean = true
 )
