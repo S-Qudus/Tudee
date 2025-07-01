@@ -6,9 +6,9 @@ import com.qudus.tudee.ui.state.TaskUiState
 
 data class TaskDetailsUiState(
     val taskUiState: TaskUiState = TaskUiState(),
-    var categoryUiState: CategoryUiState = CategoryUiState(),
-    var isVisible: Boolean = true,
-    var isTaskCompleted: Boolean = false,
-    var isMoveOperationLoading: Boolean = false,
-    var exception: TudeeExecption? = null,
+    val categoryUiState: CategoryUiState = CategoryUiState(),
+    val isVisible: Boolean = true,
+    val isTaskCompleted: Boolean = false,
+    val isMoveOperationLoading: Boolean = false,
+    val exception: TudeeExecption? = null,
 )
