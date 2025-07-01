@@ -3,6 +3,7 @@ package com.qudus.tudee.data.service
 import com.qudus.tudee.data.database.dao.TaskDao
 import com.qudus.tudee.data.mapper.toDto
 import com.qudus.tudee.data.mapper.toEntity
+import com.qudus.tudee.data.util.wrapServiceSuspendCall
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.TaskService
@@ -15,8 +16,10 @@ class TaskServiceImpl(
     private val validator: InputValidator
 ): TaskService {
     override suspend fun createTake(task: Task) {
-        validator.validateTitle(task.title)
-        taskDao.upsertTask(task.toDto())
+        wrapServiceSuspendCall {
+            validator.validateTitle(task.title)
+            taskDao.upsertTask(task.toDto())
+        }
     }
 
     override suspend fun updateTask(task: Task) {

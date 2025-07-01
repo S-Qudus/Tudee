@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Tudee</string>
     <string name="tudee_tagline">Your cute Helper for Every Task</string>
-    
+
     <!-- Error Messages -->
     <string name="unexpected_error" translatable="false">Unexpected error</string>
     <string name="category_error" translatable="false">Category error</string>
@@ -21,6 +21,24 @@
     <string name="failed_to_delete_task" translatable="false">Failed to delete task</string>
     <string name="failed_to_update_task" translatable="false">Failed to update task</string>
     <string name="failed_to_create_task" translatable="false">Failed to create task</string>
+    <string name="unexpected_error">Unexpected error</string>
+    <string name="category_error">Category error</string>
+    <string name="category_title_cannot_be_empty">Category title cannot be empty.</string>
+    <string name="failed_to_read_category">Failed to read category</string>
+    <string name="no_categories_found">No categories found</string>
+    <string name="failed_to_fetch_categories">Failed to fetch categories</string>
+    <string name="failed_to_delete_category">Failed to delete category</string>
+    <string name="failed_to_update_category">Failed to update category</string>
+    <string name="failed_to_upsert_category">Failed to upsert category</string>
+    <string name="task_error">Task error</string>
+    <string name="failed_to_change_task_state">Failed to change task state</string>
+    <string name="task_title_cannot_be_empty">Task title cannot be empty.</string>
+    <string name="failed_to_read_task">Failed to read task</string>
+    <string name="no_tasks_found">No tasks found</string>
+    <string name="failed_to_fetch_tasks">Failed to fetch tasks</string>
+    <string name="failed_to_delete_task">Failed to delete task</string>
+    <string name="failed_to_update_task">Failed to update task</string>
+    <string name="failed_to_upsert_task">Failed to upsert task</string>
 
     <!-- Category names -->
     <string name="cooking" translatable="false">Cooking</string>
@@ -130,7 +148,7 @@
     <string name="friday">الجمعة</string>
     <string name="saturday">السبت</string>
     <string name="sunday">الأحد</string>
-    
+
     <string name="january">يناير</string>
     <string name="february">فبراير</string>
     <string name="march">مارس</string>
