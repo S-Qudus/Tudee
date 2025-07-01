@@ -29,7 +29,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -179,7 +178,7 @@ fun EditCategoryContent(
                             modifier = Modifier
                                 .size(113.dp)
                                 .clip(RoundedCornerShape(16.dp))
-                                .background(Color(0x1A000000))
+                                .background(Theme.color.TransparentBlack10)
                                 .clickable {
                                     photoPickerLauncher.launch(
                                         PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
