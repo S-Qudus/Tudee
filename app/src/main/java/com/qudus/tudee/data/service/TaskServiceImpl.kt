@@ -5,13 +5,12 @@ import com.qudus.tudee.data.mapper.toDto
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.TaskService
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 
 class TaskServiceImpl(
     private val taskDao: TaskDao,
     private val validator: InputValidator
-): TaskService {
+) : TaskService {
     override suspend fun createTake(task: Task) {
         validator.validateTitle(task.title)
         taskDao.upsertTask(task.toDto())
@@ -36,4 +35,11 @@ class TaskServiceImpl(
     override suspend fun getTaskById(id: Long): Task {
         TODO("Not yet implemented")
     }
+
+    override suspend fun moveToState(taskId: Long, newState: State) {
+        val task = taskDao.getTaskById(taskId)
+        val newTask = task.copy(state = newState.name)
+        taskDao.upsertTask(newTask)
+    }
+
 }

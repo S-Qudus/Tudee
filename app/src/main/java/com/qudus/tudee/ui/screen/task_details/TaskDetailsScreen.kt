@@ -107,11 +107,7 @@ fun TaskDetailsContent(
             item {
                 TaskActionButtons(
                     visible = state.isTaskCompleted.not(),
-                    editButtonIcon = state.editIcon.toPainter(),
-                    editButtonIconContentDescription = state.editIconDescription,
-                    moveTaskStatusButtonTitle = "${state.moveButtonTitle.toStringResource()} ${
-                        state.taskUiState.taskStatusUiState.getNextState().getStatusText()
-                    }",
+                    newStatus = state.taskUiState.taskStatusUiState.getNextState().getStatusText(),
                     onEditTaskClick = onEditTaskClick,
                     onMoveTaskStatusClick = onMoveTaskStatusClick,
                 )

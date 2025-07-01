@@ -11,5 +11,5 @@ interface TaskService {
     suspend fun getTasksByCategoryId(id: Long): List<Task>
     suspend fun getTaskById(id: Long): Task
     fun getTasksCountByState(state: State): Flow<Int>
-
+    suspend fun moveToState(taskId: Long, newState: State)
 }

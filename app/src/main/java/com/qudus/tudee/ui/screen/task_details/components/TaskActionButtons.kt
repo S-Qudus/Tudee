@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.screen.task_details.components
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -12,20 +13,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import com.qudus.tudee.R
 import com.qudus.tudee.ui.composable.TudeeButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.screen.task_details.TaskDetailsUiState
+import com.qudus.tudee.ui.util.extension.toPainter
+import com.qudus.tudee.ui.util.extension.toStringResource
 
 @Composable
 fun TaskActionButtons(
+    visible: Boolean,
+    newStatus: String,
     onEditTaskClick: () -> Unit,
     onMoveTaskStatusClick: () -> Unit,
-    visible: Boolean,
-    editButtonIcon: Painter,
-    editButtonIconContentDescription: String,
-    moveTaskStatusButtonTitle: String,
 ) {
     AnimatedVisibility(
         visible = visible,
@@ -43,8 +43,8 @@ fun TaskActionButtons(
                 onClick = onEditTaskClick,
             ) {
                 Icon(
-                    painter = editButtonIcon,
-                    contentDescription = editButtonIconContentDescription,
+                    painter = R.drawable.icon_pencil_edit.toPainter(),
+                    contentDescription = "Pencil Edit",
                     tint = Theme.color.primary
                 )
             }
@@ -56,7 +56,7 @@ fun TaskActionButtons(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = moveTaskStatusButtonTitle,
+                    text = "${R.string.move_to.toStringResource()} $newStatus",
                     style = Theme.textStyle.label.large,
                     color = Theme.color.primary
                 )
