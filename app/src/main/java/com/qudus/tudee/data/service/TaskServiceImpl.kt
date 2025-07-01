@@ -2,19 +2,23 @@ package com.qudus.tudee.data.service
 
 import com.qudus.tudee.data.database.dao.TaskDao
 import com.qudus.tudee.data.mapper.toDto
+import com.qudus.tudee.data.util.wrapServiceSuspendCall
 import com.qudus.tudee.data.mapper.toTask
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.TaskService
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 
 class TaskServiceImpl(
     private val taskDao: TaskDao,
     private val validator: InputValidator
 ): TaskService {
-    override suspend fun createTask(task: Task) {
-        validator.validateTitle(task.title)
-        taskDao.upsertTask(task.toDto())
+    override suspend fun createTake(task: Task) {
+        wrapServiceSuspendCall {
+            validator.validateTitle(task.title)
+            taskDao.upsertTask(task.toDto())
+        }
     }
 
     override suspend fun updateTask(task: Task) {
