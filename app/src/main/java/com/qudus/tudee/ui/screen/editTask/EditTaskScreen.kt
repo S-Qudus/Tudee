@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.addTask
+package com.qudus.tudee.ui.screen.editTask
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -11,9 +11,9 @@ import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AddTaskScreen(
+fun EditTaskScreen(
     modifier: Modifier = Modifier,
-    viewModel: AddTaskViewModel = koinViewModel<AddTaskViewModel>()
+    viewModel: EditTaskViewModel = koinViewModel<EditTaskViewModel>()
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -21,6 +21,6 @@ fun AddTaskScreen(
         modifier = modifier,
         state = state,
         interaction = viewModel,
-        onPrimaryActionClick = viewModel::onAddTaskClicked
+        onPrimaryActionClick = viewModel::onEditTaskClicked
     )
 }
