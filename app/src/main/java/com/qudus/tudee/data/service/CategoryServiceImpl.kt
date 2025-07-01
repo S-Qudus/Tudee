@@ -3,6 +3,7 @@ package com.qudus.tudee.data.service
 import com.qudus.tudee.data.database.dao.CategoryDao
 import com.qudus.tudee.data.mapper.toCategory
 import com.qudus.tudee.data.mapper.toDto
+import com.qudus.tudee.data.util.wrapServiceCall
 import com.qudus.tudee.domain.entity.Category
 import com.qudus.tudee.domain.service.CategoryService
 import kotlinx.coroutines.flow.Flow
