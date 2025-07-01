@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
-import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
 import com.qudus.tudee.ui.screen.task_details.TaskDetailsScreen
 
 class MainActivity : ComponentActivity() {

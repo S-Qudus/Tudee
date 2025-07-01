@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.screen.task_details
 
+import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.ui.state.CategoryUiState
 import com.qudus.tudee.ui.state.TaskUiState
 
@@ -9,5 +10,5 @@ data class TaskDetailsUiState(
     var isVisible: Boolean = true,
     var isTaskCompleted: Boolean = false,
     var isMoveOperationLoading: Boolean = false,
-    var error: Exception? = null,
+    var exception: TudeeExecption? = null,
 )

@@ -20,7 +20,7 @@ class TaskDetailsViewModel(
 ) : BaseViewModel<TaskDetailsUiState>(TaskDetailsUiState()), KoinComponent {
 
     //todo: receive task id that i need to get Task
-    val taskId: Long = 2
+    val taskId: Long = 3
 
     init {
         fetchTaskDetails()
@@ -41,7 +41,7 @@ class TaskDetailsViewModel(
     }
 
     private fun onGetTaskError(exception: TudeeExecption) {
-        _state.update { it.copy(error = exception) }
+        _state.update { it.copy(exception = exception) }
     }
 
     private fun fetchCategoryById(id: Long) {
@@ -53,11 +53,11 @@ class TaskDetailsViewModel(
     }
 
     private fun onGetCategorySuccess(category: Category) {
-        _state.update { it.copy(categoryUiState = category.toCategoryUiState()) }
+        _state.update { it.copy(taskUiState = it.taskUiState.copy(taskCategory = category.toCategoryUiState())) }
     }
 
     private fun onGetCategoryError(exception: TudeeExecption) {
-        _state.update { it.copy(error = exception) }
+        _state.update { it.copy(exception = exception) }
     }
 
     fun onDismiss() {
@@ -112,7 +112,7 @@ class TaskDetailsViewModel(
 
     private fun onMoveStateError(exception: TudeeExecption) {
         setLoadingState(false)
-        _state.update { it.copy(error = exception) }
+        _state.update { it.copy(exception = exception) }
         // TODO: dismiss and send exception
         onDismiss()
     }
