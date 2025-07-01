@@ -10,3 +10,11 @@ fun TaskStatusUiState.toState(): State {
         TaskStatusUiState.DONE -> State.DONE
     }
 }
+
+fun State.toTaskStatusUiState(): TaskStatusUiState {
+    return when (this) {
+        State.TODO -> TaskStatusUiState.TODO
+        State.IN_PROGRESS -> TaskStatusUiState.IN_PROGRESS
+        State.DONE -> TaskStatusUiState.DONE
+    }
+}

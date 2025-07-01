@@ -110,6 +110,7 @@ fun TaskDetailsContent(
                     newStatus = state.taskUiState.taskStatusUiState.getNextState().getStatusText(),
                     onEditTaskClick = onEditTaskClick,
                     onMoveTaskStatusClick = onMoveTaskStatusClick,
+                    isMoveOperationLoading = state.isMoveOperationLoading,
                 )
             }
         }

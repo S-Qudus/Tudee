@@ -2,6 +2,7 @@ package com.qudus.tudee.data.service
 
 import com.qudus.tudee.data.database.dao.TaskDao
 import com.qudus.tudee.data.mapper.toDto
+import com.qudus.tudee.data.mapper.toTask
 import com.qudus.tudee.data.util.wrapServiceSuspendCall
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
@@ -36,7 +37,9 @@ class TaskServiceImpl(
     }
 
     override suspend fun getTaskById(id: Long): Task {
-        TODO("Not yet implemented")
+        return wrapServiceSuspendCall {
+            taskDao.getTaskById(id).toTask()
+        }
     }
 
     override suspend fun moveToState(taskId: Long, newState: State) {
