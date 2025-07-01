@@ -19,6 +19,12 @@ import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.composable.StatusCardItem
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing8
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing12
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing16
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing24
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing3
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing6
 import com.qudus.tudee.ui.constant.OverviewCardConstants
 import com.qudus.tudee.ui.constant.UserStatus
 import com.qudus.tudee.ui.constant.calculateUserStatus
@@ -41,19 +47,19 @@ fun HomeOverviewCard(
             .fillMaxWidth()
             .offset(y = OverviewCardConstants.CARD_OFFSET_Y.dp)
             .padding(
-                start = Theme.dimension.spacing8,
-                end = Theme.dimension.spacing8,
-                top = Theme.dimension.spacing16,
-                bottom = Theme.dimension.spacing16
+                start = spacing8,
+                end = spacing8,
+                top = spacing16,
+                bottom = spacing16
             )
-            .clip(RoundedCornerShape(Theme.dimension.spacing16))
+            .clip(RoundedCornerShape(spacing16))
             .background(Theme.color.surfaceHigh)
-            .padding(Theme.dimension.spacing16)
+            .padding(spacing16)
     ) {
         DateSection(todayDate)
-        Spacer(modifier = Modifier.height(Theme.dimension.spacing12))
+        Spacer(modifier = Modifier.height(spacing12))
         MotivationSection(userStatus, completedTasks, totalTasks)
-        Spacer(modifier = Modifier.height(Theme.dimension.spacing24))
+        Spacer(modifier = Modifier.height(spacing24))
         OverviewSection()
         TaskStatsSection(completedTasks, totalTasks, inProgressTasks)
     }
@@ -73,9 +79,9 @@ private fun DateSection(
         Image(
             painter = painterResource(id = R.drawable.icon_calendar),
             contentDescription = null,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(spacing24)
         )
-        Spacer(modifier = Modifier.width(Theme.dimension.spacing8))
+        Spacer(modifier = Modifier.width(spacing8))
         Text(
             text = todayDate.formatToArabicString(),
             style = Theme.textStyle.label.medium,
@@ -94,7 +100,7 @@ private fun MotivationSection(
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing12)
+        horizontalArrangement = Arrangement.spacedBy(spacing12)
     ) {
         MotivationMessages(
             userStatus = userStatus,
@@ -115,7 +121,7 @@ private fun MotivationMessages(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
+        verticalArrangement = Arrangement.spacedBy(spacing8)
     ) {
         StatusTitleWithEmoji(userStatus)
         StatusMessage(userStatus, completedTasks, totalTasks)
@@ -130,7 +136,7 @@ private fun StatusTitleWithEmoji(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
+        horizontalArrangement = Arrangement.spacedBy(spacing8)
     ) {
         Text(
             text = getUserStatusTitle(userStatus),
@@ -181,7 +187,7 @@ private fun TudeeRobotImage(modifier: Modifier = Modifier) {
     ) {
         Box(
             modifier = Modifier
-                .padding(top = 6.dp, start = 6.dp)
+                .padding(top = spacing6, start = spacing6)
                 .size(OverviewCardConstants.ROBOT_BACKGROUND_SIZE.dp)
                 .clip(CircleShape)
                 .background(Theme.color.primary.copy(alpha = 0.16f))
@@ -190,7 +196,7 @@ private fun TudeeRobotImage(modifier: Modifier = Modifier) {
         
         Image(
             modifier = Modifier
-                .padding(start = 3.dp)
+                .padding(start = spacing3)
                 .width(OverviewCardConstants.ROBOT_IMAGE_WIDTH.dp)
                 .height(OverviewCardConstants.ROBOT_IMAGE_HEIGHT.dp),
             painter = painterResource(id = R.drawable.image_tudee),
@@ -205,7 +211,7 @@ private fun OverviewSection(modifier: Modifier = Modifier) {
         text = stringResource(R.string.overview),
         style = Theme.textStyle.title.large,
         color = Theme.color.title,
-        modifier = modifier.padding(bottom = Theme.dimension.spacing16)
+        modifier = modifier.padding(bottom = spacing16)
     )
 }
 
@@ -218,7 +224,7 @@ private fun TaskStatsSection(
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
+        horizontalArrangement = Arrangement.spacedBy(spacing8)
     ) {
         StatusCardItem(
             count = completedTasks,
@@ -226,7 +232,7 @@ private fun TaskStatsSection(
             color = Theme.color.greenAccent,
             icon = painterResource(id = R.drawable.icon_overview_card_completed),
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(Theme.dimension.spacing16)
+            contentPadding = PaddingValues(spacing16)
         )
         StatusCardItem(
             count = inProgressTasks,
@@ -234,7 +240,7 @@ private fun TaskStatsSection(
             color = Theme.color.yellowAccent,
             icon = painterResource(id = R.drawable.icon_overview_card_inprogress),
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(Theme.dimension.spacing16)
+            contentPadding = PaddingValues(spacing16)
         )
         StatusCardItem(
             count = totalTasks - completedTasks - inProgressTasks,
@@ -242,7 +248,7 @@ private fun TaskStatsSection(
             color = Theme.color.purpleAccent,
             icon = painterResource(id = R.drawable.icom_overview_card_todo),
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(Theme.dimension.spacing16)
+            contentPadding = PaddingValues(spacing16)
         )
     }
 }

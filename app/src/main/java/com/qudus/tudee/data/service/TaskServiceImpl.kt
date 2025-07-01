@@ -44,7 +44,6 @@ class TaskServiceImpl(
         return taskDao.getTaskById(id).toEntity()
     }
 
-    // Helper method to get all tasks
     suspend fun getAllTasks(): List<Task> {
         return taskDao.getTasks().map { tasks ->
             tasks.map { it.toEntity() }

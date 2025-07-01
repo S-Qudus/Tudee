@@ -99,8 +99,8 @@ class AddTaskViewModel(
 
     private fun onAddTaskSuccess(unit: Unit) {
         _state.update { it.copy(isLoading = false) }
-        onTaskAdded() // Refresh the task list
-        onDismiss() // Close the bottom sheet after successful task creation
+        onTaskAdded()
+        onDismiss()
     }
 
     private fun onAddTaskError(exception: TudeeExecption) {
@@ -115,6 +115,6 @@ class AddTaskViewModel(
     }
 
     override fun onCancelAddTask() {
-        onDismiss() // Close the bottom sheet when cancelled
+        onDismiss()
     }
 }

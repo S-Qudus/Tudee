@@ -16,6 +16,7 @@ import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
 import com.qudus.tudee.ui.composable.taskComposable.TaskSection
+import com.qudus.tudee.ui.state.HomeUiState
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -44,7 +45,7 @@ fun HomeContent(
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun TasksContent(
-    state: com.qudus.tudee.ui.state.HomeUiState,
+    state: HomeUiState,
     viewModel: HomeViewModel,
     scrollState: androidx.compose.foundation.lazy.LazyListState,
     modifier: Modifier = Modifier
@@ -102,7 +103,7 @@ private fun TasksContent(
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun OverviewCardSection(
-    state: com.qudus.tudee.ui.state.HomeUiState,
+    state: HomeUiState,
     viewModel: HomeViewModel,
     modifier: Modifier = Modifier
 ) {

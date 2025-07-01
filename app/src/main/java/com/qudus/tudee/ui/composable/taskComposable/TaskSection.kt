@@ -81,7 +81,7 @@ private fun TaskSectionHeader(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    modifier = Modifier.padding(end = 2.dp),
+                    modifier = Modifier.padding(end = Theme.dimension.spacing2),
                     text = taskCount.toString(),
                     color = Theme.color.body,
                     style = Theme.textStyle.label.small
@@ -158,17 +158,17 @@ private fun CategoryIcon(
     modifier: Modifier = Modifier
 ) {
     val categoryIcon = when (categoryId.toInt()) {
-        1 -> R.drawable.icon_category_book_open    // Study/Book
-        2 -> R.drawable.icon_briefcase             // Work
-        3 -> R.drawable.icon_user                  // Personal
-        4 -> R.drawable.icon_shopping_cart         // Shopping
-        5 -> R.drawable.icon_body_part_muscle      // Health/Fitness
-        6 -> R.drawable.icon_developer             // Development/Programming
-        7 -> R.drawable.icon_chef                  // Food/Cooking
-        8 -> R.drawable.icon_airplane              // Travel
-        9 -> R.drawable.icon_money_bag             // Finance
-        10 -> R.drawable.icon_plant                // Nature/Environment
-        else -> R.drawable.icon_category_book_open // Default
+        CATEGORY_STUDY -> R.drawable.icon_category_book_open
+        CATEGORY_WORK -> R.drawable.icon_briefcase
+        CATEGORY_PERSONAL -> R.drawable.icon_user
+        CATEGORY_SHOPPING -> R.drawable.icon_shopping_cart
+        CATEGORY_HEALTH -> R.drawable.icon_body_part_muscle
+        CATEGORY_DEVELOPMENT -> R.drawable.icon_developer
+        CATEGORY_FOOD -> R.drawable.icon_chef
+        CATEGORY_TRAVEL -> R.drawable.icon_airplane
+        CATEGORY_FINANCE -> R.drawable.icon_money_bag
+        CATEGORY_NATURE -> R.drawable.icon_plant
+        else -> R.drawable.icon_category_book_open
     }
     
     Icon(
@@ -178,3 +178,14 @@ private fun CategoryIcon(
         tint = Theme.color.primary
     )
 }
+
+private const val CATEGORY_STUDY = 1
+private const val CATEGORY_WORK = 2
+private const val CATEGORY_PERSONAL = 3
+private const val CATEGORY_SHOPPING = 4
+private const val CATEGORY_HEALTH = 5
+private const val CATEGORY_DEVELOPMENT = 6
+private const val CATEGORY_FOOD = 7
+private const val CATEGORY_TRAVEL = 8
+private const val CATEGORY_FINANCE = 9
+private const val CATEGORY_NATURE = 10

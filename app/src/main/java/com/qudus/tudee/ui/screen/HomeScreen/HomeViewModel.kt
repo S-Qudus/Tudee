@@ -3,7 +3,7 @@ package com.qudus.tudee.ui.screen.HomeScreen
 import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.entity.State
-import com.qudus.tudee.domain.service.PreferencesManager
+import com.qudus.tudee.domain.service.PreferenceService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.ui.base.BaseViewModel
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.toLocalDateTime
 
 class HomeViewModel(
-    private val preferencesManager: PreferencesManager,
+    private val preferenceService: PreferenceService,
     private val taskService: TaskService
 ) : BaseViewModel<HomeUiState>(HomeUiState()) {
 
@@ -34,7 +34,7 @@ class HomeViewModel(
 
     private fun loadThemePreference() {
         viewModelScope.launch {
-            preferencesManager.isDarkTheme.collect { isDarkTheme ->
+            preferenceService.getDarkTheme().collect { isDarkTheme ->
                 _uiState.update { it.copy(theme = it.theme.copy(isDarkTheme = isDarkTheme)) }
             }
         }
@@ -112,7 +112,7 @@ class HomeViewModel(
     fun onThemeToggle() {
         viewModelScope.launch {
             val newTheme = !_uiState.value.isDarkTheme
-            preferencesManager.setDarkTheme(newTheme)
+            preferenceService.setDarkTheme(newTheme)
             _uiState.update { it.copy(theme = it.theme.copy(isDarkTheme = newTheme)) }
         }
     }
