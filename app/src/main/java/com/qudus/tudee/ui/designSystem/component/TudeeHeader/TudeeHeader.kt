@@ -30,7 +30,7 @@ import androidx.compose.foundation.layout.PaddingValues
 @Composable
 fun TudeeHeader(
     modifier: Modifier = Modifier,
-    paddingValues: PaddingValues = PaddingValues(vertical = Theme.dimension.regular, horizontal = Theme.dimension.medium),
+    paddingValues: PaddingValues = PaddingValues(vertical = Theme.dimension.spacing12, horizontal = Theme.dimension.spacing16),
     endContent: @Composable () -> Unit = {},
 ) {
     Row(

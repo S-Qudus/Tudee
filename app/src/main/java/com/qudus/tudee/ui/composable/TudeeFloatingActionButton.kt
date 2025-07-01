@@ -1,6 +1,5 @@
 package com.qudus.tudee.ui.composable
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.padding

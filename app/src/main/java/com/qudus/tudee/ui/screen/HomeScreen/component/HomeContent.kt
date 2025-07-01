@@ -52,7 +52,7 @@ private fun TasksContent(
     LazyColumn(
         state = scrollState,
         modifier = modifier.fillMaxSize(),
-        contentPadding = PaddingValues(bottom = Theme.dimension.regular)
+        contentPadding = PaddingValues(bottom = Theme.dimension.spacing12)
     ) {
         item {
             HomeHeaderSection(
@@ -117,9 +117,9 @@ private fun OverviewCardSection(
             completedTasks = state.completedTasksCount,
             totalTasks = state.allTaskCount,
             inProgressTasks = state.inProgressTasksCount,
-            todayDate = viewModel.getFormattedDate(),
+            todayDate = viewModel.getCurrentDate(),
             modifier = Modifier
-                .padding(horizontal = Theme.dimension.small)
+                .padding(horizontal = Theme.dimension.spacing8)
         )
     }
 } 

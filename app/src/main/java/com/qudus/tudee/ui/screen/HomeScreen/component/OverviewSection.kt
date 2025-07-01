@@ -23,6 +23,7 @@ import com.qudus.tudee.ui.constant.OverviewCardConstants
 import com.qudus.tudee.ui.constant.UserStatus
 import com.qudus.tudee.ui.constant.calculateUserStatus
 import com.qudus.tudee.ui.constant.getEmoji
+import com.qudus.tudee.ui.util.formatToArabicString
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -31,7 +32,7 @@ fun HomeOverviewCard(
     completedTasks: Int,
     totalTasks: Int,
     inProgressTasks: Int = 0,
-    todayDate: String = "",
+    todayDate: kotlinx.datetime.LocalDate,
 ) {
     val userStatus = calculateUserStatus(completedTasks, totalTasks)
     
@@ -40,19 +41,19 @@ fun HomeOverviewCard(
             .fillMaxWidth()
             .offset(y = OverviewCardConstants.CARD_OFFSET_Y.dp)
             .padding(
-                start = Theme.dimension.small,
-                end = Theme.dimension.small,
-                top = Theme.dimension.medium,
-                bottom = Theme.dimension.medium
+                start = Theme.dimension.spacing8,
+                end = Theme.dimension.spacing8,
+                top = Theme.dimension.spacing16,
+                bottom = Theme.dimension.spacing16
             )
-            .clip(RoundedCornerShape(Theme.dimension.medium))
+            .clip(RoundedCornerShape(Theme.dimension.spacing16))
             .background(Theme.color.surfaceHigh)
-            .padding(Theme.dimension.medium)
+            .padding(Theme.dimension.spacing16)
     ) {
         DateSection(todayDate)
-        Spacer(modifier = Modifier.height(Theme.dimension.regular))
+        Spacer(modifier = Modifier.height(Theme.dimension.spacing12))
         MotivationSection(userStatus, completedTasks, totalTasks)
-        Spacer(modifier = Modifier.height(Theme.dimension.large))
+        Spacer(modifier = Modifier.height(Theme.dimension.spacing24))
         OverviewSection()
         TaskStatsSection(completedTasks, totalTasks, inProgressTasks)
     }
@@ -61,7 +62,7 @@ fun HomeOverviewCard(
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun DateSection(
-    todayDate: String,
+    todayDate: kotlinx.datetime.LocalDate,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -74,9 +75,9 @@ private fun DateSection(
             contentDescription = null,
             modifier = Modifier.size(24.dp)
         )
-        Spacer(modifier = Modifier.width(Theme.dimension.small))
+        Spacer(modifier = Modifier.width(Theme.dimension.spacing8))
         Text(
-            text = todayDate,
+            text = todayDate.formatToArabicString(),
             style = Theme.textStyle.label.medium,
             color = Theme.color.body
         )
@@ -93,7 +94,7 @@ private fun MotivationSection(
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.regular)
+        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing12)
     ) {
         MotivationMessages(
             userStatus = userStatus,
@@ -114,7 +115,7 @@ private fun MotivationMessages(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(Theme.dimension.small)
+        verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
     ) {
         StatusTitleWithEmoji(userStatus)
         StatusMessage(userStatus, completedTasks, totalTasks)
@@ -129,7 +130,7 @@ private fun StatusTitleWithEmoji(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.small)
+        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
     ) {
         Text(
             text = getUserStatusTitle(userStatus),
@@ -204,7 +205,7 @@ private fun OverviewSection(modifier: Modifier = Modifier) {
         text = stringResource(R.string.overview),
         style = Theme.textStyle.title.large,
         color = Theme.color.title,
-        modifier = modifier.padding(bottom = Theme.dimension.medium)
+        modifier = modifier.padding(bottom = Theme.dimension.spacing16)
     )
 }
 
@@ -217,7 +218,7 @@ private fun TaskStatsSection(
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.small)
+        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
     ) {
         StatusCardItem(
             count = completedTasks,
@@ -225,7 +226,7 @@ private fun TaskStatsSection(
             color = Theme.color.greenAccent,
             icon = painterResource(id = R.drawable.icon_overview_card_completed),
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(Theme.dimension.medium)
+            contentPadding = PaddingValues(Theme.dimension.spacing16)
         )
         StatusCardItem(
             count = inProgressTasks,
@@ -233,7 +234,7 @@ private fun TaskStatsSection(
             color = Theme.color.yellowAccent,
             icon = painterResource(id = R.drawable.icon_overview_card_inprogress),
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(Theme.dimension.medium)
+            contentPadding = PaddingValues(Theme.dimension.spacing16)
         )
         StatusCardItem(
             count = totalTasks - completedTasks - inProgressTasks,
@@ -241,7 +242,7 @@ private fun TaskStatsSection(
             color = Theme.color.purpleAccent,
             icon = painterResource(id = R.drawable.icom_overview_card_todo),
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(Theme.dimension.medium)
+            contentPadding = PaddingValues(Theme.dimension.spacing16)
         )
     }
 }

@@ -60,7 +60,7 @@ private fun TaskSectionHeader(
     Row(
         modifier = modifier
             .background(Theme.color.surface)
-            .padding(horizontal = Theme.dimension.medium, vertical = 10.dp)
+            .padding(horizontal = Theme.dimension.spacing16, vertical = 10.dp)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -77,7 +77,7 @@ private fun TaskSectionHeader(
                     .clip(RoundedCornerShape(100.dp))
                     .clickable { onNavigateToTaskScreen() }
                     .background(Theme.color.surfaceHigh)
-                    .padding(vertical = 6.dp, horizontal = Theme.dimension.small),
+                    .padding(vertical = 6.dp, horizontal = Theme.dimension.spacing8),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(

@@ -122,4 +122,26 @@
     <string name="tudee_not_mad_just_a_little_disappointed_let_s_get_back_on_track_together">Tudee not mad… just a little disappointed, Let\'s get back on track together.</string>
     <string name="progress_is_progress_tudee_will_celebrate_you_on_for_every_win_big_or_small">Progress is progress. Tudee will celebrate you on for every win, big or small.</string>
 
+    <!-- Date Formatting -->
+    <string name="monday">الاثنين</string>
+    <string name="tuesday">الثلاثاء</string>
+    <string name="wednesday">الأربعاء</string>
+    <string name="thursday">الخميس</string>
+    <string name="friday">الجمعة</string>
+    <string name="saturday">السبت</string>
+    <string name="sunday">الأحد</string>
+    
+    <string name="january">يناير</string>
+    <string name="february">فبراير</string>
+    <string name="march">مارس</string>
+    <string name="april">أبريل</string>
+    <string name="may">مايو</string>
+    <string name="june">يونيو</string>
+    <string name="july">يوليو</string>
+    <string name="august">أغسطس</string>
+    <string name="september">سبتمبر</string>
+    <string name="october">أكتوبر</string>
+    <string name="november">نوفمبر</string>
+    <string name="december">ديسمبر</string>
+
 </resources>
