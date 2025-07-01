@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.map
 
 class CategoryServiceImpl(
     private val categoryDao: CategoryDao
-): CategoryService {
+) : CategoryService {
     override suspend fun createCategory(category: Category) {
         categoryDao.upsertCategory(category.toDto())
     }
@@ -24,7 +24,7 @@ class CategoryServiceImpl(
     }
 
     override fun getCategories(): Flow<List<Category>> {
-        return  categoryDao.getCategories().map { it.map { it.toCategory() } }
+        return  wrapServiceCall(isCategory = true) {  categoryDao.getCategories().map { it.map { it.toCategory() } }}
     }
 
     override suspend fun getCategoryById(id: Long): Category {
