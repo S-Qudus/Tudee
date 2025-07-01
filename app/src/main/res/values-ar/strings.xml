@@ -123,4 +123,11 @@
     <string name="tudee_not_mad_just_a_little_disappointed_let_s_get_back_on_track_together">تودي ليس غاضباً… فقط محبط قليلاً، دعنا نعود إلى المسار الصحيح معاً.</string>
     <string name="progress_is_progress_tudee_will_celebrate_you_on_for_every_win_big_or_small">التقدم هو تقدم. تودي سيحتفل بك على كل فوز، كبير أو صغير.</string>
 
+    <string name="edit">تعديل</string>
+
+    <string name="error_task_not_found_empathetic">عفوًا! لم نتمكن من العثور على المهمة التي تبحثعنها.</string>
+
+    <string name="error_data_load_faliled">تعذر تحميل البيانات.</string>
+
+    <string name="edit_task">تعديل المهمة</string>
 </resources>

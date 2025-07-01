@@ -1,20 +1,7 @@
 package com.qudus.tudee.ui.screen.addTask
 
-import com.qudus.tudee.domain.entity.Priority
-import kotlinx.datetime.LocalDate
+import com.qudus.tudee.ui.screen.taskEditor.TaskEditorInteraction
 
-interface AddTaskInteraction {
-    fun onTitleValueChange(newTitle: String)
-    fun onDescriptionValueChange(newDescription: String)
-
-    fun onDateFieldClick()
-    fun onDateSelected(selectedDate: LocalDate)
-    fun onDatePickCancel()
-
-    fun onPrioritySelectChange(priority: Priority)
-
-    fun onCategoryTypeSelectChange(id: Long)
-
+interface AddTaskInteraction: TaskEditorInteraction {
     fun onAddTaskClicked()
-    fun onCancelAddTask()
 }

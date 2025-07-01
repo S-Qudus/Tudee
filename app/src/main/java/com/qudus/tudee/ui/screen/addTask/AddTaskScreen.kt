@@ -1,65 +1,11 @@
 package com.qudus.tudee.ui.screen.addTask
 
-import DatePicker
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.unit.dp
-import com.qudus.tudee.R
-import com.qudus.tudee.ui.composable.CategoryBadgeItem
-import com.qudus.tudee.ui.composable.ImageFromFilePath
-import com.qudus.tudee.ui.composable.ImageFromRes
-import com.qudus.tudee.ui.composable.TitledSection
-import com.qudus.tudee.ui.composable.TudeeButton
-import com.qudus.tudee.ui.composable.TudeeCheckBadge
-import com.qudus.tudee.ui.designSystem.component.TudeeBottomSheet
-import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
-import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.Paragraph
-import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.WithIcon
-import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.screen.addTask.AddTaskUiState.CategoryErrorType
-import com.qudus.tudee.ui.screen.addTask.AddTaskUiState.TitleErrorType
-import com.qudus.tudee.ui.screen.addTask.composable.PriorityChip
-import com.qudus.tudee.ui.screen.addTask.composable.getCategoryErrorMessage
-import com.qudus.tudee.ui.screen.addTask.composable.getTitleErrorMessage
-import com.qudus.tudee.ui.util.getDefaultCategoryStringResourceByType
-import com.qudus.tudee.ui.util.getIconResForCategory
-import kotlinx.datetime.toLocalDate
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -73,9 +19,10 @@ fun AddTaskScreen(
 ) {
     val state by viewModel.state.collectAsState()
 
+    TaskScreenContent(
     AddTaskScreenContent(
-        modifier = modifier, 
-        interaction = viewModel, 
+        modifier = modifier,
+        interaction = viewModel,
         state = state,
         onDismiss = onDismiss
     )
@@ -92,6 +39,9 @@ private fun AddTaskScreenContent(
 
     TudeeBottomSheet(
         modifier = modifier,
+        state = state,
+        interaction = viewModel,
+        onPrimaryActionClick = viewModel::onAddTaskClicked
         isSheetOpen = true, // Always show when this composable is called
         onDismissRequest = onDismiss
     ) {
