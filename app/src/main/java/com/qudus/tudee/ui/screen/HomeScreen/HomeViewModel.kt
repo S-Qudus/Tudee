@@ -7,7 +7,7 @@ import com.qudus.tudee.domain.service.PreferenceService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.ui.base.BaseViewModel
-import com.qudus.tudee.ui.state.*
+import com.qudus.tudee.ui.state.HomeUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -45,7 +45,7 @@ class HomeViewModel(
         
         viewModelScope.launch {
             try {
-                val allTasks = (taskService as com.qudus.tudee.data.service.TaskServiceImpl).getAllTasks()
+                val allTasks = taskService.getAllTasks()
                 updateTaskState(allTasks)
             } catch (e: TudeeExecption) {
                 _uiState.update { 

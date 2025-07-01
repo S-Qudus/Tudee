@@ -12,13 +12,15 @@ import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState.CategoryItemUiStat
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState.CategoryItemUiState.Companion.selectById
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState.PriorityItemUiState.Companion.isSameSelection
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState.PriorityItemUiState.Companion.selectByPriorityType
+import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
+import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.LocalDate
 
 open class TaskEditorViewModel: BaseViewModel<TaskEditorUiState>(TaskEditorUiState()), TaskEditorInteraction {
 
     override fun onTitleValueChange(newTitle: String) {
-        updateFormState { it.copy(title = newTitle, titleErrorMessageType = null) }
+        updateFormState { it.copy(title = newTitle, titleErrorMessageType = null ) }
     }
 
     override fun onDescriptionValueChange(newDescription: String) {
@@ -45,7 +47,7 @@ open class TaskEditorViewModel: BaseViewModel<TaskEditorUiState>(TaskEditorUiSta
         updateFormState { it.copy(categoryUiStates = it.categoryUiStates.selectById(id)) }
     }
 
-    fun onGetCategoriesError(exception: TudeeExecption) {
+    open fun onGetCategoriesError(exception: TudeeExecption) {
         val categoryErrorType = when (exception) {
             is CategoryFetchAllFailedException -> CategoryErrorType.FAILED_IN_FETCH
             else -> CategoryErrorType.NOT_FOUND
@@ -69,7 +71,6 @@ open class TaskEditorViewModel: BaseViewModel<TaskEditorUiState>(TaskEditorUiSta
     override fun onCancelChangeTask() {
         _state.update { it.copy(isSheetOpen = false) }
 
-        //todo: clear and return to prev screen
     }
 
     fun onSubmitTaskError(exception: TudeeExecption) {
@@ -82,7 +83,6 @@ open class TaskEditorViewModel: BaseViewModel<TaskEditorUiState>(TaskEditorUiSta
         }
         _state.update { it.copy(isLoading = false, titleErrorMessageType = errorType) }
 
-        //todo: move to the prev screen with success params false
     }
 
 }

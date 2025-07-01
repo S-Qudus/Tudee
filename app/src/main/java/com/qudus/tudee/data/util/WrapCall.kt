@@ -15,7 +15,7 @@ private fun mapRoomException(isCategory: Boolean, exception: Throwable): TudeeEx
         is SQLiteConstraintException -> if (isCategory) CategoryUpsertFailedException() else TaskUpsertFailedException()
         is IllegalStateException -> if (isCategory) CategoryNotFoundException() else TaskNotFoundException()
         is SQLiteException -> if (isCategory) CategoryDeletionFailedException() else TaskDeletionFailedException()
-        else -> TudeeExecption()
+        else -> TudeeExecption(exception.message ?: "Unknown error occurred")
     }
 }
 

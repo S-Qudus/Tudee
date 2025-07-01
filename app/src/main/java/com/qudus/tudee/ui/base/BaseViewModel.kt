@@ -27,6 +27,8 @@ open class BaseViewModel<STATE>(initialState: STATE): ViewModel() {
                 onSuccess(action())
             } catch (exception: TudeeExecption) {
                 onError(exception)
+            } catch (exception: Exception) {
+                onError(TudeeExecption(exception.message ?: "Unknown error occurred"))
             } finally {
                 completion()
             }
@@ -44,6 +46,9 @@ open class BaseViewModel<STATE>(initialState: STATE): ViewModel() {
                 flow.collect { value -> onEach(value) }
             } catch (e: TudeeExecption) {
                 onError(e)
+            } catch (e: Exception) {
+                // Convert any other exception to TudeeExecption to prevent crashes
+                onError(TudeeExecption(e.message ?: "Unknown error occurred"))
             }
         }
     }

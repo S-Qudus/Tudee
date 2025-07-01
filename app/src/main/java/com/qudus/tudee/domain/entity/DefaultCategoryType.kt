@@ -3,7 +3,7 @@ package com.qudus.tudee.domain.entity
 enum class DefaultCategoryType {
     EDUCATION,
     SHOPPING,
-    MEDIAL,
+    MEDICAL,
     GYM,
     ENTERTAINMENT,
     EVENT,

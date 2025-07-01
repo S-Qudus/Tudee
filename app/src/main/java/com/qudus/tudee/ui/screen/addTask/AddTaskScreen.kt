@@ -1,14 +1,57 @@
 package com.qudus.tudee.ui.screen.addTask
 
+import DatePicker
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
+import com.qudus.tudee.R
+import com.qudus.tudee.ui.composable.*
+import com.qudus.tudee.ui.designSystem.component.TudeeBottomSheet
+import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.screen.addTask.state.AddTaskUiState
+import com.qudus.tudee.ui.screen.addTask.state.AddTaskInteraction
+import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
+import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
+import com.qudus.tudee.ui.screen.addTask.util.*
+import com.qudus.tudee.ui.util.getDefaultCategoryStringResourceByType
+import com.qudus.tudee.ui.util.getIconPainterForCategory
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
+import coil.compose.rememberAsyncImagePainter
+import java.io.File
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.Paragraph
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.WithIcon
+import com.qudus.tudee.ui.screen.taskEditor.composable.PriorityChip
+import kotlinx.datetime.toLocalDate
+import com.qudus.tudee.ui.screen.addTask.util.getCategoryErrorMessage
+import com.qudus.tudee.ui.screen.addTask.util.getTitleErrorMessage
 
+@OptIn(ExperimentalFoundationApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddTaskScreen(
@@ -19,11 +62,10 @@ fun AddTaskScreen(
 ) {
     val state by viewModel.state.collectAsState()
 
-    TaskScreenContent(
     AddTaskScreenContent(
         modifier = modifier,
-        interaction = viewModel,
         state = state,
+        interaction = viewModel,
         onDismiss = onDismiss
     )
 }
@@ -39,10 +81,7 @@ private fun AddTaskScreenContent(
 
     TudeeBottomSheet(
         modifier = modifier,
-        state = state,
-        interaction = viewModel,
-        onPrimaryActionClick = viewModel::onAddTaskClicked
-        isSheetOpen = true, // Always show when this composable is called
+        isSheetOpen = true, 
         onDismissRequest = onDismiss
     ) {
         Box(
@@ -189,26 +228,18 @@ private fun CategorySection(
         ) {
             items(state.categoryUiStates, key = { it.id }) { category ->
                 CategoryBadgeItem(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 4.dp),
                     id = category.id,
                     title = if (category.defaultCategoryType == null) category.title
                     else getDefaultCategoryStringResourceByType(category.defaultCategoryType),
                     isClickable = true,
                     onItemClick = interaction::onCategoryTypeSelectChange,
-                    contentImage = if (category.defaultCategoryType != null) {
-                        {
-                            ImageFromRes(
-                                drawableResId = getIconResForCategory(category.defaultCategoryType),
-                                contentDescription = category.title
-                            )
-                        }
+                    imagePainter = if (category.defaultCategoryType != null) {
+                        getIconPainterForCategory(category.defaultCategoryType)
                     } else {
-                        {
-                            ImageFromFilePath(
-                                imagePath = category.imagePath,
-                                contentDescription = category.title
-                            )
-                        }
+                        rememberAsyncImagePainter(model = File(category.imagePath))
                     }
                 ) {
                     TudeeCheckBadge(
@@ -254,7 +285,7 @@ private fun PrimaryActionsSection(
             modifier = Modifier.fillMaxWidth(),
             onClick = interaction::onAddTaskClicked,
             isLoading = state.isLoading,
-            isEnabled = state.isAddButtonEnabled,
+            isEnabled = state.isPrimaryButtonEnabled,
         ) {
             Text(
                 text = stringResource(R.string.add),

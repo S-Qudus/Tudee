@@ -1,11 +1,19 @@
 package com.qudus.tudee.ui.screen.addTask
 
 import com.qudus.tudee.domain.entity.Category
+import com.qudus.tudee.domain.exception.TudeeExecption
+import com.qudus.tudee.domain.exception.EmptyInputException
+import com.qudus.tudee.domain.exception.InvalidStartCharacterException
+import com.qudus.tudee.domain.exception.InputTooLongException
+import com.qudus.tudee.domain.exception.InputTooShortException
 import com.qudus.tudee.domain.service.CategoryService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.ui.mapper.toCategoryItemUiState
 import com.qudus.tudee.ui.mapper.toTask
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorViewModel
+import com.qudus.tudee.ui.screen.addTask.state.AddTaskInteraction
+import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
+import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
 import kotlinx.coroutines.flow.update
 
 class AddTaskViewModel(
@@ -13,8 +21,6 @@ class AddTaskViewModel(
     private val taskService: TaskService,
     private val onDismiss: () -> Unit = {},
     private val onTaskAdded: () -> Unit = {}
-) : BaseViewModel<AddTaskUiState>(AddTaskUiState()), AddTaskInteraction {
-    private val taskService: TaskService
 ) : TaskEditorViewModel(), AddTaskInteraction {
 
     init {
@@ -34,13 +40,11 @@ class AddTaskViewModel(
         tryToExecute(
             action = { taskService.createTask(state.value.toTask()) },
             onSuccess = ::onAddTaskSuccess,
-            onError = ::onSubmitTaskError,
+            onError = ::onAddTaskError,
         )
     }
 
     private fun onAddTaskSuccess(unit: Unit) {
-        _state.update { it.copy(isLoading = false, isSheetOpen = false) }
-        //todo: move to the prev screen with success params true
         _state.update { it.copy(isLoading = false) }
         onTaskAdded()
         onDismiss()
@@ -48,13 +52,17 @@ class AddTaskViewModel(
 
     private fun onAddTaskError(exception: TudeeExecption) {
         val errorType = when (exception) {
-            is EmptyInputException -> AddTaskUiState.TitleErrorType.EMPTY
-            is InvalidStartCharacterException -> AddTaskUiState.TitleErrorType.INVALID_START
-            is InputTooLongException -> AddTaskUiState.TitleErrorType.TOO_LONG
-            is InputTooShortException -> AddTaskUiState.TitleErrorType.TOO_SHORT
-            else -> AddTaskUiState.TitleErrorType.INVALID
+            is EmptyInputException -> TitleErrorType.EMPTY
+            is InvalidStartCharacterException -> TitleErrorType.INVALID_START
+            is InputTooLongException -> TitleErrorType.TOO_LONG
+            is InputTooShortException -> TitleErrorType.TOO_SHORT
+            else -> TitleErrorType.INVALID
         }
         _state.update { it.copy(isLoading = false, titleErrorMessageType = errorType) }
+    }
+
+    override fun onGetCategoriesError(exception: TudeeExecption) {
+        _state.update { it.copy(categoryErrorMessageType = CategoryErrorType.FAILED_IN_FETCH) }
     }
 
     override fun onCancelAddTask() {

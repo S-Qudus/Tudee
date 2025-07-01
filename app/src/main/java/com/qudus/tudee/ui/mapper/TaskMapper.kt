@@ -5,6 +5,7 @@ import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState.PriorityItemUiState
+import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
 import kotlinx.datetime.toLocalDate
 
 fun TaskEditorUiState.toTask(taskId: Long = 0): Task {
@@ -30,6 +31,7 @@ fun Task.toTaskUiState(): TaskEditorUiState {
         description = description ?: "",
         date = createdAt.toString(),
         priorityUiStates = getPriorityUiStatesByPriorityType(priority),
+        titleErrorMessageType = null
     )
 }
 

@@ -12,7 +12,7 @@ fun getDefaultCategoryStringResourceByType(type: DefaultCategoryType): String {
     return when (type){
         DefaultCategoryType.EDUCATION -> stringResource(R.string.education)
         DefaultCategoryType.SHOPPING -> stringResource(R.string.shopping)
-        DefaultCategoryType.MEDIAL -> stringResource(R.string.medical)
+        DefaultCategoryType.MEDICAL -> stringResource(R.string.medical)
         DefaultCategoryType.GYM -> stringResource(R.string.gym)
         DefaultCategoryType.ENTERTAINMENT -> stringResource(R.string.entertainment)
         DefaultCategoryType.EVENT -> stringResource(R.string.event)
@@ -35,7 +35,7 @@ fun getIconPainterForCategory(type: DefaultCategoryType): Painter {
     return when (type) {
         DefaultCategoryType.EDUCATION -> painterResource(id = R.drawable.icon_book_open)
         DefaultCategoryType.SHOPPING -> painterResource(id = R.drawable.icon_shopping_cart)
-        DefaultCategoryType.MEDIAL -> painterResource(id = R.drawable.icon_hospital_location)
+        DefaultCategoryType.MEDICAL -> painterResource(id = R.drawable.icon_hospital_location)
         DefaultCategoryType.GYM -> painterResource(id = R.drawable.icon_body_part_muscle)
         DefaultCategoryType.ENTERTAINMENT -> painterResource(id = R.drawable.icon_baseball_bat)
         DefaultCategoryType.EVENT -> painterResource(id = R.drawable.icon_birthday_cake)
