@@ -9,7 +9,7 @@
     <string name="failed_to_fetch_categories">Failed to fetch categories</string>
     <string name="failed_to_delete_category">Failed to delete category</string>
     <string name="failed_to_update_category">Failed to update category</string>
-    <string name="failed_to_create_category">Failed to create category</string>
+    <string name="failed_to_upsert_category">Failed to upsert category</string>
     <string name="task_error">Task error</string>
     <string name="failed_to_change_task_state">Failed to change task state</string>
     <string name="task_title_cannot_be_empty">Task title cannot be empty.</string>
@@ -18,7 +18,7 @@
     <string name="failed_to_fetch_tasks">Failed to fetch tasks</string>
     <string name="failed_to_delete_task">Failed to delete task</string>
     <string name="failed_to_update_task">Failed to update task</string>
-    <string name="failed_to_create_task">Failed to create task</string>
+    <string name="failed_to_upsert_task">Failed to upsert task</string>
 
     <!-- Category names -->
     <string name="cooking">Cooking</string>
