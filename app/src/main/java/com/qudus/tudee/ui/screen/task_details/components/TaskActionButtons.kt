@@ -11,7 +11,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.composable.TudeeButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
@@ -32,7 +31,7 @@ fun TaskActionButtons(
         exit = fadeOut() + shrinkVertically()
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing4),
         ) {
             TudeeButton(
                 isLoading = false,

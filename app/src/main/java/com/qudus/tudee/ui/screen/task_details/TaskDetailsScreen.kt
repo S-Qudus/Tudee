@@ -13,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.composable.CategoryIcon
@@ -66,13 +65,13 @@ fun TaskDetailsContent(
             ) {
                 DataErrorContent(
                     exception = it,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = Theme.dimension.spacing16)
                 )
             }
         } ?: LazyColumn(
             modifier = Modifier
                 .background(Theme.color.surface)
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = Theme.dimension.spacing16)
         ) {
             item {
                 Text(
@@ -83,7 +82,10 @@ fun TaskDetailsContent(
             }
             item {
                 CategoryIcon(
-                    modifier = Modifier.padding(top = 12.dp, bottom = 8.dp)
+                    modifier = Modifier.padding(
+                        top = Theme.dimension.spacing12,
+                        bottom = Theme.dimension.spacing8
+                    )
                 ) {
                     Image(
                         painter = if (state.taskUiState.taskCategory.defaultCategoryType != null) {

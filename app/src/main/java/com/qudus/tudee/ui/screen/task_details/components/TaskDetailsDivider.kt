@@ -15,7 +15,7 @@ fun TaskDetailsDivider() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 12.dp)
+            .padding(vertical = Theme.dimension.spacing12)
             .height(1.dp)
             .background(Theme.color.stroke)
     )

@@ -36,11 +36,11 @@ fun TaskStatusBadge(
     val animatedColor by animateColorAsState(targetValue = textColor)
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing4),
         modifier = modifier
             .clip(RoundedCornerShape(100.dp))
             .background(animatedBackgroundColor)
-            .padding(vertical = 6.dp, horizontal = 12.dp),
+            .padding(vertical = Theme.dimension.spacing6, horizontal = Theme.dimension.spacing12),
     ) {
         Box(
             modifier = Modifier
@@ -60,7 +60,7 @@ fun TaskStatusBadge(
 @Composable
 fun TaskStatusBadgePreview() {
     Column(
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing10)
     ) {
         TaskStatusBadge(
             backgroundColor = TaskStatusUiState.TODO.getBackgroundColor(),

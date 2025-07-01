@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.component.priority.PriorityBadge
+import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @Composable
 fun TaskStatusAndPrioritySection(
@@ -22,8 +23,8 @@ fun TaskStatusAndPrioritySection(
     statusTitle: String
 ) {
     Row(
-        modifier = Modifier.padding(bottom = 24.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(bottom = Theme.dimension.spacing24),
+        horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TaskStatusBadge(
