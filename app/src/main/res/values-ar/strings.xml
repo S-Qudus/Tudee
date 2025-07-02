@@ -47,11 +47,18 @@
     <string name="default_task_description">مراجعة بنية الخلية ووظائفها للغد...</string>
     <string name="default_priority">متوسط</string>
 
+    <!-- Tasks -->
+    <string name="tasks">المهام</string>
+    <string name="no_tasks">ما في عندك مهام</string>
+    <string name="add_task">اضغط على زر + علشان تضيف مهمة</string>
+
+
     <!-- Task Status -->
     <string name="todo">المهام</string>
     <string name="to_do">للتنفيذ</string>
     <string name="in_progress">قيد التنفيذ</string>
     <string name="done">مكتمل</string>
+
 
     <!-- Task Priority -->
     <string name="low">منخفض</string>
@@ -75,6 +82,11 @@
     <string name="keep_going">استمر!</string>
 
     <!--    content description -->
+
+    <string name="todo">لإنجازها</string>
+    <string name="in_progress">قيد التنفيذ</string>
+    <string name="done">مكتملة</string>
+
     <string name="delete">حذف</string>
     <string name="add">اضافة</string>
     <string name="edit_category">تعديل الصنف</string>

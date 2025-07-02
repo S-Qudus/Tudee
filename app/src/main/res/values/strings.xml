@@ -49,6 +49,11 @@
     <string name="default_priority">Medium</string>
 
     <!-- Task Status -->
+
+    <string name="tasks">Tasks</string>
+    <string name="no_tasks">No tasks here!</string>
+    <string name="add_task">Tap the + button to add your first one.</string>
+
     <string name="to_do">To Do</string>
     <string name="in_progress">In Progress</string>
     <string name="done">Done</string>
@@ -61,8 +66,18 @@
     <string name="priority_medium">Medium</string>
     <string name="priority_low">Low</string>
 
+    <!--    Date Picker-->
+    <string name="clear">Clear</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+
 
     <!--    content description -->
+
+    <string name="todo">To Do</string>
+    <string name="in_progress">In progress</string>
+    <string name="done">Done</string>
+
     <string name="upload">Upload</string>
     <string name="save">Save</string>
     <string name="add">Add</string>
