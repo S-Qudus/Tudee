@@ -7,7 +7,7 @@ import com.qudus.tudee.domain.exception.CategoryTitleMustStartWithLetterExceptio
 import com.qudus.tudee.domain.exception.CategoryTitleTooShortException
 import com.qudus.tudee.domain.exception.EmptyCategoryTitleException
 import com.qudus.tudee.ui.base.BaseViewModel
-import com.qudus.tudee.ui.screen.addTask.AddTaskUiState
+import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
@@ -43,19 +43,19 @@ class AddCategoryViewModel(
         val trimmedTitle = current.title.trim()
 
         if (trimmedTitle.isEmpty()) {
-            _state.update { it.copy(titleErrorMessageType = AddTaskUiState.TitleErrorType.EMPTY) }
+            _state.update { it.copy(titleErrorMessageType = TitleErrorType.EMPTY) }
             emitEvent(AddCategoryEvent.ShowError(EmptyCategoryTitleException()))
             return
         }
 
         if (!trimmedTitle[0].isLetter()) {
-            _state.update { it.copy(titleErrorMessageType = AddTaskUiState.TitleErrorType.INVALID_START) }
+            _state.update { it.copy(titleErrorMessageType = TitleErrorType.INVALID_START) }
             emitEvent(AddCategoryEvent.ShowError(CategoryTitleMustStartWithLetterException()))
             return
         }
 
         if (trimmedTitle.length < 3) {
-            _state.update { it.copy(titleErrorMessageType = AddTaskUiState.TitleErrorType.TOO_SHORT) }
+            _state.update { it.copy(titleErrorMessageType = TitleErrorType.TOO_SHORT) }
             emitEvent(AddCategoryEvent.ShowError(CategoryTitleTooShortException()))
             return
         }
@@ -79,7 +79,7 @@ class AddCategoryViewModel(
                 emitEvent(AddCategoryEvent.NavigateBack)
             },
             onError = {
-                _state.update { it.copy(isLoading = false, titleErrorMessageType = AddTaskUiState.TitleErrorType.INVALID) }
+                _state.update { it.copy(isLoading = false, titleErrorMessageType = TitleErrorType.INVALID) }
                 emitEvent(AddCategoryEvent.ShowError(it))
             }
         )

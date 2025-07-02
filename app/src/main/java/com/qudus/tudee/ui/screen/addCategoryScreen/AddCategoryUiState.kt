@@ -1,4 +1,4 @@
-import com.qudus.tudee.ui.screen.addTask.AddTaskUiState
+import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
 
 data class AddCategoryUiState(
     val title: String = "",
@@ -7,7 +7,7 @@ data class AddCategoryUiState(
     val isImageValid: Boolean = false,
     val isSheetOpen: Boolean = true,
     val isLoading: Boolean = false,
-    val titleErrorMessageType: AddTaskUiState.TitleErrorType? = null
+    val titleErrorMessageType: TitleErrorType? = null
 
 ) {
 

@@ -16,6 +16,6 @@ fun Category.toDto(): CategoryDto {
         id = this.id,
         title = this.title,
         imagePath = this.imagePath,
-        defaultCategoryType =this.defaultCategoryType
+       defaultCategoryType = this.defaultCategoryType
     )
 }

@@ -43,7 +43,7 @@ import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing24
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing4
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing8
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.screen.addTask.composable.getTitleErrorMessage
+import com.qudus.tudee.ui.screen.taskEditor.composable.getTitleErrorMessage
 import com.qudus.tudee.ui.util.UiImage
 import org.koin.androidx.compose.koinViewModel
 
