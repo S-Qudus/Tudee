@@ -63,6 +63,7 @@ fun OnBoardingScreen(
     LaunchedEffect(uiState.isCompleted) {
         if (uiState.isCompleted) {
             // navController.navigateToHome()
+            // pop onBordingScreen
         }
 
     }

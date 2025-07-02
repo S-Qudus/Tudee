@@ -9,6 +9,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.qudus.tudee.ui.screen.addTask.addTaskRoute
 import com.qudus.tudee.ui.screen.onBoarding.onBoardingRoute
+import com.qudus.tudee.ui.screen.routes.addCategoryRoute
+import com.qudus.tudee.ui.screen.routes.categoriesRoute
+import com.qudus.tudee.ui.screen.routes.editCategoryRoute
+import com.qudus.tudee.ui.screen.routes.editTaskRoute
+import com.qudus.tudee.ui.screen.routes.homeRoute
+import com.qudus.tudee.ui.screen.routes.taskDetailsRoute
+import com.qudus.tudee.ui.screen.routes.tasksRoute
 import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -18,7 +25,14 @@ fun TudeeNavGraph(navHostController: NavHostController
 ){
     val startDestination by viewModel.state.collectAsState()
     NavHost(navController = navHostController, startDestination = startDestination){
-        addTaskRoute(navHostController)
         onBoardingRoute(navHostController)
+        homeRoute(navHostController)
+        tasksRoute(navHostController)
+        categoriesRoute(navHostController)
+        addTaskRoute(navHostController)
+        editTaskRoute(navHostController)
+        taskDetailsRoute(navHostController)
+        addCategoryRoute(navHostController)
+        editCategoryRoute(navHostController)
     }
 }
