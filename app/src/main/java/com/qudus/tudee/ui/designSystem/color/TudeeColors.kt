@@ -35,6 +35,8 @@ data class TudeeColors(
     val greenVariant: Color,
     val purpleVariant: Color,
     val errorVariant: Color,
+    val TransparentBlack10 : Color
+
 )
 
 val LocalTudeeColors = staticCompositionLocalOf { lightThemeColor }

@@ -1,5 +1,6 @@
 [versions]
 agp = "8.10.1"
+coreSplashscreen = "1.0.1"
 coilCompose = "2.5.0"
 koin = "4.0.3"
 kotlin = "2.0.21"
@@ -17,10 +18,12 @@ roomKtx = "2.7.2"
 roomRuntime = "2.7.2"
 roomTesting = "2.7.2"
 navigationCompose = "2.9.0"
+coil = "2.5.0"
 
 
 
 [libraries]
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 koin-android = { module = "io.insert-koin:koin-android" }
