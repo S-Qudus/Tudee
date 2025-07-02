@@ -63,8 +63,6 @@
 
 
     <!--    content description -->
-    <string name="in_progress">In Progress</string>
-    <string name="done">Done</string>
     <string name="upload">Upload</string>
     <string name="save">Save</string>
     <string name="add">Add</string>
@@ -78,7 +76,6 @@
 
 
     <!--    slider component  -->
-    <string name="stay_working">Stay working</string>
     <string name="tasks_completed_message">You\'ve completed %1$d out of %2$d tasks\nKeep going!</string>
 
     <!-- Work Status Messages -->

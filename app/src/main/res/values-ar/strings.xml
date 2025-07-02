@@ -43,7 +43,6 @@
     <string name="family_and_friend">العائلة والأصدقاء</string>
 
     <!-- Default Task Values -->
-    <string name="app_name">تودي</string>
     <string name="default_task_title">تنظيم مكتب الدراسة</string>
     <string name="default_task_description">مراجعة بنية الخلية ووظائفها للغد...</string>
     <string name="default_priority">متوسط</string>
@@ -69,20 +68,17 @@
     <string name="amazing_message">أنت تفعل رائع!!!\nتودي فخور بك.</string>
     <string name="zero_progress">لا تقدم؟!</string>
     <string name="scrolling_warning">أنت فقط تتصفح، لا تعمل.\nتودي يراقب. عد للعمل!!!</string>
-    <string name="nothing_on_list">لا شيء في قائمتك…</string>
-    <string name="fill_day_message">املأ يومك بشيء\nرائع</string>
+    <string name="nothing_on_list">لا يوجد شيء في قائمتك…</string>
+    <string name="fill_day_message">املأ يومك بشيء رائع</string>
     <string name="add_task">إضافة مهمة</string>
     <string name="overview">نظرة عامة</string>
     <string name="keep_going">استمر!</string>
 
     <!--    content description -->
-    <string name="in_progress">قيد التنفيذ</string>
-    <string name="done">مكتملة</string>
     <string name="delete">حذف</string>
     <string name="add">اضافة</string>
     <string name="edit_category">تعديل الصنف</string>
     <string name="edit_image">تعديل الصورة</string>
-    <string name="category_title_cannot_be_empty">العنوان لا يمكن أن يكون فارغًا</string>
     <string name="category_title_must_start_with_letter">العنوان يجب أن يبدأ بحرف</string>
     <string name="category_title_too_short">العنوان يجب أن يحتوي على 3 أحرف على الأقل</string>
     <!-- Overview Card Status Messages -->
@@ -91,11 +87,6 @@
     <string name="nothing_on_list_title">لا شيء في قائمتك… 🤔</string>
     <string name="zero_progress_title">لا تقدم؟! 😤</string>
 
-    <string name="nothing_on_list">لا يوجد شيء في قائمتك…</string>
-    <string name="fill_day_message">املأ يومك بشيء رائع</string>
-    <string name="priority_high">عالية</string>
-    <string name="priority_medium">متوسطة</string>
-    <string name="priority_low">منخفضة</string>
     <string name="upload">تحميل</string>
     <string name="save">حفظ</string>
     <string name="add_new_task">أضف مهمة جديدة</string>
@@ -113,7 +104,6 @@
     <string name="view_all_done_tasks">عرض جميع المهام المكتملة</string>
     <string name="view_all_in_progress_tasks">عرض جميع المهام قيد التنفيذ</string>
     <string name="view_all_todo_tasks">عرض جميع المهام للتنفيذ</string>
-    <string name="add_new_task">إضافة مهمة جديدة</string>
     <string name="category">الفئة</string>
     <string name="priority">الأولوية</string>
     <string name="task_title">عنوان المهمة</string>

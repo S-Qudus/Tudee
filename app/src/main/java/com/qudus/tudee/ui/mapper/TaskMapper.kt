@@ -53,6 +53,5 @@ fun Task.toTaskUiState(category: CategoryUiState): TaskUiState {
         taskAssignedDate = createdAt,
         taskPriority = priority.toPriorityUiState(),
         taskStatusUiState = state.toTaskStatusUiState(),
-        taskCategory = category
     )
 }

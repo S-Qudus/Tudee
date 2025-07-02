@@ -4,5 +4,4 @@ enum class State {
     TODO,
     IN_PROGRESS,
     DONE,
-    COMPLETED
 }

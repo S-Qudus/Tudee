@@ -17,5 +17,5 @@ val uiModule = module {
     viewModelOf(::OnBoardingViewModel)
     viewModelOf(::AddCategoryViewModel)
     viewModelOf(::EditCategoryViewModel)
-
+    viewModelOf(::TaskDetailsViewModel)
 }

@@ -16,16 +16,3 @@ data class TaskUiState(
     val taskAssignedDate: LocalDate = Clock.System.now()
         .toLocalDateTime(TimeZone.currentSystemDefault()).date,
 )
-
-data class CategoryUiState(
-    val id: Long = 0L,
-    val title: String = "",
-    val imagePath: String = "",
-    val defaultCategoryType: String? = null
-)
-
-enum class TaskStatusUiState(@StringRes val status: Int) {
-    TODO(R.string.to_do),
-    IN_PROGRESS(R.string.in_progress),
-    DONE(R.string.done)
-}

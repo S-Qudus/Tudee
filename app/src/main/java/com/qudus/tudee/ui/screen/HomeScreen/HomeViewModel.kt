@@ -70,7 +70,7 @@ class HomeViewModel(
     }
 
     private fun updateTaskState(tasks: List<Task>) {
-        val completedCount = tasks.count { it.state == State.COMPLETED }
+        val completedCount = tasks.count { it.state == State.DONE }
         val inProgressTasks = tasks.filter { it.state == State.IN_PROGRESS }
         val todoTasks = tasks.filter { it.state == State.TODO }
 
