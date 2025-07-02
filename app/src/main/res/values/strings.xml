@@ -105,6 +105,10 @@
     <string name="progress_is_progress_tudee_will_celebrate_you_on_for_every_win_big_or_small">Progress is progress. Tudee will celebrate you on for every win, big or small.</string>
     <string name="edit">Edit</string>
 
+    <!-- Task Details -->
+    <string name="task_details">Task details</string>
+    <string name="move_to">Move to</string>
+
     <string name="error_task_not_found_empathetic">Oops! We couldn\'t find the task you were looking for.</string>
 
     <string name="error_data_load_faliled">Could not load data.</string>

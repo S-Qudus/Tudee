@@ -6,7 +6,7 @@
     <string name="default_priority">متوسطة</string>
 
     <!-- Task Status -->
-    <string name="todo">قيد التنفيذ</string>
+    <string name="todo">المهام</string>
 
     <!-- Task Priority -->
     <string name="low">منخفض</string>
@@ -70,6 +70,10 @@
     <string name="progress_is_progress_tudee_will_celebrate_you_on_for_every_win_big_or_small">التقدم هو تقدم. تودي سيحتفل بك على كل انتصار، كبيراً كان أم صغيراً.</string>
 
 
+
+    <!-- Task Details -->
+    <string name="task_details">تفاصيل المهمة</string>
+    <string name="move_to">انتقل إلى</string>
 
     <string name="edit">تعديل</string>
 

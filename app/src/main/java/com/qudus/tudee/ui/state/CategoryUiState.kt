@@ -1,11 +1,11 @@
 package com.qudus.tudee.ui.state
 
-import androidx.annotation.DrawableRes
+import com.qudus.tudee.domain.entity.DefaultCategoryType
 
-data class CategoryUiState (
-    val id: String="0",
-    val title:String="",
-     @DrawableRes
-     val image: Int? = null,
-     val isPredefined: Boolean= false
+data class CategoryUiState(
+    val id: Long = 0,
+    val title: String = "",
+    val image: String = "",
+    val isPredefined: Boolean = false,
+    val defaultCategoryType: DefaultCategoryType? = null
 )

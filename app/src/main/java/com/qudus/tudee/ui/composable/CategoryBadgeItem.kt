@@ -40,29 +40,16 @@ fun CategoryBadgeItem(
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
     ) {
         Box {
-            Box(
-                modifier = Modifier
-                    .size(78.dp)
-                    .clip(CircleShape)
-                    .background(color = Theme.color.surfaceHigh, shape = CircleShape)
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = ripple(color = Theme.color.primaryVariant),
-                        enabled = isClickable,
-                        onClick = { onItemClick(id) }
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = imagePainter,
-                    contentDescription = title,
-                    contentScale = ContentScale.Crop
-                )
-            }
-
+            CategoryIcon(
+                isClickable = isClickable,
+                onItemClick = onItemClick,
+                id = id,
+                imagePainter = imagePainter,
+                title = title
+            )
             badge()
         }
 
@@ -70,6 +57,36 @@ fun CategoryBadgeItem(
             text = title,
             style = Theme.textStyle.label.small,
             color = Theme.color.body
+        )
+    }
+}
+
+@Composable
+fun CategoryIcon(
+    title: String,
+    imagePainter: Painter,
+    modifier: Modifier = Modifier,
+    id: Long = 0,
+    isClickable: Boolean = false,
+    onItemClick: (Long) -> Unit = {},
+) {
+    Box(
+        modifier = modifier
+            .size(78.dp)
+            .clip(CircleShape)
+            .background(color = Theme.color.surfaceHigh, shape = CircleShape)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = ripple(color = Theme.color.primaryVariant),
+                enabled = isClickable,
+                onClick = { onItemClick(id) }
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = imagePainter,
+            contentDescription = title,
+            contentScale = ContentScale.Crop
         )
     }
 }
