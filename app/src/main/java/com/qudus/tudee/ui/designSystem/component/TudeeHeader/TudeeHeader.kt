@@ -35,13 +35,13 @@ fun TudeeHeader(
         modifier = modifier
             .fillMaxWidth()
             .background(Theme.color.primary)
-            .padding(vertical = Theme.dimension.regular, horizontal = Theme.dimension.medium),
+            .padding(vertical = Theme.dimension.spacing16, horizontal = Theme.dimension.spacing16),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Theme.dimension.small)
+            horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
         ) {
             Image(
                 painter = painterResource(R.drawable.image_tudee),
