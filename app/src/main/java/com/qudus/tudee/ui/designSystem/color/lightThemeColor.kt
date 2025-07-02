@@ -40,4 +40,5 @@ val lightThemeColor = TudeeColors(
     greenVariant = Color(0xFFE4F2EA),
     purpleVariant = Color(0xFFEEEDF7),
     errorVariant = Color(0xFFFCE8E8),
+    TransparentBlack10 = Color(0x1A000000)
 )

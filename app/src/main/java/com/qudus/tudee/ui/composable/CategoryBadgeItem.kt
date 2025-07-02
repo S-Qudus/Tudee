@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,31 +34,22 @@ fun CategoryBadgeItem(
     modifier: Modifier = Modifier,
     isClickable: Boolean = false,
     onItemClick: (id: Long) -> Unit = {},
-    contentImage: @Composable () -> Unit,
+    imagePainter: Painter,
     badge: @Composable BoxScope.() -> Unit,
 ) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
     ) {
         Box {
-            Box(
-                modifier = Modifier
-                    .size(78.dp)
-                    .clip(CircleShape)
-                    .background(color = Theme.color.surfaceHigh, shape = CircleShape)
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = ripple(color = Theme.color.primaryVariant),
-                        enabled = isClickable,
-                        onClick = { onItemClick(id) }
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                contentImage()
-            }
-
+            CategoryIcon(
+                isClickable = isClickable,
+                onItemClick = onItemClick,
+                id = id,
+                imagePainter = imagePainter,
+                title = title
+            )
             badge()
         }
 
@@ -70,21 +62,33 @@ fun CategoryBadgeItem(
 }
 
 @Composable
-fun ImageFromRes(drawableResId: Int, contentDescription: String = "") {
-    Image(
-        painter = painterResource(id = drawableResId),
-        contentDescription = contentDescription,
-        contentScale = ContentScale.Crop
-    )
-}
-
-@Composable
-fun ImageFromFilePath(imagePath: String, contentDescription: String = "") {
-    Image(
-        painter = rememberAsyncImagePainter(model = File(imagePath)),
-        contentDescription = contentDescription,
-        contentScale = ContentScale.Crop
-    )
+fun CategoryIcon(
+    title: String,
+    imagePainter: Painter,
+    modifier: Modifier = Modifier,
+    id: Long = 0,
+    isClickable: Boolean = false,
+    onItemClick: (Long) -> Unit = {},
+) {
+    Box(
+        modifier = modifier
+            .size(78.dp)
+            .clip(CircleShape)
+            .background(color = Theme.color.surfaceHigh, shape = CircleShape)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = ripple(color = Theme.color.primaryVariant),
+                enabled = isClickable,
+                onClick = { onItemClick(id) }
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = imagePainter,
+            contentDescription = title,
+            contentScale = ContentScale.Crop
+        )
+    }
 }
 
 @Preview(showSystemUi = false, showBackground = true)
@@ -93,12 +97,7 @@ private fun CategoryTextBadgeItemPreview() {
     CategoryBadgeItem(
         id = 0,
         title = "Education",
-        contentImage = {
-            ImageFromRes(
-                drawableResId = R.drawable.icon_book_open,
-                contentDescription = ""
-            )
-        }
+        imagePainter = painterResource(R.drawable.icon_book_open)
     ) {
         TudeeTextBadge(
             modifier = Modifier.align(Alignment.TopEnd),
@@ -116,12 +115,7 @@ private fun CategoryCheckBadgeItemPreview() {
         id = 0,
         title = "Education",
         isClickable = true,
-        contentImage = {
-            ImageFromRes(
-                drawableResId = R.drawable.icon_book_open,
-                contentDescription = ""
-            )
-        },
+        imagePainter = painterResource(R.drawable.icon_book_open),
         onItemClick = {}
     ) {
         TudeeCheckBadge(modifier = Modifier.align(Alignment.TopEnd), visible = true)
