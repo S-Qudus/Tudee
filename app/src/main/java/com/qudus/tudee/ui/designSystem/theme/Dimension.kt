@@ -7,6 +7,7 @@ object Dimension {
     val spacing0: Dp = 0.dp
     val spacing1: Dp = 1.dp
     val spacing2: Dp = 2.dp
+    val spacing3: Dp = 3.dp
     val spacing4: Dp = 4.dp
     val spacing6: Dp = 6.dp
     val spacing8: Dp = 8.dp

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Tudee</string>
     <string name="tudee_tagline">Your cute Helper for Every Task</string>
+
+    <!-- Error Messages -->
     <string name="unexpected_error">Unexpected error</string>
     <string name="category_error">Category error</string>
     <string name="category_title_cannot_be_empty">Category title cannot be empty.</string>
@@ -9,6 +11,7 @@
     <string name="failed_to_fetch_categories">Failed to fetch categories</string>
     <string name="failed_to_delete_category">Failed to delete category</string>
     <string name="failed_to_update_category">Failed to update category</string>
+    <string name="failed_to_create_category">Failed to create category</string>
     <string name="failed_to_upsert_category">Failed to upsert category</string>
     <string name="task_error">Task error</string>
     <string name="failed_to_change_task_state">Failed to change task state</string>
@@ -18,43 +21,50 @@
     <string name="failed_to_fetch_tasks">Failed to fetch tasks</string>
     <string name="failed_to_delete_task">Failed to delete task</string>
     <string name="failed_to_update_task">Failed to update task</string>
+    <string name="failed_to_create_task">Failed to create task</string>
     <string name="failed_to_upsert_task">Failed to upsert task</string>
 
     <!-- Category names -->
-    <string name="cooking">Cooking</string>
-    <string name="coding">Coding</string>
-    <string name="agriculture">Agriculture</string>
-    <string name="traveling">Traveling</string>
-    <string name="cleaning">Cleaning</string>
-    <string name="fixing_bugs">Fixing bugs</string>
-    <string name="adoration">Adoration</string>
-    <string name="self_care">Self-care</string>
-    <string name="budgeting">Budgeting</string>
-    <string name="work">Work</string>
-    <string name="event">Event</string>
-    <string name="entertainment">Entertainment</string>
-    <string name="gym">Gym</string>
-    <string name="medical">Medical</string>
-    <string name="shopping">Shopping</string>
-    <string name="education">Education</string>
-    <string name="family_and_friend">Family &amp; friend</string>
+    <string name="cooking" translatable="false">Cooking</string>
+    <string name="coding" translatable="false">Coding</string>
+    <string name="agriculture" translatable="false">Agriculture</string>
+    <string name="traveling" translatable="false">Traveling</string>
+    <string name="cleaning" translatable="false">Cleaning</string>
+    <string name="fixing_bugs" translatable="false">Fixing bugs</string>
+    <string name="adoration" translatable="false">Adoration</string>
+    <string name="self_care" translatable="false">Self-care</string>
+    <string name="budgeting" translatable="false">Budgeting</string>
+    <string name="work" translatable="false">Work</string>
+    <string name="event" translatable="false">Event</string>
+    <string name="entertainment" translatable="false">Entertainment</string>
+    <string name="gym" translatable="false">Gym</string>
+    <string name="medical" translatable="false">Medical</string>
+    <string name="shopping" translatable="false">Shopping</string>
+    <string name="education" translatable="false">Education</string>
+    <string name="family_and_friend" translatable="false">Family &amp; friend</string>
 
-
-   <!-- CategoryTaskComponent -->
+    <!-- Default Task Values -->
     <string name="default_task_title">Organize Study Desk</string>
-    <string name="default_task_description">Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...</string>
+    <string name="default_task_description">Review cell structure and functions for tomorrow…Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...Review cell structure and functions for tomorrow...</string>
     <string name="default_priority">Medium</string>
 
     <!-- Task Status -->
+
     <string name="tasks">Tasks</string>
     <string name="no_tasks">No tasks here!</string>
     <string name="add_task">Tap the + button to add your first one.</string>
 
+    <string name="to_do">To Do</string>
+    <string name="in_progress">In Progress</string>
+    <string name="done">Done</string>
 
     <!-- Task Priority -->
     <string name="low">Low</string>
     <string name="medium">Medium</string>
     <string name="high">High</string>
+    <string name="priority_high">High</string>
+    <string name="priority_medium">Medium</string>
+    <string name="priority_low">Low</string>
 
     <!--    Date Picker-->
     <string name="clear">Clear</string>
@@ -63,9 +73,11 @@
 
 
     <!--    content description -->
+
     <string name="todo">To Do</string>
     <string name="in_progress">In progress</string>
     <string name="done">Done</string>
+
     <string name="upload">Upload</string>
     <string name="save">Save</string>
     <string name="add">Add</string>
@@ -79,22 +91,46 @@
 
 
     <!--    slider component  -->
-    <string name="stay_working">Stay working</string>
     <string name="tasks_completed_message">You\'ve completed %1$d out of %2$d tasks\nKeep going!</string>
 
+    <!-- Work Status Messages -->
+    <string name="stay_working">Stay working! 😃</string>
+    <string name="tasks_completed_message_only">You\'ve completed %1$d out of %2$d tasks</string>
     <string name="category_image_desc">category image </string>
     <string name="add_new_category">Add New Category</string>
 
     <string name="tadaa">Tadaa!</string>
-    <string name="amazing_message">You\'re doing amazing!!!\nTudee is_proud_of_you.</string>
-
-
-    <string name="zero_progress">Zero progress?!</string>
+    <string name="amazing_message">You\'re doing amazing!!!\nTudee is proud of you.</string>
+    <string name="zero_progress" translatable="false">Zero progress?!</string>
     <string name="scrolling_warning">You just scrolling, not working.\nTudee is watching. Back to work!!!</string>
 
 
     <string name="nothing_on_list">Nothing on your list…</string>
     <string name="fill_day_message">Fill your day with something\nawesome</string>
+    <string name="add_task">Add Task\n</string>
+    <string name="overview">Overview</string>
+    <string name="keep_going">Keep going!</string>
+
+    <!-- Overview Card Status Messages -->
+    <string name="tadaa_title">Tadaa! 🎉</string>
+    <string name="stay_working_title">Stay working! 😃</string>
+    <string name="nothing_on_list_title">Nothing on your list… 🤔</string>
+    <string name="zero_progress_title">Zero progress?! 😤</string>
+
+    <string name="amazing_work_message">You\'re doing amazing!!! Tudee is proud of you.</string>
+    <string name="keep_going_message">You\'ve completed %1$d out of %2$d tasks Keep going!</string>
+    <string name="fill_day_message_short">Fill your day with something awesome.</string>
+    <string name="back_to_work_message">You just scrolling, not working. Tudee is watching. Back to work!!!</string>
+
+    <!-- Task Date Labels -->
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="tomorrow">Tomorrow</string>
+
+    <!-- Task Navigation -->
+    <string name="view_all_done_tasks">View all done tasks</string>
+    <string name="view_all_in_progress_tasks">View all in progress tasks</string>
+    <string name="view_all_todo_tasks">View all todo tasks</string>
     <string name="add_new_task">Add new task</string>
     <string name="category">Category</string>
     <string name="priority">Priority</string>
@@ -103,7 +139,9 @@
     <string name="cancel">Cancel</string>
     <string name="clear">Clear</string>
     <string name="ok">OK</string>
+    <string name="skip">Skip</string>
 
+    <!-- Task Title Error Messages -->
 
     <!--    Task Title Error Messages  -->
     <string name="error_title_too_long">Title must be less than 100 characters.</string>
@@ -118,17 +156,37 @@
     <!-- Category Error Messages -->
     <string name="error_category_not_found">Category not found.</string>
     <string name="error_category_failed_in_fetch">Failed to load categories. Please try again.</string>
-    <string name="priority_high" />
-    <string name="priority_medium" />
-    <string name="priority_low" />
-    <string name="skip">Skip</string>
+
+    <!-- Motivation Messages -->
     <string name="overwhelmed_with_tasks">Overwhelmed with tasks?</string>
-    <string name="let_s_bring_some_order_to_the_chaos_tudee_is_here_to_help_you_sort_plan_and_breathe_easier">Let’s bring some order to the chaos. Tudee is here to help you sort, plan, and breathe easier.</string>
+    <string name="let_s_bring_some_order_to_the_chaos_tudee_is_here_to_help_you_sort_plan_and_breathe_easier">Let\'s bring some order to the chaos. Tudee is here to help you sort, plan, and breathe easier.</string>
     <string name="uh_oh_procrastinating_again">Uh-oh! Procrastinating again</string>
-    <string name="let_s_complete_task_and_celebrate_together">Let’s complete task and celebrate together.</string>
-    <string name="tudee_not_mad_just_a_little_disappointed_let_s_get_back_on_track_together">Tudee not mad… just a little disappointed, Let’s get back on track together.</string>
+    <string name="let_s_complete_task_and_celebrate_together">Let\'s complete task and celebrate together.</string>
+    <string name="tudee_not_mad_just_a_little_disappointed_let_s_get_back_on_track_together">Tudee not mad… just a little disappointed, Let\'s get back on track together.</string>
     <string name="progress_is_progress_tudee_will_celebrate_you_on_for_every_win_big_or_small">Progress is progress. Tudee will celebrate you on for every win, big or small.</string>
     <string name="edit">Edit</string>
+
+    <!-- Date Formatting -->
+    <string name="monday">الاثنين</string>
+    <string name="tuesday">الثلاثاء</string>
+    <string name="wednesday">الأربعاء</string>
+    <string name="thursday">الخميس</string>
+    <string name="friday">الجمعة</string>
+    <string name="saturday">السبت</string>
+    <string name="sunday">الأحد</string>
+
+    <string name="january">يناير</string>
+    <string name="february">فبراير</string>
+    <string name="march">مارس</string>
+    <string name="april">أبريل</string>
+    <string name="may">مايو</string>
+    <string name="june">يونيو</string>
+    <string name="july">يوليو</string>
+    <string name="august">أغسطس</string>
+    <string name="september">سبتمبر</string>
+    <string name="october">أكتوبر</string>
+    <string name="november">نوفمبر</string>
+    <string name="december">ديسمبر</string>
 
     <!-- Task Details -->
     <string name="task_details">Task details</string>

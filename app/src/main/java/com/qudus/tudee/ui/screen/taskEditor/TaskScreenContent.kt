@@ -56,7 +56,7 @@ import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.Paragraph
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.WithIcon
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.screen.addTask.AddTaskInteraction
+import com.qudus.tudee.ui.screen.addTask.state.AddTaskInteraction
 import com.qudus.tudee.ui.screen.taskEditor.composable.PriorityChip
 import com.qudus.tudee.ui.screen.taskEditor.composable.getCategoryErrorMessage
 import com.qudus.tudee.ui.screen.taskEditor.composable.getTaskDataErrorMessageByType

@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component
+package com.qudus.tudee.ui.designSystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

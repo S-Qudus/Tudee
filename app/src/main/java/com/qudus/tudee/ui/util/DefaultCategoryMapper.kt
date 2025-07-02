@@ -12,7 +12,7 @@ fun getDefaultCategoryStringResourceByType(type: DefaultCategoryType): String {
     return when (type){
         DefaultCategoryType.EDUCATION -> stringResource(R.string.education)
         DefaultCategoryType.SHOPPING -> stringResource(R.string.shopping)
-        DefaultCategoryType.MEDIAL -> stringResource(R.string.medical)
+        DefaultCategoryType.MEDICAL -> stringResource(R.string.medical)
         DefaultCategoryType.GYM -> stringResource(R.string.gym)
         DefaultCategoryType.ENTERTAINMENT -> stringResource(R.string.entertainment)
         DefaultCategoryType.EVENT -> stringResource(R.string.event)
@@ -35,7 +35,7 @@ fun getIconPainterForCategory(type: DefaultCategoryType): Painter {
     return when (type) {
         DefaultCategoryType.EDUCATION -> painterResource(id = R.drawable.icon_book_open)
         DefaultCategoryType.SHOPPING -> painterResource(id = R.drawable.icon_shopping_cart)
-        DefaultCategoryType.MEDIAL -> painterResource(id = R.drawable.icon_hospital_location)
+        DefaultCategoryType.MEDICAL -> painterResource(id = R.drawable.icon_hospital_location)
         DefaultCategoryType.GYM -> painterResource(id = R.drawable.icon_body_part_muscle)
         DefaultCategoryType.ENTERTAINMENT -> painterResource(id = R.drawable.icon_baseball_bat)
         DefaultCategoryType.EVENT -> painterResource(id = R.drawable.icon_birthday_cake)
@@ -50,5 +50,27 @@ fun getIconPainterForCategory(type: DefaultCategoryType): Painter {
         DefaultCategoryType.CODING -> painterResource(id = R.drawable.icon_developer)
         DefaultCategoryType.COOKING -> painterResource(id = R.drawable.icon_chef)
         DefaultCategoryType.FAMILY_AND_FRIEND -> painterResource(id = R.drawable.icon_user_multiple)
+    }
+}
+
+fun getIconResForCategory(type: DefaultCategoryType): Int {
+    return when (type) {
+        DefaultCategoryType.EDUCATION -> R.drawable.icon_book_open
+        DefaultCategoryType.SHOPPING -> R.drawable.icon_shopping_cart
+        DefaultCategoryType.MEDICAL -> R.drawable.icon_hospital_location
+        DefaultCategoryType.GYM -> R.drawable.icon_body_part_muscle
+        DefaultCategoryType.ENTERTAINMENT -> R.drawable.icon_baseball_bat
+        DefaultCategoryType.EVENT -> R.drawable.icon_birthday_cake
+        DefaultCategoryType.WORK -> R.drawable.icon_briefcase
+        DefaultCategoryType.BUDGETING -> R.drawable.icon_money_bag
+        DefaultCategoryType.SELF_CARE -> R.drawable.icon_in_love
+        DefaultCategoryType.ADORATION -> R.drawable.icon_quran
+        DefaultCategoryType.FIXING_BUGS -> R.drawable.icon_bug
+        DefaultCategoryType.CLEANING -> R.drawable.icon_blush_brush
+        DefaultCategoryType.TRAVELING -> R.drawable.icon_airplane
+        DefaultCategoryType.AGRICULTURE -> R.drawable.icon_plant
+        DefaultCategoryType.CODING -> R.drawable.icon_developer
+        DefaultCategoryType.COOKING -> R.drawable.icon_chef
+        DefaultCategoryType.FAMILY_AND_FRIEND -> R.drawable.icon_user_multiple
     }
 }
