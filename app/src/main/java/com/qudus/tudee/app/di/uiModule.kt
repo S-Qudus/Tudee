@@ -1,5 +1,6 @@
 package com.qudus.tudee.app.di
 
+import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
 import com.qudus.tudee.ui.screen.addTask.AddTaskViewModel
 import com.qudus.tudee.ui.screen.editCategoryScreen.EditCategoryViewModel
 import com.qudus.tudee.ui.screen.addCategoryScreen.AddCategoryViewModel
@@ -10,11 +11,11 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val uiModule = module {
-    viewModelOf(::TaskDetailsViewModel)
+    viewModelOf(::HomeViewModel)
     viewModelOf(::AddTaskViewModel)
     viewModelOf(::EditTaskViewModel)
     viewModelOf(::OnBoardingViewModel)
     viewModelOf(::AddCategoryViewModel)
     viewModelOf(::EditCategoryViewModel)
-
+    viewModelOf(::TaskDetailsViewModel)
 }

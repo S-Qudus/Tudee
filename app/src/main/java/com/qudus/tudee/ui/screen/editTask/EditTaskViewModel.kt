@@ -10,6 +10,7 @@ import com.qudus.tudee.ui.mapper.toTaskUiState
 import com.qudus.tudee.ui.screen.taskEditor.DataErrorType
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorViewModel
+import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
 import kotlinx.coroutines.flow.update
 
 class EditTaskViewModel(
@@ -36,6 +37,10 @@ class EditTaskViewModel(
             _state.update { it.copy(dataErrorMessageType = DataErrorType.NOT_FOUND) }
         else
             _state.update { it.copy(dataErrorMessageType = DataErrorType.GENERAL) }
+    }
+
+    override fun onGetCategoriesError(exception: TudeeExecption) {
+        _state.update { it.copy(categoryErrorMessageType = CategoryErrorType.FAILED_IN_FETCH) }
     }
 
     private fun getExistingCategories(taskCategoryId: Long) {

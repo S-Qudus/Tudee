@@ -83,12 +83,12 @@ fun TaskDetailsContent(
                         top = Theme.dimension.spacing12,
                         bottom = Theme.dimension.spacing8
                     ),
-                    imagePainter = if (state.taskUiState.taskCategory.defaultCategoryType != null) {
-                        getIconPainterForCategory(state.taskUiState.taskCategory.defaultCategoryType)
+                    imagePainter = if (state.categoryUiState.defaultCategoryType != null) {
+                        getIconPainterForCategory(state.categoryUiState.defaultCategoryType)
                     } else {
-                        rememberAsyncImagePainter(model = File(state.taskUiState.taskCategory.image))
+                        rememberAsyncImagePainter(model = File(state.categoryUiState.image))
                     },
-                    title = state.taskUiState.taskCategory.title,
+                    title = state.categoryUiState.title,
                 )
             }
             item {

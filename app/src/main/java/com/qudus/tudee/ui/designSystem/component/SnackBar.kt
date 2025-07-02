@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component
+package com.qudus.tudee.ui.designSystem.component
 
 import android.graphics.BlurMaskFilter
 import androidx.compose.foundation.Image

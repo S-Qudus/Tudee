@@ -18,7 +18,7 @@ import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 fun LoadWorkSummaries(completedTasks: Int, totalTasks: Int) {
     val stayWorkingTitle = stringResource(R.string.stay_working)
     var taskCompletedMessage = stringResource(
-        R.string.tasks_completed_message,
+        R.string.tasks_completed_message_only,
         completedTasks,
         totalTasks
     )
