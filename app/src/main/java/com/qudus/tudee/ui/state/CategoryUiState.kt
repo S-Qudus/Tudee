@@ -1,9 +1,12 @@
 package com.qudus.tudee.ui.state
 
-data class CategoryUiState (
-    val id: Long = 0L,
+import com.qudus.tudee.domain.entity.DefaultCategoryType
+
+data class CategoryUiState(
+    val id: Long = 0,
     val title: String = "",
-    val image: String="",
+    val image: String = "",
     val isPredefined: Boolean = false,
-    val isTitleValid: Boolean = true
+    val isTitleValid: Boolean = true,
+    val defaultCategoryType: DefaultCategoryType? = null
 )
