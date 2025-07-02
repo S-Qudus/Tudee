@@ -11,3 +11,11 @@ fun CategoryDto.toCategory(): Category {
         defaultCategoryType = defaultCategoryType
     )
 }
+fun Category.toDto(): CategoryDto {
+    return CategoryDto(
+        id = this.id,
+        title = this.title,
+        imagePath = this.imagePath,
+       defaultCategoryType = this.defaultCategoryType
+    )
+}

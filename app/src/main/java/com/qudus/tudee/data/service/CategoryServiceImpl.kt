@@ -2,6 +2,7 @@ package com.qudus.tudee.data.service
 
 import com.qudus.tudee.data.database.dao.CategoryDao
 import com.qudus.tudee.data.mapper.toCategory
+import com.qudus.tudee.data.mapper.toDto
 import com.qudus.tudee.data.util.wrapServiceCall
 import com.qudus.tudee.data.util.wrapServiceSuspendCall
 import com.qudus.tudee.domain.entity.Category
@@ -13,15 +14,15 @@ class CategoryServiceImpl(
     private val categoryDao: CategoryDao
 ) : CategoryService {
     override suspend fun createCategory(category: Category) {
-        TODO("Not yet implemented")
+        categoryDao.upsertCategory(category.toDto())
     }
 
     override suspend fun updateCategory(category: Category) {
-        TODO("Not yet implemented")
+        categoryDao.upsertCategory(category.toDto())
     }
 
     override suspend fun deleteCategory(id: Long) {
-        TODO("Not yet implemented")
+        categoryDao.deleteCategoryById(id)
     }
 
     override fun getCategories(): Flow<List<Category>> {

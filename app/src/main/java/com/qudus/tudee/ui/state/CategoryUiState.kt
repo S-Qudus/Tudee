@@ -7,5 +7,6 @@ data class CategoryUiState(
     val title: String = "",
     val image: String = "",
     val isPredefined: Boolean = false,
+    val isTitleValid: Boolean = true,
     val defaultCategoryType: DefaultCategoryType? = null
 )
