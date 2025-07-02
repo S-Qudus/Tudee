@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.coil.compose)
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -76,6 +77,10 @@ dependencies {
     // navigation
     implementation(libs.androidx.navigation.compose)
 
+
+    // splash screen
+    implementation(libs.androidx.core.splashscreen)
+    
     //coil
     implementation(libs.coil.compose)
 

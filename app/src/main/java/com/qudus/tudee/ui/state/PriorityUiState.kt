@@ -12,25 +12,25 @@ enum class PriorityUiState() {
     HIGH,
     MEDIUM,
     LOW;
+}
 
-    @Composable
-    fun getIcon(): Painter = when (this) {
-        LOW -> R.drawable.icon_trade_down.toPainter()
-        MEDIUM -> R.drawable.icon_alert.toPainter()
-        HIGH -> R.drawable.icon_flag.toPainter()
-    }
+@Composable
+fun PriorityUiState.getColor(): Color = when (this) {
+    PriorityUiState.LOW -> Theme.color.greenAccent
+    PriorityUiState.MEDIUM -> Theme.color.yellowAccent
+    PriorityUiState.HIGH -> Theme.color.pinkAccent
+}
 
-    @Composable
-    fun getColor(): Color = when (this) {
-        LOW -> Theme.color.greenAccent
-        MEDIUM -> Theme.color.yellowAccent
-        HIGH -> Theme.color.pinkAccent
-    }
+@Composable
+fun PriorityUiState.getIcon(): Painter = when (this) {
+    PriorityUiState.LOW -> R.drawable.icon_trade_down.toPainter()
+    PriorityUiState.MEDIUM -> R.drawable.icon_alert.toPainter()
+    PriorityUiState.HIGH -> R.drawable.icon_flag.toPainter()
+}
 
-    @Composable
-    fun getLabel(): String = when (this) {
-        LOW -> R.string.low.toStringResource()
-        MEDIUM -> R.string.medium.toStringResource()
-        HIGH -> R.string.high.toStringResource()
-    }
+@Composable
+fun PriorityUiState.getLabel(): String = when (this) {
+    PriorityUiState.LOW -> R.string.low.toStringResource()
+    PriorityUiState.MEDIUM -> R.string.medium.toStringResource()
+    PriorityUiState.HIGH -> R.string.high.toStringResource()
 }
