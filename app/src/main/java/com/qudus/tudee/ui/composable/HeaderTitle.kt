@@ -19,7 +19,7 @@ fun HeaderTitle(title: String, modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .height(64.dp)
             .background(Theme.color.surfaceHigh)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(horizontal = Theme.dimension.spacing16, vertical = Theme.dimension.spacing12),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(

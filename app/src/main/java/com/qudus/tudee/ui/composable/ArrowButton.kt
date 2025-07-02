@@ -19,19 +19,19 @@ fun ArrowButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     imageVector: ImageVector,
-    size: Dp = 32.dp,
+    size: Dp = Theme.dimension.spacing32,
     contentDescription: String,
     showBorder: Boolean = true,
-    iconSize: Dp = 20.dp,
+    iconSize: Dp = Theme.dimension.spacing20,
 ) {
     Box(
         modifier = modifier
             .size(size)
-            .let { m ->
+            .let { modifier ->
                 if (showBorder)
-                    m.border(1.dp, Theme.color.stroke, CircleShape)
+                    modifier.border(1.dp, Theme.color.stroke, CircleShape)
                 else
-                    m
+                    modifier
             }
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center

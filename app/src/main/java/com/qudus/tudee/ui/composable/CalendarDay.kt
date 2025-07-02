@@ -54,7 +54,7 @@ fun CalendarDay(
                 onClick = onClick
             )
             .then(background)
-            .padding(horizontal = 12.dp, vertical = 12.dp)
+            .padding(Theme.dimension.spacing12)
     ) {
         Text(
             text = date,

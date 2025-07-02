@@ -40,7 +40,7 @@ fun SnackBar(
             .height(56.dp)
             .dropShadow(blur = 16.dp, offsetY = 4.dp, color = Color(0x1F000000))
             .background(Theme.color.surfaceHigh, shape = RoundedCornerShape(16.dp))
-            .padding(8.dp),
+            .padding(Theme.dimension.spacing8),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
@@ -64,7 +64,7 @@ fun SnackBar(
             style = Theme.textStyle.body.medium,
             color = Theme.color.body,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(start = 12.dp),
+            modifier = Modifier.padding(start = Theme.dimension.spacing12),
         )
     }
 }

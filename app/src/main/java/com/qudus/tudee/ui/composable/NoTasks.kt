@@ -38,7 +38,7 @@ fun NoTasks() {
             .background(Theme.color.surface),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        contentPadding = PaddingValues(top = 12.dp),
+        contentPadding = PaddingValues(top = Theme.dimension.spacing12),
     ) {
           item{
               Row(

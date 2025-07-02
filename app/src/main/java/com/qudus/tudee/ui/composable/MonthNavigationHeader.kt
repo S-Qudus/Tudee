@@ -40,7 +40,11 @@ fun MonthNavigationHeader(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
+            .padding(
+                start = Theme.dimension.spacing16,
+                end = Theme.dimension.spacing16,
+                bottom = Theme.dimension.spacing8
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

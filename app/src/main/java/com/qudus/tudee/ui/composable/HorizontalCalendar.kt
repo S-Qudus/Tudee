@@ -27,7 +27,7 @@ fun HorizontalCalendar(
         modifier = modifier
             .fillMaxWidth()
             .background(Theme.color.surfaceHigh)
-            .padding(bottom = 8.dp)
+            .padding(bottom = Theme.dimension.spacing8)
     ) {
         MonthNavigationHeader(
             currentMonth = currentMonth,
