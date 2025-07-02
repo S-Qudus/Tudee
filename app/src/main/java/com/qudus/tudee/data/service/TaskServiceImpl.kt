@@ -4,6 +4,8 @@ import com.qudus.tudee.data.database.dao.TaskDao
 import com.qudus.tudee.data.mapper.toDto
 import com.qudus.tudee.data.mapper.toEntity
 import com.qudus.tudee.data.util.wrapServiceSuspendCall
+import com.qudus.tudee.data.mapper.toTask
+import com.qudus.tudee.data.util.wrapServiceSuspendCall
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.TaskService
@@ -14,7 +16,7 @@ import kotlinx.coroutines.flow.map
 class TaskServiceImpl(
     private val taskDao: TaskDao,
     private val validator: InputValidator
-): TaskService {
+) : TaskService {
 
     override suspend fun createTask(task: Task) {
         wrapServiceSuspendCall {
@@ -57,8 +59,16 @@ class TaskServiceImpl(
     }
 
     override suspend fun getTaskById(id: Long): Task {
+        return wrapServiceSuspendCall { taskDao.getTaskById(id).toTask() }
         return wrapServiceSuspendCall {
             taskDao.getTaskById(id).toEntity()
         }
     }
+
+    override suspend fun moveToState(taskId: Long, newState: State) {
+        val task = taskDao.getTaskById(taskId)
+        val newTask = task.copy(state = newState.name)
+        taskDao.upsertTask(newTask)
+    }
+
 }

@@ -18,6 +18,7 @@ roomKtx = "2.7.2"
 roomRuntime = "2.7.2"
 roomTesting = "2.7.2"
 navigationCompose = "2.9.0"
+coil = "2.5.0"
 
 
 

@@ -14,3 +14,9 @@ class CategoryReadFailedException : CategoryException()
 
 class EmptyCategoryTitleException : CategoryException()
 
+class CategoryTitleMustStartWithLetterException : CategoryException()
+
+class CategoryTitleTooShortException :CategoryException()
+
+
+

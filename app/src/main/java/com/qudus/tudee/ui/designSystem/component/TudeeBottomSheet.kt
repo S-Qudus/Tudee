@@ -6,6 +6,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.BottomSheetDefaults.DragHandle
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,7 +39,7 @@ fun TudeeBottomSheet(
         exit = slideOutVertically()
     ) {
         ModalBottomSheet(
-            modifier = modifier.fillMaxWidth().navigationBarsPadding(),
+            modifier = modifier.fillMaxWidth().statusBarsPadding(),
             sheetState = sheetState,
             onDismissRequest = onDismissRequest,
             containerColor = Theme.color.surface,

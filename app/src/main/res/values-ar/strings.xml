@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">تودي</string>
     <string name="tudee_tagline">مساعدك اللطيف لكل مهمة</string>
-    
+
     <!-- Error Messages -->
     <string name="unexpected_error">خطأ غير متوقع</string>
     <string name="category_error">خطأ في الفئة</string>
@@ -43,11 +43,13 @@
     <string name="family_and_friend">العائلة والأصدقاء</string>
 
     <!-- Default Task Values -->
+    <string name="app_name">تودي</string>
     <string name="default_task_title">تنظيم مكتب الدراسة</string>
     <string name="default_task_description">مراجعة بنية الخلية ووظائفها للغد...</string>
     <string name="default_priority">متوسط</string>
 
     <!-- Task Status -->
+    <string name="todo">المهام</string>
     <string name="to_do">للتنفيذ</string>
     <string name="in_progress">قيد التنفيذ</string>
     <string name="done">مكتمل</string>
@@ -73,12 +75,30 @@
     <string name="overview">نظرة عامة</string>
     <string name="keep_going">استمر!</string>
 
+    <!--    content description -->
+    <string name="in_progress">قيد التنفيذ</string>
+    <string name="done">مكتملة</string>
+    <string name="delete">حذف</string>
+    <string name="add">اضافة</string>
+    <string name="edit_category">تعديل الصنف</string>
+    <string name="edit_image">تعديل الصورة</string>
+    <string name="category_title_cannot_be_empty">العنوان لا يمكن أن يكون فارغًا</string>
+    <string name="category_title_must_start_with_letter">العنوان يجب أن يبدأ بحرف</string>
+    <string name="category_title_too_short">العنوان يجب أن يحتوي على 3 أحرف على الأقل</string>
     <!-- Overview Card Status Messages -->
     <string name="tadaa_title">تادا! 🎉</string>
     <string name="stay_working_title">استمر في العمل! 😃</string>
     <string name="nothing_on_list_title">لا شيء في قائمتك… 🤔</string>
     <string name="zero_progress_title">لا تقدم؟! 😤</string>
 
+    <string name="nothing_on_list">لا يوجد شيء في قائمتك…</string>
+    <string name="fill_day_message">املأ يومك بشيء رائع</string>
+    <string name="priority_high">عالية</string>
+    <string name="priority_medium">متوسطة</string>
+    <string name="priority_low">منخفضة</string>
+    <string name="upload">تحميل</string>
+    <string name="save">حفظ</string>
+    <string name="add_new_task">أضف مهمة جديدة</string>
     <string name="amazing_work_message">أنت تفعل رائع!!! تودي فخور بك.</string>
     <string name="keep_going_message">لقد أكملت %1$d من أصل %2$d مهمة استمر!</string>
     <string name="fill_day_message_short">املأ يومك بشيء رائع.</string>
@@ -98,7 +118,8 @@
     <string name="priority">الأولوية</string>
     <string name="task_title">عنوان المهمة</string>
     <string name="description">الوصف</string>
-    <string name="add">إضافة</string>
+    <string name="category_image_desc">صورة الصنف</string>
+    <string name="add_new_category">اضافة صنف جديد</string>
     <string name="cancel">إلغاء</string>
     <string name="clear">مسح</string>
     <string name="ok">موافق</string>
@@ -122,6 +143,10 @@
     <string name="let_s_complete_task_and_celebrate_together">دعنا نكمل المهمة ونحتفل معاً.</string>
     <string name="tudee_not_mad_just_a_little_disappointed_let_s_get_back_on_track_together">تودي ليس غاضباً… فقط محبط قليلاً، دعنا نعود إلى المسار الصحيح معاً.</string>
     <string name="progress_is_progress_tudee_will_celebrate_you_on_for_every_win_big_or_small">التقدم هو تقدم. تودي سيحتفل بك على كل فوز، كبير أو صغير.</string>
+
+    <!-- Task Details -->
+    <string name="task_details">تفاصيل المهمة</string>
+    <string name="move_to">انتقل إلى</string>
 
     <string name="edit">تعديل</string>
 
