@@ -13,7 +13,8 @@ class TaskServiceImpl(
     private val taskDao: TaskDao,
     private val validator: InputValidator
 ) : TaskService {
-    override suspend fun createTake(task: Task) {
+
+    override suspend fun createTask(task: Task) {
         wrapServiceSuspendCall {
             validator.validateTitle(task.title)
             taskDao.upsertTask(task.toDto())
@@ -21,7 +22,8 @@ class TaskServiceImpl(
     }
 
     override suspend fun updateTask(task: Task) {
-        TODO("Not yet implemented")
+        validator.validateTitle(task.title)
+        taskDao.upsertTask(task.toDto())
     }
 
     override suspend fun deleteTask(id: Long) {
@@ -37,9 +39,7 @@ class TaskServiceImpl(
     }
 
     override suspend fun getTaskById(id: Long): Task {
-        return wrapServiceSuspendCall {
-            taskDao.getTaskById(id).toTask()
-        }
+        return wrapServiceSuspendCall { taskDao.getTaskById(id).toTask() }
     }
 
     override suspend fun moveToState(taskId: Long, newState: State) {

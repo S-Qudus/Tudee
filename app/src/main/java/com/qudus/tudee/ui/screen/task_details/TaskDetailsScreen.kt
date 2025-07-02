@@ -1,6 +1,5 @@
 package com.qudus.tudee.ui.screen.task_details
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -11,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
@@ -29,9 +27,8 @@ import com.qudus.tudee.ui.state.getIcon
 import com.qudus.tudee.ui.state.getLabel
 import com.qudus.tudee.ui.state.getStatusText
 import com.qudus.tudee.ui.state.getTextColor
-import com.qudus.tudee.ui.util.extension.toPainter
 import com.qudus.tudee.ui.util.extension.toStringResource
-import com.qudus.tudee.ui.util.getIconResForCategory
+import com.qudus.tudee.ui.util.getIconPainterForCategory
 import org.koin.androidx.compose.koinViewModel
 import java.io.File
 
@@ -85,18 +82,14 @@ fun TaskDetailsContent(
                     modifier = Modifier.padding(
                         top = Theme.dimension.spacing12,
                         bottom = Theme.dimension.spacing8
-                    )
-                ) {
-                    Image(
-                        painter = if (state.taskUiState.taskCategory.defaultCategoryType != null) {
-                            getIconResForCategory(state.taskUiState.taskCategory.defaultCategoryType).toPainter()
-                        } else {
-                            rememberAsyncImagePainter(model = File(state.taskUiState.taskCategory.image))
-                        },
-                        contentDescription = state.taskUiState.taskCategory.title,
-                        contentScale = ContentScale.Crop,
-                    )
-                }
+                    ),
+                    imagePainter = if (state.taskUiState.taskCategory.defaultCategoryType != null) {
+                        getIconPainterForCategory(state.taskUiState.taskCategory.defaultCategoryType)
+                    } else {
+                        rememberAsyncImagePainter(model = File(state.taskUiState.taskCategory.image))
+                    },
+                    title = state.taskUiState.taskCategory.title,
+                )
             }
             item {
                 Text(

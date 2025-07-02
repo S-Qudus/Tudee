@@ -75,4 +75,11 @@
     <string name="task_details">تفاصيل المهمة</string>
     <string name="move_to">انتقل إلى</string>
 
+    <string name="edit">تعديل</string>
+
+    <string name="error_task_not_found_empathetic">عفوًا! لم نتمكن من العثور على المهمة التي تبحثعنها.</string>
+
+    <string name="error_data_load_faliled">تعذر تحميل البيانات.</string>
+
+    <string name="edit_task">تعديل المهمة</string>
 </resources>

@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import com.qudus.tudee.domain.entity.State
 
 interface TaskService {
-    suspend fun createTake(task: Task)
+    suspend fun createTask(task: Task)
     suspend fun updateTask(task: Task)
     suspend fun deleteTask(id: Long)
     suspend fun getTasksByCategoryId(id: Long): List<Task>
