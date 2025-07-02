@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 class TaskViewModel(private val taskService: TaskService) :
@@ -58,5 +58,5 @@ class TaskViewModel(private val taskService: TaskService) :
     fun selectState(state: StateUiState) = _state.update { it.copy(selectedState = state) }
 
     fun selectMonth(month: LocalDate) =
-        _state.update { it.copy(currentMonth = month.withDayOfMonth(1)) }
+        _state.update { it.copy(currentMonth = LocalDate(month.year, month.month, 1)) }
 }

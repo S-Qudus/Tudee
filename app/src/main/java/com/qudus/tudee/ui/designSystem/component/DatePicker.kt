@@ -19,13 +19,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import java.time.LocalDate
-import java.time.ZoneId
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.todayIn
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -38,16 +43,19 @@ fun DatePicker(
     onClear: () -> Unit,
     onDateSelected: (LocalDate) -> Unit
 ) {
+
+    val zone = TimeZone.currentSystemDefault()
+
+    val selectedInstant = selectedDate?.atStartOfDayIn(zone)?.toEpochMilliseconds()
+        ?: Clock.System.todayIn(zone).atStartOfDayIn(zone).toEpochMilliseconds()
+
     val datePickerState = rememberDatePickerState(
-        initialSelectedDateMillis = selectedDate
-            ?.atStartOfDay(ZoneId.systemDefault())?.toInstant()?.toEpochMilli()
-            ?: LocalDate.now()
-                .atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        initialSelectedDateMillis = selectedInstant
     )
 
     if (showDialog) {
         DatePickerDialog(
-            onDismissRequest = { onDismiss },
+            onDismissRequest = onDismiss ,
             confirmButton = {},
             dismissButton = {},
             properties = DialogProperties()
@@ -61,7 +69,6 @@ fun DatePicker(
                         todayDateBorderColor = Theme.color.primary,
                     ),
                 )
-
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -94,7 +101,8 @@ fun DatePicker(
                         modifier = Modifier.clickable {
                             val millis = datePickerState.selectedDateMillis
                             if (millis != null) {
-                                val date = LocalDate.ofEpochDay(millis / (24 * 60 * 60 * 1000))
+                                val date = Instant.fromEpochMilliseconds(millis)
+                                    .toLocalDateTime(TimeZone.currentSystemDefault()).date
                                 onDateSelected(date)
                             }
                             onDismiss()
@@ -110,13 +118,13 @@ fun DatePicker(
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true, showSystemUi = true)
+@PreviewLightDark
 @Composable
 fun DatePickerPreview() {
     DatePicker(
         showDialog = true,
-        selectedDate = LocalDate.now(),
-        onDismiss = { },
+        selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
+        onDismiss = {},
         onClear = {},
         onDateSelected = {}
     )

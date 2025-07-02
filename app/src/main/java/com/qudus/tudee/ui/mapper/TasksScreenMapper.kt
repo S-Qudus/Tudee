@@ -9,16 +9,16 @@ import com.qudus.tudee.ui.state.PriorityUiState
 import com.qudus.tudee.ui.state.StateUiState
 import java.time.format.DateTimeFormatter
 import com.qudus.tudee.domain.entity.State
+import com.qudus.tudee.ui.util.extension.formatMonthToString
 
 @RequiresApi(Build.VERSION_CODES.O)
 object TasksScreenMapper {
 
-    private val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
     fun map(task: Task): TaskUiState = TaskUiState(
         id = task.id,
         title = task.title,
         description = task.description,
-        createdAt = task.createdAt.format(dateFormatter),
+        createdAt = task.createdAt.formatMonthToString(),
         priority = map(task.priority),
         state = map(task.state),
         categoryId = task.categoryId,

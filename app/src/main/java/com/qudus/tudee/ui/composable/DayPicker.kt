@@ -13,8 +13,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import java.time.LocalDate
-import java.time.temporal.TemporalAdjusters
+import com.qudus.tudee.ui.util.extension.daysIn
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -23,16 +27,18 @@ fun DayPicker(
     selectedDate: LocalDate,
     onDateSelected: (LocalDate) -> Unit
 ) {
+
     val daysInMonth = remember(currentMonth) {
-        val firstDayOfMonth = currentMonth.with(TemporalAdjusters.firstDayOfMonth())
-        val lastDayOfMonth = currentMonth.with(TemporalAdjusters.lastDayOfMonth())
-        (0 until lastDayOfMonth.dayOfMonth).map { firstDayOfMonth.plusDays(it.toLong()) }
+        val year = currentMonth.year
+        val month = currentMonth.month
+        val daysInMonthCount = month.daysIn(year)
+        (0 until daysInMonthCount).map { LocalDate(year, month, it + 1) }
     }
 
     val listState = rememberLazyListState()
 
     LaunchedEffect(currentMonth) {
-        val today = LocalDate.now()
+        val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
         if (currentMonth.year == today.year && currentMonth.month == today.month) {
             val index = daysInMonth.indexOf(today)
             if (index != -1) {

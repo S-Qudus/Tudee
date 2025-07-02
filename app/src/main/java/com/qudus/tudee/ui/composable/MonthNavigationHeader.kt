@@ -23,9 +23,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.designSystem.component.DatePicker
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.util.extension.toLocaleDigits
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import com.qudus.tudee.ui.util.extension.formatMonthToString
+import kotlinx.datetime.*
+import kotlinx.datetime.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -47,7 +47,10 @@ fun MonthNavigationHeader(
 
         ArrowButton(
             modifier = Modifier,
-            onClick = { onMonthChange(currentMonth.minusMonths(1)) },
+            onClick = {
+                val prev = currentMonth.minus(DatePeriod(months = 1))
+                onMonthChange(LocalDate(prev.year, prev.month, 1))
+            },
             imageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft,
             contentDescription = "Previous Month",
         )
@@ -55,15 +58,14 @@ fun MonthNavigationHeader(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.clickable {
-                showDatePicker = true
-            }
         ) {
             Text(
-                text = currentMonth.format(DateTimeFormatter.ofPattern("MMM, yyyy"))
-                    .toLocaleDigits(locale),
+                text = currentMonth.formatMonthToString(locale = locale),
                 color = Theme.color.body,
-                style = Theme.textStyle.label.medium
+                style = Theme.textStyle.label.medium,
+                modifier = Modifier.clickable {
+                    showDatePicker = true
+                }
             )
             ArrowButton(
                 modifier = Modifier,
@@ -77,7 +79,10 @@ fun MonthNavigationHeader(
         }
         ArrowButton(
             modifier = Modifier,
-            onClick = { onMonthChange(currentMonth.plusMonths(1)) },
+            onClick = {
+                val next = currentMonth.plus(DatePeriod(months = 1))
+                onMonthChange(LocalDate(next.year, next.month, 1))
+            },
             imageVector = Icons.AutoMirrored.Default.KeyboardArrowRight,
             contentDescription = "Next Month",
         )

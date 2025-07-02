@@ -10,7 +10,8 @@ import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.composable.DayPicker
 import com.qudus.tudee.ui.composable.MonthNavigationHeader
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
+
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -33,7 +34,7 @@ fun HorizontalCalendar(
             onMonthChange = onMonthChange,
             selectedDate  = selectedDate,
             onDatePicked  = { picked ->
-                val firstDay = picked.withDayOfMonth(1)
+                val firstDay = LocalDate(picked.year, picked.month, 1)
                 if (firstDay != currentMonth) onMonthChange(firstDay)
                 onDateSelected(picked)
             }

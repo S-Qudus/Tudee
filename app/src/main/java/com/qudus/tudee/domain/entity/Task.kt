@@ -1,6 +1,6 @@
 package com.qudus.tudee.domain.entity
 
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 data class Task(
     val id: Long,

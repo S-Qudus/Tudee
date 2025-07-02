@@ -4,9 +4,9 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
+import com.qudus.tudee.ui.util.extension.getDayName
 import com.qudus.tudee.ui.util.extension.toLocaleDigits
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import kotlinx.datetime.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -18,7 +18,7 @@ fun DayItem(
     val locale = LocalConfiguration.current.locale
     CalendarDay(
         date = date.dayOfMonth.toString().toLocaleDigits(locale),
-        day = date.format(DateTimeFormatter.ofPattern("EEE")),
+        day = date.getDayName(locale),
         isSelected = isSelected,
         onClick = {
             onDayClick(date)

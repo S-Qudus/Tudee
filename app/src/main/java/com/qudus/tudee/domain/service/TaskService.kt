@@ -3,7 +3,7 @@ package com.qudus.tudee.domain.service
 import com.qudus.tudee.domain.entity.Task
 import kotlinx.coroutines.flow.Flow
 import com.qudus.tudee.domain.entity.State
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 interface TaskService {
     suspend fun createTake(task: Task)

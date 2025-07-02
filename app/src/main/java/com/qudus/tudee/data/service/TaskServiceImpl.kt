@@ -7,7 +7,7 @@ import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.TaskService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 class TaskServiceImpl(
     private val taskDao: TaskDao,

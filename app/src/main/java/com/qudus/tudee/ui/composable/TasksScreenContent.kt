@@ -14,7 +14,7 @@ import com.qudus.tudee.designSystem.component.TabBar
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.tasksScreen.state.TasksUiState
 import com.qudus.tudee.ui.state.StateUiState
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
