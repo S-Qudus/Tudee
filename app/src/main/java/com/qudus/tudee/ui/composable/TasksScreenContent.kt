@@ -10,7 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.TabBar
+import com.qudus.tudee.ui.designSystem.component.TabBar
+//import com.qudus.tudee.designSystem.component.TabBar
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.tasksScreen.state.TasksUiState
 import com.qudus.tudee.ui.state.StateUiState

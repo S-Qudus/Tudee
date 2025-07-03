@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.CategoryTask
+//import com.qudus.tudee.designSystem.component.CategoryTask
 import com.qudus.tudee.ui.designSystem.component.CategoryTask
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.tasksScreen.state.TaskUiState
@@ -34,7 +34,7 @@ fun TaskListSection(modifier: Modifier = Modifier, tasks: List<TaskUiState>) {
                 CategoryTask(
                     title = task.title,
                     description = task.description ?: "",
-                    priorityLevel = task.priority,
+                  //  priorityLevel = task.priority,
                     onClick = {},
                     dateText = task.createdAt,
                     taskRes = { modifier ->

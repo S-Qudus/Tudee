@@ -28,7 +28,7 @@ fun HomeContent(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when {
-        !state.hasTasks -> {
+        state.hasTasks -> {
             Text("This text temp: just we need NoTask composble")
         }
         else -> {

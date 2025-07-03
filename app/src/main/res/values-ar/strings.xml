@@ -50,14 +50,14 @@
     <!-- Tasks -->
     <string name="tasks">المهام</string>
     <string name="no_tasks">ما في عندك مهام</string>
-    <string name="add_task">اضغط على زر + علشان تضيف مهمة</string>
+    <string name="add_tasks">اضغط على زر + علشان تضيف مهمة</string>
 
 
     <!-- Task Status -->
-    <string name="todo">المهام</string>
+<!--    <string name="todo">المهام</string>-->
     <string name="to_do">للتنفيذ</string>
-    <string name="in_progress">قيد التنفيذ</string>
-    <string name="done">مكتمل</string>
+<!--    <string name="in_progress">قيد التنفيذ</string>-->
+<!--    <string name="done">مكتمل</string>-->
 
 
     <!-- Task Priority -->
