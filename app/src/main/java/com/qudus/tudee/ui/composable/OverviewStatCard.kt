@@ -30,7 +30,7 @@ fun StatusCardItem(
     color: Color,
     icon: Painter,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = color.copy(alpha = 0.15f),
+    backgroundColor: Color = color,
     iconBackgroundColor: Color = Color.White.copy(alpha = 0.12f),
     iconBorderColor: Color = Color.White.copy(alpha = 0.12f),
     contentPadding: PaddingValues = PaddingValues(16.dp),
@@ -91,12 +91,12 @@ fun StatusCardItem(
                 modifier = Modifier
                     .border(
                         width = 1.dp,
-                        color = iconBorderColor,
+                        color = Color.White.copy(alpha = 0.3f),
                         shape = RoundedCornerShape(12.dp)
                     )
                     .size(iconContainerSize)
                     .background(
-                        color = iconBackgroundColor,
+                        color = Color.White.copy(alpha = 0.2f),
                         shape = RoundedCornerShape(12.dp)
                     )
                     .padding(iconContainerPadding),
@@ -113,7 +113,7 @@ fun StatusCardItem(
             Text(
                 text = "$count",
                 style = Theme.textStyle.headline.medium,
-                color = Theme.color.onPrimary,
+                color = Color.White,
                 fontWeight = FontWeight.Bold
             )
 
@@ -121,7 +121,7 @@ fun StatusCardItem(
             Text(
                 text = label,
                 style = Theme.textStyle.label.small,
-                color = Theme.color.onPrimaryCaption
+                color = Color.White.copy(alpha = 0.9f)
             )
         }
     }

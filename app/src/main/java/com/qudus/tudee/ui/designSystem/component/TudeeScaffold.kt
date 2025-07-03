@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TudeeScaffold(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.systemBarsPadding(),
     topBar: (@Composable () -> Unit)? = null,
     floatingActionButton: (@Composable () -> Unit)? = null,
     bottomBar: (@Composable () -> Unit)? = null,
@@ -24,7 +24,10 @@ fun TudeeScaffold(
         modifier = modifier.fillMaxSize(),
         color = contentBackground
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
 
             Column(
                 modifier = Modifier
@@ -42,7 +45,8 @@ fun TudeeScaffold(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(24.dp),
+                    .padding(24.dp)
+                    .navigationBarsPadding(),
                 contentAlignment = Alignment.BottomEnd
             ) {
                 Box(
@@ -59,6 +63,7 @@ fun TudeeScaffold(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .navigationBarsPadding()
             )
         }
     }

@@ -21,7 +21,7 @@ fun HomeHeaderSection(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(167.dp)
+            .height(100.dp)
             .background(Theme.color.primary),
         contentAlignment = Alignment.Center
     ) {

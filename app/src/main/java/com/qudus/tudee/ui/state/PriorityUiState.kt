@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import com.qudus.tudee.R
+import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.util.extension.toPainter
 import com.qudus.tudee.ui.util.extension.toStringResource
@@ -12,6 +13,12 @@ enum class PriorityUiState() {
     HIGH,
     MEDIUM,
     LOW;
+
+    fun toDomain(): Priority = when (this) {
+        HIGH -> Priority.HIGH
+        MEDIUM -> Priority.MEDIUM
+        LOW -> Priority.LOW
+    }
 }
 
 @Composable

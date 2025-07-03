@@ -34,7 +34,7 @@ fun TaskListSection(modifier: Modifier = Modifier, tasks: List<TaskUiState>) {
                 CategoryTask(
                     title = task.title,
                     description = task.description ?: "",
-                  //  priorityLevel = task.priority,
+                    priorityLevel = task.priority.toDomain(),
                     onClick = {},
                     dateText = task.createdAt,
                     taskRes = { modifier ->

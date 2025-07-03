@@ -44,10 +44,10 @@ fun TudeeChip(
     backgroundColor: Color
 ) {
     val animatedContainerColor by animateColorAsState(
-        targetValue = if (isActive) activeBackgroundColor else Theme.color.surfaceLow,
+        targetValue = if (isActive) activeBackgroundColor else backgroundColor,
     )
     val animatedContentColor = animateColorAsState(
-        targetValue = if (isActive) Theme.color.onPrimary else Theme.color.hint,
+        targetValue = if (isActive) Color.White else Theme.color.body,
     )
 
     Row(
