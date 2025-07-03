@@ -24,7 +24,11 @@ import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton.ThemeSwitchButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing8
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing12
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing16
 import com.qudus.tudee.ui.designSystem.textStyle.CherryBomb
+import androidx.compose.foundation.layout.PaddingValues
 
 @Composable
 fun TudeeHeader(
@@ -35,13 +39,13 @@ fun TudeeHeader(
         modifier = modifier
             .fillMaxWidth()
             .background(Theme.color.primary)
-            .padding(vertical = Theme.dimension.regular, horizontal = Theme.dimension.medium),
+            .padding(vertical = spacing12, horizontal = spacing16),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Theme.dimension.small)
+            horizontalArrangement = Arrangement.spacedBy(spacing8)
         ) {
             Image(
                 painter = painterResource(R.drawable.image_tudee),

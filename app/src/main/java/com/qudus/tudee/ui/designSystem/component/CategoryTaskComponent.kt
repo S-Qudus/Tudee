@@ -1,4 +1,4 @@
-package com.qudus.tudee.designSystem.component
+package com.qudus.tudee.ui.designSystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,14 +23,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
+import com.qudus.tudee.domain.entity.Priority
+import com.qudus.tudee.ui.designSystem.component.TudeeChip
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.util.getColorForPriority
+import com.qudus.tudee.ui.util.getIconForPriority
+import com.qudus.tudee.ui.util.getLabelForPriority
 
 @Composable
 fun CategoryTask(
     modifier: Modifier = Modifier,
     title: String,
     description: String?,
-    priorityLevel: PriorityLevel,
+    priorityLevel: Priority,
     onClick: () -> Unit,
     dateText: String? = null,
    taskRes: @Composable (Modifier) -> Unit,
@@ -57,17 +62,17 @@ fun CategoryTask(
                 TudeeChip(
                     label = dateText,
                     icon = painterResource(id = R.drawable.icon_calendar),
+                    activeBackgroundColor = Theme.color.surface,
                     backgroundColor = Theme.color.surface,
-                    labelColor = Theme.color.body
                 )
                 Spacer(modifier = Modifier.width(4.dp))
             }
 
             TudeeChip(
                 label = getLabelForPriority(priorityLevel),
-                icon = painterResource(id = getIconForPriority(priorityLevel)),
-                backgroundColor = getColorForPriority(priorityLevel),
-                labelColor = Theme.color.onPrimary
+                icon = getIconForPriority(priorityLevel),
+                activeBackgroundColor = getColorForPriority(priorityLevel),
+                backgroundColor = Theme.color.surface,
             )
         }
 
@@ -117,7 +122,7 @@ private fun CategoryTaskPreview() {
     CategoryTask(
         title = stringResource(R.string.default_task_title),
         description = stringResource(R.string.default_task_description),
-        priorityLevel = PriorityLevel.Medium,
+        priorityLevel = Priority.MEDIUM,
         onClick = {},
         taskRes = {
             modifier ->

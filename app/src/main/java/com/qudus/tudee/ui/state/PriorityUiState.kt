@@ -1,13 +1,36 @@
 package com.qudus.tudee.ui.state
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import com.qudus.tudee.R
+import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.util.extension.toPainter
+import com.qudus.tudee.ui.util.extension.toStringResource
 
-enum class PriorityUiState(
-    val labelResId: Int,
-    val iconRes: Int,
+enum class PriorityUiState() {
+    HIGH,
+    MEDIUM,
+    LOW;
+}
 
-) {
-    HIGH(R.string.priority_high, R.drawable.icon_flag),
-    MEDIUM(R.string.priority_medium,R.drawable.icon_alert),
-    LOW(R.string.priority_low,R.drawable.icon_trade_down)
+@Composable
+fun PriorityUiState.getColor(): Color = when (this) {
+    PriorityUiState.LOW -> Theme.color.greenAccent
+    PriorityUiState.MEDIUM -> Theme.color.yellowAccent
+    PriorityUiState.HIGH -> Theme.color.pinkAccent
+}
+
+@Composable
+fun PriorityUiState.getIcon(): Painter = when (this) {
+    PriorityUiState.LOW -> R.drawable.icon_trade_down.toPainter()
+    PriorityUiState.MEDIUM -> R.drawable.icon_alert.toPainter()
+    PriorityUiState.HIGH -> R.drawable.icon_flag.toPainter()
+}
+
+@Composable
+fun PriorityUiState.getLabel(): String = when (this) {
+    PriorityUiState.LOW -> R.string.low.toStringResource()
+    PriorityUiState.MEDIUM -> R.string.medium.toStringResource()
+    PriorityUiState.HIGH -> R.string.high.toStringResource()
 }

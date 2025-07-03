@@ -1,29 +1,18 @@
 package com.qudus.tudee.ui.state
 
-import androidx.annotation.StringRes
-import com.qudus.tudee.R
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 data class TaskUiState(
-    val taskId: String = "",
-    val taskTitle: String = "",
-    val taskDescription: String = "",
-    val taskPriority: TaskPriorityUiState = TaskPriorityUiState.MEDIUM,
-    val taskCategory: CategoryUiState = CategoryUiState(),
+    val taskId: Long = 0,
+    val taskTitle: String = "Organize Study Desk",
+    val taskDescription: String = "Solve all exercises from page 45 to 50 in the textbook, Solve all exercises from page 45 to 50 in the textbook.",
+    val taskPriority: PriorityUiState = PriorityUiState.MEDIUM,
+    val taskCategoryId: Long = 0L,
+    val taskCategoryTitle: String = "",
     val taskStatusUiState: TaskStatusUiState = TaskStatusUiState.TODO,
     val taskAssignedDate: LocalDate = Clock.System.now()
         .toLocalDateTime(TimeZone.currentSystemDefault()).date,
 )
-enum class TaskStatusUiState(@StringRes val status:Int){
-    TODO(R.string.todo),
-    IN_PROGRESS(R.string.in_progress),
-    DONE(R.string.done)
-}
-enum class TaskPriorityUiState(@StringRes val  priority:Int){
-    LOW(R.string.low),
-    MEDIUM(R.string.medium),
-    HIGH(R.string.high)
-}

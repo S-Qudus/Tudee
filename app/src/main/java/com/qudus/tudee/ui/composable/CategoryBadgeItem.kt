@@ -22,42 +22,34 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import java.io.File
 
 @Composable
 fun CategoryBadgeItem(
+    id: Long,
     title: String,
-    iconPainter: Painter,
     modifier: Modifier = Modifier,
     isClickable: Boolean = false,
-    onItemClick: () -> Unit = {},
+    onItemClick: (id: Long) -> Unit = {},
+    imagePainter: Painter,
     badge: @Composable BoxScope.() -> Unit,
 ) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
     ) {
         Box {
-            Box(
-                modifier = Modifier.size(78.dp).clip(CircleShape)
-                .background(color = Theme.color.surfaceHigh, shape = CircleShape)
-                .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = ripple(color = Theme.color.primaryVariant),
-                        enabled = isClickable,
-                        onClick = onItemClick
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = iconPainter,
-                    contentDescription = title,
-                    contentScale = ContentScale.Crop
-                )
-            }
-
+            CategoryIcon(
+                isClickable = isClickable,
+                onItemClick = onItemClick,
+                id = id,
+                imagePainter = imagePainter,
+                title = title
+            )
             badge()
         }
 
@@ -69,12 +61,43 @@ fun CategoryBadgeItem(
     }
 }
 
+@Composable
+fun CategoryIcon(
+    title: String,
+    imagePainter: Painter,
+    modifier: Modifier = Modifier,
+    id: Long = 0,
+    isClickable: Boolean = false,
+    onItemClick: (Long) -> Unit = {},
+) {
+    Box(
+        modifier = modifier
+            .size(78.dp)
+            .clip(CircleShape)
+            .background(color = Theme.color.surfaceHigh, shape = CircleShape)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = ripple(color = Theme.color.primaryVariant),
+                enabled = isClickable,
+                onClick = { onItemClick(id) }
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = imagePainter,
+            contentDescription = title,
+            contentScale = ContentScale.Crop
+        )
+    }
+}
+
 @Preview(showSystemUi = false, showBackground = true)
 @Composable
 private fun CategoryTextBadgeItemPreview() {
     CategoryBadgeItem(
+        id = 0,
         title = "Education",
-        iconPainter = painterResource(R.drawable.icon_book_open),
+        imagePainter = painterResource(R.drawable.icon_book_open)
     ) {
         TudeeTextBadge(
             modifier = Modifier.align(Alignment.TopEnd),
@@ -89,9 +112,10 @@ private fun CategoryTextBadgeItemPreview() {
 @Composable
 private fun CategoryCheckBadgeItemPreview() {
     CategoryBadgeItem(
+        id = 0,
         title = "Education",
-        iconPainter = painterResource(R.drawable.icon_book_open),
         isClickable = true,
+        imagePainter = painterResource(R.drawable.icon_book_open),
         onItemClick = {}
     ) {
         TudeeCheckBadge(modifier = Modifier.align(Alignment.TopEnd), visible = true)
