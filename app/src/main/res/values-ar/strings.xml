@@ -87,7 +87,6 @@
     <string name="in_progress">قيد التنفيذ</string>
     <string name="done">مكتملة</string>
 
-    <string name="delete">حذف</string>
     <string name="add">اضافة</string>
     <string name="edit_category">تعديل الصنف</string>
     <string name="edit_image">تعديل الصورة</string>
@@ -106,6 +105,10 @@
     <string name="keep_going_message">لقد أكملت %1$d من أصل %2$d مهمة استمر!</string>
     <string name="fill_day_message_short">املأ يومك بشيء رائع.</string>
     <string name="back_to_work_message">أنت فقط تتصفح، لا تعمل. تودي يراقب. عد للعمل!!!</string>
+    <string name="delete">حذف</string>
+    <string name="cancel">الغاء</string>
+    <string name="are_you_sure">هل انت متأكد?</string>
+    <string name="this_action_cannot_be_undone">لا يمكن التراجع عن هذه الخطوة.</string>
 
     <!-- Task Date Labels -->
     <string name="today">اليوم</string>
@@ -122,7 +125,6 @@
     <string name="description">الوصف</string>
     <string name="category_image_desc">صورة الصنف</string>
     <string name="add_new_category">اضافة صنف جديد</string>
-    <string name="cancel">إلغاء</string>
     <string name="clear">مسح</string>
     <string name="ok">موافق</string>
     <string name="skip">تخطي</string>
@@ -157,4 +159,26 @@
     <string name="error_data_load_faliled">تعذر تحميل البيانات.</string>
 
     <string name="edit_task">تعديل المهمة</string>
+
+    <!-- Date Formatting -->
+    <string name="monday">الاثنين</string>
+    <string name="tuesday">الثلاثاء</string>
+    <string name="wednesday">الأربعاء</string>
+    <string name="thursday">الخميس</string>
+    <string name="friday">الجمعة</string>
+    <string name="saturday">السبت</string>
+    <string name="sunday">الأحد</string>
+
+    <string name="january">يناير</string>
+    <string name="february">فبراير</string>
+    <string name="march">مارس</string>
+    <string name="april">أبريل</string>
+    <string name="may">مايو</string>
+    <string name="june">يونيو</string>
+    <string name="july">يوليو</string>
+    <string name="august">أغسطس</string>
+    <string name="september">سبتمبر</string>
+    <string name="october">أكتوبر</string>
+    <string name="november">نوفمبر</string>
+    <string name="december">ديسمبر</string>
 </resources>
