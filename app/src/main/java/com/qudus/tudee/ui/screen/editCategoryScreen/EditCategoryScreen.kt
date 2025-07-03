@@ -33,10 +33,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import androidx.navigation.NavController
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.component.PrimaryButton
-import com.qudus.tudee.ui.designSystem.component.SecondaryButton
+import com.qudus.tudee.ui.designSystem.component.buttons.PrimaryButton
+import com.qudus.tudee.ui.designSystem.component.buttons.SecondaryButton
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing12
@@ -48,8 +49,8 @@ import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing8
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.addCategoryScreen.EditCategoryInteraction
 import com.qudus.tudee.ui.screen.taskEditor.composable.getTitleErrorMessage
-import com.qudus.tudee.ui.util.UiImage
 import org.koin.androidx.compose.koinViewModel
+import java.io.File
 
 @Composable
 fun EditCategoryScreen(
@@ -189,7 +190,7 @@ fun EditCategoryContent(
                         ) {
                             if (state.image.isNotEmpty()) {
                                 Image(
-                                    painter = UiImage.fromString(state.image).asPainter(),
+                                    painter =  rememberAsyncImagePainter(model = File(state.image)), //UiImage.fromString(state.image).asPainter(),
                                     contentDescription = stringResource(R.string.edit_image),
                                     modifier = Modifier
                                         .fillMaxSize()

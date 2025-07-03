@@ -34,8 +34,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.component.PrimaryButton
-import com.qudus.tudee.ui.designSystem.component.SecondaryButton
+import com.qudus.tudee.ui.designSystem.component.buttons.PrimaryButton
+import com.qudus.tudee.ui.designSystem.component.buttons.SecondaryButton
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing12

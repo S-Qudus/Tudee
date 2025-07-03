@@ -13,6 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.qudus.tudee.R
+import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButton
+import com.qudus.tudee.ui.designSystem.component.BottomNavBar
 import com.qudus.tudee.ui.composable.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.component.TudeeScaffold
 import com.qudus.tudee.ui.designSystem.theme.Theme

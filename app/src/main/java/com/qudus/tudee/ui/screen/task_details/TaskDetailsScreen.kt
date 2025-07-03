@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.composable.CategoryIcon
+import com.qudus.tudee.ui.designSystem.component.CategoryIcon
 import com.qudus.tudee.ui.designSystem.component.TudeeBottomSheet
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
