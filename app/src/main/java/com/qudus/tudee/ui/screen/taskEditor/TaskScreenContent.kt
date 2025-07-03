@@ -1,6 +1,6 @@
 package com.qudus.tudee.ui.screen.taskEditor
 
-import DatePicker
+//import DatePicker
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
@@ -47,6 +47,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
+import com.qudus.tudee.designSystem.component.DatePicker
 import com.qudus.tudee.ui.composable.CategoryBadgeItem
 import com.qudus.tudee.ui.composable.TitledSection
 import com.qudus.tudee.ui.composable.TudeeButton

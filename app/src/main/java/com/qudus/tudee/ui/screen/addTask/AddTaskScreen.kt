@@ -1,6 +1,6 @@
 package com.qudus.tudee.ui.screen.addTask
 
-import DatePicker
+//import DatePicker
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
@@ -42,6 +42,7 @@ import com.qudus.tudee.ui.util.getIconPainterForCategory
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import coil.compose.rememberAsyncImagePainter
+import com.qudus.tudee.designSystem.component.DatePicker
 import java.io.File
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.Paragraph
