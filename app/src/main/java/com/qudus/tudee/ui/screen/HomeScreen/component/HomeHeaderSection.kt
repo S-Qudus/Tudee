@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton.ThemeSwitchButton
+import com.qudus.tudee.ui.designSystem.component.buttons.ThemeSwitchButton.ThemeSwitchButton
 import com.qudus.tudee.ui.designSystem.component.TudeeHeader.TudeeHeader
 import com.qudus.tudee.ui.designSystem.theme.Theme
 

@@ -22,13 +22,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton.ThemeSwitchButton
+import com.qudus.tudee.ui.designSystem.component.buttons.ThemeSwitchButton.ThemeSwitchButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing8
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing12
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing16
 import com.qudus.tudee.ui.designSystem.textStyle.CherryBomb
-import androidx.compose.foundation.layout.PaddingValues
 
 @Composable
 fun TudeeHeader(

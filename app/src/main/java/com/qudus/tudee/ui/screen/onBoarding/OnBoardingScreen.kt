@@ -43,14 +43,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.composable.TudeeFloatingActionButton
+import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 import org.koin.androidx.compose.koinViewModel
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.graphics.graphicsLayer
-import java.util.Locale
 
 @Composable
 fun OnBoardingScreen(

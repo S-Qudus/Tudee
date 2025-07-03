@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.composable.TudeeButton
+import com.qudus.tudee.ui.designSystem.component.buttons.TudeeButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.util.extension.toPainter
 import com.qudus.tudee.ui.util.extension.toStringResource

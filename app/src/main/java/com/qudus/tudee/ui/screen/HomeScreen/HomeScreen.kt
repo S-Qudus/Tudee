@@ -13,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.composable.TudeeFloatingActionButton
+import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.component.BottomNavBar
 import com.qudus.tudee.ui.designSystem.component.TudeeScaffold
 import com.qudus.tudee.ui.designSystem.theme.Theme
@@ -21,7 +21,6 @@ import com.qudus.tudee.ui.screen.getBottomNavItems
 import com.qudus.tudee.ui.screen.HomeScreen.component.HomeContent
 import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
 import org.koin.androidx.compose.koinViewModel
-import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalFoundationApi::class)
 @RequiresApi(Build.VERSION_CODES.O)

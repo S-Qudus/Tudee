@@ -15,17 +15,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.composable.StatusCardItem
-import com.qudus.tudee.ui.composable.LoadWorkSummarySingle
+import com.qudus.tudee.ui.designSystem.component.LoadWorkSummarySingle
+import com.qudus.tudee.ui.designSystem.component.StatusCardItem
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing8
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing12
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing16
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing24
-import com.qudus.tudee.ui.constant.OverviewCardConstants
-import com.qudus.tudee.ui.util.extension.formatToArabicString
 import java.util.Locale
 import com.qudus.tudee.ui.util.extension.formatMonthToString
+import com.qudus.tudee.ui.util.OverviewCardConstants
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -59,6 +58,7 @@ fun HomeOverviewCard(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun DateSection(
     todayDate: kotlinx.datetime.LocalDate,

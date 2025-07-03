@@ -13,11 +13,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.qudus.tudee.R
+import com.qudus.tudee.ui.designSystem.component.NoTasks
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
+import com.qudus.tudee.ui.designSystem.component.taskComposable.TaskSection
 import com.qudus.tudee.ui.screen.HomeScreen.HomeUiState
-import com.qudus.tudee.ui.composable.taskComposable.TaskSection
-import com.qudus.tudee.ui.composable.NoTasks
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
