@@ -3,8 +3,11 @@ package com.qudus.tudee.ui.mapper
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.domain.entity.State
+import com.qudus.tudee.ui.state.CategoryUiState
+import com.qudus.tudee.ui.state.TaskUiState
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState.PriorityItemUiState
+import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
 import kotlinx.datetime.toLocalDate
 
 fun TaskEditorUiState.toTask(taskId: Long = 0): Task {
@@ -30,6 +33,7 @@ fun Task.toTaskUiState(): TaskEditorUiState {
         description = description ?: "",
         date = createdAt.toString(),
         priorityUiStates = getPriorityUiStatesByPriorityType(priority),
+        titleErrorMessageType = null
     )
 }
 
@@ -38,5 +42,16 @@ private fun getPriorityUiStatesByPriorityType(priority: Priority): List<Priority
         PriorityItemUiState(type = Priority.HIGH, isSelected = priority == Priority.HIGH),
         PriorityItemUiState(type = Priority.MEDIUM, isSelected = priority == Priority.MEDIUM),
         PriorityItemUiState(type = Priority.LOW, isSelected = priority == Priority.LOW)
+    )
+}
+
+fun Task.toTaskUiState(category: CategoryUiState): TaskUiState {
+    return TaskUiState(
+        taskId = id,
+        taskTitle = title,
+        taskDescription = description ?: "",
+        taskAssignedDate = createdAt,
+        taskPriority = priority.toPriorityUiState(),
+        taskStatusUiState = state.toTaskStatusUiState(),
     )
 }

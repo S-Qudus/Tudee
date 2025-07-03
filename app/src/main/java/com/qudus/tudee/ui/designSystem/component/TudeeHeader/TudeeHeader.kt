@@ -22,8 +22,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.component.ThemeSwitchButton.ThemeSwitchButton
+import com.qudus.tudee.ui.designSystem.component.buttons.ThemeSwitchButton.ThemeSwitchButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing8
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing12
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing16
 import com.qudus.tudee.ui.designSystem.textStyle.CherryBomb
 
 @Composable
@@ -35,13 +38,13 @@ fun TudeeHeader(
         modifier = modifier
             .fillMaxWidth()
             .background(Theme.color.primary)
-            .padding(vertical = Theme.dimension.spacing16, horizontal = Theme.dimension.spacing16),
+            .padding(vertical = spacing12, horizontal = spacing16),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8)
+            horizontalArrangement = Arrangement.spacedBy(spacing8)
         ) {
             Image(
                 painter = painterResource(R.drawable.image_tudee),

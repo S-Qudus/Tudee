@@ -1,6 +1,6 @@
 package com.qudus.tudee.ui.screen.taskEditor
 
-import DatePicker
+//import DatePicker
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
@@ -47,16 +47,17 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.composable.CategoryBadgeItem
-import com.qudus.tudee.ui.composable.TitledSection
-import com.qudus.tudee.ui.composable.TudeeButton
-import com.qudus.tudee.ui.composable.TudeeCheckBadge
+import com.qudus.tudee.designSystem.component.DatePicker
+import com.qudus.tudee.ui.designSystem.component.CategoryBadgeItem
+import com.qudus.tudee.ui.designSystem.component.TitledSection
+import com.qudus.tudee.ui.designSystem.component.buttons.TudeeButton
+import com.qudus.tudee.ui.designSystem.component.TudeeCheckBadge
 import com.qudus.tudee.ui.designSystem.component.TudeeBottomSheet
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.Paragraph
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.WithIcon
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.screen.addTask.AddTaskInteraction
+import com.qudus.tudee.ui.screen.addTask.state.AddTaskInteraction
 import com.qudus.tudee.ui.screen.taskEditor.composable.PriorityChip
 import com.qudus.tudee.ui.screen.taskEditor.composable.getCategoryErrorMessage
 import com.qudus.tudee.ui.screen.taskEditor.composable.getTaskDataErrorMessageByType

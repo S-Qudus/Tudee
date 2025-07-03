@@ -9,6 +9,8 @@ import com.qudus.tudee.domain.exception.CategoryException
 import com.qudus.tudee.domain.exception.CategoryFetchAllFailedException
 import com.qudus.tudee.domain.exception.CategoryNotFoundException
 import com.qudus.tudee.domain.exception.CategoryReadFailedException
+import com.qudus.tudee.domain.exception.CategoryTitleMustStartWithLetterException
+import com.qudus.tudee.domain.exception.CategoryTitleTooShortException
 import com.qudus.tudee.domain.exception.EmptyCategoryTitleException
 import com.qudus.tudee.domain.exception.EmptyTaskTitleException
 import com.qudus.tudee.domain.exception.TaskUpsertFailedException
@@ -53,6 +55,8 @@ class ExceptionHandler() {
             is CategoryNotFoundException -> stringResource(R.string.no_categories_found)
             is CategoryReadFailedException -> stringResource(R.string.failed_to_read_category)
             is EmptyCategoryTitleException -> stringResource(R.string.category_title_cannot_be_empty)
+            is CategoryTitleMustStartWithLetterException -> stringResource(R.string.category_title_must_start_with_letter)
+            is CategoryTitleTooShortException -> stringResource(R.string.category_title_cannot_be_empty)
             else -> handleUnexpectedException(stringResource(R.string.category_error), exception)
         }
     }

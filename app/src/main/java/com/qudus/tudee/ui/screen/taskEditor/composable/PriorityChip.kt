@@ -19,13 +19,14 @@ fun PriorityChip(
     modifier: Modifier = Modifier
 ) {
     TudeeChip(
+        label = getStringByPriorityType(priorityType),
+        icon = getPainterByPriorityType(priorityType),
         modifier = modifier,
         isActive = isActive,
         isClickEnabled = true,
         onChipClick = { onChipClick(priorityType) },
-        label = getStringByPriorityType(priorityType),
-        icon = getPainterByPriorityType(priorityType),
         activeBackgroundColor = getColorByPriorityType(priorityType),
+        backgroundColor = Theme.color.surface,
     )
 }
 

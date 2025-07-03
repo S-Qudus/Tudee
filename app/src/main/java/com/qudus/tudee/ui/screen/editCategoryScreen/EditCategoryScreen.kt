@@ -1,0 +1,270 @@
+package com.qudus.tudee.ui.screen.editCategoryScreen
+
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
+import com.qudus.tudee.R
+import com.qudus.tudee.ui.designSystem.component.buttons.PrimaryButton
+import com.qudus.tudee.ui.designSystem.component.buttons.SecondaryButton
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
+import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing12
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing16
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing24
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing4
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing6
+import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing8
+import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.screen.addCategoryScreen.EditCategoryInteraction
+import com.qudus.tudee.ui.screen.taskEditor.composable.getTitleErrorMessage
+import org.koin.androidx.compose.koinViewModel
+import java.io.File
+
+@Composable
+fun EditCategoryScreen(
+   // navController: NavController,
+    viewModel: EditCategoryViewModel = koinViewModel(),
+/*
+    initialCategory: CategoryUiState
+*/
+) {
+    val uiState by viewModel.state.collectAsState()
+// todo there we will take the category by id and edit it
+/* LaunchedEffect(Unit) {
+        viewModel.setInitialState(initialCategory)
+}*/
+
+ // todo there we will use navigate to control
+
+/*    LaunchedEffect(viewModel.event) {
+        viewModel.event.collect { event ->
+            when (event) {
+                EditCategoryViewModel.Event.NavigateBack -> navController.popBackStack()
+                is EditCategoryViewModel.Event.ShowError -> {
+                    // Handle error if needed
+                }
+                EditCategoryViewModel.Event.ShowConfirmDeleteDialog -> {
+                    // Show delete confirmation dialog
+                    viewModel.confirmDelete()
+                }
+            }
+        }
+    }*/
+
+    EditCategoryContent(
+        state = uiState,
+        interaction = viewModel,
+        isBottomSheetVisible = uiState.isSheetOpen,
+        onBottomSheetDismissed = viewModel::onCancelClicked
+    )
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EditCategoryContent(
+    modifier: Modifier = Modifier,
+    state: EditCategoryUiState,
+    interaction: EditCategoryInteraction,
+    isBottomSheetVisible: Boolean,
+    onBottomSheetDismissed: () -> Unit
+) {
+    val photoPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia()
+    ) { uri ->
+        uri?.let { interaction.onImageSelected(it.toString()) }
+    }
+
+    val sheetState = rememberModalBottomSheetState()
+
+    LaunchedEffect(isBottomSheetVisible) {
+        if (isBottomSheetVisible) sheetState.show()
+        else sheetState.hide()
+    }
+
+    if (isBottomSheetVisible) {
+        ModalBottomSheet(
+            modifier = modifier,
+            containerColor = Theme.color.surface,
+            onDismissRequest = onBottomSheetDismissed,
+            sheetState = sheetState
+        ) {
+            Column {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = spacing16)
+                        .padding(bottom = spacing24),
+                    verticalArrangement = Arrangement.spacedBy(spacing12)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(R.string.edit_category),
+                            style = Theme.textStyle.title.large,
+                            color = Theme.color.title
+                        )
+                        TextButton(onClick = interaction::onDeleteClicked) {
+                            Text(
+                                text = stringResource(R.string.delete),
+                                style = Theme.textStyle.label.large,
+                                color = Theme.color.error
+                            )
+                        }
+                    }
+
+                    TudeeTextField(
+                        value = state.title,
+                        onValueChange = interaction::onTitleValueChange,
+                        placeholder = stringResource(R.string.edit_category),
+                        type = TudeeTextFieldType.WithIcon(
+                            icon = painterResource(R.drawable.icon_menu_circle)
+                        ),
+                        primaryBordColor = if (state.titleErrorMessageType != null)
+                            Theme.color.pinkAccent else Theme.color.primary
+                    )
+
+                    if (state.titleErrorMessageType != null) {
+                        Text(
+                            text = getTitleErrorMessage(state.titleErrorMessageType),
+                            style = Theme.textStyle.label.small,
+                            color = Theme.color.pinkAccent,
+                            modifier = Modifier.padding(top =spacing4)
+                        )
+                    }
+
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(spacing8)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.edit_image),
+                            style = Theme.textStyle.title.medium,
+                            color = Theme.color.title,
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .size(113.dp)
+                                .clip(RoundedCornerShape(16.dp))
+                                .background(Theme.color.TransparentBlack10)
+                                .clickable {
+                                    photoPickerLauncher.launch(
+                                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                                    )
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            if (state.image.isNotEmpty()) {
+                                Image(
+                                    painter =  rememberAsyncImagePainter(model = File(state.image)), //UiImage.fromString(state.image).asPainter(),
+                                    contentDescription = stringResource(R.string.edit_image),
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .clip(RoundedCornerShape(16.dp)),
+                                    contentScale = ContentScale.Crop
+                                )
+
+                                IconButton(onClick = {
+                                    photoPickerLauncher.launch(
+                                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                                    )
+                                }) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.icon_pencil_edit),
+                                        contentDescription = stringResource(R.string.edit_image),
+                                        modifier = Modifier
+                                            .clip(RoundedCornerShape(12.dp))
+                                            .background(Theme.color.surfaceHigh)
+                                            .padding(spacing6)
+                                            .size(20.dp),
+                                        tint = Theme.color.secondary
+                                    )
+                                }
+                            } else {
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.icon_upload),
+                                        contentDescription = "Upload icon",
+                                        tint = Theme.color.stroke,
+                                        modifier = Modifier.size(24.dp)
+                                    )
+                                    Text(
+                                        text = stringResource(R.string.upload),
+                                        style = Theme.textStyle.body.small,
+                                        color = Theme.color.stroke
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .background(Theme.color.surfaceHigh)
+                        .padding(horizontal = spacing16)
+                        .padding(vertical = spacing12),
+                    verticalArrangement = Arrangement.spacedBy(spacing12)
+                ) {
+                    PrimaryButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = interaction::onSaveClicked,
+                        isEnabled = state.isTitleValid && state.isImageValid,
+                        isLoading = state.isLoading
+                    ) {
+                        Text(
+                            text = stringResource(R.string.save),
+                            style = Theme.textStyle.label.large,
+                            color = Theme.color.onPrimary
+                        )
+                    }
+
+                    SecondaryButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = interaction::onCancelClicked
+                    ) {
+                        Text(
+                            text = stringResource(R.string.cancel),
+                            style = Theme.textStyle.label.large,
+                            color = Theme.color.primary
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
