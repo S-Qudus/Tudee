@@ -1,23 +1,25 @@
 package com.qudus.tudee.ui.navigation
 
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.domain.service.PreferenceService
 import com.qudus.tudee.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class NavViewModel(
     private val preferenceService: PreferenceService
-): BaseViewModel<String>(Screen.HomeScreen.route) {
+) : ViewModel() {
+
+    private val _startDestination = mutableStateOf<String?>(null)
+    val startDestination = _startDestination
 
     init {
-        tryToExecute(
-            action = preferenceService::getIsCompleteOnBoarding,
-            onSuccess = ::onGetIsCompleteOnBoardingSuccess,
-            onError = { _state.update { Screen.OnBoardingScreen.route } },
-        )
+        viewModelScope.launch {
+            val isComplete = preferenceService.getIsCompleteOnBoarding()
+            _startDestination.value =
+                if (isComplete) Screen.HomeScreen.route else Screen.OnBoardingScreen.route
+        }
     }
-
-    fun onGetIsCompleteOnBoardingSuccess(isComplete: Boolean){
-        if (isComplete) _state.update { Screen.HomeScreen.route } else _state.update { Screen.OnBoardingScreen.route }
-    }
-
 }

@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.routes
+package com.qudus.tudee.ui.screen.task_details
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
@@ -16,12 +16,12 @@ fun NavController.navigateToTaskDetailsScreen(taskId: Long) {
 
 fun NavGraphBuilder.taskDetailsRoute(navController: NavController) {
     composable(
-        route = "$taskDetailsRoute/${TaskDetailsArgs.TASK_ID_ARG}",
+        route = "$taskDetailsRoute/{${TaskDetailsArgs.TASK_ID_ARG}}",
         arguments = listOf(
             navArgument(name = TaskDetailsArgs.TASK_ID_ARG) { NavType.LongType }
         ),
     ) {
-        // TaskDetailsScreen()
+        TaskDetailsScreen(navController)
     }
 }
 

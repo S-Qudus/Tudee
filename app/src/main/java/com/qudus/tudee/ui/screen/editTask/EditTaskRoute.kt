@@ -1,5 +1,7 @@
-package com.qudus.tudee.ui.screen.routes
+package com.qudus.tudee.ui.screen.editTask
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -14,14 +16,15 @@ fun NavController.navigateToEditTaskScreen(taskId: Long) {
     navigate(route = "$editTaskRoute/$taskId")
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.editTaskRoute(navController: NavController) {
     composable(
-        route = "$editTaskRoute/${EditTaskArgs.TASK_ID_ARG}",
+        route = "$editTaskRoute/{${EditTaskArgs.TASK_ID_ARG}}",
         arguments = listOf(
             navArgument(name = EditTaskArgs.TASK_ID_ARG) { NavType.LongType }
         ),
     ) {
-        // EditTaskScreen()
+        EditTaskScreen(navController)
     }
 }
 

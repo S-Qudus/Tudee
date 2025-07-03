@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.composable.CategoryIcon
@@ -34,6 +35,7 @@ import java.io.File
 
 @Composable
 fun TaskDetailsScreen(
+    navController: NavController,
     taskDetailsViewModel: TaskDetailsViewModel = koinViewModel()
 ) {
     val state by taskDetailsViewModel.state.collectAsState()

@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.routes
+package com.qudus.tudee.ui.screen.addCategoryScreen
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -15,7 +15,7 @@ fun NavGraphBuilder.addCategoryRoute(navController: NavController) {
     composable(
         route = addCategoryRoute,
     ) {
-        // AddCategoryScreen()
+        AddCategoryScreen(navController)
     }
 }
 

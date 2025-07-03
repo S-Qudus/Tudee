@@ -1,4 +1,4 @@
-package com.qudus.tudee.ui.screen.routes
+package com.qudus.tudee.ui.screen.editCategoryScreen
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
@@ -16,12 +16,12 @@ fun NavController.navigateToEditCategoryScreen(taskId: Long) {
 
 fun NavGraphBuilder.editCategoryRoute(navController: NavController) {
     composable(
-        route = "$editCategoryRoute/${EditCategoryArgs.CATEGORY_ID_ARG}",
+        route = "$editCategoryRoute/{${EditCategoryArgs.CATEGORY_ID_ARG}}",
         arguments = listOf(
             navArgument(name = EditCategoryArgs.CATEGORY_ID_ARG) { NavType.LongType }
         ),
     ) {
-        // EditCategoryScreen()
+        EditCategoryScreen(navController)
     }
 }
 

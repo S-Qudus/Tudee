@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.qudus.tudee.ui.composable.ErrorMessage
 import com.qudus.tudee.ui.composable.FullScreenLoading
 import com.qudus.tudee.ui.composable.TasksScreenContent
@@ -24,13 +25,14 @@ import org.koin.androidx.compose.koinViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TasksScreen(
+    navController: NavController,
     viewModel: TaskViewModel = koinViewModel()
 ) {
 
     val uiState by viewModel.state.collectAsState()
 
     val countsByState = remember(uiState.tasks) {
-        StateUiState.values().associateWith { s ->
+        StateUiState.entries.associateWith { s ->
             uiState.tasks.count { it.state == s }
         }
     }
@@ -62,5 +64,5 @@ fun TasksScreen(
 //@PreviewLightDark()
 @Composable
 private fun TasksScreenPreview() {
-    TasksScreen()
+//    TasksScreen()
 }

@@ -27,19 +27,12 @@ fun HomeContent(
     val scrollState = rememberLazyListState()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when {
-        state.hasTasks -> {
-            Text("This text temp: just we need NoTask composble")
-        }
-        else -> {
-            TasksContent(
-                state = state,
-                viewModel = viewModel,
-                scrollState = scrollState,
-                modifier = modifier
-            )
-        }
-    }
+    TasksContent(
+        state = state,
+        viewModel = viewModel,
+        scrollState = scrollState,
+        modifier = modifier
+    )
 }
 
 @RequiresApi(Build.VERSION_CODES.O)

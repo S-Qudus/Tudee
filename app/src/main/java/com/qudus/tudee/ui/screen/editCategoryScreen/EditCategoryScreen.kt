@@ -33,6 +33,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.component.PrimaryButton
 import com.qudus.tudee.ui.designSystem.component.SecondaryButton
@@ -52,7 +53,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun EditCategoryScreen(
-   // navController: NavController,
+    navController: NavController,
     viewModel: EditCategoryViewModel = koinViewModel(),
 /*
     initialCategory: CategoryUiState

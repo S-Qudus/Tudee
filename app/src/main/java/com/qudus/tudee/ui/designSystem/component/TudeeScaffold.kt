@@ -15,7 +15,6 @@ fun TudeeScaffold(
     modifier: Modifier = Modifier,
     topBar: (@Composable () -> Unit)? = null,
     floatingActionButton: (@Composable () -> Unit)? = null,
-    bottomBar: (@Composable () -> Unit)? = null,
     contentBackground: Color = Color.White,
     snackbarHostState: SnackbarHostState? = null,
     content: @Composable () -> Unit
@@ -34,8 +33,6 @@ fun TudeeScaffold(
                 topBar?.invoke()
                 content()
             }
-
-            bottomBar?.invoke()
         }
 
         floatingActionButton?.let {

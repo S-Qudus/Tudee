@@ -47,10 +47,7 @@ import com.qudus.tudee.ui.composable.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 import org.koin.androidx.compose.koinViewModel
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.graphics.graphicsLayer
-import java.util.Locale
+import com.qudus.tudee.ui.screen.HomeScreen.navigateToHomeScreen
 
 @Composable
 fun OnBoardingScreen(
@@ -66,10 +63,8 @@ fun OnBoardingScreen(
 
     LaunchedEffect(uiState.isCompleted) {
         if (uiState.isCompleted) {
-            // navController.navigateToHome()
-            // pop onBordingScreen
+            navController.navigateToHomeScreen()
         }
-
     }
 }
 
