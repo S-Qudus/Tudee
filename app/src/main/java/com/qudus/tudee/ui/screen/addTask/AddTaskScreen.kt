@@ -1,6 +1,5 @@
 package com.qudus.tudee.ui.screen.addTask
 
-//import DatePicker
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
@@ -28,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.component.TudeeBottomSheet
 import com.qudus.tudee.ui.designSystem.theme.Theme
@@ -61,7 +61,8 @@ fun AddTaskScreen(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit = {},
     onTaskAdded: () -> Unit = {},
-    viewModel: AddTaskViewModel = koinViewModel { parametersOf(onDismiss, onTaskAdded) }
+    viewModel: AddTaskViewModel = koinViewModel { parametersOf(onDismiss, onTaskAdded) },
+    navController: NavController
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -84,7 +85,7 @@ private fun AddTaskScreenContent(
 
     TudeeBottomSheet(
         modifier = modifier,
-        isSheetOpen = true, 
+        isSheetOpen = true,
         onDismissRequest = onDismiss
     ) {
         Box(

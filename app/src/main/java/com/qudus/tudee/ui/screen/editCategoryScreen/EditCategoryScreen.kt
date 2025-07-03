@@ -34,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import androidx.navigation.NavController
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.component.buttons.PrimaryButton
 import com.qudus.tudee.ui.designSystem.component.buttons.SecondaryButton
@@ -53,7 +54,7 @@ import java.io.File
 
 @Composable
 fun EditCategoryScreen(
-   // navController: NavController,
+    navController: NavController,
     viewModel: EditCategoryViewModel = koinViewModel(),
 /*
     initialCategory: CategoryUiState
