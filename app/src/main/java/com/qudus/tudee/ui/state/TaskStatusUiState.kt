@@ -33,7 +33,7 @@ fun TaskStatusUiState.getBackgroundColor(): Color = when (this) {
 
 @Composable
 fun TaskStatusUiState.getStatusText(): String = when (this) {
-    TaskStatusUiState.TODO -> R.string.todo.toStringResource()
+    TaskStatusUiState.TODO -> R.string.to_do.toStringResource()
     TaskStatusUiState.IN_PROGRESS -> R.string.in_progress.toStringResource()
     TaskStatusUiState.DONE -> R.string.done.toStringResource()
 }

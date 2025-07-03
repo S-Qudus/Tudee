@@ -11,7 +11,6 @@ import com.qudus.tudee.domain.exception.CategoryNotFoundException
 import com.qudus.tudee.domain.exception.CategoryReadFailedException
 import com.qudus.tudee.domain.exception.CategoryTitleMustStartWithLetterException
 import com.qudus.tudee.domain.exception.CategoryTitleTooShortException
-import com.qudus.tudee.domain.exception.CategoryUpdateFailedException
 import com.qudus.tudee.domain.exception.EmptyCategoryTitleException
 import com.qudus.tudee.domain.exception.EmptyTaskTitleException
 import com.qudus.tudee.domain.exception.TaskUpsertFailedException

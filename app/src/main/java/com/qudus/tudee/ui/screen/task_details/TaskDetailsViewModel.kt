@@ -53,7 +53,7 @@ class TaskDetailsViewModel(
     }
 
     private fun onGetCategorySuccess(category: Category) {
-        _state.update { it.copy(taskUiState = it.taskUiState.copy(taskCategory = category.toCategoryUiState())) }
+        _state.update { it.copy(categoryUiState = category.toCategoryUiState()) }
     }
 
     private fun onGetCategoryError(exception: TudeeExecption) {

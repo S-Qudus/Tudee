@@ -12,6 +12,5 @@ import org.koin.dsl.module
 val servicesModule = module{
     singleOf(::CategoryServiceImpl) { bind<CategoryService>() }
     singleOf(::TaskServiceImpl) { bind<TaskService>() }
-
     single { InputValidator() }
 }

@@ -16,7 +16,7 @@ data class TaskEditorUiState(
     val isDatePickerOpen: Boolean = false,
     val isPrimaryButtonEnabled: Boolean = false,
     val isLoading: Boolean = false,
-    val titleErrorMessageType: TitleErrorType? = null,
+    val titleErrorMessageType: com.qudus.tudee.ui.screen.taskEditor.TitleErrorType? = null,
     val categoryErrorMessageType: CategoryErrorType? = null,
     val dataErrorMessageType: DataErrorType? = null
 ) {
