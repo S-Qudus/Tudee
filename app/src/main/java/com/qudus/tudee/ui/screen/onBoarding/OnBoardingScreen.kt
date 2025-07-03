@@ -47,6 +47,7 @@ import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButt
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 import org.koin.androidx.compose.koinViewModel
+import com.qudus.tudee.ui.screen.HomeScreen.navigateToHomeScreen
 
 @Composable
 fun OnBoardingScreen(
@@ -62,9 +63,8 @@ fun OnBoardingScreen(
 
     LaunchedEffect(uiState.isCompleted) {
         if (uiState.isCompleted) {
-            // navController.navigateToHome()
+            navController.navigateToHomeScreen()
         }
-
     }
 }
 

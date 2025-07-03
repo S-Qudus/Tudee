@@ -28,6 +28,22 @@ fun HomeContent(
     val scrollState = rememberLazyListState()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
+    TasksContent(
+        state = state,
+        viewModel = viewModel,
+        scrollState = scrollState,
+        modifier = modifier
+    )
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+private fun TasksContent(
+    state: HomeUiState,
+    viewModel: HomeViewModel,
+    scrollState: androidx.compose.foundation.lazy.LazyListState,
+    modifier: Modifier = Modifier
+) {
     LazyColumn(
         state = scrollState,
         modifier = modifier.fillMaxSize(),
