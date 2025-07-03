@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.composable.StatusCardItem
+import com.qudus.tudee.ui.designSystem.component.StatusCardItem
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing8
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing12
@@ -25,10 +25,10 @@ import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing16
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing24
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing3
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing6
-import com.qudus.tudee.ui.constant.OverviewCardConstants
-import com.qudus.tudee.ui.constant.UserStatus
-import com.qudus.tudee.ui.constant.calculateUserStatus
-import com.qudus.tudee.ui.constant.getEmoji
+import com.qudus.tudee.ui.util.OverviewCardConstants
+import com.qudus.tudee.ui.util.UserStatus
+import com.qudus.tudee.ui.util.calculateUserStatus
+import com.qudus.tudee.ui.util.getEmoji
 import com.qudus.tudee.ui.util.formatToArabicString
 
 @RequiresApi(Build.VERSION_CODES.O)

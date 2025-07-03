@@ -1,6 +1,6 @@
 package com.qudus.tudee.data.mapper
 
-import com.qudus.tudee.data.dto.TaskDto
+import com.qudus.tudee.data.database.dto.TaskDto
 import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task

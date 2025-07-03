@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.qudus.tudee.data.dataSource.PreferenceServiceImpl
+import com.qudus.tudee.data.service.PreferenceServiceImpl
 import com.qudus.tudee.data.database.RoomCallBackImpl
 import com.qudus.tudee.data.database.TudeeDatabase
 import com.qudus.tudee.domain.service.PreferenceService
