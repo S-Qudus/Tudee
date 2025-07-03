@@ -46,7 +46,7 @@ fun ConfirmDelete(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
+            .clip(RoundedCornerShape(topStart = Theme.dimension.spacing24, topEnd = Theme.dimension.spacing24))
             .background(Theme.color.surface),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -56,7 +56,7 @@ fun ConfirmDelete(
             color = Theme.color.title,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = Theme.dimension.spacing16)
         )
         Text(
             text = description,
@@ -64,7 +64,7 @@ fun ConfirmDelete(
             color = Theme.color.body,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp)
+                .padding(horizontal = Theme.dimension.spacing16, vertical = Theme.dimension.spacing12)
         )
         Image(
             painter = image,
@@ -73,7 +73,7 @@ fun ConfirmDelete(
                 .width(107.dp)
                 .height(100.dp)
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(Theme.dimension.spacing24))
 
 
         val dropTopShadow = Modifier.drawBehind {
@@ -97,14 +97,14 @@ fun ConfirmDelete(
         Column(
             modifier = Modifier
                 .then(dropTopShadow)
-                .padding(top = 12.dp, bottom = 12.dp)
+                .padding(top = Theme.dimension.spacing12, bottom = Theme.dimension.spacing12)
 
         ) {
             TudeeTextButton(
                 modifier = Modifier
-                    .height(56.dp)
+                    .height(Theme.dimension.spacing56)
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = Theme.dimension.spacing16)
                     .clip(CircleShape)
                     .background(Theme.color.errorVariant),
                 onClickTextButton = onConfirmDelete,
@@ -119,12 +119,12 @@ fun ConfirmDelete(
                     color = Theme.color.error,
                 )
             }
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(Theme.dimension.spacing12))
             TudeeTextButton(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp)
-                    .padding(horizontal = 16.dp)
+                    .height(Theme.dimension.spacing56)
+                    .padding(horizontal = Theme.dimension.spacing16)
                     .clip(CircleShape)
                     .background(Theme.color.onPrimary)
                     .border(

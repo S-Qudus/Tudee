@@ -86,7 +86,6 @@
 
 
 
-    <string name="delete">Delete</string>
     <string name="category_name_required">Category name is required</string>
 
 
@@ -136,7 +135,6 @@
     <string name="priority">Priority</string>
     <string name="task_title">Task title</string>
     <string name="description">Description</string>
-    <string name="cancel">Cancel</string>
     <string name="clear">Clear</string>
     <string name="ok">OK</string>
     <string name="skip">Skip</string>
@@ -167,26 +165,26 @@
     <string name="edit">Edit</string>
 
     <!-- Date Formatting -->
-    <string name="monday">الاثنين</string>
-    <string name="tuesday">الثلاثاء</string>
-    <string name="wednesday">الأربعاء</string>
-    <string name="thursday">الخميس</string>
-    <string name="friday">الجمعة</string>
-    <string name="saturday">السبت</string>
-    <string name="sunday">الأحد</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
 
-    <string name="january">يناير</string>
-    <string name="february">فبراير</string>
-    <string name="march">مارس</string>
-    <string name="april">أبريل</string>
-    <string name="may">مايو</string>
-    <string name="june">يونيو</string>
-    <string name="july">يوليو</string>
-    <string name="august">أغسطس</string>
-    <string name="september">سبتمبر</string>
-    <string name="october">أكتوبر</string>
-    <string name="november">نوفمبر</string>
-    <string name="december">ديسمبر</string>
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
 
     <!-- Task Details -->
     <string name="task_details">Task details</string>
