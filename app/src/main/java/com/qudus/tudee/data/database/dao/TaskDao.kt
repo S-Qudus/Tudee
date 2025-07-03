@@ -3,7 +3,7 @@ package com.qudus.tudee.data.database.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.qudus.tudee.data.dto.TaskDto
+import com.qudus.tudee.data.database.dto.TaskDto
 import kotlinx.coroutines.flow.Flow
 import com.qudus.tudee.domain.entity.State
 

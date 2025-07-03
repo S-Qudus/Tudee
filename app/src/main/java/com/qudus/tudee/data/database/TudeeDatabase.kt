@@ -5,8 +5,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.qudus.tudee.data.database.dao.CategoryDao
 import com.qudus.tudee.data.database.dao.TaskDao
-import com.qudus.tudee.data.dto.CategoryDto
-import com.qudus.tudee.data.dto.TaskDto
+import com.qudus.tudee.data.database.dto.CategoryDto
+import com.qudus.tudee.data.database.dto.TaskDto
 
 @Database(entities = [CategoryDto::class, TaskDto::class], version = 1)
 @TypeConverters(LocalDateConverter::class)

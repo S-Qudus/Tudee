@@ -2,7 +2,7 @@ package com.qudus.tudee.data.database
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.qudus.tudee.data.dto.CategoryDto
+import com.qudus.tudee.data.database.dto.CategoryDto
 import com.qudus.tudee.domain.entity.DefaultCategoryType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
