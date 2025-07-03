@@ -15,9 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.qudus.tudee.ui.designSystem.component.ErrorMessage
 import com.qudus.tudee.ui.designSystem.component.FullScreenLoading
 import androidx.navigation.NavController
-import com.qudus.tudee.ui.composable.ErrorMessage
-import com.qudus.tudee.ui.composable.FullScreenLoading
-import com.qudus.tudee.ui.composable.TasksScreenContent
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.tasksScreen.viewModel.TaskViewModel
 import com.qudus.tudee.ui.state.StateUiState
