@@ -21,11 +21,13 @@ import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 
 @Composable
 fun TudeeFloatingActionButton(
+    modifier: Modifier = Modifier,
     onClickIconButton: () -> Unit,
     isEnabled: Boolean,
     isLoading: Boolean,
+    contentDescription: String? = null,
+    hasShadow: Boolean = true,
     painter: Painter,
-    modifier: Modifier = Modifier
 ) {
     val buttonBackgroundColor by animateColorAsState(
         targetValue = if (isEnabled) Theme.color.primary else Theme.color.disable
@@ -39,8 +41,12 @@ fun TudeeFloatingActionButton(
         modifier = modifier.size(64.dp),
         containerColor = buttonBackgroundColor,
         shape = CircleShape,
-        elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp)
-
+        elevation = FloatingActionButtonDefaults.elevation(
+            defaultElevation = if (hasShadow) 4.dp else 0.dp,
+            pressedElevation = if (hasShadow) 12.dp else 0.dp,
+            focusedElevation = if (hasShadow) 8.dp else 0.dp,
+            hoveredElevation = if (hasShadow) 8.dp else 0.dp,
+        )
     ) {
         AnimatedContent(isLoading) { loading ->
             if (loading) {
@@ -48,7 +54,7 @@ fun TudeeFloatingActionButton(
             } else {
                 Icon(
                     painter = painter,
-                    contentDescription = "download icon",
+                    contentDescription = contentDescription,
                     tint = iconColor
                 )
             }
@@ -67,7 +73,9 @@ private fun TudeeIconButtonPrev() {
             onClickIconButton = {},
             isEnabled = false,
             isLoading = false,
-            painter = painterResource(R.drawable.icon_download)
+            painter = painterResource(R.drawable.icon_download),
+            contentDescription = TODO(),
+            hasShadow = TODO()
         )
     }
 }

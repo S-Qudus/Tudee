@@ -28,6 +28,9 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.state.PriorityUiState
+import com.qudus.tudee.ui.state.getColor
+import com.qudus.tudee.ui.state.getIcon
+import com.qudus.tudee.ui.state.getLabel
 
 @Composable
 fun PrioritySelector(

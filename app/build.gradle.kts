@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.coil.compose)
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -64,7 +65,7 @@ dependencies {
     //Room
     implementation(libs.androidx.room.runtime)
     ksp(libs.room.compiler)
-    annotationProcessor(libs.androidx.room.room.compiler)
+    annotationProcessor(libs.room.compiler)
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.androidx.room.testing)
 
@@ -75,6 +76,14 @@ dependencies {
 
     // navigation
     implementation(libs.androidx.navigation.compose)
+
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+
+    // splash screen
+    implementation(libs.androidx.core.splashscreen)
 
     //coil
     implementation(libs.coil.compose)
