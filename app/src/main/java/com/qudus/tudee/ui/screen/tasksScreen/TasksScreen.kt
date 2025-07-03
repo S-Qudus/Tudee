@@ -29,7 +29,7 @@ fun TasksScreen(
     val uiState by viewModel.state.collectAsState()
 
     val countsByState = remember(uiState.tasks) {
-        StateUiState.values().associateWith { s ->
+        StateUiState.entries.associateWith { s ->
             uiState.tasks.count { it.state == s }
         }
     }

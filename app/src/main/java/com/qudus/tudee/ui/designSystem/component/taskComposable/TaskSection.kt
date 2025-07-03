@@ -29,8 +29,8 @@ fun TaskSection(
     taskCount: Int,
     tasks: List<Task>,
     onTaskClick: (Long) -> Unit,
-    onNavigateToTaskScreen: (() -> Unit)? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigateToTaskScreen: (() -> Unit)? = null
 ) {
     if (tasks.isEmpty()) return
     
@@ -54,8 +54,8 @@ fun TaskSection(
 private fun TaskSectionHeader(
     title: String,
     taskCount: Int,
-    onNavigateToTaskScreen: (() -> Unit)? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigateToTaskScreen: (() -> Unit)? = null
 ) {
     Row(
         modifier = modifier
