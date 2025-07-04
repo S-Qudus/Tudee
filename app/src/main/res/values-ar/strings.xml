@@ -106,9 +106,9 @@
     <string name="fill_day_message_short">املأ يومك بشيء رائع.</string>
     <string name="back_to_work_message">أنت فقط تتصفح، لا تعمل. تودي يراقب. عد للعمل!!!</string>
     <string name="delete">حذف</string>
-    <string name="cancel">الغاء</string>
-    <string name="are_you_sure">هل انت متأكد?</string>
-    <string name="this_action_cannot_be_undone">لا يمكن التراجع عن هذه الخطوة.</string>
+    <string name="cancel">إلغاء</string>
+    <string name="are_you_sure">هل أنت متأكد؟</string>
+    <string name="this_action_cannot_be_undone">لا يمكن التراجع عن هذا الإجراء.</string>
 
     <!-- Task Date Labels -->
     <string name="today">اليوم</string>
@@ -181,4 +181,12 @@
     <string name="october">أكتوبر</string>
     <string name="november">نوفمبر</string>
     <string name="december">ديسمبر</string>
+
+    <!-- Success Messages -->
+    <string name="task_added_successfully">تم إضافة المهمة بنجاح!</string>
+    <string name="task_updated_successfully">تم تحديث المهمة بنجاح!</string>
+    <string name="task_deleted_successfully">تم حذف المهمة بنجاح!</string>
+    <string name="category_added_successfully">تم إضافة الفئة بنجاح!</string>
+    <string name="category_updated_successfully">تم تحديث الفئة بنجاح!</string>
+    <string name="category_deleted_successfully">تم حذف الفئة بنجاح!</string>
 </resources>

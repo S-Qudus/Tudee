@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.screen.addTask
 
+import MessageState
 import com.qudus.tudee.domain.entity.Category
 import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.domain.exception.EmptyInputException
@@ -20,7 +21,8 @@ class AddTaskViewModel(
     categoryService: CategoryService,
     private val taskService: TaskService,
     private val onDismiss: () -> Unit = {},
-    private val onTaskAdded: () -> Unit = {}
+    private val onTaskAdded: () -> Unit = {},
+    private val onShowMessage: (MessageState) -> Unit = {}
 ) : TaskEditorViewModel(), AddTaskInteraction {
 
     init {
@@ -46,11 +48,18 @@ class AddTaskViewModel(
 
     private fun onAddTaskSuccess(unit: Unit) {
         _state.update { it.copy(isLoading = false) }
+        
+        onShowMessage(MessageState.success("Task added successfully!"))
+        
         onTaskAdded()
         onDismiss()
     }
 
     private fun onAddTaskError(exception: TudeeExecption) {
+        _state.update { it.copy(isLoading = false) }
+        
+        onShowMessage(MessageState.error("Failed to add task. Please try again."))
+        
         val errorType = when (exception) {
             is EmptyInputException -> TitleErrorType.EMPTY
             is InvalidStartCharacterException -> TitleErrorType.INVALID_START
@@ -58,7 +67,7 @@ class AddTaskViewModel(
             is InputTooShortException -> TitleErrorType.TOO_SHORT
             else -> TitleErrorType.INVALID
         }
-        _state.update { it.copy(isLoading = false, titleErrorMessageType = errorType) }
+        _state.update { it.copy(titleErrorMessageType = errorType) }
     }
 
     override fun onGetCategoriesError(exception: TudeeExecption) {

@@ -1,12 +1,20 @@
 package com.qudus.tudee.ui.screen.HomeScreen
 
+import MessageState
+import MessageType
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -28,9 +36,12 @@ fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
+    var currentMessage by remember { mutableStateOf<MessageState?>(null) }
     
     TudeeScaffold(
         contentBackground = Theme.color.surface,
+        snackbarHostState = snackbarHostState,
         floatingActionButton = {
             TudeeFloatingActionButton(
                 onClickIconButton = { viewModel.onAddButtonClicked() },
@@ -49,11 +60,24 @@ fun HomeScreen(
         }
     )
     
-    // Show AddTaskScreen when showAddTaskSheet is true
+    LaunchedEffect(currentMessage) {
+        currentMessage?.let { message ->
+            snackbarHostState.showSnackbar(
+                message = message.text,
+                duration = when (message.type) {
+                    MessageType.SUCCESS -> SnackbarDuration.Short
+                    MessageType.ERROR -> SnackbarDuration.Long
+                }
+            )
+            currentMessage = null
+        }
+    }
+    
     if (state.showAddTaskSheet) {
         AddTaskScreen(
             onDismiss = { viewModel.onDismissBottomSheet() },
             onTaskAdded = { viewModel.refreshTasks() },
+            onShowMessage = { message -> currentMessage = message },
             navController = navController
         )
     }

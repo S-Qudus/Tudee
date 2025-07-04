@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.screen.editTask
 
+import MessageState
 import com.qudus.tudee.domain.exception.TaskNotFoundException
 import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.domain.service.CategoryService
@@ -15,10 +16,10 @@ import kotlinx.coroutines.flow.update
 
 class EditTaskViewModel(
     private val categoryService: CategoryService,
-    private val taskService: TaskService
+    private val taskService: TaskService,
+    private val onShowMessage: (MessageState) -> Unit = {}
 ) : TaskEditorViewModel(), EditTaskInteraction {
 
-    //todo: receive the real task id that i need to edit
     val id = 2L
 
     init {
@@ -76,13 +77,23 @@ class EditTaskViewModel(
         tryToExecute(
             action = { taskService.updateTask(state.value.toTask(taskId = id)) },
             onSuccess = ::onEditTaskSuccess,
-            onError = ::onSubmitTaskError,
+            onError = ::onEditTaskError,
         )
     }
 
     private fun onEditTaskSuccess(unit: Unit) {
         _state.update { it.copy(isLoading = false, isSheetOpen = false) }
-
-        //todo: move to the prev screen with success params true
+        
+        // عرض رسالة النجاح
+        onShowMessage(MessageState.success("Task updated successfully!"))
+    }
+    
+    private fun onEditTaskError(exception: TudeeExecption) {
+        _state.update { it.copy(isLoading = false) }
+        
+        // عرض رسالة الفشل
+        onShowMessage(MessageState.error("Failed to update task. Please try again."))
+        
+        onSubmitTaskError(exception)
     }
 }

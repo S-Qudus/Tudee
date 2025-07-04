@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.screen.addTask
 
+import MessageState
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
@@ -61,7 +62,10 @@ fun AddTaskScreen(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit = {},
     onTaskAdded: () -> Unit = {},
-    viewModel: AddTaskViewModel = koinViewModel { parametersOf(onDismiss, onTaskAdded) },
+    onShowMessage: (MessageState) -> Unit = {},
+    viewModel: AddTaskViewModel = koinViewModel { 
+        parametersOf(onDismiss, onTaskAdded, onShowMessage) 
+    },
     navController: NavController
 ) {
     val state by viewModel.state.collectAsState()
