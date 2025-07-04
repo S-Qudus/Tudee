@@ -94,7 +94,10 @@ private fun TasksContent(
             }
         } else {
             item {
-                NoTasks()
+                NoTasks(
+                    title = stringResource(R.string.no_tasks),
+                    description = stringResource(R.string.add_task),
+                )
             }
         }
     }

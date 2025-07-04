@@ -35,7 +35,7 @@ fun CategoryTask(
     modifier: Modifier = Modifier,
     title: String,
     description: String?,
-    priorityLevel: Priority = Priority.LOW,
+    priorityLevel: Priority,
     onClick: () -> Unit,
     dateText: String? = null,
    taskRes: @Composable (Modifier) -> Unit,

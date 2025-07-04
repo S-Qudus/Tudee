@@ -10,8 +10,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.qudus.tudee.R
-//import com.qudus.tudee.designSystem.component.CategoryTask
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.tasksScreen.state.TaskUiState
 
@@ -19,7 +19,10 @@ import com.qudus.tudee.ui.screen.tasksScreen.state.TaskUiState
 fun TaskListSection(modifier: Modifier = Modifier, tasks: List<TaskUiState>) {
 
     if (tasks.isEmpty()) {
-        NoTasks()
+        NoTasks(
+            title = stringResource(R.string.no_tasks),
+            description = stringResource(R.string.add_tasks),
+        )
     } else {
         LazyColumn(
             modifier = modifier
@@ -31,11 +34,16 @@ fun TaskListSection(modifier: Modifier = Modifier, tasks: List<TaskUiState>) {
             items(tasks) { task ->
                 CategoryTask(
                     title = task.title,
-                    description = task.description ?: "",
+                    description = task.description,
                     priorityLevel = task.priority.toDomain(),
                     onClick = {},
-                    dateText = task.createdAt,
+                   // dateText = task.createdAt,
                     taskRes = { modifier ->
+//                        CategoryIcon(
+//                            categoryId = task.categoryId,
+//                            contentDescription = task.title,
+//                            modifier = modifier
+//                        )
                         Icon(
                             painter = painterResource(id = R.drawable.icon_category_book_open),
                             contentDescription = "Task Icon",

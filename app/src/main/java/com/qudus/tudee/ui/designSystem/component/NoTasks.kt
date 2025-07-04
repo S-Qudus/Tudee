@@ -33,10 +33,13 @@ import com.qudus.tudee.ui.util.extension.dropShadow
 import com.qudus.tudee.ui.util.extension.mirrorRtl
 
 @Composable
-fun NoTasks() {
+fun NoTasks(
+    title: String,
+    description: String
+) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(Theme.color.surface),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -45,7 +48,8 @@ fun NoTasks() {
             modifier = Modifier
                 .padding(horizontal = 6.dp)
                 .background(Theme.color.surface),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
                 modifier = Modifier
@@ -65,12 +69,12 @@ fun NoTasks() {
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        stringResource(R.string.no_tasks),
+                        title,
                         color = Theme.color.body,
                         style = Theme.textStyle.title.small
                     )
                     Text(
-                        stringResource(R.string.add_task),
+                        description,
                         color = Theme.color.hint,
                         style = Theme.textStyle.body.small
                     )
@@ -129,8 +133,11 @@ fun NoTasks() {
     }
 }
 
-@Preview
+@Preview(showSystemUi = true)
 @Composable
 fun NoTasksPreview() {
-    NoTasks()
+    NoTasks(
+        title = "No tasks here!",
+        description = "Tap the + button to add your first one."
+    )
 }

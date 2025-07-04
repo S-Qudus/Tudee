@@ -16,6 +16,8 @@ import com.qudus.tudee.ui.designSystem.component.ErrorMessage
 import com.qudus.tudee.ui.designSystem.component.FullScreenLoading
 import androidx.navigation.NavController
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
+import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
 import com.qudus.tudee.ui.screen.tasksScreen.viewModel.TaskViewModel
 import com.qudus.tudee.ui.state.StateUiState
 import org.koin.androidx.compose.koinViewModel
@@ -25,10 +27,12 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun TasksScreen(
     navController: NavController,
-    viewModel: TaskViewModel = koinViewModel()
+    viewModel: TaskViewModel = koinViewModel(),
+    homeViewModel: HomeViewModel = koinViewModel()
 ) {
 
     val uiState by viewModel.state.collectAsState()
+    val state by homeViewModel.uiState.collectAsState()
 
     val countsByState = remember(uiState.tasks) {
         StateUiState.entries.associateWith { s ->
@@ -51,7 +55,16 @@ fun TasksScreen(
                 countsByState = countsByState,
                 onDateSelected = { viewModel.selectDate(it) },
                 onMonthChange = { viewModel.selectMonth(it) },
-                onStateSelected = { viewModel.selectState(it) }
+                onStateSelected = { viewModel.selectState(it) },
+                onClickAddNewTask = { homeViewModel.onAddButtonClicked() }
+            )
+        }
+
+        if (state.showAddTaskSheet) {
+            AddTaskScreen(
+                onDismiss = { homeViewModel.onDismissBottomSheet() },
+                onTaskAdded = { homeViewModel.refreshTasks() },
+                navController = navController
             )
         }
     }

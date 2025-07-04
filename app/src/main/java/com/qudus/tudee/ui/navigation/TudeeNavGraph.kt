@@ -3,11 +3,13 @@ package com.qudus.tudee.ui.navigation
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -54,7 +56,7 @@ fun TudeeNavGraph(
         NavHost(
             navController = navHostController,
             startDestination = startDestination,
-            modifier = Modifier.padding(PaddingValues(bottom = innerPadding.calculateBottomPadding()))
+            modifier = Modifier.padding(PaddingValues(bottom = innerPadding.calculateTopPadding()))
         ) {
             homeRoute(navHostController)
             tasksRoute(navHostController)

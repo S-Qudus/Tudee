@@ -42,15 +42,16 @@ fun TudeeScaffold(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(24.dp)
+                    .padding(end = 12.dp)
                     .navigationBarsPadding(),
                 contentAlignment = Alignment.BottomEnd
             ) {
-                Box(
-                    modifier = Modifier.offset(y = (-16).dp)
-                ) {
-                    it()
-                }
+                it()
+//                Box(
+//                    //modifier = Modifier.offset(y = (-16).dp)
+//                ) {
+//                    it()
+//                }
             }
         }
 
