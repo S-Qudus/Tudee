@@ -2,7 +2,7 @@ package com.qudus.tudee.ui.screen.categories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.qudus.tudee.domain.entity.Category
+import com.qudus.tudee.R
 import com.qudus.tudee.domain.service.CategoryService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.ui.mapper.toCategoryUiItem
@@ -14,15 +14,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CategoriesViewModel(
-    private val repository: CategoryService,
+    private val categoryService: CategoryService,
     private val taskService: TaskService
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CategoriesUiState())
     val uiState = _uiState.asStateFlow()
-
-    private val _createCategoryUiState = MutableStateFlow(CreateCategoryUiState())
-    val createCategoryUiState = _createCategoryUiState.asStateFlow()
 
     init {
         loadCategories()
@@ -32,12 +29,12 @@ class CategoriesViewModel(
         _uiState.update { it.copy(isLoading = true, errorMessage = null) }
 
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getCategories()
+            categoryService.getCategories()
                 .catch { throwable ->
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            errorMessage = throwable.message ?: "Failed to load categories"
+                            errorMessage = (throwable.message ?: R.string.failed_to_load_categories).toString()
                         )
                     }
                 }
@@ -59,28 +56,6 @@ class CategoriesViewModel(
                         }
                     }
                 }
-        }
-    }
-
-    fun createCategory(category: Category) {
-        viewModelScope.launch {
-            _createCategoryUiState.value = _createCategoryUiState.value.copy(isLoading = true)
-            try {
-                repository.createCategory(category)
-                _createCategoryUiState.value = _createCategoryUiState.value.copy(
-                    isCreated = true,
-                    isLoading = false
-                )
-                _uiState.value = _uiState.value.copy(
-                    createSuccessMessage = "Category created successfully"
-                )
-                loadCategories()
-            } catch (e: Exception) {
-                _createCategoryUiState.value = _createCategoryUiState.value.copy(
-                    isLoading = false,
-                    errorMessage = e.message
-                )
-            }
         }
     }
 

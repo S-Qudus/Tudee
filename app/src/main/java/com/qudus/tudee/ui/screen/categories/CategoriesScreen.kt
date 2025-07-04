@@ -20,19 +20,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.SnackBar
-import com.qudus.tudee.designSystem.component.SnackBarState
-import com.qudus.tudee.ui.composable.CategoryBadgeItem
-import com.qudus.tudee.ui.composable.TudeeFloatingActionButton
-import com.qudus.tudee.ui.composable.TudeeTextBadge
+import com.qudus.tudee.ui.designSystem.component.CategoryBadgeItem
+import com.qudus.tudee.ui.designSystem.component.SnackBar
+import com.qudus.tudee.ui.designSystem.component.SnackBarState
+import com.qudus.tudee.ui.designSystem.component.TudeeTextBadge
+import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
+import com.qudus.tudee.ui.screen.addCategoryScreen.AddCategoryScreen
 import com.qudus.tudee.ui.util.getIconPainterForCategory
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
@@ -64,7 +63,7 @@ fun CategoriesScreenContent(
     uiState: CategoriesUiState,
     onCategoryClick: (Long) -> Unit,
     onClickAddCategory: () -> Unit
-){
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -174,7 +173,7 @@ fun CategoriesScreenContent(
 
         // Bottom Sheet
         if (uiState.showBottomSheet) {
-            // calling Farah screen
+            AddCategoryScreen()
         }
     }
 }
