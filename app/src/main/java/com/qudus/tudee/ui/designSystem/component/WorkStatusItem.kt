@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.color.lightThemeColor
+import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.textStyle.Nunito
 import com.qudus.tudee.ui.designSystem.textStyle.defaultTextStyle
 
@@ -34,7 +34,7 @@ fun WorkStatusItem(workStatus: WorkStatus) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(lightThemeColor.surfaceHigh)
+                .background(Theme.color.surfaceHigh)
                 .padding(start = 25.dp, top = 20.dp, end = 20.dp, bottom = 21.dp),
             horizontalAlignment = Alignment.Start
         ) {
@@ -47,7 +47,7 @@ fun WorkStatusItem(workStatus: WorkStatus) {
                     fontWeight = FontWeight(500),
                     fontSize = 16.sp,
                     fontFamily = Nunito,
-                    color = lightThemeColor.title,
+                    color = Theme.color.title,
                     textAlign = TextAlign.Start,
                     style = defaultTextStyle.title.small
                 )
@@ -68,7 +68,7 @@ fun WorkStatusItem(workStatus: WorkStatus) {
                 fontWeight = FontWeight(400),
                 fontSize = 14.sp,
                 fontFamily = Nunito,
-                color = lightThemeColor.body,
+                color = Theme.color.body,
                 textAlign = TextAlign.Start,
                 style = defaultTextStyle.body.small
             )

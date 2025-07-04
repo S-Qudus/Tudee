@@ -62,8 +62,9 @@ fun CategoryTask(
                 TudeeChip(
                     label = dateText,
                     icon = painterResource(id = R.drawable.icon_calendar),
-                    activeBackgroundColor = Theme.color.surface,
-                    backgroundColor = Theme.color.surface,
+                    activeBackgroundColor = Theme.color.primary,
+                    backgroundColor = Theme.color.primary,
+                    isActive = true,
                 )
                 Spacer(modifier = Modifier.width(4.dp))
             }
@@ -73,6 +74,7 @@ fun CategoryTask(
                 icon = getIconForPriority(priorityLevel),
                 activeBackgroundColor = getColorForPriority(priorityLevel),
                 backgroundColor = Theme.color.surface,
+                isActive = true,
             )
         }
 

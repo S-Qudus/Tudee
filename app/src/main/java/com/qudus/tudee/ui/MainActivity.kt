@@ -6,29 +6,28 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
-import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
-import com.qudus.tudee.ui.screen.HomeScreen.HomeScreen
-import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
-import com.qudus.tudee.ui.screen.HomeScreen.component.HomeContent
-import org.koin.androidx.compose.koinViewModel
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+
+import com.qudus.tudee.ui.navigation.NavViewModel
+import com.qudus.tudee.ui.navigation.TudeeApp
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
+    private val viewModel: NavViewModel by viewModel()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val splashScreen = installSplashScreen()
+        splashScreen.setKeepOnScreenCondition {
+            viewModel.startDestination.value == null
+        }
+
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
-            val viewModel: HomeViewModel = koinViewModel()
-            val state by viewModel.uiState.collectAsState()
-            
-            TudeeTheme(isDarkTheme = state.isDarkTheme) { 
-                val navController = rememberNavController()
-                HomeScreen(navController = navController, viewModel = viewModel)
-            }
+            TudeeApp()
         }
     }
 }

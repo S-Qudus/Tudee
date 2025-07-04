@@ -27,8 +27,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.composable.TudeeTextButton
 import com.qudus.tudee.ui.designSystem.component.TudeeBottomSheet
+import com.qudus.tudee.ui.designSystem.component.buttons.TudeeTextButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 
 

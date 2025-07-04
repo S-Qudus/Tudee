@@ -30,8 +30,8 @@ fun getIconForPriority(priority: Priority): Painter {
 @Composable
 fun getColorForPriority(priority: Priority): Color {
     return when (priority) {
-        Priority.HIGH -> Theme.color.greenAccent
+        Priority.HIGH -> Theme.color.pinkAccent
         Priority.MEDIUM -> Theme.color.yellowAccent
-        Priority.LOW -> Theme.color.pinkAccent
+        Priority.LOW -> Theme.color.greenAccent
     }
 }

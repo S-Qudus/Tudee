@@ -7,7 +7,6 @@ import com.qudus.tudee.domain.service.PreferenceService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.ui.base.BaseViewModel
-import com.qudus.tudee.ui.state.HomeUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -43,30 +42,22 @@ class HomeViewModel(
     private fun loadTasks() {
         _uiState.update { it.copy(ui = it.ui.copy(isLoading = true)) }
         
-        viewModelScope.launch {
-            try {
-                val allTasks = taskService.getAllTasks()
+        collectFlow(
+            flow = taskService.getAllTasks(),
+            onEach = { allTasks ->
                 updateTaskState(allTasks)
-            } catch (e: TudeeExecption) {
+            },
+            onError = { exception ->
                 _uiState.update { 
                     it.copy(
                         ui = it.ui.copy(
                             isLoading = false,
-                            errorMessage = e.message ?: "Failed to load tasks"
-                        )
-                    )
-                }
-            } catch (e: Exception) {
-                _uiState.update { 
-                    it.copy(
-                        ui = it.ui.copy(
-                            isLoading = false,
-                            errorMessage = "Unexpected error: ${e.message}"
+                            errorMessage = exception.message ?: "Failed to load tasks"
                         )
                     )
                 }
             }
-        }
+        )
     }
 
     private fun updateTaskState(tasks: List<Task>) {

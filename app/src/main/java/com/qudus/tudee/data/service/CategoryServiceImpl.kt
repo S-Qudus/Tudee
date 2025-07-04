@@ -26,7 +26,9 @@ class CategoryServiceImpl(
     }
 
     override fun getCategories(): Flow<List<Category>> {
-        return  wrapServiceCall(isCategory = true) {  categoryDao.getCategories().map { it.map { it.toCategory() } }}
+        return categoryDao.getCategories().map { categories ->
+            categories.map { it.toCategory() }
+        }
     }
 
     override suspend fun getCategoryById(id: Long): Category {

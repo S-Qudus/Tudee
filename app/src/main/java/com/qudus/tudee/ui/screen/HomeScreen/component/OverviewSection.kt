@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,22 +13,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
+import com.qudus.tudee.ui.designSystem.component.LoadWorkSummarySingle
 import com.qudus.tudee.ui.designSystem.component.StatusCardItem
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing8
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing12
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing16
 import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing24
-import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing3
-import com.qudus.tudee.ui.designSystem.theme.Dimension.spacing6
+import java.util.Locale
+import com.qudus.tudee.ui.util.extension.formatMonthToString
 import com.qudus.tudee.ui.util.OverviewCardConstants
-import com.qudus.tudee.ui.util.UserStatus
-import com.qudus.tudee.ui.util.calculateUserStatus
-import com.qudus.tudee.ui.util.getEmoji
-import com.qudus.tudee.ui.util.formatToArabicString
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -40,8 +35,6 @@ fun HomeOverviewCard(
     inProgressTasks: Int = 0,
     todayDate: kotlinx.datetime.LocalDate,
 ) {
-    val userStatus = calculateUserStatus(completedTasks, totalTasks)
-    
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -58,7 +51,7 @@ fun HomeOverviewCard(
     ) {
         DateSection(todayDate)
         Spacer(modifier = Modifier.height(spacing12))
-        MotivationSection(userStatus, completedTasks, totalTasks)
+        LoadWorkSummarySingle(completedTasks, totalTasks)
         Spacer(modifier = Modifier.height(spacing24))
         OverviewSection()
         TaskStatsSection(completedTasks, totalTasks, inProgressTasks)
@@ -83,124 +76,9 @@ private fun DateSection(
         )
         Spacer(modifier = Modifier.width(spacing8))
         Text(
-            text = todayDate.formatToArabicString(),
+            text = "today, " + todayDate.formatMonthToString(locale = Locale.ENGLISH, short = true, withDay = true),
             style = Theme.textStyle.label.medium,
             color = Theme.color.body
-        )
-    }
-}
-
-@Composable
-private fun MotivationSection(
-    userStatus: UserStatus,
-    completedTasks: Int,
-    totalTasks: Int,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(spacing12)
-    ) {
-        MotivationMessages(
-            userStatus = userStatus,
-            completedTasks = completedTasks,
-            totalTasks = totalTasks,
-            modifier = Modifier.weight(1f)
-        )
-        TudeeRobotImage()
-    }
-}
-
-@Composable
-private fun MotivationMessages(
-    userStatus: UserStatus,
-    completedTasks: Int,
-    totalTasks: Int,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(spacing8)
-    ) {
-        StatusTitleWithEmoji(userStatus)
-        StatusMessage(userStatus, completedTasks, totalTasks)
-    }
-}
-
-@Composable
-private fun StatusTitleWithEmoji(
-    userStatus: UserStatus,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(spacing8)
-    ) {
-        Text(
-            text = getUserStatusTitle(userStatus),
-            style = Theme.textStyle.title.small,
-            color = Theme.color.title,
-            fontWeight = FontWeight.Bold
-        )
-        StatusEmoji(userStatus)
-    }
-}
-
-@Composable
-private fun StatusMessage(
-    userStatus: UserStatus,
-    completedTasks: Int,
-    totalTasks: Int,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        modifier = modifier.fillMaxWidth(OverviewCardConstants.MESSAGE_WIDTH_RATIO),
-        text = getUserStatusMessage(userStatus, completedTasks, totalTasks),
-        style = Theme.textStyle.body.small,
-        color = Theme.color.body
-    )
-}
-
-@Composable
-private fun StatusEmoji(
-    userStatus: UserStatus,
-    modifier: Modifier = Modifier
-) {
-    val emojiText = userStatus.getEmoji()
-    
-    Text(
-        text = emojiText,
-        style = Theme.textStyle.title.small,
-        modifier = modifier.size(OverviewCardConstants.EMOJI_SIZE.dp)
-    )
-}
-
-@Composable
-private fun TudeeRobotImage(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .width(OverviewCardConstants.ROBOT_WIDTH.dp)
-            .height(OverviewCardConstants.ROBOT_HEIGHT.dp),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(top = spacing6, start = spacing6)
-                .size(OverviewCardConstants.ROBOT_BACKGROUND_SIZE.dp)
-                .clip(CircleShape)
-                .background(Theme.color.primary.copy(alpha = 0.16f))
-                .align(Alignment.BottomStart)
-        )
-        
-        Image(
-            modifier = Modifier
-                .padding(start = spacing3)
-                .width(OverviewCardConstants.ROBOT_IMAGE_WIDTH.dp)
-                .height(OverviewCardConstants.ROBOT_IMAGE_HEIGHT.dp),
-            painter = painterResource(id = R.drawable.image_tudee),
-            contentDescription = null
         )
     }
 }
@@ -251,22 +129,5 @@ private fun TaskStatsSection(
             contentPadding = PaddingValues(spacing16)
         )
     }
-}
-
-
-@Composable
-private fun getUserStatusTitle(userStatus: UserStatus): String = when (userStatus) {
-    UserStatus.GOOD -> stringResource(R.string.tadaa_title)
-    UserStatus.OKAY -> stringResource(R.string.stay_working_title)
-    UserStatus.POOR -> stringResource(R.string.nothing_on_list_title)
-    UserStatus.BAD -> stringResource(R.string.zero_progress_title)
-}
-
-@Composable
-private fun getUserStatusMessage(userStatus: UserStatus, completedTasks: Int, totalTasks: Int): String = when (userStatus) {
-    UserStatus.GOOD -> stringResource(R.string.amazing_work_message)
-    UserStatus.OKAY -> stringResource(R.string.keep_going_message, completedTasks, totalTasks)
-    UserStatus.POOR -> stringResource(R.string.fill_day_message_short)
-    UserStatus.BAD -> stringResource(R.string.back_to_work_message)
 }
 

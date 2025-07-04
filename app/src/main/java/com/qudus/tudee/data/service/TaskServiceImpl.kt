@@ -37,11 +37,9 @@ class TaskServiceImpl(
         taskDao.deleteTaskById(id)
     }
 
-    override suspend fun getAllTasks(): List<Task> {
-        return wrapServiceSuspendCall {
-            taskDao.getTasks().map { tasks ->
-                tasks.map { it.toEntity() }
-            }.first()
+    override fun getAllTasks(): Flow<List<Task>> {
+        return taskDao.getTasks().map { tasks ->
+            tasks.map { it.toEntity() }
         }
     }
 

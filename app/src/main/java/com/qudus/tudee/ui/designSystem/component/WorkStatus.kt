@@ -64,6 +64,26 @@ fun LoadWorkSummaries(completedTasks: Int, totalTasks: Int) {
     }
 }
 
+@Composable
+fun LoadWorkSummarySingle(completedTasks: Int, totalTasks: Int) {
+    val stayWorkingTitle = stringResource(R.string.stay_working)
+    var taskCompletedMessage = stringResource(
+        R.string.tasks_completed_message_only,
+        completedTasks,
+        totalTasks
+    )
+    val updateWorking = remember(completedTasks, totalTasks) {
+        WorkStatus(
+            title = stayWorkingTitle,
+            imageFace = R.drawable.image_neutral_face,
+            subtitle = taskCompletedMessage,
+            imageTudee = R.drawable.image_happy_tudee,
+        )
+    }
+    
+    WorkStatusItem(workStatus = updateWorking)
+}
+
 @Preview
 @Composable
 fun WorkStatusPreview() {

@@ -93,7 +93,7 @@
     <string name="tasks_completed_message">You\'ve completed %1$d out of %2$d tasks\nKeep going!</string>
 
     <!-- Work Status Messages -->
-    <string name="stay_working">Stay working! 😃</string>
+    <string name="stay_working">Stay working!</string>
     <string name="tasks_completed_message_only">You\'ve completed %1$d out of %2$d tasks</string>
     <string name="category_image_desc">category image </string>
     <string name="add_new_category">Add New Category</string>
@@ -111,10 +111,10 @@
     <string name="keep_going">Keep going!</string>
 
     <!-- Overview Card Status Messages -->
-    <string name="tadaa_title">Tadaa! 🎉</string>
-    <string name="stay_working_title">Stay working! 😃</string>
-    <string name="nothing_on_list_title">Nothing on your list… 🤔</string>
-    <string name="zero_progress_title">Zero progress?! 😤</string>
+    <string name="tadaa_title">Tadaa!</string>
+    <string name="stay_working_title">Stay working!</string>
+    <string name="nothing_on_list_title">Nothing on your list…</string>
+    <string name="zero_progress_title">Zero progress?!</string>
 
     <string name="amazing_work_message">You\'re doing amazing!!! Tudee is proud of you.</string>
     <string name="keep_going_message">You\'ve completed %1$d out of %2$d tasks Keep going!</string>

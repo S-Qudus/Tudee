@@ -13,10 +13,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.qudus.tudee.R
+import com.qudus.tudee.ui.designSystem.component.NoTasks
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
 import com.qudus.tudee.ui.designSystem.component.taskComposable.TaskSection
-import com.qudus.tudee.ui.state.HomeUiState
+import com.qudus.tudee.ui.screen.HomeScreen.HomeUiState
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -27,19 +28,12 @@ fun HomeContent(
     val scrollState = rememberLazyListState()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when {
-        state.hasTasks -> {
-            Text("This text temp: just we need NoTask composble")
-        }
-        else -> {
-            TasksContent(
-                state = state,
-                viewModel = viewModel,
-                scrollState = scrollState,
-                modifier = modifier
-            )
-        }
-    }
+    TasksContent(
+        state = state,
+        viewModel = viewModel,
+        scrollState = scrollState,
+        modifier = modifier
+    )
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -72,29 +66,35 @@ private fun TasksContent(
             )
         }
 
-        if (state.hasActiveTasks && state.inProgressTasksCount > 0) {
-            item {
-                TaskSection(
-                    title = stringResource(R.string.in_progress),
-                    taskCount = state.inProgressTasksCount,
-                    tasks = state.activeTasks.filter { it.state.name == "IN_PROGRESS" },
-                    onTaskClick = { taskId -> viewModel.onTaskClicked(taskId) },
-                    onNavigateToTaskScreen = { viewModel.onNavigateToInProgressTasks() },
-                    modifier = Modifier.background(Theme.color.surface)
-                )
+        if (state.hasTasks) {
+            if (state.hasActiveTasks && state.inProgressTasksCount > 0) {
+                item {
+                    TaskSection(
+                        title = stringResource(R.string.in_progress),
+                        taskCount = state.inProgressTasksCount,
+                        tasks = state.activeTasks.filter { it.state.name == "IN_PROGRESS" },
+                        onTaskClick = { taskId -> viewModel.onTaskClicked(taskId) },
+                        onNavigateToTaskScreen = { viewModel.onNavigateToInProgressTasks() },
+                        modifier = Modifier.background(Theme.color.surface)
+                    )
+                }
             }
-        }
 
-        if (state.hasUpcomingTasks) {
+            if (state.hasUpcomingTasks) {
+                item {
+                    TaskSection(
+                        title = stringResource(R.string.to_do),
+                        taskCount = state.todoTasksCount,
+                        tasks = state.upcomingTasks,
+                        onTaskClick = { taskId -> viewModel.onTaskClicked(taskId) },
+                        onNavigateToTaskScreen = { viewModel.onNavigateToTodoTasks() },
+                        modifier = Modifier.background(Theme.color.surface)
+                    )
+                }
+            }
+        } else {
             item {
-                TaskSection(
-                    title = stringResource(R.string.to_do),
-                    taskCount = state.todoTasksCount,
-                    tasks = state.upcomingTasks,
-                    onTaskClick = { taskId -> viewModel.onTaskClicked(taskId) },
-                    onNavigateToTaskScreen = { viewModel.onNavigateToTodoTasks() },
-                    modifier = Modifier.background(Theme.color.surface)
-                )
+                NoTasks()
             }
         }
     }
@@ -120,7 +120,7 @@ private fun OverviewCardSection(
             inProgressTasks = state.inProgressTasksCount,
             todayDate = viewModel.getCurrentDate(),
             modifier = Modifier
-                .padding(horizontal = Theme.dimension.spacing8)
+                .padding(top = 9.dp, start = Theme.dimension.spacing8, end = Theme.dimension.spacing8)
         )
     }
 } 

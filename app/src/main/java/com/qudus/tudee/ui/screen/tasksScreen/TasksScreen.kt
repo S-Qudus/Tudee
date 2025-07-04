@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.qudus.tudee.ui.designSystem.component.ErrorMessage
 import com.qudus.tudee.ui.designSystem.component.FullScreenLoading
+import androidx.navigation.NavController
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.tasksScreen.viewModel.TaskViewModel
 import com.qudus.tudee.ui.state.StateUiState
@@ -23,6 +24,7 @@ import org.koin.androidx.compose.koinViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TasksScreen(
+    navController: NavController,
     viewModel: TaskViewModel = koinViewModel()
 ) {
 
@@ -61,5 +63,5 @@ fun TasksScreen(
 //@PreviewLightDark()
 @Composable
 private fun TasksScreenPreview() {
-    TasksScreen()
+//    TasksScreen()
 }

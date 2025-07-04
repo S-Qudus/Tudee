@@ -16,5 +16,4 @@ interface TaskService {
     fun getTasksByDate(date: LocalDate): Flow<List<Task>>
     fun getTasksByState(state: State): Flow<List<Task>>
     suspend fun moveToState(taskId: Long, newState: State)
-
 }
