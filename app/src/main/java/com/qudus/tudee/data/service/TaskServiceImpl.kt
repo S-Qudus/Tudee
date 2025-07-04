@@ -4,18 +4,15 @@ import com.qudus.tudee.data.database.dao.TaskDao
 import com.qudus.tudee.data.mapper.toTask
 import com.qudus.tudee.data.mapper.toDto
 import com.qudus.tudee.data.mapper.toEntity
+import com.qudus.tudee.data.util.wrapServiceCall
 import com.qudus.tudee.data.util.wrapServiceSuspendCall
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.TaskService
 import kotlinx.coroutines.flow.Flow
-
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.LocalDate
-
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
-
 
 class TaskServiceImpl(
   private val taskDao: TaskDao,
@@ -46,11 +43,15 @@ class TaskServiceImpl(
         }
     }
 
-    override suspend fun getTasksByCategoryId(id: Long): List<Task> {
-        return wrapServiceSuspendCall {
-            taskDao.getTasks().map { tasks ->
-                tasks.filter { it.categoryId == id }.map { it.toEntity() }
-            }.first()
+    override suspend fun getTasksByCategoryId(id: Long): Flow<List<Task>> {
+        return wrapServiceCall {
+            taskDao.getTasks()
+                .map {
+                    it.map { it.toTask() }
+                        .filter {
+                            it.categoryId == id
+                        }
+                }
         }
     }
 

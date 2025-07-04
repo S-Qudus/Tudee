@@ -5,6 +5,7 @@ import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
 import com.qudus.tudee.ui.screen.addTask.AddTaskViewModel
 import com.qudus.tudee.ui.screen.editCategoryScreen.EditCategoryViewModel
 import com.qudus.tudee.ui.screen.addCategoryScreen.AddCategoryViewModel
+import com.qudus.tudee.ui.screen.categories.CategoriesViewModel
 import com.qudus.tudee.ui.screen.editTask.EditTaskViewModel
 import com.qudus.tudee.ui.screen.onBoarding.OnBoardingViewModel
 import com.qudus.tudee.ui.screen.tasksScreen.viewModel.TaskViewModel
@@ -26,4 +27,6 @@ val uiModule = module {
     viewModelOf(::AddCategoryViewModel)
     viewModelOf(::EditCategoryViewModel)
     viewModelOf(::TaskDetailsViewModel)
+    viewModelOf(::CategoriesViewModel)
+
 }

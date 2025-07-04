@@ -200,4 +200,9 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="this_action_cannot_be_undone">This action cannot be undone.</string>
 
+
+    <string name="categories" translatable="false">Categories</string>
+    <string name="failed_to_load_categories" translatable="false">Failed to load categories</string>
+
+
 </resources>
