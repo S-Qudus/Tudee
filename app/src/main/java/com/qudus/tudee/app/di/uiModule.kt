@@ -1,5 +1,6 @@
 package com.qudus.tudee.app.di
 
+import MessageState
 import com.qudus.tudee.ui.navigation.NavViewModel
 import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
 import com.qudus.tudee.ui.screen.addTask.AddTaskViewModel
@@ -13,15 +14,25 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import androidx.annotation.RequiresApi
 import android.os.Build
+import org.koin.core.module.dsl.viewModel
 
 
 @RequiresApi(Build.VERSION_CODES.O)
 val uiModule = module {
+    viewModelOf(::NavViewModel)
     viewModelOf(::HomeViewModel)
     viewModelOf(::AddTaskViewModel)
-    viewModelOf(::EditTaskViewModel)
+    viewModel { (taskId: Long, onDismiss: () -> Unit, onTaskEdited: () -> Unit, onShowMessage: (MessageState) -> Unit) ->
+        EditTaskViewModel(
+            taskId = taskId,
+            onDismiss = onDismiss,
+            onTaskEdited = onTaskEdited,
+            onShowMessage = onShowMessage,
+            categoryService = get(),
+            taskService = get()
+        )
+    }
     viewModelOf(::OnBoardingViewModel)
-    viewModelOf(::NavViewModel)
     viewModelOf(::TaskViewModel)
     viewModelOf(::AddCategoryViewModel)
     viewModelOf(::EditCategoryViewModel)

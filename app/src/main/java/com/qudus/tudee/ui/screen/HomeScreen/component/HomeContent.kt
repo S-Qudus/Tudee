@@ -18,6 +18,8 @@ import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
 import com.qudus.tudee.ui.designSystem.component.taskComposable.TaskSection
 import com.qudus.tudee.ui.screen.HomeScreen.HomeUiState
+import com.qudus.tudee.ui.navigation.NavViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -27,10 +29,13 @@ fun HomeContent(
 ) {
     val scrollState = rememberLazyListState()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val navViewModel: NavViewModel = koinViewModel()
+    val isDarkTheme by navViewModel.isDarkTheme.collectAsStateWithLifecycle()
 
     TasksContent(
         state = state,
         viewModel = viewModel,
+        isDarkTheme = isDarkTheme,
         scrollState = scrollState,
         modifier = modifier
     )
@@ -41,6 +46,7 @@ fun HomeContent(
 private fun TasksContent(
     state: HomeUiState,
     viewModel: HomeViewModel,
+    isDarkTheme: Boolean,
     scrollState: androidx.compose.foundation.lazy.LazyListState,
     modifier: Modifier = Modifier
 ) {
@@ -51,7 +57,7 @@ private fun TasksContent(
     ) {
         item {
             HomeHeaderSection(
-                isDarkTheme = state.isDarkTheme,
+                isDarkTheme = isDarkTheme,
                 onThemeToggle = { viewModel.onThemeToggle() },
                 modifier = Modifier
                     .fillMaxWidth()

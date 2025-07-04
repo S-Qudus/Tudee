@@ -26,6 +26,7 @@ import com.qudus.tudee.ui.designSystem.component.TudeeScaffold
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.HomeScreen.component.HomeContent
 import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
+import com.qudus.tudee.ui.screen.editTask.EditTaskScreen
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -80,6 +81,17 @@ fun HomeScreen(
             onShowMessage = { message -> currentMessage = message },
             navController = navController
         )
+    }
+    
+    if (state.showEditTaskSheet) {
+        state.selectedTaskId?.let { taskId ->
+            EditTaskScreen(
+                taskId = taskId,
+                onDismiss = { viewModel.onDismissEditTaskSheet() },
+                onTaskEdited = { viewModel.refreshTasks() },
+                onShowMessage = { message -> currentMessage = message }
+            )
+        }
     }
 }
 

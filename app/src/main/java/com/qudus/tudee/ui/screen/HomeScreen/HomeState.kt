@@ -7,10 +7,6 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
-data class ThemeState(
-    val isDarkTheme: Boolean = false
-)
-
 data class OverviewState(
     val todayDate: LocalDateTime = Clock.System.now()
         .toLocalDateTime(TimeZone.currentSystemDefault()),
@@ -48,16 +44,15 @@ data class UiVisibilityState(
     val showAddTaskSheet: Boolean = false,
     val showEditTaskSheet: Boolean = false,
     val showTaskDetailsBottomSheet: Boolean = false,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val selectedTaskId: Long? = null
 )
 
 data class HomeUiState(
-    val theme: ThemeState = ThemeState(),
     val overview: OverviewState = OverviewState(),
     val tasks: TaskState = TaskState(),
     val ui: UiVisibilityState = UiVisibilityState(errorMessage = null)
 ) {
-    val isDarkTheme: Boolean get() = theme.isDarkTheme
     val isLoading: Boolean get() = ui.isLoading
     val finishedTaskCount: Int get() = overview.finishedTaskCount
     val allTaskCount: Int get() = overview.allTaskCount
@@ -68,6 +63,7 @@ data class HomeUiState(
     val showAddTaskSheet: Boolean get() = ui.showAddTaskSheet
     val showEditTaskSheet: Boolean get() = ui.showEditTaskSheet
     val showTaskDetailsBottomSheet: Boolean get() = ui.showTaskDetailsBottomSheet
+    val selectedTaskId: Long? get() = ui.selectedTaskId
     
     val hasTasks: Boolean get() = overview.hasTasks
     val hasActiveTasks: Boolean get() = tasks.hasActiveTasks

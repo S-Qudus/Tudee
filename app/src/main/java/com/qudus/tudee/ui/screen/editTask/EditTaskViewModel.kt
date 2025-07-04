@@ -15,16 +15,17 @@ import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
 import kotlinx.coroutines.flow.update
 
 class EditTaskViewModel(
+    private val taskId: Long,
+    private val onDismiss: () -> Unit = {},
+    private val onTaskEdited: () -> Unit = {},
+    private val onShowMessage: (MessageState) -> Unit = {},
     private val categoryService: CategoryService,
-    private val taskService: TaskService,
-    private val onShowMessage: (MessageState) -> Unit = {}
+    private val taskService: TaskService
 ) : TaskEditorViewModel(), EditTaskInteraction {
-
-    val id = 2L
 
     init {
         tryToExecute(
-            action = { taskService.getTaskById(id) },
+            action = { taskService.getTaskById(taskId) },
             onSuccess = { oldTask ->
                 getExistingCategories(oldTask.categoryId)
                 updateUiStateWithOldState(oldTask.toTaskUiState())
@@ -75,19 +76,17 @@ class EditTaskViewModel(
     override fun onEditTaskClicked() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
-            action = { taskService.updateTask(state.value.toTask(taskId = id)) },
-            onSuccess = ::onEditTaskSuccess,
+            action = { taskService.updateTask(state.value.toTask(taskId = taskId)) },
+            onSuccess = {
+                _state.update { it.copy(isLoading = false, isSheetOpen = false) }
+                onShowMessage(MessageState.success("تم تعديل المهمة بنجاح! ✅"))
+                onTaskEdited()
+                onDismiss()
+            },
             onError = ::onEditTaskError,
         )
     }
 
-    private fun onEditTaskSuccess(unit: Unit) {
-        _state.update { it.copy(isLoading = false, isSheetOpen = false) }
-        
-        // عرض رسالة النجاح
-        onShowMessage(MessageState.success("Task updated successfully!"))
-    }
-    
     private fun onEditTaskError(exception: TudeeExecption) {
         _state.update { it.copy(isLoading = false) }
         

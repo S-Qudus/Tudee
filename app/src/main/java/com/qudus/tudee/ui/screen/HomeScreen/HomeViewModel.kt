@@ -3,10 +3,10 @@ package com.qudus.tudee.ui.screen.HomeScreen
 import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.entity.State
-import com.qudus.tudee.domain.service.PreferenceService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.ui.base.BaseViewModel
+import com.qudus.tudee.ui.navigation.NavViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.toLocalDateTime
 
 class HomeViewModel(
-    private val preferenceService: PreferenceService,
-    private val taskService: TaskService
+    private val taskService: TaskService,
+    private val navViewModel: NavViewModel
 ) : BaseViewModel<HomeUiState>(HomeUiState()) {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -27,16 +27,7 @@ class HomeViewModel(
 
     private fun loadInitialData() {
         loadTasks()
-        loadThemePreference()
         updateTodayDate()
-    }
-
-    private fun loadThemePreference() {
-        viewModelScope.launch {
-            preferenceService.getDarkTheme().collect { isDarkTheme ->
-                _uiState.update { it.copy(theme = it.theme.copy(isDarkTheme = isDarkTheme)) }
-            }
-        }
     }
 
     private fun loadTasks() {
@@ -101,16 +92,29 @@ class HomeViewModel(
     }
 
     fun onThemeToggle() {
-        viewModelScope.launch {
-            val newTheme = !_uiState.value.isDarkTheme
-            preferenceService.setDarkTheme(newTheme)
-            _uiState.update { it.copy(theme = it.theme.copy(isDarkTheme = newTheme)) }
-        }
+        navViewModel.toggleTheme()
     }
 
     fun onTaskClicked(taskId: Long) {
-        println("Task clicked with ID: $taskId")
-        // TODO: Navigate to task details or show task options
+        _uiState.update {
+            it.copy(
+                ui = it.ui.copy(
+                    showEditTaskSheet = true,
+                    selectedTaskId = taskId
+                )
+            )
+        }
+    }
+
+    fun onDismissEditTaskSheet() {
+        _uiState.update {
+            it.copy(
+                ui = it.ui.copy(
+                    showEditTaskSheet = false,
+                    selectedTaskId = null
+                )
+            )
+        }
     }
 
     // Navigation to task screens
