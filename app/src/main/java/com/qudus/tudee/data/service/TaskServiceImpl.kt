@@ -43,7 +43,7 @@ class TaskServiceImpl(
         }
     }
 
-    override suspend fun getTasksByCategoryId(id: Long): Flow<List<Task>> {
+    override fun getTasksByCategoryId(id: Long): Flow<List<Task>> {
         return wrapServiceCall {
             taskDao.getTasks()
                 .map {

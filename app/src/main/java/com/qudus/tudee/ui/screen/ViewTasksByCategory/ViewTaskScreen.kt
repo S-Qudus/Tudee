@@ -27,11 +27,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.CategoryTask
-import com.qudus.tudee.designSystem.component.TabBar
 import com.qudus.tudee.domain.entity.DefaultCategoryType
 import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.domain.entity.State
+import com.qudus.tudee.ui.designSystem.component.CategoryTask
+import com.qudus.tudee.ui.designSystem.component.TabBar
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.ViewTasksByCategory.composabl.TasksTopAppBar
 import com.qudus.tudee.ui.state.StateUiState

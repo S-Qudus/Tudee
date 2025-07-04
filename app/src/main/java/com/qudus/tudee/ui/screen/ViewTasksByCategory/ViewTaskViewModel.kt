@@ -16,6 +16,7 @@
 
 package com.qudus.tudee.ui.screen.ViewTasksByCategory
 
+import android.R.attr.category
 import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
@@ -51,7 +52,7 @@ import kotlinx.coroutines.launch
                     isDefaultCategory = category.defaultCategoryType != null,
                     defaultCategoryType = category.defaultCategoryType,
                     //tasks = tasks.groupBy { it.state },
-                    tasksCount = tasks.groupingBy { it.state }.eachCount()
+                    //tasksCount = tasks.groupingBy { it.state }.eachCount()
                 )
             },
             onError = { exception ->

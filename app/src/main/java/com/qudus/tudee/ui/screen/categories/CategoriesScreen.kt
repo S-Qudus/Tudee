@@ -173,7 +173,7 @@ fun CategoriesScreenContent(
 
         // Bottom Sheet
         if (uiState.showBottomSheet) {
-            AddCategoryScreen()
+           // AddCategoryScreen()
         }
     }
 }
