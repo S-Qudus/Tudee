@@ -8,8 +8,8 @@ import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun TudeeApp(){
-    TudeeTheme(isDarkTheme = false) {
+fun TudeeApp(isDarkTheme: Boolean = false){
+    TudeeTheme(isDarkTheme = isDarkTheme) {
         val navController = rememberNavController()
         TudeeNavGraph(navController)
     }
