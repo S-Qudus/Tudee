@@ -20,8 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.component.CategoryBadgeItem
@@ -30,7 +31,7 @@ import com.qudus.tudee.ui.designSystem.component.SnackBarState
 import com.qudus.tudee.ui.designSystem.component.TudeeTextBadge
 import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
+import com.qudus.tudee.ui.navigation.Screen
 import com.qudus.tudee.ui.screen.addCategoryScreen.AddCategoryScreen
 import com.qudus.tudee.ui.util.getIconPainterForCategory
 import kotlinx.coroutines.delay
@@ -40,7 +41,7 @@ import java.io.File
 @Composable
 fun CategoriesScreen(
     viewModel: CategoriesViewModel = koinViewModel(),
-    onCategoryClick: (Long) -> Unit
+    navController: NavController,
 ) {
     val uiState = viewModel.uiState.collectAsState()
 
@@ -53,8 +54,10 @@ fun CategoriesScreen(
 
     CategoriesScreenContent(
         uiState = uiState.value,
-        onCategoryClick = { viewModel::navigateToCategoryDetails },
-        onClickAddCategory = { viewModel.setShowBottomSheet(true) }
+            { categoryId ->
+            navController.navigate(Screen.ViewTasksScreen.route + "/$categoryId")
+        },
+        onClickAddCategory = {viewModel.setShowBottomSheet(true)}
     )
 }
 
@@ -113,7 +116,7 @@ fun CategoriesScreenContent(
                 } else {
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(minSize = 104.dp),
-                        contentPadding = PaddingValues(8.dp),
+                        contentPadding = PaddingValues(12.dp),
                         verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing24),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
@@ -146,7 +149,7 @@ fun CategoriesScreenContent(
 
         // Tudee Floating Action Button
         TudeeFloatingActionButton(
-            onClickIconButton = { onClickAddCategory },
+            onClickIconButton = { onClickAddCategory() },
             painter = painterResource(R.drawable.icon_add_category),
             isEnabled = true,
             isLoading = false,
@@ -173,18 +176,7 @@ fun CategoriesScreenContent(
 
         // Bottom Sheet
         if (uiState.showBottomSheet) {
-           // AddCategoryScreen()
+            AddCategoryScreen(navController = rememberNavController())
         }
-    }
-}
-
-
-@Preview
-@Composable
-fun CategoriesScreenPreview() {
-    TudeeTheme(
-        isDarkTheme = false
-    ) {
-        CategoriesScreen { }
     }
 }
