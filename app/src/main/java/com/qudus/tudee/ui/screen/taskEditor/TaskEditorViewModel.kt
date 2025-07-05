@@ -73,7 +73,6 @@ open class TaskEditorViewModel: BaseViewModel<TaskEditorUiState>(TaskEditorUiSta
     override fun onCancelChangeTask() {
         viewModelScope.launch {
             UiEventBus.emitEffect(HomeUiEffect.NavigateBackWithCancelation())
-            resetUiState()
         }
     }
 

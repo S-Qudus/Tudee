@@ -18,7 +18,6 @@ import com.qudus.tudee.ui.screen.addCategoryScreen.addCategoryRoute
 import com.qudus.tudee.ui.screen.routes.categoriesRoute
 import com.qudus.tudee.ui.screen.editCategoryScreen.editCategoryRoute
 import com.qudus.tudee.ui.screen.HomeScreen.homeRoute
-import com.qudus.tudee.ui.screen.task_details.taskDetailsRoute
 import com.qudus.tudee.ui.screen.tasksScreen.tasksRoute
 import org.koin.androidx.compose.koinViewModel
 
@@ -58,7 +57,6 @@ fun TudeeNavGraph(
             tasksRoute(navHostController)
             categoriesRoute(navHostController)
             onBoardingRoute(navHostController)
-            taskDetailsRoute(navHostController)
             addCategoryRoute(navHostController)
             editCategoryRoute(navHostController)
         }

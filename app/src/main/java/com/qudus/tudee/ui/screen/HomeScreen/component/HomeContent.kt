@@ -2,9 +2,6 @@ package com.qudus.tudee.ui.screen.HomeScreen.component
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,14 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -33,7 +26,7 @@ import com.qudus.tudee.ui.designSystem.component.taskComposable.TaskSection
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.HomeScreen.HomeUiState
 import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
-import kotlinx.coroutines.delay
+import com.qudus.tudee.ui.screen.HomeScreen.OperationType
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -57,7 +50,7 @@ fun HomeContent(
 private fun TasksContent(
     state: HomeUiState,
     viewModel: HomeViewModel,
-    scrollState: androidx.compose.foundation.lazy.LazyListState,
+    scrollState: LazyListState,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -118,32 +111,37 @@ private fun TasksContent(
             }
         }
 
-        var isSnackBarVisible by remember { mutableStateOf(false) }
+        val snackBarStateValue = if (state.ui.snackBarItemUiState.operationDone) SnackBarState.SUCCESS else SnackBarState.ERROR
+        val iconColorValue = if (state.ui.snackBarItemUiState.operationDone) Theme.color.greenAccent else Theme.color.error
+        val backgroundColorValue = if (state.ui.snackBarItemUiState.operationDone) Theme.color.greenVariant else Theme.color.errorVariant
 
-        LaunchedEffect(state.ui.snackBarItemUiState.isVisible) {
-            isSnackBarVisible = state.ui.snackBarItemUiState.isVisible
-            delay(3000)
-            isSnackBarVisible = false
-        }
-
-        AnimatedVisibility(
-            modifier = Modifier.align(Alignment.TopCenter).padding(Theme.dimension.spacing16),
-            visible = isSnackBarVisible,
-            enter = expandHorizontally(),
-            exit = shrinkHorizontally()
-        ) {
-            SnackBar(
-                state = if (state.ui.snackBarItemUiState.operationDone) SnackBarState.SUCCESS else SnackBarState.ERROR,
-                message = if (state.ui.snackBarItemUiState.operationDone) stringResource(R.string.add_task_successfully) else stringResource(
-                    R.string.add_task_failed
-                ),
-                iconColor = if (state.ui.snackBarItemUiState.operationDone) Theme.color.greenAccent else Theme.color.error,
-                background = if (state.ui.snackBarItemUiState.operationDone) Theme.color.greenVariant else Theme.color.errorVariant
-            )
-        }
+        SnackBar(
+            state = snackBarStateValue,
+            message = getOperationMessage(state.ui.snackBarItemUiState.operationType ?: OperationType.CANCEL, state.ui.snackBarItemUiState.operationDone),
+            iconColor = iconColorValue,
+            background = backgroundColorValue,
+            onSnackBarDismissed = {
+                viewModel.onSnackBarDismissed()
+            },
+            isVisible = state.ui.snackBarItemUiState.isVisible
+        )
     }
 }
 
+@Composable
+private fun getOperationMessage(operationType: OperationType, operationDone: Boolean): String {
+    return when(operationType){
+        OperationType.ADD_TASK -> {
+            if (operationDone) stringResource(R.string.add_task_successfully)
+            else stringResource(R.string.add_task_failed)
+        }
+        OperationType.EDIT_TASK -> {
+            if (operationDone) stringResource(R.string.edit_task_successfully)
+            else stringResource(R.string.edit_task_failed)
+        }
+        OperationType.CANCEL -> ""
+    }
+}
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun OverviewCardSection(

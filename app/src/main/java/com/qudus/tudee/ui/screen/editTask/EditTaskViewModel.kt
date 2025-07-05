@@ -1,35 +1,46 @@
 package com.qudus.tudee.ui.screen.editTask
 
+import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.domain.exception.TaskNotFoundException
+import com.qudus.tudee.domain.exception.TaskUpsertFailedException
 import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.domain.service.CategoryService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.ui.mapper.toCategoryItemUiState
 import com.qudus.tudee.ui.mapper.toTask
 import com.qudus.tudee.ui.mapper.toTaskUiState
+import com.qudus.tudee.ui.screen.HomeScreen.HomeUiEffect
+import com.qudus.tudee.ui.screen.HomeScreen.UiEventBus
+import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
 import com.qudus.tudee.ui.screen.taskEditor.DataErrorType
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorViewModel
-import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class EditTaskViewModel(
     private val categoryService: CategoryService,
     private val taskService: TaskService
 ) : TaskEditorViewModel(), EditTaskInteraction {
 
-    //todo: receive the real task id that i need to edit
-    val id = 2L
-
     init {
-        tryToExecute(
-            action = { taskService.getTaskById(id) },
-            onSuccess = { oldTask ->
-                getExistingCategories(oldTask.categoryId)
-                updateUiStateWithOldState(oldTask.toTaskUiState())
-            },
-            onError = ::onGetCurrentTaskError,
-        )
+        viewModelScope.launch {
+            UiEventBus.effect.collectLatest { effect ->
+                if (effect is HomeUiEffect.NavigateToEditTask){
+                    _state.update { it.copy(id = effect.taskId) }
+                    tryToExecute(
+                        action = { taskService.getTaskById(effect.taskId) },
+                        onSuccess = { oldTask ->
+                            getExistingCategories(oldTask.categoryId)
+                            updateUiStateWithOldState(oldTask.toTaskUiState())
+                        },
+                        onError = ::onGetCurrentTaskError,
+                    )
+                }
+            }
+        }
+
     }
 
     private fun onGetCurrentTaskError(exception: TudeeExecption) {
@@ -74,15 +85,26 @@ class EditTaskViewModel(
     override fun onEditTaskClicked() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
-            action = { taskService.updateTask(state.value.toTask(taskId = id)) },
+            action = { taskService.updateTask(state.value.toTask(taskId = _state.value.id)) },
             onSuccess = ::onEditTaskSuccess,
-            onError = ::onSubmitTaskError,
+            onError = ::onEditTaskError,
         )
     }
 
     private fun onEditTaskSuccess(unit: Unit) {
         _state.update { it.copy(isLoading = false) }
+        viewModelScope.launch {
+            UiEventBus.emitEffect(HomeUiEffect.NavigateBackFromEditTaskWithSuccessState(true))
+        }
+    }
 
-        //todo: move to the prev screen with success params true
+    private fun onEditTaskError(exception: TudeeExecption) {
+        if (exception is TaskUpsertFailedException){
+            viewModelScope.launch {
+                UiEventBus.emitEffect(HomeUiEffect.NavigateBackFromEditTaskWithSuccessState(false))
+            }
+        }else{
+            super.onSubmitTaskError(exception)
+        }
     }
 }

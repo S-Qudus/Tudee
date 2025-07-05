@@ -1,12 +1,12 @@
 package com.qudus.tudee.ui.screen.HomeScreen
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.PreferenceService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.ui.base.BaseViewModel
+import com.qudus.tudee.ui.screen.HomeScreen.HomeUiEffect.NavigateBackFromEditTaskWithSuccessState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -28,7 +28,14 @@ class HomeViewModel(
         viewModelScope.launch {
             UiEventBus.effect.collectLatest { effect ->
                 if (effect is HomeUiEffect.NavigateBackWithCancelation) {
-                    _uiState.update { it.copy(ui = it.ui.copy(showAddTaskSheet = false)) }
+                    _uiState.update {
+                        it.copy(
+                            ui = it.ui.copy(
+                                showAddTaskSheet = false,
+                                showEditTaskSheet = false
+                            )
+                        )
+                    }
                 } else if (effect is HomeUiEffect.NavigateBackFromAddTaskWithSuccessState) {
                     _uiState.update {
                         it.copy(
@@ -43,10 +50,30 @@ class HomeViewModel(
                         )
                     }
                 } else if (effect is HomeUiEffect.NavigateToEditTask) {
-                    _uiState.update { it.copy(ui = it.ui.copy(showEditTaskSheet = true)) }
+                    _uiState.update {
+                        it.copy(
+                            ui = it.ui.copy(
+                                showEditTaskSheet = true,
+                                showTaskDetailsBottomSheet = false
+                            )
+                        )
+                    }
 
-                }else if(effect is HomeUiEffect.NavigateBakeFromTaskDetail){
-                    _uiState.update { it.copy(ui = it.ui.copy(showTaskDetailsBottomSheet = false))}
+                } else if (effect is HomeUiEffect.NavigateBakeFromTaskDetail) {
+                    _uiState.update { it.copy(ui = it.ui.copy(showTaskDetailsBottomSheet = false)) }
+                } else if(effect is NavigateBackFromEditTaskWithSuccessState){
+                    _uiState.update {
+                        it.copy(
+                            ui = it.ui.copy(
+                                showEditTaskSheet = false,
+                                snackBarItemUiState = _uiState.value.ui.snackBarItemUiState.copy(
+                                    isVisible = true,
+                                    operationType = OperationType.EDIT_TASK,
+                                    operationDone = effect.isSuccess
+                                )
+                            )
+                        )
+                    }
                 }
 
             }
@@ -162,6 +189,19 @@ class HomeViewModel(
 
     fun refreshTasks() {
         loadTasks()
+    }
+
+    fun onSnackBarDismissed() {
+        _uiState.update {
+            it.copy(
+                ui = it.ui.copy(
+                    snackBarItemUiState = it.ui.snackBarItemUiState.copy(
+                        isVisible = false,
+                        operationType = null
+                    )
+                )
+            )
+        }
     }
 }
 

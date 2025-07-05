@@ -13,7 +13,6 @@ import org.koin.androidx.compose.koinViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun EditTaskScreen(
-    navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: EditTaskViewModel = koinViewModel<EditTaskViewModel>()
 ) {

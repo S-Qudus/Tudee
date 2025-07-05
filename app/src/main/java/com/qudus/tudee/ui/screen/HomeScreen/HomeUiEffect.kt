@@ -5,6 +5,9 @@ import kotlinx.coroutines.flow.asSharedFlow
 
 sealed interface HomeUiEffect {
     class NavigateBackFromAddTaskWithSuccessState(val isSuccess: Boolean): HomeUiEffect
+
+    class NavigateBackFromEditTaskWithSuccessState(val isSuccess: Boolean): HomeUiEffect
+
     class NavigateBackWithCancelation(): HomeUiEffect
 
     class NavigateToTaskDetails(val taskId: Long): HomeUiEffect
