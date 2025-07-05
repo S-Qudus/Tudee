@@ -27,7 +27,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
- abstract class ViewTaskViewModel(
+class ViewTaskViewModel(
     private val taskService: TaskService,
     private val categoryService: CategoryService
 ) : BaseViewModel<ViewTaskScreenState>(ViewTaskScreenState()), ViewTasksInteraction {
@@ -83,6 +83,10 @@ import kotlinx.coroutines.launch
              }
          }
      }
+
+    override fun onTaskClicked(taskId: Long) {
+        TODO("Not yet implemented")
+    }
 
     override fun dismissSnackbar() {
         _state.value = _state.value.copy(showSnackbar = false)
