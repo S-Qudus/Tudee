@@ -19,7 +19,6 @@ import com.qudus.tudee.ui.designSystem.component.HeaderTitle
 import com.qudus.tudee.ui.designSystem.component.TabBar
 import com.qudus.tudee.ui.designSystem.component.TaskListSection
 import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButton
-//import com.qudus.tudee.designSystem.component.TabBar
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.tasksScreen.state.TasksUiState
 import com.qudus.tudee.ui.state.StateUiState
@@ -73,7 +72,7 @@ fun TasksScreenContent(
             isLoading = false,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(bottom = 42.dp, end = 12.dp)
+                .padding(end = 12.dp, bottom = 8.dp)
         )
     }
 }

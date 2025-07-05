@@ -37,18 +37,11 @@ fun TaskListSection(modifier: Modifier = Modifier, tasks: List<TaskUiState>) {
                     description = task.description,
                     priorityLevel = task.priority.toDomain(),
                     onClick = {},
-                   // dateText = task.createdAt,
                     taskRes = { modifier ->
-//                        CategoryIcon(
-//                            categoryId = task.categoryId,
-//                            contentDescription = task.title,
-//                            modifier = modifier
-//                        )
                         Icon(
                             painter = painterResource(id = R.drawable.icon_category_book_open),
                             contentDescription = "Task Icon",
                             modifier = modifier,
-                            tint = Theme.color.purpleAccent
                         )
                     }
                 )
