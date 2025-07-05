@@ -119,6 +119,7 @@ class HomeViewModel(
                     allTaskCount = tasks.size
                 ),
                 tasks = it.tasks.copy(
+                    allTasks = tasks,
                     activeTasks = inProgressTasks,
                     upcomingTasks = todoTasks
                 ),

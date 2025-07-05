@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.navigation
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,14 +21,18 @@ import com.qudus.tudee.ui.screen.editCategoryScreen.editCategoryRoute
 import com.qudus.tudee.ui.screen.HomeScreen.homeRoute
 import com.qudus.tudee.ui.screen.tasksScreen.tasksRoute
 import org.koin.androidx.compose.koinViewModel
+import com.qudus.tudee.ui.screen.configration.ConfigurationViewModel
 
+
+@SuppressLint("StateFlowValueCalledInComposition")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TudeeNavGraph(
     navHostController: NavHostController,
-    viewModel: NavViewModel = koinViewModel()
+    viewModel: ConfigurationViewModel = koinViewModel()
 ) {
-    val startDestination = viewModel.startDestination.value
+    val startDestination = viewModel.uiState.value.startDestination
+
 
     if (startDestination == null) return // splash is still shown
 
