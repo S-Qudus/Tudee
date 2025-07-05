@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.designSystem.component.taskComposable
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -19,8 +20,13 @@ import com.qudus.tudee.ui.designSystem.component.CategoryTask
 import com.qudus.tudee.ui.designSystem.component.TudeeTextBadge
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.domain.entity.Task
+import com.qudus.tudee.domain.entity.DefaultCategoryType
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import com.qudus.tudee.domain.entity.Category
+import com.qudus.tudee.ui.util.getIconPainterForCategory
+import coil.compose.rememberAsyncImagePainter
+import java.io.File
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -28,6 +34,7 @@ fun TaskSection(
     title: String,
     taskCount: Int,
     tasks: List<Task>,
+    categories: Map<Long, com.qudus.tudee.domain.entity.Category> = emptyMap(),
     onTaskClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
     onNavigateToTaskScreen: (() -> Unit)? = null
@@ -45,6 +52,7 @@ fun TaskSection(
         )
         TaskSectionContent(
             tasks = tasks,
+            categories = categories,
             onTaskClick = onTaskClick
         )
     }
@@ -108,6 +116,7 @@ private fun TaskSectionHeader(
 @Composable
 private fun TaskSectionContent(
     tasks: List<Task>,
+    categories: Map<Long, com.qudus.tudee.domain.entity.Category>,
     onTaskClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -117,12 +126,12 @@ private fun TaskSectionContent(
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(TaskSectionConstants.TASK_CARD_SPACING.dp),
         verticalArrangement = Arrangement.spacedBy(TaskSectionConstants.TASK_CARD_VERTICAL_SPACING.dp),
-        maxItemsInEachRow = TaskSectionConstants.MAX_ITEMS_PER_ROW,
-        maxLines = TaskSectionConstants.MAX_LINES
+        maxItemsInEachRow = TaskSectionConstants.MAX_ITEMS_PER_ROW
     ) {
         tasks.forEach { task ->
             TaskCard(
                 task = task,
+                categories = categories,
                 onTaskClick = onTaskClick
             )
         }
@@ -132,6 +141,7 @@ private fun TaskSectionContent(
 @Composable
 private fun TaskCard(
     task: Task,
+    categories: Map<Long, Category>,
     onTaskClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -143,7 +153,8 @@ private fun TaskCard(
         modifier = modifier.width(TaskSectionConstants.TASK_CARD_WIDTH.dp),
         taskRes = { iconModifier ->
             CategoryIcon(
-                categoryId = task.categoryId,
+                task = task,
+                categories = categories,
                 contentDescription = task.title,
                 modifier = iconModifier
             )
@@ -153,39 +164,49 @@ private fun TaskCard(
 
 @Composable
 private fun CategoryIcon(
-    categoryId: Long,
+    task: Task,
+    categories: Map<Long, Category>,
     contentDescription: String,
     modifier: Modifier = Modifier
 ) {
-    val categoryIcon = when (categoryId.toInt()) {
-        CATEGORY_STUDY -> R.drawable.icon_category_book_open
-        CATEGORY_WORK -> R.drawable.icon_briefcase
-        CATEGORY_PERSONAL -> R.drawable.icon_user
-        CATEGORY_SHOPPING -> R.drawable.icon_shopping_cart
-        CATEGORY_HEALTH -> R.drawable.icon_body_part_muscle
-        CATEGORY_DEVELOPMENT -> R.drawable.icon_developer
-        CATEGORY_FOOD -> R.drawable.icon_chef
-        CATEGORY_TRAVEL -> R.drawable.icon_airplane
-        CATEGORY_FINANCE -> R.drawable.icon_money_bag
-        CATEGORY_NATURE -> R.drawable.icon_plant
-        else -> R.drawable.icon_category_book_open
+    val category = categories[task.categoryId]
+    val imagePainter = when {
+        // إذا كانت الكاتيجوري مخصصة ولديها defaultCategoryType
+        category?.defaultCategoryType != null -> {
+            getIconPainterForCategory(category.defaultCategoryType)
+        }
+        // إذا كانت الكاتيجوري مخصصة بدون defaultCategoryType، استخدم الصورة المخصصة
+        category != null -> {
+            rememberAsyncImagePainter(model = File(category.imagePath))
+        }
+        // إذا لم يتم العثور على الكاتيجوري، استخدم defaultCategoryType من المهمة
+        else -> {
+            when (task.defaultCategoryType) {
+                DefaultCategoryType.EDUCATION -> painterResource(R.drawable.icon_category_book_open)
+                DefaultCategoryType.WORK -> painterResource(R.drawable.icon_briefcase)
+                DefaultCategoryType.FAMILY_AND_FRIEND -> painterResource(R.drawable.icon_user)
+                DefaultCategoryType.SHOPPING -> painterResource(R.drawable.icon_shopping_cart)
+                DefaultCategoryType.GYM -> painterResource(R.drawable.icon_body_part_muscle)
+                DefaultCategoryType.CODING -> painterResource(R.drawable.icon_developer)
+                DefaultCategoryType.COOKING -> painterResource(R.drawable.icon_chef)
+                DefaultCategoryType.TRAVELING -> painterResource(R.drawable.icon_airplane)
+                DefaultCategoryType.BUDGETING -> painterResource(R.drawable.icon_money_bag)
+                DefaultCategoryType.AGRICULTURE -> painterResource(R.drawable.icon_plant)
+                DefaultCategoryType.MEDICAL -> painterResource(R.drawable.icon_hospital_location)
+                DefaultCategoryType.ENTERTAINMENT -> painterResource(R.drawable.icon_baseball_bat)
+                DefaultCategoryType.EVENT -> painterResource(R.drawable.icon_birthday_cake)
+                DefaultCategoryType.SELF_CARE -> painterResource(R.drawable.icon_in_love)
+                DefaultCategoryType.ADORATION -> painterResource(R.drawable.icon_quran)
+                DefaultCategoryType.FIXING_BUGS -> painterResource(R.drawable.icon_bug)
+                DefaultCategoryType.CLEANING -> painterResource(R.drawable.icon_blush_brush)
+                else -> painterResource(R.drawable.icon_category_book_open)
+            }
+        }
     }
     
-    Icon(
-        painter = painterResource(id = categoryIcon),
+    Image(
+        painter = imagePainter,
         contentDescription = contentDescription,
-        modifier = modifier,
-        tint = Theme.color.primary
+        modifier = modifier
     )
 }
-
-private const val CATEGORY_STUDY = 1
-private const val CATEGORY_WORK = 2
-private const val CATEGORY_PERSONAL = 3
-private const val CATEGORY_SHOPPING = 4
-private const val CATEGORY_HEALTH = 5
-private const val CATEGORY_DEVELOPMENT = 6
-private const val CATEGORY_FOOD = 7
-private const val CATEGORY_TRAVEL = 8
-private const val CATEGORY_FINANCE = 9
-private const val CATEGORY_NATURE = 10

@@ -3,6 +3,7 @@ package com.qudus.tudee.ui.mapper
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.domain.entity.State
+import com.qudus.tudee.domain.entity.DefaultCategoryType
 import com.qudus.tudee.ui.state.CategoryUiState
 import com.qudus.tudee.ui.state.TaskUiState
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState
@@ -12,7 +13,9 @@ import kotlinx.datetime.toLocalDate
 
 fun TaskEditorUiState.toTask(taskId: Long = 0): Task {
     val selectedPriority = priorityUiStates.find { it.isSelected }?.type ?: Priority.LOW
-    val selectedCategoryId = categoryUiStates.find { it.isSelected }?.id ?: 0L
+    val selectedCategory = categoryUiStates.find { it.isSelected }
+    val selectedCategoryId = selectedCategory?.id ?: 0L
+    val defaultCategoryType = selectedCategory?.defaultCategoryType
     val createdAt = date.toLocalDate()
 
     return Task(
@@ -22,7 +25,8 @@ fun TaskEditorUiState.toTask(taskId: Long = 0): Task {
         createdAt = createdAt,
         priority = selectedPriority,
         state = State.TODO,
-        categoryId = selectedCategoryId
+        categoryId = selectedCategoryId,
+        defaultCategoryType = defaultCategoryType
     )
 }
 

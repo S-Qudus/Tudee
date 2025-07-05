@@ -85,6 +85,7 @@ private fun TasksContent(
                             title = stringResource(R.string.in_progress),
                             taskCount = state.inProgressTasksCount,
                             tasks = state.activeTasks.filter { it.state.name == "IN_PROGRESS" },
+                            categories = viewModel.getCategoriesMap(),
                             onTaskClick = { taskId -> viewModel.onTaskClicked(taskId) },
                             onNavigateToTaskScreen = { viewModel.onNavigateToInProgressTasks() },
                             modifier = Modifier.background(Theme.color.surface)
@@ -98,6 +99,7 @@ private fun TasksContent(
                             title = stringResource(R.string.to_do),
                             taskCount = state.todoTasksCount,
                             tasks = state.upcomingTasks,
+                            categories = viewModel.getCategoriesMap(),
                             onTaskClick = { taskId -> viewModel.onTaskClicked(taskId) },
                             onNavigateToTaskScreen = { viewModel.onNavigateToTodoTasks() },
                             modifier = Modifier.background(Theme.color.surface)

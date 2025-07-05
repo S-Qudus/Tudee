@@ -1,10 +1,12 @@
 package com.qudus.tudee.ui.screen.HomeScreen
 
 import androidx.lifecycle.viewModelScope
+import com.qudus.tudee.domain.entity.Category
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.PreferenceService
 import com.qudus.tudee.domain.service.TaskService
+import com.qudus.tudee.domain.service.CategoryService
 import com.qudus.tudee.ui.base.BaseViewModel
 import com.qudus.tudee.ui.screen.HomeScreen.HomeUiEffect.NavigateBackFromEditTaskWithSuccessState
 import kotlinx.coroutines.flow.collectLatest
@@ -15,7 +17,10 @@ import kotlinx.datetime.toLocalDateTime
 class HomeViewModel(
     private val preferenceService: PreferenceService,
     private val taskService: TaskService,
+    private val categoryService: CategoryService,
 ) : BaseViewModel<HomeUiState>(HomeUiState()) {
+
+    private var categoriesMap = mutableMapOf<Long, Category>()
 
     init {
         loadInitialData()
@@ -67,6 +72,24 @@ class HomeViewModel(
                 }
             }
         )
+        
+        // تحميل الكاتيجوري
+        loadCategories()
+    }
+    
+    private fun loadCategories() {
+        collectFlow(
+            flow = categoryService.getCategories(),
+            onEach = { categories ->
+                categoriesMap.clear()
+                categories.forEach { category ->
+                    categoriesMap[category.id] = category
+                }
+            },
+            onError = { exception ->
+                println("Error loading categories: ${exception.message}")
+            }
+        )
     }
 
     private fun hideSheets() {
@@ -106,7 +129,6 @@ class HomeViewModel(
         _state.update { it.copy(ui = it.ui.copy(showTaskDetailsBottomSheet = false)) }
     }
 
-
     private fun updateTaskState(tasks: List<Task>) {
         val completedCount = tasks.count { it.state == State.DONE }
         val inProgressTasks = tasks.filter { it.state == State.IN_PROGRESS }
@@ -125,6 +147,41 @@ class HomeViewModel(
                 ),
                 ui = it.ui.copy(isLoading = false)
             )
+        }
+        
+        // تحميل معلومات الكاتيجوري لكل مهمة
+        loadCategoriesForTasks(tasks)
+    }
+    
+    private fun loadCategoriesForTasks(tasks: List<Task>) {
+        viewModelScope.launch {
+            try {
+                val updatedTasks = tasks.map { task ->
+                    val category = categoriesMap[task.categoryId]
+                    if (category != null) {
+                        // إذا كانت الكاتيجوري مخصصة، استخدم معلوماتها
+                        task.copy(
+                            defaultCategoryType = category.defaultCategoryType
+                        )
+                    } else {
+                        // إذا لم يتم العثور على الكاتيجوري، استخدم الافتراضية
+                        task
+                    }
+                }
+                
+                _state.update {
+                    it.copy(
+                        tasks = it.tasks.copy(
+                            allTasks = updatedTasks,
+                            activeTasks = updatedTasks.filter { it.state == State.IN_PROGRESS },
+                            upcomingTasks = updatedTasks.filter { it.state == State.TODO }
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                // في حالة الخطأ، استخدم المهام كما هي
+                println("Error loading categories: ${e.message}")
+            }
         }
     }
 
@@ -158,8 +215,6 @@ class HomeViewModel(
         viewModelScope.launch {
             UiEventBus.emitEffect(HomeUiEffect.NavigateToTaskDetails(taskId))
         }
-
-
     }
 
     // Navigation to task screens
@@ -179,6 +234,8 @@ class HomeViewModel(
     }
 
     fun getCurrentDate() = _state.value.todayDate.date
+
+    fun getCategoriesMap(): Map<Long, com.qudus.tudee.domain.entity.Category> = categoriesMap
 
     fun refreshTasks() {
         loadTasks()
