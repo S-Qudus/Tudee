@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-
 import com.qudus.tudee.ui.navigation.NavViewModel
 import com.qudus.tudee.ui.navigation.TudeeApp
 import org.koin.androidx.viewmodel.ext.android.viewModel

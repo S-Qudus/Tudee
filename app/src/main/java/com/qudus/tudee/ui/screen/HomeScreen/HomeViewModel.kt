@@ -7,8 +7,6 @@ import com.qudus.tudee.domain.service.PreferenceService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.ui.base.BaseViewModel
 import com.qudus.tudee.ui.screen.HomeScreen.HomeUiEffect.NavigateBackFromEditTaskWithSuccessState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -19,63 +17,19 @@ class HomeViewModel(
     private val taskService: TaskService,
 ) : BaseViewModel<HomeUiState>(HomeUiState()) {
 
-    private val _uiState = MutableStateFlow(HomeUiState())
-    val uiState: StateFlow<HomeUiState> = _uiState
-
     init {
         loadInitialData()
 
         viewModelScope.launch {
             UiEventBus.effect.collectLatest { effect ->
-                if (effect is HomeUiEffect.NavigateBackWithCancelation) {
-                    _uiState.update {
-                        it.copy(
-                            ui = it.ui.copy(
-                                showAddTaskSheet = false,
-                                showEditTaskSheet = false
-                            )
-                        )
-                    }
-                } else if (effect is HomeUiEffect.NavigateBackFromAddTaskWithSuccessState) {
-                    _uiState.update {
-                        it.copy(
-                            ui = it.ui.copy(
-                                showAddTaskSheet = false,
-                                snackBarItemUiState = _uiState.value.ui.snackBarItemUiState.copy(
-                                    isVisible = true,
-                                    operationType = OperationType.ADD_TASK,
-                                    operationDone = effect.isSuccess
-                                )
-                            )
-                        )
-                    }
-                } else if (effect is HomeUiEffect.NavigateToEditTask) {
-                    _uiState.update {
-                        it.copy(
-                            ui = it.ui.copy(
-                                showEditTaskSheet = true,
-                                showTaskDetailsBottomSheet = false
-                            )
-                        )
-                    }
-
-                } else if (effect is HomeUiEffect.NavigateBakeFromTaskDetail) {
-                    _uiState.update { it.copy(ui = it.ui.copy(showTaskDetailsBottomSheet = false)) }
-                } else if(effect is NavigateBackFromEditTaskWithSuccessState){
-                    _uiState.update {
-                        it.copy(
-                            ui = it.ui.copy(
-                                showEditTaskSheet = false,
-                                snackBarItemUiState = _uiState.value.ui.snackBarItemUiState.copy(
-                                    isVisible = true,
-                                    operationType = OperationType.EDIT_TASK,
-                                    operationDone = effect.isSuccess
-                                )
-                            )
-                        )
-                    }
+                when (effect) {
+                    is HomeUiEffect.NavigateBackWithCancelation -> hideSheets()
+                    is HomeUiEffect.NavigateBackFromAddTaskWithSuccessState -> showSnackBar(OperationType.ADD_TASK, effect.isSuccess)
+                    is NavigateBackFromEditTaskWithSuccessState -> showSnackBar(OperationType.EDIT_TASK, effect.isSuccess)
+                    is HomeUiEffect.NavigateToEditTask -> showEditTaskSheet()
+                    is HomeUiEffect.NavigateBakeFromTaskDetail -> hideTaskDetailsSheet()
+                    is HomeUiEffect.NavigateToTaskDetails -> {}
                 }
-
             }
         }
     }
@@ -89,13 +43,13 @@ class HomeViewModel(
     private fun loadThemePreference() {
         viewModelScope.launch {
             preferenceService.getDarkTheme().collect { isDarkTheme ->
-                _uiState.update { it.copy(theme = it.theme.copy(isDarkTheme = isDarkTheme)) }
+                _state.update { it.copy(theme = it.theme.copy(isDarkTheme = isDarkTheme)) }
             }
         }
     }
 
     private fun loadTasks() {
-        _uiState.update { it.copy(ui = it.ui.copy(isLoading = true)) }
+        _state.update { it.copy(ui = it.ui.copy(isLoading = true)) }
 
         collectFlow(
             flow = taskService.getAllTasks(),
@@ -103,7 +57,7 @@ class HomeViewModel(
                 updateTaskState(allTasks)
             },
             onError = { exception ->
-                _uiState.update {
+                _state.update {
                     it.copy(
                         ui = it.ui.copy(
                             isLoading = false,
@@ -115,12 +69,50 @@ class HomeViewModel(
         )
     }
 
+    private fun hideSheets() {
+        _state.update {
+            it.copy(ui = it.ui.copy(showAddTaskSheet = false, showEditTaskSheet = false))
+        }
+    }
+
+    private fun showSnackBar(type: OperationType, isSuccess: Boolean) {
+        _state.update {
+            it.copy(
+                ui = it.ui.copy(
+                    showEditTaskSheet = false,
+                    showAddTaskSheet = false,
+                    snackBarItemUiState = it.ui.snackBarItemUiState.copy(
+                        isVisible = true,
+                        operationType = type,
+                        operationDone = isSuccess
+                    )
+                )
+            )
+        }
+    }
+
+    private fun showEditTaskSheet() {
+        _state.update {
+            it.copy(
+                ui = it.ui.copy(
+                    showEditTaskSheet = true,
+                    showTaskDetailsBottomSheet = false
+                )
+            )
+        }
+    }
+
+    private fun hideTaskDetailsSheet() {
+        _state.update { it.copy(ui = it.ui.copy(showTaskDetailsBottomSheet = false)) }
+    }
+
+
     private fun updateTaskState(tasks: List<Task>) {
         val completedCount = tasks.count { it.state == State.DONE }
         val inProgressTasks = tasks.filter { it.state == State.IN_PROGRESS }
         val todoTasks = tasks.filter { it.state == State.TODO }
 
-        _uiState.update {
+        _state.update {
             it.copy(
                 overview = it.overview.copy(
                     finishedTaskCount = completedCount,
@@ -136,7 +128,7 @@ class HomeViewModel(
     }
 
     private fun updateTodayDate() {
-        _uiState.update {
+        _state.update {
             it.copy(
                 overview = it.overview.copy(
                     todayDate = kotlinx.datetime.Clock.System.now()
@@ -148,19 +140,19 @@ class HomeViewModel(
 
     // UI Event Handlers
     fun onAddButtonClicked() {
-        _uiState.update { it.copy(ui = it.ui.copy(showAddTaskSheet = true)) }
+        _state.update { it.copy(ui = it.ui.copy(showAddTaskSheet = true)) }
     }
 
     fun onThemeToggle() {
         viewModelScope.launch {
-            val newTheme = !_uiState.value.isDarkTheme
+            val newTheme = !_state.value.isDarkTheme
             preferenceService.setDarkTheme(newTheme)
-            _uiState.update { it.copy(theme = it.theme.copy(isDarkTheme = newTheme)) }
+            _state.update { it.copy(theme = it.theme.copy(isDarkTheme = newTheme)) }
         }
     }
 
     fun onTaskClicked(taskId: Long) {
-        _uiState.update { it.copy(ui = it.ui.copy(showTaskDetailsBottomSheet = true)) }
+        _state.update { it.copy(ui = it.ui.copy(showTaskDetailsBottomSheet = true)) }
 
         viewModelScope.launch {
             UiEventBus.emitEffect(HomeUiEffect.NavigateToTaskDetails(taskId))
@@ -185,14 +177,14 @@ class HomeViewModel(
         println("Navigate to todo tasks screen")
     }
 
-    fun getCurrentDate() = _uiState.value.todayDate.date
+    fun getCurrentDate() = _state.value.todayDate.date
 
     fun refreshTasks() {
         loadTasks()
     }
 
     fun onSnackBarDismissed() {
-        _uiState.update {
+        _state.update {
             it.copy(
                 ui = it.ui.copy(
                     snackBarItemUiState = it.ui.snackBarItemUiState.copy(

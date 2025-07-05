@@ -29,7 +29,7 @@ fun HomeScreen(
     navController: NavController,
     viewModel: HomeViewModel = koinViewModel()
 ) {
-    val state by viewModel.uiState.collectAsState()
+    val state by viewModel.state.collectAsState()
     
     TudeeScaffold(
         contentBackground = Theme.color.surface,

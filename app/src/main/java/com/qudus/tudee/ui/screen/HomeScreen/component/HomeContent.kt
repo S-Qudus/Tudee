@@ -35,7 +35,7 @@ fun HomeContent(
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberLazyListState()
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     TasksContent(
         state = state,
