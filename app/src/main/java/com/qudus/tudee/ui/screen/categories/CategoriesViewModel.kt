@@ -3,11 +3,9 @@ package com.qudus.tudee.ui.screen.categories
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.R
-import com.qudus.tudee.domain.entity.Category
 import com.qudus.tudee.domain.service.CategoryService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.ui.mapper.toCategoryUiItem
-import com.qudus.tudee.ui.screen.editCategoryScreen.EditCategoryUiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,12 +21,6 @@ class CategoriesViewModel(
 
     private val _uiState = MutableStateFlow(CategoriesUiState())
     val uiState = _uiState.asStateFlow()
-
-    private val _createCategoryUiState = MutableStateFlow(CreateCategoryUiState())
-    val createCategoryUiState = _createCategoryUiState.asStateFlow()
-
-    private val _editCategoryUiState = MutableStateFlow(EditCategoryUiState())
-    val editCategoryUiState = _editCategoryUiState.asStateFlow()
 
     init {
         loadCategories()
@@ -69,28 +61,6 @@ class CategoriesViewModel(
                         )
                     }
                 }
-        }
-    }
-
-    fun createCategory(category: Category) {
-        viewModelScope.launch {
-            _createCategoryUiState.value = _createCategoryUiState.value.copy(isLoading = true)
-            try {
-                categoryService.createCategory(category)
-                _createCategoryUiState.value = _createCategoryUiState.value.copy(
-                    isCreated = true,
-                    isLoading = false
-                )
-                _uiState.value = _uiState.value.copy(
-                    createSuccessMessage = "Category created successfully"
-                )
-                loadCategories()
-            } catch (e: Exception) {
-                _createCategoryUiState.value = _createCategoryUiState.value.copy(
-                    isLoading = false,
-                    errorMessage = e.message
-                )
-            }
         }
     }
 
