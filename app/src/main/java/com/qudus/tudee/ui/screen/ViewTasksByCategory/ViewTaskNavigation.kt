@@ -2,6 +2,7 @@ package com.qudus.tudee.ui.screen.ViewTasksByCategory
 
 
 
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -25,7 +26,10 @@ fun NavGraphBuilder.viewTaskGraph(
             categoryId = categoryId,
             onBackClick = onBackClick,
             onEditCategory = onEditCategory,
-
+            navController = NavController(
+                context = TODO()
+            ),
+            viewModel = viewModel(),
         )
     }
 }
