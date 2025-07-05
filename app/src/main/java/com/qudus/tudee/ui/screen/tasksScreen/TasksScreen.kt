@@ -19,6 +19,7 @@ import androidx.navigation.NavController
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
 import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
+import com.qudus.tudee.ui.screen.categories.CategoriesViewModel
 import com.qudus.tudee.ui.screen.tasksScreen.viewModel.TaskViewModel
 import com.qudus.tudee.ui.state.StateUiState
 import org.koin.androidx.compose.koinViewModel
@@ -28,16 +29,18 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun TasksScreen(
     navController: NavController,
-    viewModel: TaskViewModel = koinViewModel(),
-    homeViewModel: HomeViewModel = koinViewModel()
+    taskViewModel: TaskViewModel = koinViewModel(),
+    homeViewModel: HomeViewModel = koinViewModel(),
+    categoryViewModel: CategoriesViewModel = koinViewModel(),
 ) {
 
-    val uiState by viewModel.state.collectAsState()
-    val state by homeViewModel.uiState.collectAsState()
+    val tasksUiState by taskViewModel.state.collectAsState()
+    val homeUiState by homeViewModel.uiState.collectAsState()
+    val categoryUiState by categoryViewModel.uiState.collectAsState()
 
-    val countsByState = remember(uiState.tasks) {
+    val countsByState = remember(tasksUiState.tasks) {
         StateUiState.entries.associateWith { s ->
-            uiState.tasks.count { it.state == s }
+            tasksUiState.tasks.count { it.state == s }
         }
     }
 
@@ -47,22 +50,23 @@ fun TasksScreen(
             .statusBarsPadding(),
     ) { innerPadding ->
         when {
-            uiState.isLoading -> FullScreenLoading()
+            tasksUiState.isLoading -> FullScreenLoading()
 
-            uiState.error != null -> ErrorMessage(uiState.error.toString())
+            tasksUiState.error != null -> ErrorMessage(tasksUiState.error.toString())
 
             else -> TasksScreenContent(
                 modifier = Modifier.padding(innerPadding),
-                uiState = uiState,
+                uiState = tasksUiState,
                 countsByState = countsByState,
-                onDateSelected = { viewModel.selectDate(it) },
-                onMonthChange = { viewModel.selectMonth(it) },
-                onStateSelected = { viewModel.selectState(it) },
-                onClickAddNewTask = { homeViewModel.onAddButtonClicked() }
+                onDateSelected = { taskViewModel.selectDate(it) },
+                onMonthChange = { taskViewModel.selectMonth(it) },
+                onStateSelected = { taskViewModel.selectState(it) },
+                onClickAddNewTask = { homeViewModel.onAddButtonClicked() },
+                categoriesUiState = categoryUiState
             )
         }
 
-        if (state.showAddTaskSheet) {
+        if (homeUiState.showAddTaskSheet) {
             AddTaskScreen(
                 onDismiss = { homeViewModel.onDismissBottomSheet() },
                 onTaskAdded = { homeViewModel.refreshTasks() },
