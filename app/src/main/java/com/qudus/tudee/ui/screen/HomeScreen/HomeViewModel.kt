@@ -1,21 +1,21 @@
 package com.qudus.tudee.ui.screen.HomeScreen
 
 import androidx.lifecycle.viewModelScope
-import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.entity.State
+import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.service.PreferenceService
 import com.qudus.tudee.domain.service.TaskService
-import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.datetime.toLocalDateTime
 
 class HomeViewModel(
     private val preferenceService: PreferenceService,
-    private val taskService: TaskService
+    private val taskService: TaskService,
 ) : BaseViewModel<HomeUiState>(HomeUiState()) {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -23,6 +23,31 @@ class HomeViewModel(
 
     init {
         loadInitialData()
+
+            viewModelScope.launch {
+                UiEventBus.effect.collectLatest { effect ->
+                    when (effect) {
+                        is HomeUiEffect.NavigateBackWithCancelation -> {
+                            _uiState.update { it.copy(ui = it.ui.copy(showAddTaskSheet = false)) }
+                        }
+
+                        is HomeUiEffect.NavigateBackWithSuccessState -> {
+                                _uiState.update {
+                                    it.copy(
+                                        ui = it.ui.copy(
+                                            showAddTaskSheet = false,
+                                            snackBarItemUiState = _uiState.value.ui.snackBarItemUiState.copy(
+                                                isVisible = true,
+                                                operationType = OperationType.ADD_TASK,
+                                                operationDone = effect.isSuccess
+                                            )
+                                        )
+                                    )
+                                }
+                        }
+                    }
+                }
+        }
     }
 
     private fun loadInitialData() {
@@ -41,14 +66,14 @@ class HomeViewModel(
 
     private fun loadTasks() {
         _uiState.update { it.copy(ui = it.ui.copy(isLoading = true)) }
-        
+
         collectFlow(
             flow = taskService.getAllTasks(),
             onEach = { allTasks ->
                 updateTaskState(allTasks)
             },
             onError = { exception ->
-                _uiState.update { 
+                _uiState.update {
                     it.copy(
                         ui = it.ui.copy(
                             isLoading = false,
@@ -94,10 +119,6 @@ class HomeViewModel(
     // UI Event Handlers
     fun onAddButtonClicked() {
         _uiState.update { it.copy(ui = it.ui.copy(showAddTaskSheet = true)) }
-    }
-
-    fun onDismissBottomSheet() {
-        _uiState.update { it.copy(ui = it.ui.copy(showAddTaskSheet = false)) }
     }
 
     fun onThemeToggle() {

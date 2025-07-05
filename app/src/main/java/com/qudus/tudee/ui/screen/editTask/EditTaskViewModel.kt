@@ -81,7 +81,7 @@ class EditTaskViewModel(
     }
 
     private fun onEditTaskSuccess(unit: Unit) {
-        _state.update { it.copy(isLoading = false, isSheetOpen = false) }
+        _state.update { it.copy(isLoading = false) }
 
         //todo: move to the prev screen with success params true
     }

@@ -12,14 +12,13 @@ data class TaskEditorUiState(
     val date: String = getCurrentDate(),
     val priorityUiStates: List<PriorityItemUiState> = PriorityItemUiState.defaultPriorityStates,
     val categoryUiStates: List<CategoryItemUiState> = emptyList(),
-    val isSheetOpen: Boolean = true,
     val isDatePickerOpen: Boolean = false,
     val isPrimaryButtonEnabled: Boolean = false,
     val isLoading: Boolean = false,
-    val titleErrorMessageType: com.qudus.tudee.ui.screen.taskEditor.TitleErrorType? = null,
+    val titleErrorMessageType: TitleErrorType? = null,
     val categoryErrorMessageType: CategoryErrorType? = null,
-    val dataErrorMessageType: DataErrorType? = null
-) {
+    val dataErrorMessageType: DataErrorType? = null,
+    ) {
 
     data class PriorityItemUiState(
         val type: Priority,

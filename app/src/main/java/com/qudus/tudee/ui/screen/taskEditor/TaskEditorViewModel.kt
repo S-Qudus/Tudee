@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.screen.taskEditor
 
+import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.domain.exception.CategoryFetchAllFailedException
 import com.qudus.tudee.domain.exception.EmptyInputException
@@ -8,13 +9,14 @@ import com.qudus.tudee.domain.exception.InputTooShortException
 import com.qudus.tudee.domain.exception.InvalidStartCharacterException
 import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.ui.base.BaseViewModel
+import com.qudus.tudee.ui.screen.HomeScreen.HomeUiEffect
+import com.qudus.tudee.ui.screen.HomeScreen.UiEventBus
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState.CategoryItemUiState.Companion.isSameSelection
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState.CategoryItemUiState.Companion.selectById
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState.PriorityItemUiState.Companion.isSameSelection
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState.PriorityItemUiState.Companion.selectByPriorityType
-import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
-import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 
 open class TaskEditorViewModel: BaseViewModel<TaskEditorUiState>(TaskEditorUiState()), TaskEditorInteraction {
@@ -69,8 +71,28 @@ open class TaskEditorViewModel: BaseViewModel<TaskEditorUiState>(TaskEditorUiSta
     }
 
     override fun onCancelChangeTask() {
-        _state.update { it.copy(isSheetOpen = false) }
+        viewModelScope.launch {
+            UiEventBus.emitEffect(HomeUiEffect.NavigateBackWithCancelation())
+            resetUiState()
+        }
+    }
 
+    protected fun resetUiState() {
+        _state.update {
+            it.copy(
+                title = "",
+                description = "",
+                date = TaskEditorUiState.getCurrentDate(),
+                priorityUiStates = TaskEditorUiState.PriorityItemUiState.defaultPriorityStates,
+                isDatePickerOpen = false,
+                isPrimaryButtonEnabled = false,
+                isLoading = false,
+                titleErrorMessageType = null,
+                categoryErrorMessageType = null,
+                dataErrorMessageType = null,
+                categoryUiStates = it.categoryUiStates.map { c -> c.copy(isSelected = false) }
+            )
+        }
     }
 
     fun onSubmitTaskError(exception: TudeeExecption) {
@@ -82,7 +104,5 @@ open class TaskEditorViewModel: BaseViewModel<TaskEditorUiState>(TaskEditorUiSta
             else -> TitleErrorType.INVALID
         }
         _state.update { it.copy(isLoading = false, titleErrorMessageType = errorType) }
-
     }
-
 }

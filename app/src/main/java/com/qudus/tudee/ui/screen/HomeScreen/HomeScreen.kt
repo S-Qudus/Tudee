@@ -13,8 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.component.TudeeScaffold
+import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.HomeScreen.component.HomeContent
 import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
@@ -50,13 +50,7 @@ fun HomeScreen(
     )
     
     // Show AddTaskScreen when showAddTaskSheet is true
-    if (state.showAddTaskSheet) {
-        AddTaskScreen(
-            onDismiss = { viewModel.onDismissBottomSheet() },
-            onTaskAdded = { viewModel.refreshTasks() },
-            navController = navController
-        )
-    }
+    if (state.showAddTaskSheet) { AddTaskScreen() }
 }
 
 

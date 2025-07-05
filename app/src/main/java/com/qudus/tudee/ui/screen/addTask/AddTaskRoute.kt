@@ -15,6 +15,6 @@ fun NavController.navigateToAddTaskScreen(){
 @RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.addTaskRoute(navController: NavController){
     composable(route = Screen.AddTaskScreen.route){
-        AddTaskScreen(navController = navController)
+        AddTaskScreen()
     }
 }

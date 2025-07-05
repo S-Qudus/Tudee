@@ -1,6 +1,5 @@
 package com.qudus.tudee.ui.screen.taskEditor
 
-//import DatePicker
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
@@ -80,14 +79,10 @@ fun TaskScreenContent(
 
     TudeeBottomSheet(
         modifier = modifier,
-        isSheetOpen = state.isSheetOpen,
+        isSheetOpen = true,
         onDismissRequest = interaction::onCancelChangeTask
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(.8f)
-        ) {
+        Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(.8f)) {
             if (state.dataErrorMessageType == null) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),

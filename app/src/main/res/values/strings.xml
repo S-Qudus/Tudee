@@ -203,6 +203,8 @@
 
     <string name="categories" translatable="false">Categories</string>
     <string name="failed_to_load_categories" translatable="false">Failed to load categories</string>
+    <string name="add_task_successfully">Add task successfully.</string>
+    <string name="add_task_failed">Add Task Failed.</string>
 
 
 </resources>
