@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -18,6 +19,7 @@ import com.qudus.tudee.ui.screen.addCategoryScreen.addCategoryRoute
 import com.qudus.tudee.ui.screen.routes.categoriesRoute
 import com.qudus.tudee.ui.screen.editCategoryScreen.editCategoryRoute
 import com.qudus.tudee.ui.screen.HomeScreen.homeRoute
+import com.qudus.tudee.ui.screen.configration.ConfigurationViewModel
 import com.qudus.tudee.ui.screen.tasksScreen.tasksRoute
 import org.koin.androidx.compose.koinViewModel
 
@@ -25,10 +27,9 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun TudeeNavGraph(
     navHostController: NavHostController,
-    viewModel: NavViewModel = koinViewModel()
+    viewModel: ConfigurationViewModel = koinViewModel()
 ) {
-    val startDestination = viewModel.startDestination.value
-
+    val startDestination = viewModel.uiState.collectAsState().value.startDestination
     if (startDestination == null) return // splash is still shown
 
     val currentBackStackEntry by navHostController.currentBackStackEntryAsState()
