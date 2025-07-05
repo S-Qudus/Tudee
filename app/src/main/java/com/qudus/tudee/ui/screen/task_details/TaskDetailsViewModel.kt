@@ -17,10 +17,9 @@ import org.koin.core.component.KoinComponent
 class TaskDetailsViewModel(
     private val taskService: TaskService,
     private val categoryService: CategoryService,
+    private val taskId: Long,
+    private val onDismiss: () -> Unit,
 ) : BaseViewModel<TaskDetailsUiState>(TaskDetailsUiState()), KoinComponent {
-
-    //todo: receive task id that i need to get Task
-    val taskId: Long = 3
 
     init {
         fetchTaskDetails()
@@ -60,14 +59,6 @@ class TaskDetailsViewModel(
         _state.update { it.copy(exception = exception) }
     }
 
-    fun onDismiss() {
-        _state.update { it.copy(isVisible = false) }
-    }
-
-    fun onEditTaskClick() {
-        // TODO: navigate to edit task
-    }
-
     fun onMoveTaskStatusClick() {
         setLoadingState(true)
         tryToExecute(
@@ -99,6 +90,9 @@ class TaskDetailsViewModel(
                 )
             )
         }
+        if (nextState == TaskStatusUiState.DONE) {
+            onDismiss()
+        }
         updateTaskCompletionStatus()
     }
 
@@ -113,7 +107,6 @@ class TaskDetailsViewModel(
     private fun onMoveStateError(exception: TudeeExecption) {
         setLoadingState(false)
         _state.update { it.copy(exception = exception) }
-        // TODO: dismiss and send exception
         onDismiss()
     }
 }
