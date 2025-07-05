@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.qudus.tudee.R
 import com.qudus.tudee.domain.entity.DefaultCategoryType
 import com.qudus.tudee.domain.entity.Priority
@@ -40,6 +41,7 @@ import kotlinx.datetime.LocalDate
 
 @Composable
 fun ViewTaskScreen(
+    navController: NavController,
     categoryId: Long,
     onBackClick: () -> Unit,
     onEditCategory: (Long) -> Unit,
