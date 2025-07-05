@@ -13,11 +13,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.component.TudeeScaffold
+import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.HomeScreen.component.HomeContent
 import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
+import com.qudus.tudee.ui.screen.editTask.EditTaskScreen
+import com.qudus.tudee.ui.screen.task_details.TaskDetailsScreen
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -27,7 +29,7 @@ fun HomeScreen(
     navController: NavController,
     viewModel: HomeViewModel = koinViewModel()
 ) {
-    val state by viewModel.uiState.collectAsState()
+    val state by viewModel.state.collectAsState()
     
     TudeeScaffold(
         contentBackground = Theme.color.surface,
@@ -50,13 +52,10 @@ fun HomeScreen(
     )
     
     // Show AddTaskScreen when showAddTaskSheet is true
-    if (state.showAddTaskSheet) {
-        AddTaskScreen(
-            onDismiss = { viewModel.onDismissBottomSheet() },
-            onTaskAdded = { viewModel.refreshTasks() },
-            navController = navController
-        )
-    }
+    if (state.showAddTaskSheet) { AddTaskScreen() }
+    if (state.ui.showEditTaskSheet) { EditTaskScreen() }
+    if(state.ui.showTaskDetailsBottomSheet){ TaskDetailsScreen() }
+
 }
 
 

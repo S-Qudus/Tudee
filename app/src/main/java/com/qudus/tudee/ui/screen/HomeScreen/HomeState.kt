@@ -48,8 +48,21 @@ data class UiVisibilityState(
     val showAddTaskSheet: Boolean = false,
     val showEditTaskSheet: Boolean = false,
     val showTaskDetailsBottomSheet: Boolean = false,
+    val snackBarItemUiState: SnackBarItemUiState = SnackBarItemUiState(),
     val errorMessage: String? = null
 )
+
+data class SnackBarItemUiState(
+    val isVisible: Boolean = false,
+    val operationType: OperationType? = null,
+    val operationDone: Boolean = false
+)
+
+enum class OperationType {
+    ADD_TASK,
+    EDIT_TASK,
+    CANCEL
+}
 
 data class HomeUiState(
     val theme: ThemeState = ThemeState(),

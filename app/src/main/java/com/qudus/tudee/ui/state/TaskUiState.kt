@@ -7,8 +7,8 @@ import kotlinx.datetime.toLocalDateTime
 
 data class TaskUiState(
     val taskId: Long = 0L,
-    val taskTitle: String = "Organize Study Desk",
-    val taskDescription: String = "Solve all exercises from page 45 to 50 in the textbook, Solve all exercises from page 45 to 50 in the textbook.",
+    val taskTitle: String = "",
+    val taskDescription: String = "",
     val taskPriority: PriorityUiState = PriorityUiState.MEDIUM,
     val taskCategoryId: Long = 0L,
     val taskCategoryTitle: String = "",

@@ -1,6 +1,5 @@
 package com.qudus.tudee.ui.navigation
 
-import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,19 +15,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.qudus.tudee.ui.designSystem.component.BottomNavBar
 import com.qudus.tudee.ui.screen.HomeScreen.component.getBottomNavItems
-import com.qudus.tudee.ui.screen.HomeScreen.homeRoute
-import com.qudus.tudee.ui.screen.addCategoryScreen.addCategoryRoute
-import com.qudus.tudee.ui.screen.addTask.addTaskRoute
-import com.qudus.tudee.ui.screen.configration.ConfigurationViewModel
-import com.qudus.tudee.ui.screen.editCategoryScreen.editCategoryRoute
-import com.qudus.tudee.ui.screen.editTask.editTaskRoute
 import com.qudus.tudee.ui.screen.onBoarding.onBoardingRoute
+import com.qudus.tudee.ui.screen.addCategoryScreen.addCategoryRoute
 import com.qudus.tudee.ui.screen.routes.categoriesRoute
-import com.qudus.tudee.ui.screen.task_details.taskDetailsRoute
+import com.qudus.tudee.ui.screen.editCategoryScreen.editCategoryRoute
+import com.qudus.tudee.ui.screen.HomeScreen.homeRoute
+import com.qudus.tudee.ui.screen.configration.ConfigurationViewModel
 import com.qudus.tudee.ui.screen.tasksScreen.tasksRoute
 import org.koin.androidx.compose.koinViewModel
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TudeeNavGraph(
@@ -36,7 +31,6 @@ fun TudeeNavGraph(
     viewModel: ConfigurationViewModel = koinViewModel()
 ) {
     val startDestination = viewModel.uiState.collectAsState().value.startDestination
-
     if (startDestination == null) return // splash is still shown
 
     val currentBackStackEntry by navHostController.currentBackStackEntryAsState()
@@ -65,11 +59,7 @@ fun TudeeNavGraph(
             homeRoute(navHostController)
             tasksRoute(navHostController)
             categoriesRoute(navHostController)
-
             onBoardingRoute(navHostController)
-            addTaskRoute(navHostController)
-            editTaskRoute(navHostController)
-            taskDetailsRoute(navHostController)
             addCategoryRoute(navHostController)
             editCategoryRoute(navHostController)
         }

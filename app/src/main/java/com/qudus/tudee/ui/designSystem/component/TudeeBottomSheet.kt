@@ -25,11 +25,19 @@ fun TudeeBottomSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     expanded: Boolean = true,
+    isDismissable: Boolean = false,
     content: @Composable ColumnScope.() -> Unit
 ) {
     val sheetState =
         rememberModalBottomSheetState(
             skipPartiallyExpanded = expanded,
+            confirmValueChange  = {
+                if (isDismissable) {
+                    true
+                } else {
+                    it != SheetValue.Hidden
+                }
+            }
         )
 
     AnimatedVisibility(

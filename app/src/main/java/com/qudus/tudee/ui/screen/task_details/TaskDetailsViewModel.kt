@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.screen.task_details
 
+import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.domain.entity.Category
 import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.exception.TudeeExecption
@@ -9,23 +10,34 @@ import com.qudus.tudee.ui.base.BaseViewModel
 import com.qudus.tudee.ui.mapper.toCategoryUiState
 import com.qudus.tudee.ui.mapper.toState
 import com.qudus.tudee.ui.mapper.toTaskUiState
+import com.qudus.tudee.ui.screen.HomeScreen.HomeUiEffect
+import com.qudus.tudee.ui.screen.HomeScreen.UiEventBus
 import com.qudus.tudee.ui.state.TaskStatusUiState
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 
 class TaskDetailsViewModel(
     private val taskService: TaskService,
     private val categoryService: CategoryService,
-    private val taskId: Long,
-    private val onDismiss: () -> Unit,
 ) : BaseViewModel<TaskDetailsUiState>(TaskDetailsUiState()), KoinComponent {
 
+    //todo: receive task id that i need to get Task
+
     init {
-        fetchTaskDetails()
+        viewModelScope.launch {
+            UiEventBus.effect.collectLatest { effect ->
+                if (effect is HomeUiEffect.NavigateToTaskDetails) {
+                    fetchTaskDetails(effect.taskId)
+                }
+            }
+        }
     }
 
-    private fun fetchTaskDetails() {
+    private fun fetchTaskDetails(taskId: Long) {
+        _state.update { it.copy(isLoading = true) }
         tryToExecute(
             action = { taskService.getTaskById(taskId) },
             onSuccess = ::onGetTaskSuccess,
@@ -35,12 +47,12 @@ class TaskDetailsViewModel(
 
     private fun onGetTaskSuccess(task: Task) {
         fetchCategoryById(task.categoryId)
-        _state.update { it.copy(taskUiState = task.toTaskUiState(it.categoryUiState)) }
         updateTaskCompletionStatus()
+        _state.update { it.copy(taskUiState = task.toTaskUiState(it.categoryUiState), isLoading = false) }
     }
 
     private fun onGetTaskError(exception: TudeeExecption) {
-        _state.update { it.copy(exception = exception) }
+        _state.update { it.copy(exception = exception, isLoading = false) }
     }
 
     private fun fetchCategoryById(id: Long) {
@@ -57,6 +69,18 @@ class TaskDetailsViewModel(
 
     private fun onGetCategoryError(exception: TudeeExecption) {
         _state.update { it.copy(exception = exception) }
+    }
+
+    fun onDismiss() {
+        viewModelScope.launch {
+            UiEventBus.emitEffect(HomeUiEffect.NavigateBakeFromTaskDetail())
+        }
+    }
+
+    fun onEditTaskClick() {
+        viewModelScope.launch {
+            UiEventBus.emitEffect(HomeUiEffect.NavigateToEditTask(_state.value.taskUiState.taskId))
+        }
     }
 
     fun onMoveTaskStatusClick() {
@@ -90,9 +114,6 @@ class TaskDetailsViewModel(
                 )
             )
         }
-        if (nextState == TaskStatusUiState.DONE) {
-            onDismiss()
-        }
         updateTaskCompletionStatus()
     }
 
@@ -107,6 +128,7 @@ class TaskDetailsViewModel(
     private fun onMoveStateError(exception: TudeeExecption) {
         setLoadingState(false)
         _state.update { it.copy(exception = exception) }
+        // TODO: dismiss and send exception
         onDismiss()
     }
 }

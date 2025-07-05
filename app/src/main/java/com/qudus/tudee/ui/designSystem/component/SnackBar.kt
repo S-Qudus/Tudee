@@ -1,5 +1,8 @@
 package com.qudus.tudee.ui.designSystem.component
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,6 +16,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +33,7 @@ import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 import com.qudus.tudee.ui.util.extension.dropShadow
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -32,41 +41,62 @@ fun SnackBar(
     state: SnackBarState,
     message: String,
     iconColor: Color,
-    background: Color
+    background: Color,
+    onSnackBarDismissed: () -> Unit = {},
+    isVisible: Boolean = false
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .dropShadow(blur = 16.dp, offsetY = 4.dp, color = Color(0x1F000000))
-            .background(Theme.color.surfaceHigh, shape = RoundedCornerShape(16.dp))
-            .padding(Theme.dimension.spacing8),
-        verticalAlignment = Alignment.CenterVertically,
+    var snackBarVisibleState by remember { mutableStateOf(isVisible) }
+
+    LaunchedEffect(isVisible) {
+        snackBarVisibleState = isVisible
+        if (isVisible) {
+            delay(3000)
+            snackBarVisibleState = false
+            onSnackBarDismissed()
+        }
+    }
+
+    AnimatedVisibility(
+        modifier = Modifier.padding(Theme.dimension.spacing16),
+        visible = snackBarVisibleState,
+        enter = expandHorizontally(),
+        exit = shrinkHorizontally()
     ) {
-        Box(
+        Row(
             modifier = Modifier
-                .size(40.dp)
-                .background(background, shape = RoundedCornerShape(12.dp)),
-            contentAlignment = Alignment.Center
+                .fillMaxWidth()
+                .height(56.dp)
+                .dropShadow(blur = 16.dp, offsetY = 4.dp, color = Color(0x1F000000))
+                .background(Theme.color.surfaceHigh, shape = RoundedCornerShape(16.dp))
+                .padding(Theme.dimension.spacing8),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Image(
-                painter = when (state) {
-                    SnackBarState.ERROR -> painterResource(R.drawable.icon_information_diamond)
-                    SnackBarState.SUCCESS -> painterResource(id = R.drawable.icon_checkmark_badge)
-                },
-                contentDescription = "snack bar",
-                alignment = Alignment.Center,
-                colorFilter = ColorFilter.tint(iconColor)
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .background(background, shape = RoundedCornerShape(12.dp)),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = when (state) {
+                        SnackBarState.ERROR -> painterResource(R.drawable.icon_information_diamond)
+                        SnackBarState.SUCCESS -> painterResource(id = R.drawable.icon_checkmark_badge)
+                    },
+                    contentDescription = "snack bar",
+                    alignment = Alignment.Center,
+                    colorFilter = ColorFilter.tint(iconColor)
+                )
+            }
+            Text(
+                message,
+                style = Theme.textStyle.body.medium,
+                color = Theme.color.body,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(start = Theme.dimension.spacing12),
             )
         }
-        Text(
-            message,
-            style = Theme.textStyle.body.medium,
-            color = Theme.color.body,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(start = Theme.dimension.spacing12),
-        )
     }
+
 }
 
 enum class SnackBarState {
