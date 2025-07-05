@@ -16,6 +16,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.qudus.tudee.ui.designSystem.component.BottomNavBar
 import com.qudus.tudee.ui.screen.HomeScreen.component.getBottomNavItems
 import com.qudus.tudee.ui.screen.HomeScreen.homeRoute
+import com.qudus.tudee.ui.screen.ViewTasksByCategory.viewTasksRoute
 import com.qudus.tudee.ui.screen.addCategoryScreen.addCategoryRoute
 import com.qudus.tudee.ui.screen.addTask.addTaskRoute
 import com.qudus.tudee.ui.screen.configration.ConfigurationViewModel
@@ -70,6 +71,7 @@ fun TudeeNavGraph(
             taskDetailsRoute(navHostController)
             addCategoryRoute(navHostController)
             editCategoryRoute(navHostController)
+            viewTasksRoute(navHostController)
         }
     }
 }
