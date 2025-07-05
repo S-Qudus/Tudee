@@ -10,4 +10,5 @@ sealed class Screen(val route: String) {
     object TaskDetailsScreen: Screen("taskDetailsScreen")
     object AddCategoryScreen: Screen("addCategoryScreen")
     object EditCategoryScreen: Screen("editCategoryScreen")
+    object ViewTasksScreen: Screen("viewTasksScreen")
 }
