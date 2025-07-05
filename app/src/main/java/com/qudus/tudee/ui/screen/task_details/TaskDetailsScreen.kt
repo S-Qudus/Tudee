@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.screen.task_details
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -9,13 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
-import com.qudus.tudee.domain.exception.TudeeExecption
 import com.qudus.tudee.ui.designSystem.component.CategoryIcon
 import com.qudus.tudee.ui.designSystem.component.TudeeBottomSheet
+import com.qudus.tudee.ui.designSystem.component.TudeeLoadingIcon
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
 import com.qudus.tudee.ui.screen.task_details.components.DataErrorContent
@@ -31,125 +33,109 @@ import com.qudus.tudee.ui.state.getTextColor
 import com.qudus.tudee.ui.util.extension.toStringResource
 import com.qudus.tudee.ui.util.getIconPainterForCategory
 import org.koin.androidx.compose.koinViewModel
-import org.koin.core.parameter.parametersOf
 import java.io.File
 
 @Composable
 fun TaskDetailsScreen(
-    taskId: Long,
-    onDismiss: () -> Unit,
-    onEditTaskClick: () -> Unit,
-    taskDetailsViewModel: TaskDetailsViewModel = koinViewModel(parameters = {
-        parametersOf(
-            taskId,
-            onDismiss
-        )
-    })
+    taskDetailsViewModel: TaskDetailsViewModel = koinViewModel()
 ) {
     val state by taskDetailsViewModel.state.collectAsState()
+    TaskDetailsContent(
+        state = state,
+        onDismissRequest = taskDetailsViewModel::onDismiss,
+        onEditTaskClick = taskDetailsViewModel::onEditTaskClick,
+        onMoveTaskStatusClick = taskDetailsViewModel::onMoveTaskStatusClick,
+    )
+}
+
+@Composable
+fun TaskDetailsContent(
+    state: TaskDetailsUiState,
+    onDismissRequest: () -> Unit,
+    onEditTaskClick: () -> Unit,
+    onMoveTaskStatusClick: () -> Unit
+) {
     TudeeBottomSheet(
         isSheetOpen = state.isVisible,
-        onDismissRequest = onDismiss
+        isDismissable = true,
+        onDismissRequest = onDismissRequest
     ) {
-        TaskDetailsContent(
-            state = state,
-            onEditTaskClick = onEditTaskClick,
-            onMoveTaskStatusClick = taskDetailsViewModel::onMoveTaskStatusClick,
-        )
-    }
-}
-
-@Composable
-private fun TaskDetailsContent(
-    state: TaskDetailsUiState,
-    onEditTaskClick: () -> Unit,
-    onMoveTaskStatusClick: () -> Unit
-) {
-    state.exception?.let {
-        TaskDetailsErrorContent(it)
-    } ?: TaskDetailsSuccessContent(state, onEditTaskClick, onMoveTaskStatusClick)
-}
-
-@Composable
-private fun TaskDetailsSuccessContent(
-    state: TaskDetailsUiState,
-    onEditTaskClick: () -> Unit,
-    onMoveTaskStatusClick: () -> Unit
-) {
-    LazyColumn(
-        modifier = Modifier
-            .background(Theme.color.surface)
-            .padding(horizontal = Theme.dimension.spacing16)
-    ) {
-        item {
-            Text(
-                text = R.string.task_details.toStringResource(),
-                style = Theme.textStyle.title.large,
-                color = Theme.color.title
-            )
+        if (state.isLoading){
+            TudeeLoadingIcon(modifier = Modifier.align(Alignment.CenterHorizontally), tint = Theme.color.primary)
+        }else{
+            state.exception?.let {
+                Box(
+                    modifier = Modifier.fillMaxHeight(0.5f)
+                ) {
+                    DataErrorContent(
+                        exception = it,
+                        modifier = Modifier.padding(horizontal = Theme.dimension.spacing16)
+                    )
+                }
+            } ?: LazyColumn(
+                modifier = Modifier
+                    .background(Theme.color.surface)
+                    .padding(horizontal = Theme.dimension.spacing16)
+            ) {
+                item {
+                    Text(
+                        text = R.string.task_details.toStringResource(),
+                        style = Theme.textStyle.title.large,
+                        color = Theme.color.title
+                    )
+                }
+                item {
+                    CategoryIcon(
+                        modifier = Modifier.padding(
+                            top = Theme.dimension.spacing12,
+                            bottom = Theme.dimension.spacing8
+                        ),
+                        imagePainter = if (state.categoryUiState.defaultCategoryType != null) {
+                            getIconPainterForCategory(state.categoryUiState.defaultCategoryType)
+                        } else {
+                            rememberAsyncImagePainter(model = File(state.categoryUiState.image))
+                        },
+                        title = state.categoryUiState.title,
+                    )
+                }
+                item {
+                    Text(
+                        text = state.taskUiState.taskTitle,
+                        style = Theme.textStyle.title.medium,
+                        color = Theme.color.title,
+                    )
+                }
+                item {
+                    Text(
+                        text = state.taskUiState.taskDescription,
+                        style = Theme.textStyle.body.small,
+                        color = Theme.color.body
+                    )
+                }
+                item {
+                    TaskDetailsDivider()
+                }
+                item {
+                    TaskStatusAndPrioritySection(
+                        priorityIcon = state.taskUiState.taskPriority.getIcon(),
+                        priorityTitle = state.taskUiState.taskPriority.getLabel(),
+                        priorityBackgroundColor = state.taskUiState.taskPriority.getColor(),
+                        statusTitle = state.taskUiState.taskStatusUiState.getStatusText(),
+                        statusTextColor = state.taskUiState.taskStatusUiState.getTextColor(),
+                        statusBackgroundColor = state.taskUiState.taskStatusUiState.getBackgroundColor()
+                    )
+                }
+                item {
+                    TaskActionButtons(
+                        visible = state.isTaskCompleted.not(),
+                        newStatus = state.taskUiState.taskStatusUiState.getNextState().getStatusText(),
+                        onEditTaskClick = onEditTaskClick,
+                        onMoveTaskStatusClick = onMoveTaskStatusClick,
+                        isMoveOperationLoading = state.isMoveOperationLoading,
+                    )
+                }
+            }
         }
-        item {
-            CategoryIcon(
-                modifier = Modifier.padding(
-                    top = Theme.dimension.spacing12,
-                    bottom = Theme.dimension.spacing8
-                ),
-                imagePainter = if (state.categoryUiState.defaultCategoryType != null) {
-                    getIconPainterForCategory(state.categoryUiState.defaultCategoryType)
-                } else {
-                    rememberAsyncImagePainter(model = File(state.categoryUiState.image))
-                },
-                title = state.categoryUiState.title,
-            )
-        }
-        item {
-            Text(
-                text = state.taskUiState.taskTitle,
-                style = Theme.textStyle.title.medium,
-                color = Theme.color.title,
-            )
-        }
-        item {
-            Text(
-                text = state.taskUiState.taskDescription,
-                style = Theme.textStyle.body.small,
-                color = Theme.color.body
-            )
-        }
-        item {
-            TaskDetailsDivider()
-        }
-        item {
-            TaskStatusAndPrioritySection(
-                priorityIcon = state.taskUiState.taskPriority.getIcon(),
-                priorityTitle = state.taskUiState.taskPriority.getLabel(),
-                priorityBackgroundColor = state.taskUiState.taskPriority.getColor(),
-                statusTitle = state.taskUiState.taskStatusUiState.getStatusText(),
-                statusTextColor = state.taskUiState.taskStatusUiState.getTextColor(),
-                statusBackgroundColor = state.taskUiState.taskStatusUiState.getBackgroundColor()
-            )
-        }
-        item {
-            TaskActionButtons(
-                visible = state.isTaskCompleted.not(),
-                newStatus = state.taskUiState.taskStatusUiState.getNextState().getStatusText(),
-                onEditTaskClick = onEditTaskClick,
-                onMoveTaskStatusClick = onMoveTaskStatusClick,
-                isMoveOperationLoading = state.isMoveOperationLoading,
-            )
-        }
-    }
-}
-
-@Composable
-private fun TaskDetailsErrorContent(exception: TudeeExecption) {
-    Box(
-        modifier = Modifier.fillMaxHeight(0.5f)
-    ) {
-        DataErrorContent(
-            exception = exception,
-            modifier = Modifier.padding(horizontal = Theme.dimension.spacing16)
-        )
     }
 }
 
@@ -159,6 +145,7 @@ fun TaskDetailsContentPreview() {
     TudeeTheme(isDarkTheme = false) {
         TaskDetailsContent(
             state = TaskDetailsUiState(),
+            onDismissRequest = {},
             onEditTaskClick = {},
             onMoveTaskStatusClick = {}
         )

@@ -10,5 +10,6 @@ data class TaskDetailsUiState(
     val isVisible: Boolean = true,
     val isTaskCompleted: Boolean = false,
     val isMoveOperationLoading: Boolean = false,
+    val isLoading: Boolean = false,
     val exception: TudeeExecption? = null,
 )

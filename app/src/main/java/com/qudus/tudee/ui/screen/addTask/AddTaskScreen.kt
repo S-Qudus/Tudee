@@ -8,15 +8,28 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -27,42 +40,37 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.qudus.tudee.R
-import com.qudus.tudee.ui.designSystem.component.TudeeBottomSheet
-import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.screen.addTask.state.AddTaskUiState
-import com.qudus.tudee.ui.screen.addTask.state.AddTaskInteraction
-import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
-import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
-import com.qudus.tudee.ui.util.getDefaultCategoryStringResourceByType
-import com.qudus.tudee.ui.util.getIconPainterForCategory
-import org.koin.androidx.compose.koinViewModel
-import org.koin.core.parameter.parametersOf
 import coil.compose.rememberAsyncImagePainter
+import com.qudus.tudee.R
 import com.qudus.tudee.designSystem.component.DatePicker
 import com.qudus.tudee.ui.designSystem.component.CategoryBadgeItem
 import com.qudus.tudee.ui.designSystem.component.TitledSection
-import com.qudus.tudee.ui.designSystem.component.buttons.TudeeButton
+import com.qudus.tudee.ui.designSystem.component.TudeeBottomSheet
 import com.qudus.tudee.ui.designSystem.component.TudeeCheckBadge
-import java.io.File
+import com.qudus.tudee.ui.designSystem.component.buttons.TudeeButton
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextField
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.Paragraph
 import com.qudus.tudee.ui.designSystem.component.text_field.TudeeTextFieldType.WithIcon
-import com.qudus.tudee.ui.screen.taskEditor.composable.PriorityChip
-import kotlinx.datetime.toLocalDate
+import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.screen.addTask.state.AddTaskInteraction
+import com.qudus.tudee.ui.screen.addTask.state.AddTaskUiState
 import com.qudus.tudee.ui.screen.addTask.util.getCategoryErrorMessage
 import com.qudus.tudee.ui.screen.addTask.util.getTitleErrorMessage
+import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
+import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
+import com.qudus.tudee.ui.screen.taskEditor.composable.PriorityChip
+import com.qudus.tudee.ui.util.getDefaultCategoryStringResourceByType
+import com.qudus.tudee.ui.util.getIconPainterForCategory
+import kotlinx.datetime.toLocalDate
+import org.koin.androidx.compose.koinViewModel
+import java.io.File
 
 @OptIn(ExperimentalFoundationApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddTaskScreen(
     modifier: Modifier = Modifier,
-    onDismiss: () -> Unit = {},
-    onTaskAdded: () -> Unit = {},
-    viewModel: AddTaskViewModel = koinViewModel { parametersOf(onDismiss, onTaskAdded) },
-    navController: NavController
+    viewModel: AddTaskViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -70,7 +78,6 @@ fun AddTaskScreen(
         modifier = modifier,
         state = state,
         interaction = viewModel,
-        onDismiss = onDismiss
     )
 }
 
@@ -80,13 +87,11 @@ private fun AddTaskScreenContent(
     modifier: Modifier = Modifier,
     state: AddTaskUiState,
     interaction: AddTaskInteraction,
-    onDismiss: () -> Unit = {}
 ) {
-
     TudeeBottomSheet(
         modifier = modifier,
         isSheetOpen = true,
-        onDismissRequest = onDismiss
+        onDismissRequest = {}
     ) {
         Box(
             modifier = Modifier
@@ -300,7 +305,7 @@ private fun PrimaryActionsSection(
 
         TudeeButton(
             modifier = Modifier.fillMaxWidth(),
-            onClick = interaction::onCancelAddTask,
+            onClick = interaction::onCancelChangeTask,
             isLoading = false,
             isEnabled = true,
             hasBorder = true,

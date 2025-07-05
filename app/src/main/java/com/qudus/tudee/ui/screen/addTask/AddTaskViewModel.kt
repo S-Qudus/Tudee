@@ -1,26 +1,24 @@
 package com.qudus.tudee.ui.screen.addTask
 
+import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.domain.entity.Category
+import com.qudus.tudee.domain.exception.TaskUpsertFailedException
 import com.qudus.tudee.domain.exception.TudeeExecption
-import com.qudus.tudee.domain.exception.EmptyInputException
-import com.qudus.tudee.domain.exception.InvalidStartCharacterException
-import com.qudus.tudee.domain.exception.InputTooLongException
-import com.qudus.tudee.domain.exception.InputTooShortException
 import com.qudus.tudee.domain.service.CategoryService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.ui.mapper.toCategoryItemUiState
 import com.qudus.tudee.ui.mapper.toTask
-import com.qudus.tudee.ui.screen.taskEditor.TaskEditorViewModel
+import com.qudus.tudee.ui.screen.HomeScreen.HomeUiEffect
+import com.qudus.tudee.ui.screen.HomeScreen.UiEventBus
 import com.qudus.tudee.ui.screen.addTask.state.AddTaskInteraction
-import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
 import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
+import com.qudus.tudee.ui.screen.taskEditor.TaskEditorViewModel
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class AddTaskViewModel(
     categoryService: CategoryService,
     private val taskService: TaskService,
-    private val onDismiss: () -> Unit = {},
-    private val onTaskAdded: () -> Unit = {}
 ) : TaskEditorViewModel(), AddTaskInteraction {
 
     init {
@@ -45,27 +43,25 @@ class AddTaskViewModel(
     }
 
     private fun onAddTaskSuccess(unit: Unit) {
-        _state.update { it.copy(isLoading = false) }
-        onTaskAdded()
-        onDismiss()
+        viewModelScope.launch {
+            UiEventBus.emitEffect(HomeUiEffect.NavigateBackFromAddTaskWithSuccessState(true))
+            resetUiState()
+        }
+
     }
 
     private fun onAddTaskError(exception: TudeeExecption) {
-        val errorType = when (exception) {
-            is EmptyInputException -> TitleErrorType.EMPTY
-            is InvalidStartCharacterException -> TitleErrorType.INVALID_START
-            is InputTooLongException -> TitleErrorType.TOO_LONG
-            is InputTooShortException -> TitleErrorType.TOO_SHORT
-            else -> TitleErrorType.INVALID
+        if (exception is TaskUpsertFailedException){
+            viewModelScope.launch {
+                UiEventBus.emitEffect(HomeUiEffect.NavigateBackFromAddTaskWithSuccessState(false))
+                resetUiState()
+            }
+        }else{
+            super.onSubmitTaskError(exception)
         }
-        _state.update { it.copy(isLoading = false, titleErrorMessageType = errorType) }
     }
 
     override fun onGetCategoriesError(exception: TudeeExecption) {
         _state.update { it.copy(categoryErrorMessageType = CategoryErrorType.FAILED_IN_FETCH) }
-    }
-
-    override fun onCancelAddTask() {
-        onDismiss()
     }
 }
