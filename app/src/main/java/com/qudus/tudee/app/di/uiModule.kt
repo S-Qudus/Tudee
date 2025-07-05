@@ -14,6 +14,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import androidx.annotation.RequiresApi
 import android.os.Build
+import com.qudus.tudee.ui.screen.ViewTasksByCategory.ViewTaskViewModel
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -28,5 +29,5 @@ val uiModule = module {
     viewModelOf(::EditCategoryViewModel)
     viewModelOf(::TaskDetailsViewModel)
     viewModelOf(::CategoriesViewModel)
-
+    viewModelOf(::ViewTaskViewModel)
 }
