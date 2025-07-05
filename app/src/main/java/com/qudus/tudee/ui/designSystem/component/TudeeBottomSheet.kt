@@ -30,7 +30,6 @@ fun TudeeBottomSheet(
     val sheetState =
         rememberModalBottomSheetState(
             skipPartiallyExpanded = expanded,
-            confirmValueChange  = { it != SheetValue.Hidden }
         )
 
     AnimatedVisibility(

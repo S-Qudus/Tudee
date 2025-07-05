@@ -9,7 +9,8 @@ data class Task(
     val createdAt: LocalDate,
     val priority: Priority,
     val state: State,
-    val categoryId: Long
+    val categoryId: Long,
+    val defaultCategoryType: DefaultCategoryType? = null
 )
 
 
