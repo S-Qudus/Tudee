@@ -21,7 +21,7 @@ fun NavGraphBuilder.taskDetailsRoute(navController: NavController) {
             navArgument(name = TaskDetailsArgs.TASK_ID_ARG) { NavType.LongType }
         ),
     ) {
-        TaskDetailsScreen(navController)
+        TaskDetailsScreen()
     }
 }
 

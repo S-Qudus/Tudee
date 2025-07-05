@@ -1,5 +1,6 @@
 package com.qudus.tudee.ui.screen.HomeScreen
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.domain.entity.Task
@@ -24,29 +25,31 @@ class HomeViewModel(
     init {
         loadInitialData()
 
-            viewModelScope.launch {
-                UiEventBus.effect.collectLatest { effect ->
-                    when (effect) {
-                        is HomeUiEffect.NavigateBackWithCancelation -> {
-                            _uiState.update { it.copy(ui = it.ui.copy(showAddTaskSheet = false)) }
-                        }
-
-                        is HomeUiEffect.NavigateBackWithSuccessState -> {
-                                _uiState.update {
-                                    it.copy(
-                                        ui = it.ui.copy(
-                                            showAddTaskSheet = false,
-                                            snackBarItemUiState = _uiState.value.ui.snackBarItemUiState.copy(
-                                                isVisible = true,
-                                                operationType = OperationType.ADD_TASK,
-                                                operationDone = effect.isSuccess
-                                            )
-                                        )
-                                    )
-                                }
-                        }
+        viewModelScope.launch {
+            UiEventBus.effect.collectLatest { effect ->
+                if (effect is HomeUiEffect.NavigateBackWithCancelation) {
+                    _uiState.update { it.copy(ui = it.ui.copy(showAddTaskSheet = false)) }
+                } else if (effect is HomeUiEffect.NavigateBackFromAddTaskWithSuccessState) {
+                    _uiState.update {
+                        it.copy(
+                            ui = it.ui.copy(
+                                showAddTaskSheet = false,
+                                snackBarItemUiState = _uiState.value.ui.snackBarItemUiState.copy(
+                                    isVisible = true,
+                                    operationType = OperationType.ADD_TASK,
+                                    operationDone = effect.isSuccess
+                                )
+                            )
+                        )
                     }
+                } else if (effect is HomeUiEffect.NavigateToEditTask) {
+                    _uiState.update { it.copy(ui = it.ui.copy(showEditTaskSheet = true)) }
+
+                }else if(effect is HomeUiEffect.NavigateBakeFromTaskDetail){
+                    _uiState.update { it.copy(ui = it.ui.copy(showTaskDetailsBottomSheet = false))}
                 }
+
+            }
         }
     }
 
@@ -130,8 +133,13 @@ class HomeViewModel(
     }
 
     fun onTaskClicked(taskId: Long) {
-        println("Task clicked with ID: $taskId")
-        // TODO: Navigate to task details or show task options
+        _uiState.update { it.copy(ui = it.ui.copy(showTaskDetailsBottomSheet = true)) }
+
+        viewModelScope.launch {
+            UiEventBus.emitEffect(HomeUiEffect.NavigateToTaskDetails(taskId))
+        }
+
+
     }
 
     // Navigation to task screens

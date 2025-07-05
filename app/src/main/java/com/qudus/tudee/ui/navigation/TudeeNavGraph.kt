@@ -12,13 +12,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.qudus.tudee.ui.designSystem.component.BottomNavBar
-import com.qudus.tudee.ui.screen.addTask.addTaskRoute
 import com.qudus.tudee.ui.screen.HomeScreen.component.getBottomNavItems
 import com.qudus.tudee.ui.screen.onBoarding.onBoardingRoute
 import com.qudus.tudee.ui.screen.addCategoryScreen.addCategoryRoute
 import com.qudus.tudee.ui.screen.routes.categoriesRoute
 import com.qudus.tudee.ui.screen.editCategoryScreen.editCategoryRoute
-import com.qudus.tudee.ui.screen.editTask.editTaskRoute
 import com.qudus.tudee.ui.screen.HomeScreen.homeRoute
 import com.qudus.tudee.ui.screen.task_details.taskDetailsRoute
 import com.qudus.tudee.ui.screen.tasksScreen.tasksRoute
@@ -59,10 +57,7 @@ fun TudeeNavGraph(
             homeRoute(navHostController)
             tasksRoute(navHostController)
             categoriesRoute(navHostController)
-
             onBoardingRoute(navHostController)
-            addTaskRoute(navHostController)
-            editTaskRoute(navHostController)
             taskDetailsRoute(navHostController)
             addCategoryRoute(navHostController)
             editCategoryRoute(navHostController)

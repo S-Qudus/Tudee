@@ -18,6 +18,8 @@ import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButt
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.HomeScreen.component.HomeContent
 import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
+import com.qudus.tudee.ui.screen.editTask.EditTaskScreen
+import com.qudus.tudee.ui.screen.task_details.TaskDetailsScreen
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -51,6 +53,9 @@ fun HomeScreen(
     
     // Show AddTaskScreen when showAddTaskSheet is true
     if (state.showAddTaskSheet) { AddTaskScreen() }
+    if (state.ui.showEditTaskSheet) { EditTaskScreen() }
+    if(state.ui.showTaskDetailsBottomSheet){ TaskDetailsScreen() }
+
 }
 
 

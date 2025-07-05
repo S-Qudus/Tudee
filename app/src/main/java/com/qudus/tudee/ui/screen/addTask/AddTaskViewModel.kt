@@ -44,7 +44,7 @@ class AddTaskViewModel(
 
     private fun onAddTaskSuccess(unit: Unit) {
         viewModelScope.launch {
-            UiEventBus.emitEffect(HomeUiEffect.NavigateBackWithSuccessState(true))
+            UiEventBus.emitEffect(HomeUiEffect.NavigateBackFromAddTaskWithSuccessState(true))
             resetUiState()
         }
 
@@ -53,7 +53,7 @@ class AddTaskViewModel(
     private fun onAddTaskError(exception: TudeeExecption) {
         if (exception is TaskUpsertFailedException){
             viewModelScope.launch {
-                UiEventBus.emitEffect(HomeUiEffect.NavigateBackWithSuccessState(false))
+                UiEventBus.emitEffect(HomeUiEffect.NavigateBackFromAddTaskWithSuccessState(false))
                 resetUiState()
             }
         }else{
