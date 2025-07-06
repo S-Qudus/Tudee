@@ -13,6 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.theme.TudeeTheme
+import com.qudus.tudee.ui.state.TudeeUiStatus
+import com.qudus.tudee.ui.state.getTudeeStatus
 
 @Composable
 fun LoadWorkSummaries(completedTasks: Int, totalTasks: Int) {
@@ -66,22 +68,46 @@ fun LoadWorkSummaries(completedTasks: Int, totalTasks: Int) {
 
 @Composable
 fun LoadWorkSummarySingle(completedTasks: Int, totalTasks: Int) {
-    val stayWorkingTitle = stringResource(R.string.stay_working)
-    var taskCompletedMessage = stringResource(
-        R.string.tasks_completed_message_only,
-        completedTasks,
-        totalTasks
-    )
-    val updateWorking = remember(completedTasks, totalTasks) {
+    val status = getTudeeStatus(completedTasks, totalTasks)
+    
+    val title = when (status) {
+        TudeeUiStatus.GOOD -> stringResource(R.string.good_status_message_title)
+        TudeeUiStatus.OKAY -> stringResource(R.string.okay_status_message_title)
+        TudeeUiStatus.POOR -> stringResource(R.string.poor_status_message_title)
+        TudeeUiStatus.BAD -> stringResource(R.string.bad_status_message_title)
+    }
+    
+    val subtitle = when (status) {
+        TudeeUiStatus.GOOD -> stringResource(R.string.good_status_message)
+        TudeeUiStatus.OKAY -> stringResource(R.string.okay_status_message, completedTasks, totalTasks)
+        TudeeUiStatus.POOR -> stringResource(R.string.poor_status_message)
+        TudeeUiStatus.BAD -> stringResource(R.string.bad_status_message)
+    }
+    
+    val imageFace = when (status) {
+        TudeeUiStatus.GOOD -> R.drawable.image_happy_face
+        TudeeUiStatus.OKAY -> R.drawable.image_neutral_face
+        TudeeUiStatus.POOR -> R.drawable.image_sad_face
+        TudeeUiStatus.BAD -> R.drawable.image_angry_face
+    }
+    
+    val imageTudee = when (status) {
+        TudeeUiStatus.GOOD -> R.drawable.image_shy_tudee
+        TudeeUiStatus.OKAY -> R.drawable.image_happy_tudee
+        TudeeUiStatus.POOR -> R.drawable.image_happy_tudee
+        TudeeUiStatus.BAD -> R.drawable.image_upset_tudee
+    }
+    
+    val workStatus = remember(status, completedTasks, totalTasks) {
         WorkStatus(
-            title = stayWorkingTitle,
-            imageFace = R.drawable.image_neutral_face,
-            subtitle = taskCompletedMessage,
-            imageTudee = R.drawable.image_happy_tudee,
+            title = title,
+            imageFace = imageFace,
+            subtitle = subtitle,
+            imageTudee = imageTudee,
         )
     }
     
-    WorkStatusItem(workStatus = updateWorking)
+    WorkStatusItem(workStatus = workStatus)
 }
 
 @Preview

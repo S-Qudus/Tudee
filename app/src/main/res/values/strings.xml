@@ -121,6 +121,17 @@
     <string name="fill_day_message_short">Fill your day with something awesome.</string>
     <string name="back_to_work_message">You just scrolling, not working. Tudee is watching. Back to work!!!</string>
 
+    <!-- New Status Messages -->
+    <string name="good_status_message_title">Tadaa!</string>
+    <string name="okay_status_message_title">Stay working!</string>
+    <string name="poor_status_message_title">Nothing on your list…</string>
+    <string name="bad_status_message_title">Zero progress?!</string>
+    
+    <string name="good_status_message">You\'re doing amazing!!! Tudee is proud of you.</string>
+    <string name="okay_status_message">You\'ve completed %1$d out of %2$d tasks Keep going!</string>
+    <string name="poor_status_message">Fill your day with something awesome.</string>
+    <string name="bad_status_message">You just scrolling, not working. Tudee is watching. Back to work!!!</string>
+
     <!-- Task Date Labels -->
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
