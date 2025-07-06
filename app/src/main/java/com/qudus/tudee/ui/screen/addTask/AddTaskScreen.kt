@@ -42,7 +42,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
-import com.qudus.tudee.designSystem.component.DatePicker
+import com.qudus.tudee.ui.designSystem.component.DatePicker
 import com.qudus.tudee.ui.designSystem.component.CategoryBadgeItem
 import com.qudus.tudee.ui.designSystem.component.TitledSection
 import com.qudus.tudee.ui.designSystem.component.TudeeBottomSheet

@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
-import com.qudus.tudee.designSystem.component.DatePicker
 import com.qudus.tudee.ui.designSystem.component.buttons.ArrowButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.util.extension.formatMonthToString
