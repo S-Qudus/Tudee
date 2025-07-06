@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,7 +45,9 @@ fun TasksScreenContent(
                 .background(Theme.color.surface),
         ) {
 
-            HeaderTitle(stringResource(R.string.tasks))
+            HeaderTitle(
+                title = stringResource(R.string.tasks)
+            )
 
             HorizontalCalendar(
                 currentMonth = uiState.currentMonth,
@@ -74,7 +77,7 @@ fun TasksScreenContent(
             isLoading = false,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(end = 12.dp, bottom = 8.dp)
+                .padding(end = 12.dp, bottom = 10.dp)
         )
     }
 }

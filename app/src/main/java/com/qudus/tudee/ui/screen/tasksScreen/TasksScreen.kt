@@ -3,20 +3,15 @@ package com.qudus.tudee.ui.screen.tasksScreen
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.qudus.tudee.ui.designSystem.component.ErrorMessage
 import com.qudus.tudee.ui.designSystem.component.FullScreenLoading
-import androidx.navigation.NavController
-import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
 import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
 import com.qudus.tudee.ui.screen.categories.CategoriesViewModel
@@ -35,7 +30,7 @@ fun TasksScreen(
 ) {
 
     val tasksUiState by taskViewModel.state.collectAsState()
-     val homeUiState by homeViewModel.state.collectAsState()
+    val homeUiState by homeViewModel.state.collectAsState()
     val categoryUiState by categoryViewModel.uiState.collectAsState()
 
     val countsByState = remember(tasksUiState.tasks) {
@@ -43,30 +38,26 @@ fun TasksScreen(
             tasksUiState.tasks.count { it.state == s }
         }
     }
+    when {
+        tasksUiState.isLoading -> FullScreenLoading()
 
-    Scaffold(
-        modifier = Modifier
-            .background(Theme.color.surface)
-            .statusBarsPadding(),
-    ) { innerPadding ->
-        when {
-            tasksUiState.isLoading -> FullScreenLoading()
+        tasksUiState.error != null -> ErrorMessage(tasksUiState.error.toString())
 
-            tasksUiState.error != null -> ErrorMessage(tasksUiState.error.toString())
-
-            else -> TasksScreenContent(
-                modifier = Modifier.padding(innerPadding),
-                uiState = tasksUiState,
-                countsByState = countsByState,
-                onDateSelected = { taskViewModel.selectDate(it) },
-                onMonthChange = { taskViewModel.selectMonth(it) },
-                onStateSelected = { taskViewModel.selectState(it) },
-                onClickAddNewTask = { homeViewModel.onAddButtonClicked() },
-                categoriesUiState = categoryUiState
-            )
-        }
-        if (homeUiState.showAddTaskSheet) { AddTaskScreen() }
+        else -> TasksScreenContent(
+            modifier = Modifier,
+            uiState = tasksUiState,
+            countsByState = countsByState,
+            onDateSelected = { taskViewModel.selectDate(it) },
+            onMonthChange = { taskViewModel.selectMonth(it) },
+            onStateSelected = { taskViewModel.selectState(it) },
+            onClickAddNewTask = { homeViewModel.onAddButtonClicked() },
+            categoriesUiState = categoryUiState
+        )
     }
+    if (homeUiState.showAddTaskSheet) {
+        AddTaskScreen()
+    }
+
 }
 
 
