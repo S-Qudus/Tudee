@@ -35,7 +35,7 @@ fun TasksScreen(
 ) {
 
     val tasksUiState by taskViewModel.state.collectAsState()
-    val homeUiState by homeViewModel.uiState.collectAsState()
+     val homeUiState by homeViewModel.state.collectAsState()
     val categoryUiState by categoryViewModel.uiState.collectAsState()
 
     val countsByState = remember(tasksUiState.tasks) {
@@ -65,14 +65,7 @@ fun TasksScreen(
                 categoriesUiState = categoryUiState
             )
         }
-
-        if (homeUiState.showAddTaskSheet) {
-            AddTaskScreen(
-                onDismiss = { homeViewModel.onDismissBottomSheet() },
-                onTaskAdded = { homeViewModel.refreshTasks() },
-                navController = navController
-            )
-        }
+        if (homeUiState.showAddTaskSheet) { AddTaskScreen() }
     }
 }
 

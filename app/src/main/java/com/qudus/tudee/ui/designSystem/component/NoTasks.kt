@@ -35,10 +35,11 @@ import com.qudus.tudee.ui.util.extension.mirrorRtl
 @Composable
 fun NoTasks(
     title: String,
-    description: String
+    description: String,
+    modifier: Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Theme.color.surface),
         verticalArrangement = Arrangement.Center,
@@ -46,7 +47,7 @@ fun NoTasks(
     ) {
         Row(
             modifier = Modifier
-                .padding(horizontal = 6.dp)
+                .padding(horizontal = Theme.dimension.spacing6)
                 .background(Theme.color.surface),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
@@ -137,6 +138,7 @@ fun NoTasks(
 @Composable
 fun NoTasksPreview() {
     NoTasks(
+        modifier = Modifier,
         title = "No tasks here!",
         description = "Tap the + button to add your first one."
     )

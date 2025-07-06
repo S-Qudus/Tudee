@@ -25,15 +25,16 @@ import java.io.File
 
 @Composable
 fun TaskListSection(
-    modifier: Modifier = Modifier,
     tasks: List<TaskUiState>,
     categories: List<CategoryUiItem>,
+    modifier: Modifier = Modifier,
 ) {
 
     if (tasks.isEmpty()) {
         NoTasks(
             title = stringResource(R.string.no_tasks),
             description = stringResource(R.string.add_tasks),
+            modifier = Modifier,
         )
     } else {
         LazyColumn(
@@ -54,7 +55,7 @@ fun TaskListSection(
                         Icon(
                             painter = painter,
                             contentDescription = "Task Icon",
-                            modifier = Modifier.size(32.dp).padding(top = 4.dp, start = 4.dp),
+                            modifier = Modifier.size(32.dp).padding(top = Theme.dimension.spacing4, start = Theme.dimension.spacing4),
                             tint = Color.Unspecified
                         )
                     }
