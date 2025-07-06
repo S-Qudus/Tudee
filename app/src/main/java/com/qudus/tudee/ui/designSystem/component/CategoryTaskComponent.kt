@@ -24,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
 import com.qudus.tudee.domain.entity.Priority
-import com.qudus.tudee.ui.designSystem.component.TudeeChip
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.util.getColorForPriority
 import com.qudus.tudee.ui.util.getIconForPriority
@@ -35,10 +34,10 @@ fun CategoryTask(
     modifier: Modifier = Modifier,
     title: String,
     description: String?,
-    priorityLevel: Priority = Priority.LOW,
+    priorityLevel: Priority,
     onClick: () -> Unit,
     dateText: String? = null,
-   taskRes: @Composable (Modifier) -> Unit,
+    taskRes: @Composable (Modifier) -> Unit,
 ) {
     Column(
         modifier = modifier

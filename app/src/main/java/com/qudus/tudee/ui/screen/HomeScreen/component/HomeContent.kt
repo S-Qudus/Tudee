@@ -104,12 +104,17 @@ private fun TasksContent(
                         )
                     }
                 }
-            } else {
+            }  else {
                 item {
-                    NoTasks()
+                    NoTasks(
+                        title = stringResource(R.string.no_tasks),
+                        description = stringResource(R.string.add_task),
+                        modifier = Modifier,
+                    )
                 }
             }
         }
+    }
 
         val snackBarStateValue = if (state.ui.snackBarItemUiState.operationDone) SnackBarState.SUCCESS else SnackBarState.ERROR
         val iconColorValue = if (state.ui.snackBarItemUiState.operationDone) Theme.color.greenAccent else Theme.color.error
@@ -126,7 +131,6 @@ private fun TasksContent(
             isVisible = state.ui.snackBarItemUiState.isVisible
         )
     }
-}
 
 @Composable
 private fun getOperationMessage(operationType: OperationType, operationDone: Boolean): String {

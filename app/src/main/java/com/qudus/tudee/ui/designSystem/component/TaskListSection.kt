@@ -4,47 +4,77 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
-//import com.qudus.tudee.designSystem.component.CategoryTask
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.screen.categories.CategoryUiItem
 import com.qudus.tudee.ui.screen.tasksScreen.state.TaskUiState
+import com.qudus.tudee.ui.util.getIconPainterForCategory
+import java.io.File
 
 @Composable
-fun TaskListSection(modifier: Modifier = Modifier, tasks: List<TaskUiState>) {
+fun TaskListSection(
+    tasks: List<TaskUiState>,
+    categories: List<CategoryUiItem>,
+    modifier: Modifier = Modifier,
+) {
 
     if (tasks.isEmpty()) {
-        NoTasks()
+        NoTasks(
+            title = stringResource(R.string.no_tasks),
+            description = stringResource(R.string.add_tasks),
+            modifier = Modifier,
+        )
     } else {
         LazyColumn(
             modifier = modifier
                 .padding(start = Theme.dimension.spacing16, end = Theme.dimension.spacing16)
                 .background(Theme.color.surface),
             verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8),
-            contentPadding = PaddingValues(Theme.dimension.spacing12, Theme.dimension.spacing12),
+           contentPadding = PaddingValues(top= Theme.dimension.spacing16)
         ) {
             items(tasks) { task ->
+                val painter = CategoryIcon(task.categoryId, categories)
                 CategoryTask(
                     title = task.title,
-                    description = task.description ?: "",
+                    description = task.description,
                     priorityLevel = task.priority.toDomain(),
                     onClick = {},
-                    dateText = task.createdAt,
                     taskRes = { modifier ->
                         Icon(
-                            painter = painterResource(id = R.drawable.icon_category_book_open),
+                            painter = painter,
                             contentDescription = "Task Icon",
-                            modifier = modifier,
-                            tint = Theme.color.purpleAccent
+                            modifier = Modifier.size(32.dp).padding(top = Theme.dimension.spacing4, start = Theme.dimension.spacing4),
+                            tint = Color.Unspecified
                         )
                     }
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun CategoryIcon(
+    categoryId: Long,
+    categories: List<CategoryUiItem>
+): Painter {
+    val category = categories.firstOrNull { it.id == categoryId }
+
+    return when {
+        category == null -> painterResource(R.drawable.icon_category_book_open)
+        category.defaultCategoryType != null -> getIconPainterForCategory(category.defaultCategoryType)
+        else -> rememberAsyncImagePainter(model = File(category.imagePath))
     }
 }

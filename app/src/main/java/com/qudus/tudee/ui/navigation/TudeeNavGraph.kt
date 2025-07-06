@@ -3,6 +3,7 @@ package com.qudus.tudee.ui.navigation
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -39,6 +40,7 @@ fun TudeeNavGraph(
     val isBottomBarVisible = currentRoute in bottomNavItems.map { it.route }
 
     Scaffold(
+        modifier = Modifier.navigationBarsPadding(),
         bottomBar = {
             if (isBottomBarVisible) {
                 BottomNavBar(

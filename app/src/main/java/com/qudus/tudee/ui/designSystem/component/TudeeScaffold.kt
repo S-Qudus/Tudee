@@ -26,6 +26,7 @@ fun TudeeScaffold(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .navigationBarsPadding()
         ) {
 
             Column(
@@ -42,15 +43,13 @@ fun TudeeScaffold(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(24.dp)
-                    .navigationBarsPadding(),
+                    .navigationBarsPadding()
+                    .padding(end = 12.dp, bottom = 8.dp)
+                // .padding(end = 12.dp)
+                ,
                 contentAlignment = Alignment.BottomEnd
             ) {
-                Box(
-                    modifier = Modifier.offset(y = (-16).dp)
-                ) {
-                    it()
-                }
+                it()
             }
         }
 
