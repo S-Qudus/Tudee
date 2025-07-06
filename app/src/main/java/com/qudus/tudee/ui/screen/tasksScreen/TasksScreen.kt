@@ -16,7 +16,7 @@ import com.qudus.tudee.ui.screen.HomeScreen.HomeViewModel
 import com.qudus.tudee.ui.screen.addTask.AddTaskScreen
 import com.qudus.tudee.ui.screen.categories.CategoriesViewModel
 import com.qudus.tudee.ui.screen.tasksScreen.viewModel.TaskViewModel
-import com.qudus.tudee.ui.state.StateUiState
+import com.qudus.tudee.ui.state.TaskStateUiState
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -34,8 +34,8 @@ fun TasksScreen(
     val categoryUiState by categoryViewModel.uiState.collectAsState()
 
     val countsByState = remember(tasksUiState.tasks) {
-        StateUiState.entries.associateWith { s ->
-            tasksUiState.tasks.count { it.state == s }
+        TaskStateUiState.entries.associateWith { s ->
+            tasksUiState.tasks.count { it.taskState == s }
         }
     }
     when {

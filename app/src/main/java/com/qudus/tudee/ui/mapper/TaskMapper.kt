@@ -1,13 +1,11 @@
 package com.qudus.tudee.ui.mapper
 
-import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.domain.entity.Priority
 import com.qudus.tudee.domain.entity.State
-import com.qudus.tudee.ui.state.CategoryUiState
-import com.qudus.tudee.ui.state.TaskUiState
+import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState
 import com.qudus.tudee.ui.screen.taskEditor.TaskEditorUiState.PriorityItemUiState
-import com.qudus.tudee.ui.screen.taskEditor.TitleErrorType
+import com.qudus.tudee.ui.state.TaskUiState
 import kotlinx.datetime.toLocalDate
 
 fun TaskEditorUiState.toTask(taskId: Long = 0): Task {
@@ -26,7 +24,7 @@ fun TaskEditorUiState.toTask(taskId: Long = 0): Task {
     )
 }
 
-fun Task.toTaskUiState(): TaskEditorUiState {
+fun Task.toTaskEditorUiState(): TaskEditorUiState {
 
     return TaskEditorUiState(
         title = title,
@@ -45,13 +43,14 @@ private fun getPriorityUiStatesByPriorityType(priority: Priority): List<Priority
     )
 }
 
-fun Task.toTaskUiState(category: CategoryUiState): TaskUiState {
+fun Task.toTaskUiState(): TaskUiState {
     return TaskUiState(
-        taskId = id,
-        taskTitle = title,
-        taskDescription = description ?: "",
-        taskAssignedDate = createdAt,
-        taskPriority = priority.toPriorityUiState(),
-        taskStatusUiState = state.toTaskStatusUiState(),
+        id = id,
+        title = title,
+        description = description ?: "",
+        priority = priority.toPriorityUiState(),
+        categoryId = this.categoryId,
+        taskState = state.toTaskStatusUiState(),
+        createdAt = createdAt.toString(),// Warning: I think we need to make format date
     )
 }

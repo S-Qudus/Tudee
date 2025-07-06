@@ -35,7 +35,7 @@ import com.qudus.tudee.ui.designSystem.component.TabBar
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.mapper.toPriorityUiState
 import com.qudus.tudee.ui.screen.ViewTasksByCategory.composabl.TasksTopAppBar
-import com.qudus.tudee.ui.state.StateUiState
+import com.qudus.tudee.ui.state.TaskStateUiState
 import com.qudus.tudee.ui.state.getCategoryIcon
 import com.qudus.tudee.ui.state.getColor
 import com.qudus.tudee.ui.state.getIcon
@@ -109,16 +109,16 @@ private fun TasksContent(
     }
 }
 
-private fun State.toStateUiState(): StateUiState = when (this) {
-    State.TODO -> StateUiState.TODO
-    State.IN_PROGRESS -> StateUiState.IN_PROGRESS
-    State.DONE -> StateUiState.DONE
+private fun State.toStateUiState(): TaskStateUiState = when (this) {
+    State.TODO -> TaskStateUiState.TODO
+    State.IN_PROGRESS -> TaskStateUiState.IN_PROGRESS
+    State.DONE -> TaskStateUiState.DONE
 }
 
-private fun StateUiState.toDomainState(): State = when (this) {
-    StateUiState.TODO -> State.TODO
-    StateUiState.IN_PROGRESS -> State.IN_PROGRESS
-    StateUiState.DONE -> State.DONE
+private fun TaskStateUiState.toDomainState(): State = when (this) {
+    TaskStateUiState.TODO -> State.TODO
+    TaskStateUiState.IN_PROGRESS -> State.IN_PROGRESS
+    TaskStateUiState.DONE -> State.DONE
 }
 
 @Composable
@@ -146,9 +146,9 @@ private fun TaskItem(
     CategoryTask(
         title = task.title,
         description = task.description,
-        priorityIcon =  task.priority.toPriorityUiState().getIcon(),
-        priorityLabel =  task.priority.toPriorityUiState().getLabel(),
-        priorityBackground =  task.priority.toPriorityUiState().getColor(),
+        priorityIcon = task.priority.toPriorityUiState().getIcon(),
+        priorityLabel = task.priority.toPriorityUiState().getLabel(),
+        priorityBackground = task.priority.toPriorityUiState().getColor(),
         dateText = task.createdAt.toString(),
         taskRes = { modifier ->
             Icon(

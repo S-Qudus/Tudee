@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +22,7 @@ import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButt
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.categories.CategoriesUiState
 import com.qudus.tudee.ui.screen.tasksScreen.state.TasksUiState
-import com.qudus.tudee.ui.state.StateUiState
+import com.qudus.tudee.ui.state.TaskStateUiState
 import kotlinx.datetime.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -32,10 +31,10 @@ fun TasksScreenContent(
     modifier: Modifier,
     uiState: TasksUiState,
     categoriesUiState: CategoriesUiState,
-    countsByState: Map<StateUiState, Int>,
+    countsByState: Map<TaskStateUiState, Int>,
     onDateSelected: (LocalDate) -> Unit,
     onMonthChange: (LocalDate) -> Unit,
-    onStateSelected: (StateUiState) -> Unit,
+    onStateSelected: (TaskStateUiState) -> Unit,
     onClickAddNewTask: () -> Unit,
 ) {
     Box {

@@ -20,9 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.state.TaskStatusUiState
+import com.qudus.tudee.ui.state.TaskStateUiState
 import com.qudus.tudee.ui.state.getBackgroundColor
-import com.qudus.tudee.ui.state.getStatusText
+import com.qudus.tudee.ui.state.getStateText
 import com.qudus.tudee.ui.state.getTextColor
 
 @Composable
@@ -63,19 +63,19 @@ fun TaskStatusBadgePreview() {
         verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing10)
     ) {
         TaskStatusBadge(
-            backgroundColor = TaskStatusUiState.TODO.getBackgroundColor(),
-            textColor = TaskStatusUiState.TODO.getTextColor(),
-            title = TaskStatusUiState.TODO.getStatusText()
+            backgroundColor = TaskStateUiState.TODO.getBackgroundColor(),
+            textColor = TaskStateUiState.TODO.getTextColor(),
+            title = TaskStateUiState.TODO.getStateText()
         )
         TaskStatusBadge(
-            backgroundColor = TaskStatusUiState.IN_PROGRESS.getBackgroundColor(),
-            textColor = TaskStatusUiState.IN_PROGRESS.getTextColor(),
-            title = TaskStatusUiState.IN_PROGRESS.getStatusText()
+            backgroundColor = TaskStateUiState.IN_PROGRESS.getBackgroundColor(),
+            textColor = TaskStateUiState.IN_PROGRESS.getTextColor(),
+            title = TaskStateUiState.IN_PROGRESS.getStateText()
         )
         TaskStatusBadge(
-            backgroundColor = TaskStatusUiState.DONE.getBackgroundColor(),
-            textColor = TaskStatusUiState.DONE.getTextColor(),
-            title = TaskStatusUiState.DONE.getStatusText()
+            backgroundColor = TaskStateUiState.DONE.getBackgroundColor(),
+            textColor = TaskStateUiState.DONE.getTextColor(),
+            title = TaskStateUiState.DONE.getStateText()
         )
     }
 }

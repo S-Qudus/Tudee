@@ -16,22 +16,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.state.StateUiState
+import com.qudus.tudee.ui.state.TaskStateUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TabBar(
-    selectedState: StateUiState,
-    countForState: Map<StateUiState, Int>,
-    onStateSelected: (StateUiState) -> Unit,
+    selectedState: TaskStateUiState,
+    countForState: Map<TaskStateUiState, Int>,
+    onStateSelected: (TaskStateUiState) -> Unit,
     modifier: Modifier,
 ) {
-    val tabs = StateUiState.values()
+    val tabs = TaskStateUiState.entries.toTypedArray()
     val selectedTabIndex = tabs.indexOf(selectedState)
 
 

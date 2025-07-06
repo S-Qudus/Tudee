@@ -8,7 +8,7 @@ import com.qudus.tudee.domain.service.CategoryService
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.ui.mapper.toCategoryItemUiState
 import com.qudus.tudee.ui.mapper.toTask
-import com.qudus.tudee.ui.mapper.toTaskUiState
+import com.qudus.tudee.ui.mapper.toTaskEditorUiState
 import com.qudus.tudee.ui.screen.HomeScreen.HomeUiEffect
 import com.qudus.tudee.ui.screen.HomeScreen.UiEventBus
 import com.qudus.tudee.ui.screen.taskEditor.CategoryErrorType
@@ -33,7 +33,7 @@ class EditTaskViewModel(
                         action = { taskService.getTaskById(effect.taskId) },
                         onSuccess = { oldTask ->
                             getExistingCategories(oldTask.categoryId)
-                            updateUiStateWithOldState(oldTask.toTaskUiState())
+                            updateUiStateWithOldState(oldTask.toTaskEditorUiState())
                         },
                         onError = ::onGetCurrentTaskError,
                     )

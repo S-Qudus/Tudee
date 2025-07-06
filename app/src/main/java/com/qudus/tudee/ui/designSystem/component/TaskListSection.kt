@@ -19,7 +19,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.categories.CategoryUiItem
-import com.qudus.tudee.ui.screen.tasksScreen.state.TaskUiState
+import com.qudus.tudee.ui.state.TaskUiState
 import com.qudus.tudee.ui.state.getColor
 import com.qudus.tudee.ui.state.getIcon
 import com.qudus.tudee.ui.state.getLabel
@@ -48,7 +48,7 @@ fun TaskListSection(
             contentPadding = PaddingValues(top = Theme.dimension.spacing16)
         ) {
             items(tasks) { task ->
-                val painter = CategoryIcon(task.categoryId, categories)
+                val painter = categoryIcon(task.categoryId, categories)
                 CategoryTask(
                     title = task.title,
                     description = task.description,
@@ -73,7 +73,7 @@ fun TaskListSection(
 }
 
 @Composable
-private fun CategoryIcon(
+private fun categoryIcon(
     categoryId: Long,
     categories: List<CategoryUiItem>
 ): Painter {
