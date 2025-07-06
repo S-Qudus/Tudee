@@ -39,12 +39,10 @@ fun TudeeChip(
     isClickEnabled: Boolean = false,
     onChipClick: () -> Unit = {},
     activeBackgroundColor: Color = Theme.color.primary,
-    labelSize: TextUnit = Theme.textStyle.label.small.fontSize,
     iconSize: Dp = 12.dp,
-    backgroundColor: Color
 ) {
     val animatedContainerColor by animateColorAsState(
-        targetValue = if (isActive) activeBackgroundColor else backgroundColor,
+        targetValue = if (isActive) activeBackgroundColor else Theme.color.surfaceLow,
     )
     val animatedContentColor = animateColorAsState(
         targetValue = if (isActive) Color.White else Theme.color.body,
@@ -93,19 +91,16 @@ fun PriorityChipsPreview() {
                 label = stringResource(R.string.high),
                 icon = painterResource(id = R.drawable.icon_flag),
                 activeBackgroundColor = colors.pinkAccent,
-                backgroundColor = Theme.color.surface,
             )
             TudeeChip(
                 label = stringResource(R.string.medium),
                 icon = painterResource(id = R.drawable.icon_alert),
                 activeBackgroundColor = colors.yellowAccent,
-                backgroundColor = Theme.color.surface,
             )
             TudeeChip(
                 label = stringResource(R.string.low),
                 icon = painterResource(id = R.drawable.icon_trade_down),
                 activeBackgroundColor = colors.greenAccent,
-                backgroundColor = Theme.color.surface,
             )
         }
     }

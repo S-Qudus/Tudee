@@ -3,7 +3,15 @@ package com.qudus.tudee.ui.designSystem.component.taskComposable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -15,12 +23,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.R
+import com.qudus.tudee.domain.entity.Task
 import com.qudus.tudee.ui.designSystem.component.CategoryTask
 import com.qudus.tudee.ui.designSystem.component.TudeeTextBadge
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.domain.entity.Task
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
+import com.qudus.tudee.ui.mapper.toPriorityUiState
+import com.qudus.tudee.ui.state.getColor
+import com.qudus.tudee.ui.state.getIcon
+import com.qudus.tudee.ui.state.getLabel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -33,7 +43,7 @@ fun TaskSection(
     onNavigateToTaskScreen: (() -> Unit)? = null
 ) {
     if (tasks.isEmpty()) return
-    
+
     Column(
         modifier = modifier
             .background(Theme.color.surface)
@@ -138,7 +148,9 @@ private fun TaskCard(
     CategoryTask(
         title = task.title,
         description = task.description,
-        priorityLevel = task.priority,
+        priorityIcon = task.priority.toPriorityUiState().getIcon(),
+        priorityLabel = task.priority.toPriorityUiState().getLabel(),
+        priorityBackground = task.priority.toPriorityUiState().getColor(),
         onClick = { onTaskClick(task.id) },
         modifier = modifier.width(TaskSectionConstants.TASK_CARD_WIDTH.dp),
         taskRes = { iconModifier ->
@@ -170,7 +182,7 @@ private fun CategoryIcon(
         CATEGORY_NATURE -> R.drawable.icon_plant
         else -> R.drawable.icon_category_book_open
     }
-    
+
     Icon(
         painter = painterResource(id = categoryIcon),
         contentDescription = contentDescription,

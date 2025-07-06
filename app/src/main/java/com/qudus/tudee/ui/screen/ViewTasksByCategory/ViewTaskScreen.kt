@@ -33,9 +33,13 @@ import com.qudus.tudee.domain.entity.State
 import com.qudus.tudee.ui.designSystem.component.CategoryTask
 import com.qudus.tudee.ui.designSystem.component.TabBar
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.mapper.toPriorityUiState
 import com.qudus.tudee.ui.screen.ViewTasksByCategory.composabl.TasksTopAppBar
 import com.qudus.tudee.ui.state.StateUiState
 import com.qudus.tudee.ui.state.getCategoryIcon
+import com.qudus.tudee.ui.state.getColor
+import com.qudus.tudee.ui.state.getIcon
+import com.qudus.tudee.ui.state.getLabel
 import kotlinx.datetime.LocalDate
 
 @Composable
@@ -142,7 +146,9 @@ private fun TaskItem(
     CategoryTask(
         title = task.title,
         description = task.description,
-        priorityLevel = task.priority,
+        priorityIcon =  task.priority.toPriorityUiState().getIcon(),
+        priorityLabel =  task.priority.toPriorityUiState().getLabel(),
+        priorityBackground =  task.priority.toPriorityUiState().getColor(),
         dateText = task.createdAt.toString(),
         taskRes = { modifier ->
             Icon(

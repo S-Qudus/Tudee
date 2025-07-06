@@ -26,7 +26,6 @@ fun PriorityChip(
         isClickEnabled = true,
         onChipClick = { onChipClick(priorityType) },
         activeBackgroundColor = getColorByPriorityType(priorityType),
-        backgroundColor = Theme.color.surface,
     )
 }
 
