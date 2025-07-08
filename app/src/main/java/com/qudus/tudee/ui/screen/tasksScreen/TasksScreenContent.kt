@@ -21,6 +21,7 @@ import com.qudus.tudee.ui.designSystem.component.TaskListSection
 import com.qudus.tudee.ui.designSystem.component.buttons.TudeeFloatingActionButton
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.categories.CategoriesUiState
+import com.qudus.tudee.ui.screen.tasksScreen.state.TaskUiState
 import com.qudus.tudee.ui.screen.tasksScreen.state.TasksUiState
 import com.qudus.tudee.ui.state.StateUiState
 import kotlinx.datetime.LocalDate
@@ -36,6 +37,7 @@ fun TasksScreenContent(
     onMonthChange: (LocalDate) -> Unit,
     onStateSelected: (StateUiState) -> Unit,
     onClickAddNewTask: () -> Unit,
+    onClickDelete: (TaskUiState) -> Unit
 ) {
     Box {
         Column(
@@ -64,6 +66,7 @@ fun TasksScreenContent(
                 modifier = Modifier.weight(1f),
                 tasks = uiState.tasks,
                 categories = categoriesUiState.categories,
+                onClickDelete = {onClickDelete(it)}
             )
         }
 
