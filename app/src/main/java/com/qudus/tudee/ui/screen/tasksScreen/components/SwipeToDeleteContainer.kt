@@ -103,12 +103,18 @@ fun <T> SwipeToRevealContainer(
                         }
                     }, onHorizontalDrag = { _, dragAmount ->
                         coroutineScope.launch {
-                            if (dragAmount < 0) {
-                                val newOffset = (swipeOffset.value + dragAmount).coerceIn(
-                                    -revealThreshold * 1.5f, 0f
-                                )
-                                swipeOffset.snapTo(newOffset)
-                            }
+                            val newOffset =
+                                if (swipeOffset.value <= -revealThreshold && dragAmount > 0) {
+                                    (swipeOffset.value + dragAmount).coerceIn(-revealThreshold, 0f)
+                                } else if (dragAmount < 0) {
+                                    (swipeOffset.value + dragAmount).coerceIn(
+                                        -revealThreshold * 1.5f,
+                                        0f
+                                    )
+                                } else {
+                                    swipeOffset.value
+                                }
+                            swipeOffset.snapTo(newOffset)
                         }
                     })
                 }
