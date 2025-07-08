@@ -62,7 +62,8 @@ fun TasksScreen(
                 onMonthChange = { taskViewModel.selectMonth(it) },
                 onStateSelected = { taskViewModel.selectState(it) },
                 onClickAddNewTask = { homeViewModel.onAddButtonClicked() },
-                categoriesUiState = categoryUiState
+                categoriesUiState = categoryUiState,
+                onClickDelete = {taskViewModel.deleteTask(it.id)}
             )
         }
         if (homeUiState.showAddTaskSheet) { AddTaskScreen() }

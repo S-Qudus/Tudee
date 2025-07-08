@@ -28,7 +28,8 @@ data class TaskUiState(
     val createdAt: String,
     val priority: PriorityUiState,
     val state: StateUiState,
-    val categoryId: Long
+    val categoryId: Long,
+    val isOptionsRevealed: Boolean = false,
 )
 
 private fun firstOfMonth(date: LocalDate): LocalDate = LocalDate(date.year, date.month, 1)

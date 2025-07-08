@@ -59,4 +59,24 @@ class TaskViewModel(private val taskService: TaskService) :
 
     fun selectMonth(month: LocalDate) =
         _state.update { it.copy(currentMonth = LocalDate(month.year, month.month, 1)) }
+
+    fun deleteTask(id: Long){
+        _state.update { it.copy(isLoading = false, error = null) }
+
+        tryToExecute(
+            action = { taskService.deleteTask(id) },
+            onSuccess = ::onDeleteTaskSuccess,
+            onError = ::onDeleteTaskError,
+        )
+    }
+    fun onDeleteTaskSuccess(unit: Unit) {
+        _state.update { it.copy(isLoading = false) }
+
+    }
+    fun onDeleteTaskError(exception: Exception) {
+        _state.update { it.copy(isLoading = false, error = exception.message) }
+    }
+
+
+
 }
