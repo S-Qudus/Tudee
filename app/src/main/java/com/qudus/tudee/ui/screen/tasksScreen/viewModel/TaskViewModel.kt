@@ -5,9 +5,10 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.qudus.tudee.domain.service.TaskService
 import com.qudus.tudee.ui.base.BaseViewModel
-import com.qudus.tudee.ui.mapper.TasksScreenMapper
+import com.qudus.tudee.ui.mapper.toState
+import com.qudus.tudee.ui.mapper.toTaskUiState
 import com.qudus.tudee.ui.screen.tasksScreen.state.TasksUiState
-import com.qudus.tudee.ui.state.StateUiState
+import com.qudus.tudee.ui.state.TaskStateUiState
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
@@ -33,8 +34,8 @@ class TaskViewModel(private val taskService: TaskService) :
                 .flatMapLatest { (date, selectedState) ->
                     taskService.getTasksByDate(date).map { tasks ->
                         tasks
-                            .filter { it.state == TasksScreenMapper.mapToDomain(selectedState) }
-                            .map { TasksScreenMapper.map(it) }
+                            .filter { it.state == selectedState.toState() }
+                            .map { it.toTaskUiState() }
                     }
                 },
             onEach = { taskItems ->
@@ -55,7 +56,7 @@ class TaskViewModel(private val taskService: TaskService) :
 
     fun selectDate(date: LocalDate) = _state.update { it.copy(selectedDate = date) }
 
-    fun selectState(state: StateUiState) = _state.update { it.copy(selectedState = state) }
+    fun selectState(state: TaskStateUiState) = _state.update { it.copy(selectedState = state) }
 
     fun selectMonth(month: LocalDate) =
         _state.update { it.copy(currentMonth = LocalDate(month.year, month.month, 1)) }

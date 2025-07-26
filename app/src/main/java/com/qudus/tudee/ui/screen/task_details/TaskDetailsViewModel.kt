@@ -12,7 +12,7 @@ import com.qudus.tudee.ui.mapper.toState
 import com.qudus.tudee.ui.mapper.toTaskUiState
 import com.qudus.tudee.ui.screen.HomeScreen.HomeUiEffect
 import com.qudus.tudee.ui.screen.HomeScreen.UiEventBus
-import com.qudus.tudee.ui.state.TaskStatusUiState
+import com.qudus.tudee.ui.state.TaskStateUiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
@@ -48,7 +48,7 @@ class TaskDetailsViewModel(
     private fun onGetTaskSuccess(task: Task) {
         fetchCategoryById(task.categoryId)
         updateTaskCompletionStatus()
-        _state.update { it.copy(taskUiState = task.toTaskUiState(it.categoryUiState), isLoading = false) }
+        _state.update { it.copy(taskUiState = task.toTaskUiState(), isLoading = false) }
     }
 
     private fun onGetTaskError(exception: TudeeExecption) {
@@ -79,7 +79,7 @@ class TaskDetailsViewModel(
 
     fun onEditTaskClick() {
         viewModelScope.launch {
-            UiEventBus.emitEffect(HomeUiEffect.NavigateToEditTask(_state.value.taskUiState.taskId))
+            UiEventBus.emitEffect(HomeUiEffect.NavigateToEditTask(_state.value.taskUiState.id))
         }
     }
 
@@ -88,9 +88,9 @@ class TaskDetailsViewModel(
         tryToExecute(
             action = {
                 delay(600)
-                val nextState = state.value.taskUiState.taskStatusUiState.getNextState()
+                val nextState = state.value.taskUiState.taskState.getNextState()
                 taskService.moveToState(
-                    taskId = _state.value.taskUiState.taskId,
+                    taskId = _state.value.taskUiState.id,
                     newState = nextState.toState()
                 )
                 nextState
@@ -105,12 +105,12 @@ class TaskDetailsViewModel(
         _state.update { it.copy(isMoveOperationLoading = isLoading) }
     }
 
-    private fun updateTaskStatusUiState(nextState: TaskStatusUiState) {
+    private fun updateTaskStatusUiState(nextState: TaskStateUiState) {
         setLoadingState(false)
         _state.update {
             it.copy(
                 taskUiState = it.taskUiState.copy(
-                    taskStatusUiState = nextState
+                    taskState = nextState
                 )
             )
         }
@@ -120,7 +120,7 @@ class TaskDetailsViewModel(
     private fun updateTaskCompletionStatus() {
         _state.update {
             it.copy(
-                isTaskCompleted = it.taskUiState.taskStatusUiState == TaskStatusUiState.DONE
+                isTaskCompleted = it.taskUiState.taskState == TaskStateUiState.DONE
             )
         }
     }

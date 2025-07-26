@@ -1,20 +1,20 @@
 package com.qudus.tudee.ui.mapper
 
 import com.qudus.tudee.domain.entity.State
-import com.qudus.tudee.ui.state.TaskStatusUiState
+import com.qudus.tudee.ui.state.TaskStateUiState
 
-fun TaskStatusUiState.toState(): State {
+fun TaskStateUiState.toState(): State {
     return when (this) {
-        TaskStatusUiState.TODO -> State.TODO
-        TaskStatusUiState.IN_PROGRESS -> State.IN_PROGRESS
-        TaskStatusUiState.DONE -> State.DONE
+        TaskStateUiState.TODO -> State.TODO
+        TaskStateUiState.IN_PROGRESS -> State.IN_PROGRESS
+        TaskStateUiState.DONE -> State.DONE
     }
 }
 
-fun State.toTaskStatusUiState(): TaskStatusUiState {
+fun State.toTaskStatusUiState(): TaskStateUiState {
     return when (this) {
-        State.TODO -> TaskStatusUiState.TODO
-        State.IN_PROGRESS -> TaskStatusUiState.IN_PROGRESS
-        State.DONE -> TaskStatusUiState.DONE
+        State.TODO -> TaskStateUiState.TODO
+        State.IN_PROGRESS -> TaskStateUiState.IN_PROGRESS
+        State.DONE -> TaskStateUiState.DONE
     }
 }

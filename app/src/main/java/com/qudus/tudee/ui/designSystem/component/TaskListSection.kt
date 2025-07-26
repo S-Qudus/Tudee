@@ -19,7 +19,10 @@ import coil.compose.rememberAsyncImagePainter
 import com.qudus.tudee.R
 import com.qudus.tudee.ui.designSystem.theme.Theme
 import com.qudus.tudee.ui.screen.categories.CategoryUiItem
-import com.qudus.tudee.ui.screen.tasksScreen.state.TaskUiState
+import com.qudus.tudee.ui.state.TaskUiState
+import com.qudus.tudee.ui.state.getColor
+import com.qudus.tudee.ui.state.getIcon
+import com.qudus.tudee.ui.state.getLabel
 import com.qudus.tudee.ui.util.getIconPainterForCategory
 import java.io.File
 
@@ -42,20 +45,24 @@ fun TaskListSection(
                 .padding(start = Theme.dimension.spacing16, end = Theme.dimension.spacing16)
                 .background(Theme.color.surface),
             verticalArrangement = Arrangement.spacedBy(Theme.dimension.spacing8),
-           contentPadding = PaddingValues(top= Theme.dimension.spacing16)
+            contentPadding = PaddingValues(top = Theme.dimension.spacing16)
         ) {
             items(tasks) { task ->
-                val painter = CategoryIcon(task.categoryId, categories)
+                val painter = categoryIcon(task.categoryId, categories)
                 CategoryTask(
                     title = task.title,
                     description = task.description,
-                    priorityLevel = task.priority.toDomain(),
+                    priorityIcon = task.priority.getIcon(),
+                    priorityLabel = task.priority.getLabel(),
+                    priorityBackground = task.priority.getColor(),
                     onClick = {},
                     taskRes = { modifier ->
                         Icon(
                             painter = painter,
                             contentDescription = "Task Icon",
-                            modifier = Modifier.size(32.dp).padding(top = Theme.dimension.spacing4, start = Theme.dimension.spacing4),
+                            modifier = Modifier
+                                .padding(12.dp)
+                                .size(32.dp),
                             tint = Color.Unspecified
                         )
                     }
@@ -66,7 +73,7 @@ fun TaskListSection(
 }
 
 @Composable
-private fun CategoryIcon(
+private fun categoryIcon(
     categoryId: Long,
     categories: List<CategoryUiItem>
 ): Painter {

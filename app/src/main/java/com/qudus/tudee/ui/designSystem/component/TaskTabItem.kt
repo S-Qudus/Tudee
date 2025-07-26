@@ -10,19 +10,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.qudus.tudee.ui.designSystem.theme.Theme
-import com.qudus.tudee.ui.state.StateUiState
+import com.qudus.tudee.ui.state.TaskStateUiState
+import com.qudus.tudee.ui.state.getStateText
 
 @Composable
-fun TaskTabItem(tab: StateUiState, isSelected: Boolean, count: Int) {
+fun TaskTabItem(tab: TaskStateUiState, isSelected: Boolean, count: Int) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = stringResource(id = tab.status),
+            text = tab.getStateText(),
             textAlign = TextAlign.Center,
             style = if (isSelected)
                 Theme.textStyle.label.medium else Theme.textStyle.label.small,

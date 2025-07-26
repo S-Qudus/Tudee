@@ -1,6 +1,5 @@
 package com.qudus.tudee.ui.screen.task_details
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -28,7 +27,7 @@ import com.qudus.tudee.ui.state.getBackgroundColor
 import com.qudus.tudee.ui.state.getColor
 import com.qudus.tudee.ui.state.getIcon
 import com.qudus.tudee.ui.state.getLabel
-import com.qudus.tudee.ui.state.getStatusText
+import com.qudus.tudee.ui.state.getStateText
 import com.qudus.tudee.ui.state.getTextColor
 import com.qudus.tudee.ui.util.extension.toStringResource
 import com.qudus.tudee.ui.util.getIconPainterForCategory
@@ -100,14 +99,14 @@ fun TaskDetailsContent(
                 }
                 item {
                     Text(
-                        text = state.taskUiState.taskTitle,
+                        text = state.taskUiState.title,
                         style = Theme.textStyle.title.medium,
                         color = Theme.color.title,
                     )
                 }
                 item {
                     Text(
-                        text = state.taskUiState.taskDescription,
+                        text = state.taskUiState.description,
                         style = Theme.textStyle.body.small,
                         color = Theme.color.body
                     )
@@ -117,18 +116,18 @@ fun TaskDetailsContent(
                 }
                 item {
                     TaskStatusAndPrioritySection(
-                        priorityIcon = state.taskUiState.taskPriority.getIcon(),
-                        priorityTitle = state.taskUiState.taskPriority.getLabel(),
-                        priorityBackgroundColor = state.taskUiState.taskPriority.getColor(),
-                        statusTitle = state.taskUiState.taskStatusUiState.getStatusText(),
-                        statusTextColor = state.taskUiState.taskStatusUiState.getTextColor(),
-                        statusBackgroundColor = state.taskUiState.taskStatusUiState.getBackgroundColor()
+                        priorityIcon = state.taskUiState.priority.getIcon(),
+                        priorityTitle = state.taskUiState.priority.getLabel(),
+                        priorityBackgroundColor = state.taskUiState.priority.getColor(),
+                        statusTitle = state.taskUiState.taskState.getStateText(),
+                        statusTextColor = state.taskUiState.taskState.getTextColor(),
+                        statusBackgroundColor = state.taskUiState.taskState.getBackgroundColor()
                     )
                 }
                 item {
                     TaskActionButtons(
                         visible = state.isTaskCompleted.not(),
-                        newStatus = state.taskUiState.taskStatusUiState.getNextState().getStatusText(),
+                        newStatus = state.taskUiState.taskState.getNextState().getStateText(),
                         onEditTaskClick = onEditTaskClick,
                         onMoveTaskStatusClick = onMoveTaskStatusClick,
                         isMoveOperationLoading = state.isMoveOperationLoading,

@@ -10,7 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.qudus.tudee.ui.designSystem.component.CategoryTask
 import com.qudus.tudee.ui.designSystem.theme.Theme
+import com.qudus.tudee.ui.mapper.toPriorityUiState
 import com.qudus.tudee.ui.screen.ViewTasksByCategory.ViewTaskScreenState
+import com.qudus.tudee.ui.state.getColor
+import com.qudus.tudee.ui.state.getIcon
+import com.qudus.tudee.ui.state.getLabel
 
 
 @Composable
@@ -26,7 +30,9 @@ fun TaskItem(
         modifier = modifier,
         title = task.title,
         description = task.description,
-        priorityLevel = task.priority,
+        priorityIcon =  task.priority.toPriorityUiState().getIcon(),
+        priorityLabel =  task.priority.toPriorityUiState().getLabel(),
+        priorityBackground =  task.priority.toPriorityUiState().getColor(),
         onClick = onTaskClick,
         dateText = task.createdAt.toString(),
         taskRes = { modifier ->

@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import com.qudus.tudee.ui.designSystem.component.priority.PriorityBadge
+import com.qudus.tudee.ui.designSystem.component.TudeeChip
 import com.qudus.tudee.ui.designSystem.theme.Theme
 
 @Composable
@@ -33,11 +33,11 @@ fun TaskStatusAndPrioritySection(
             textColor = statusTextColor,
             title = statusTitle
         )
-        PriorityBadge(
-            modifier = Modifier.height(28.dp),
-            backgroundColor = priorityBackgroundColor,
+        TudeeChip(
+            label = priorityTitle,
             icon = priorityIcon,
-            title = priorityTitle
+            activeBackgroundColor = priorityBackgroundColor,
+            isActive = true
         )
     }
 }
